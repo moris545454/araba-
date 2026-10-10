@@ -336,8 +336,8 @@
     <string name="private_key_pass">Parola cheii private</string>
 
     <string name="donate">Susține dezvoltatorul</string>
-    <string name="donate_text">Susține FermataX pe Ko-fi.</string>
-    <string name="use_phone_for_donation">Deschide Ko-fi pe telefon pentru a susține FermataX.</string>
+    <string name="donate_text">Susține Dem TV pe Ko-fi.</string>
+    <string name="use_phone_for_donation">Deschide Ko-fi pe telefon pentru a susține Dem TV.</string>
 
     <string name="timer">Temporizator</string>
     <string name="hours">Ore</string>
@@ -378,15 +378,15 @@
     <string name="open_log">Deschide fișierul jurnal</string>
     <string name="unlock_phone_and_grant">Deblochează telefonul și acordă permisiunile solicitate.</string>
     <string name="screen_capture_rejected">Solicitare de capturare a ecranului respinsă.</string>
-    <string name="accessibility_dsc">Serviciul de accesibilitate este folosit de Fermata Mirror pentru a simula evenimentele ecranului tactil.</string>
+    <string name="accessibility_dsc">Serviciul de accesibilitate este folosit de Dem TV Ekran Yansıtma pentru a simula evenimentele ecranului tactil.</string>
     <string name="media_projection_action_text">Începe acum</string>
 
     <string name="about">Despre</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX este un fork al Fermata, personalizat ca hub media pentru Android Auto.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV este un fork al Fermata, personalizat ca hub media pentru Android Auto.</p>
         <p>Combină navigarea orientată pe Dashboard, IPTV/Xtream, radio pe Internet, media YouTube/Web,
         fișiere locale, Favorite și Recente într-o experiență potrivită pentru mașină.</p>
-        <p>FermataX nu furnizează conținut media, playlisturi, canale TV sau conturi IPTV.
+        <p>Dem TV nu furnizează conținut media, playlisturi, canale TV sau conturi IPTV.
         Utilizatorii sunt responsabili pentru sursele pe care le adaugă.</p>
         <p><b>Proiect original:</b> Fermata by Andrey Pavlenko</p>
         <p><b>Versiune:</b> %1$s (%2$d)</p>
@@ -481,21 +481,21 @@
 	<string name="diagnostic_report_saved">Raportul de diagnosticare a fost salvat în Descărcări ca %1$s.</string>
 	<string name="diagnostic_report_failed">Raportul de diagnosticare nu a putut fi creat: %1$s</string>
 	<string name="diagnostic_data_cleared">Datele de diagnosticare au fost șterse.</string>
-	<string name="diagnostics_phone_only">Exportă rapoartele de diagnosticare din setările FermataX de pe telefon.</string>
+	<string name="diagnostics_phone_only">Exportă rapoartele de diagnosticare din setările Dem TV de pe telefon.</string>
 	<string name="retry">Reîncercați</string>
 	<string name="media_list_empty">Nu există încă elemente</string>
 	<string name="media_list_load_failed">Elementele nu au putut fi încărcate.</string>
 	<string name="vehicle_key_test">Testează comenzile vehiculului</string>
 	<string name="vehicle_key_test_sub">Înregistrează timp de 30 de secunde tastele volanului și unității principale</string>
 	<string name="vehicle_key_test_started">Testul a început. Apasă comenzile dorite, apoi selectează din nou acest element pentru rezultat.</string>
-	<string name="vehicle_key_test_no_events">Nicio tastă de control nu a ajuns la FermataX. Este posibil ca unitatea principală sau firmware-ul vehiculului să fi reținut intrarea.</string>
+	<string name="vehicle_key_test_no_events">Nicio tastă de control nu a ajuns la Dem TV. Este posibil ca unitatea principală sau firmware-ul vehiculului să fi reținut intrarea.</string>
 	<string name="vehicle_key_test_result">Rezultatele comenzilor vehiculului:\n%1$s</string>
 	<string name="voice_trigger_assign">Atribuie butonul vocal al vehiculului</string>
-	<string name="voice_trigger_current">Curent: %1$s. Activ numai cât timp FermataX este vizibil.</string>
+	<string name="voice_trigger_current">Curent: %1$s. Activ numai cât timp Dem TV este vizibil.</string>
 	<string name="voice_trigger_unassigned">Neatribuit</string>
 	<string name="voice_trigger_capture_started">Apasă o dată butonul de pe volan sau unitatea principală. Apăsarea nu va executa funcția obișnuită.</string>
 	<string name="voice_trigger_capture_timeout">Nu a fost detectat niciun buton compatibil. Nu s-a schimbat nimic.</string>
-	<string name="voice_trigger_capture_success">A fost atribuit %1$s (%2$d). Deschide controlul vocal FermataX numai cât timp aplicația este vizibilă.</string>
+	<string name="voice_trigger_capture_success">A fost atribuit %1$s (%2$d). Deschide controlul vocal Dem TV numai cât timp aplicația este vizibilă.</string>
 	<string name="voice_trigger_clear">Șterge atribuirea butonului vocal</string>
 	<string name="voice_trigger_cleared">Atribuirea butonului vocal al vehiculului a fost ștearsă.</string>
 	<string name="voice_selection_prompt">Spune numărul unu, doi sau trei</string>

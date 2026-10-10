@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">Telefonbildschirm anzeigen</string>
     <string name="dashboard_recent_shelf">Letzte Inhalte</string>
     <string name="dashboard_recent_empty">Hier erscheinen Ihre abgespielten Inhalte.</string>
-    <string name="dashboard_mirror_help">Verbinden Sie das Telefon mit Android Auto. Öffnen Sie FermataX Mirror im App-Menü des Autos. Entsperren Sie das Telefon und bestätigen Sie die Bildschirmaufnahme. Öffnen Sie FermataX auf dem Telefon, um eine ausstehende Berechtigungsanfrage fortzusetzen.</string>
-    <string name="dashboard_mirror_mobile_help">Die Bildschirmspiegelung ist in der Android Auto-Version von FermataX verfügbar. Verbinden Sie diese mit Android Auto, öffnen Sie FermataX Mirror im Auto und bestätigen Sie die Bildschirmaufnahme auf dem entsperrten Telefon.</string>
+    <string name="dashboard_mirror_help">Verbinden Sie das Telefon mit Android Auto. Öffnen Sie Dem TV Ekran Yansıtma im App-Menü des Autos. Entsperren Sie das Telefon und bestätigen Sie die Bildschirmaufnahme. Öffnen Sie Dem TV auf dem Telefon, um eine ausstehende Berechtigungsanfrage fortzusetzen.</string>
+    <string name="dashboard_mirror_mobile_help">Die Bildschirmspiegelung ist in der Android Auto-Version von Dem TV verfügbar. Verbinden Sie diese mit Android Auto, öffnen Sie Dem TV Ekran Yansıtma im Auto und bestätigen Sie die Bildschirmaufnahme auf dem entsperrten Telefon.</string>
 </resources>

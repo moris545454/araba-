@@ -343,8 +343,8 @@
     <string name="private_key_pass">Private Key Passwort</string>
 
     <string name="donate">Entwickler unterstützen</string>
-    <string name="donate_text">Unterstützen Sie FermataX über Ko-fi.</string>
-    <string name="use_phone_for_donation">Öffnen Sie Ko-fi auf Ihrem Telefon, um FermataX zu unterstützen.</string>
+    <string name="donate_text">Unterstützen Sie Dem TV über Ko-fi.</string>
+    <string name="use_phone_for_donation">Öffnen Sie Ko-fi auf Ihrem Telefon, um Dem TV zu unterstützen.</string>
 
     <string name="timer">Timer</string>
     <string name="hours">Stunden</string>
@@ -385,15 +385,15 @@
     <string name="open_log">Protokolldatei öffnen</string>
     <string name="unlock_phone_and_grant">Entsperren Sie das Telefon und erteilen Sie die angeforderten Berechtigungen.</string>
     <string name="screen_capture_rejected">Anfrage zur Bildschirmaufnahme abgelehnt.</string>
-    <string name="accessibility_dsc">Der Barrierefreiheitsdienst wird von Fermata Mirror verwendet, um Touchscreen-Ereignisse zu simulieren.</string>
+    <string name="accessibility_dsc">Der Barrierefreiheitsdienst wird von Dem TV Ekran Yansıtma verwendet, um Touchscreen-Ereignisse zu simulieren.</string>
     <string name="media_projection_action_text">Jetzt starten</string>
 
-    <string name="about">Über FermataX</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX ist ein Fork von Fermata, angepasst als Media-Hub für Android Auto.</p>
+    <string name="about">Über Dem TV</string>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV ist ein Fork von Fermata, angepasst als Media-Hub für Android Auto.</p>
         <p>Es vereint Dashboard-orientierte Navigation, IPTV/Xtream, Internetradio, YouTube-/Web-Medien,
         lokale Dateien, Favoriten und Verlauf in einer fahrzeugfreundlichen Oberfläche.</p>
-        <p>FermataX stellt keine Medieninhalte, Playlists, TV-Kanäle oder IPTV-Konten bereit.
+        <p>Dem TV stellt keine Medieninhalte, Playlists, TV-Kanäle oder IPTV-Konten bereit.
         Nutzer sind für die hinzugefügten Quellen verantwortlich.</p>
         <p><b>Ursprüngliches Projekt:</b> Fermata by Andrey Pavlenko</p>
         <p><b>Version:</b> %1$s (%2$d)</p>
@@ -486,21 +486,21 @@
 	<string name="diagnostic_report_saved">Diagnosebericht wurde als %1$s in Downloads gespeichert.</string>
 	<string name="diagnostic_report_failed">Diagnosebericht konnte nicht erstellt werden: %1$s</string>
 	<string name="diagnostic_data_cleared">Diagnosedaten wurden gelöscht.</string>
-	<string name="diagnostics_phone_only">Diagnoseberichte in den FermataX-Einstellungen auf dem Smartphone exportieren.</string>
+	<string name="diagnostics_phone_only">Diagnoseberichte in den Dem TV-Einstellungen auf dem Smartphone exportieren.</string>
 	<string name="retry">Erneut versuchen</string>
 	<string name="media_list_empty">Noch keine Einträge</string>
 	<string name="media_list_load_failed">Elemente konnten nicht geladen werden.</string>
 	<string name="vehicle_key_test">Fahrzeugtasten testen</string>
 	<string name="vehicle_key_test_sub">Lenkrad- und Headunit-Tasten 30 Sekunden lang erfassen</string>
 	<string name="vehicle_key_test_started">Tastentest gestartet. Drücke die zu testenden Fahrzeugtasten und wähle diesen Eintrag erneut, um das Ergebnis anzuzeigen.</string>
-	<string name="vehicle_key_test_no_events">Keine Steuertaste hat FermataX erreicht. Die Headunit oder Fahrzeug-Firmware hat das Signal möglicherweise abgefangen.</string>
+	<string name="vehicle_key_test_no_events">Keine Steuertaste hat Dem TV erreicht. Die Headunit oder Fahrzeug-Firmware hat das Signal möglicherweise abgefangen.</string>
 	<string name="vehicle_key_test_result">Ergebnisse der Fahrzeugtasten:\n%1$s</string>
 	<string name="voice_trigger_assign">Sprachtaste im Fahrzeug zuweisen</string>
-	<string name="voice_trigger_current">Aktuell: %1$s. Nur aktiv, solange FermataX sichtbar ist.</string>
+	<string name="voice_trigger_current">Aktuell: %1$s. Nur aktiv, solange Dem TV sichtbar ist.</string>
 	<string name="voice_trigger_unassigned">Nicht zugewiesen</string>
 	<string name="voice_trigger_capture_started">Drücke einmal die Lenkrad- oder Headunit-Taste. Die normale Funktion wird dabei nicht ausgeführt.</string>
 	<string name="voice_trigger_capture_timeout">Keine unterstützte Taste erkannt. Es wurde nichts geändert.</string>
-	<string name="voice_trigger_capture_success">%1$s (%2$d) zugewiesen. Die Taste öffnet FermataX Voice nur, solange die App sichtbar ist.</string>
+	<string name="voice_trigger_capture_success">%1$s (%2$d) zugewiesen. Die Taste öffnet Dem TV Voice nur, solange die App sichtbar ist.</string>
 	<string name="voice_trigger_clear">Zuweisung der Sprachtaste löschen</string>
 	<string name="voice_trigger_cleared">Zuweisung der Sprachtaste wurde gelöscht.</string>
 	<string name="voice_selection_prompt">Sage Nummer eins, zwei oder drei</string>

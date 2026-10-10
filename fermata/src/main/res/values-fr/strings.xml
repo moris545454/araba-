@@ -343,8 +343,8 @@
     <string name="private_key_pass">Mot de passe de la clé privée</string>
 
     <string name="donate">Soutenir le développeur</string>
-    <string name="donate_text">Soutenez FermataX sur Ko-fi.</string>
-    <string name="use_phone_for_donation">Ouvrez Ko-fi sur votre téléphone pour soutenir FermataX.</string>
+    <string name="donate_text">Soutenez Dem TV sur Ko-fi.</string>
+    <string name="use_phone_for_donation">Ouvrez Ko-fi sur votre téléphone pour soutenir Dem TV.</string>
 
     <string name="timer">Minuteur</string>
     <string name="hours">Heures</string>
@@ -385,15 +385,15 @@
     <string name="open_log">Ouvrir le fichier de log</string>
     <string name="unlock_phone_and_grant">Déverrouillez le téléphone et accordez les autorisations demandées.</string>
     <string name="screen_capture_rejected">Demande de capture d\'écran rejetée.</string>
-    <string name="accessibility_dsc">Le service d\'accessibilité est utilisé par Fermata Mirror pour simuler des événements de toucher à l\'écran.</string>
+    <string name="accessibility_dsc">Le service d\'accessibilité est utilisé par Dem TV Ekran Yansıtma pour simuler des événements de toucher à l\'écran.</string>
     <string name="media_projection_action_text">Commencer maintenant</string>
 
     <string name="about">À propos</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX est un fork de Fermata, adapté comme hub multimédia pour Android Auto.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV est un fork de Fermata, adapté comme hub multimédia pour Android Auto.</p>
         <p>Il réunit une navigation centrée sur le Dashboard, IPTV/Xtream, la radio Internet, les médias YouTube/Web,
         les fichiers locaux, les favoris et les éléments récents dans une expérience adaptée à la voiture.</p>
-        <p>FermataX ne fournit aucun contenu média, playlist, chaîne TV ou compte IPTV.
+        <p>Dem TV ne fournit aucun contenu média, playlist, chaîne TV ou compte IPTV.
         Les utilisateurs sont responsables des sources ajoutées.</p>
         <p><b>Projet original :</b> Fermata by Andrey Pavlenko</p>
         <p><b>Version :</b> %1$s (%2$d)</p>
@@ -486,21 +486,21 @@
 	<string name="diagnostic_report_saved">Le rapport de diagnostic a été enregistré dans Téléchargements sous le nom %1$s.</string>
 	<string name="diagnostic_report_failed">Impossible de créer le rapport de diagnostic : %1$s</string>
 	<string name="diagnostic_data_cleared">Données de diagnostic effacées.</string>
-	<string name="diagnostics_phone_only">Exportez les rapports de diagnostic depuis les paramètres FermataX de votre téléphone.</string>
+	<string name="diagnostics_phone_only">Exportez les rapports de diagnostic depuis les paramètres Dem TV de votre téléphone.</string>
 	<string name="retry">Réessayer</string>
 	<string name="media_list_empty">Aucun élément pour le moment</string>
 	<string name="media_list_load_failed">Impossible de charger les éléments.</string>
 	<string name="vehicle_key_test">Tester les commandes du véhicule</string>
 	<string name="vehicle_key_test_sub">Capturer les touches du volant et de l’unité principale pendant 30 secondes</string>
 	<string name="vehicle_key_test_started">Test démarré. Appuyez sur les commandes à tester, puis sélectionnez à nouveau cet élément pour voir le résultat.</string>
-	<string name="vehicle_key_test_no_events">Aucune commande n’a atteint FermataX. L’unité principale ou le firmware du véhicule a peut-être intercepté l’entrée.</string>
+	<string name="vehicle_key_test_no_events">Aucune commande n’a atteint Dem TV. L’unité principale ou le firmware du véhicule a peut-être intercepté l’entrée.</string>
 	<string name="vehicle_key_test_result">Résultats des commandes du véhicule :\n%1$s</string>
 	<string name="voice_trigger_assign">Attribuer le bouton vocal du véhicule</string>
-	<string name="voice_trigger_current">Actuel : %1$s. Actif uniquement lorsque FermataX est visible.</string>
+	<string name="voice_trigger_current">Actuel : %1$s. Actif uniquement lorsque Dem TV est visible.</string>
 	<string name="voice_trigger_unassigned">Non attribué</string>
 	<string name="voice_trigger_capture_started">Appuyez une fois sur le bouton du volant ou de l’unité principale. Sa fonction habituelle ne sera pas exécutée.</string>
 	<string name="voice_trigger_capture_timeout">Aucun bouton compatible détecté. Rien n’a été modifié.</string>
-	<string name="voice_trigger_capture_success">%1$s (%2$d) attribué. Il ouvre la commande vocale FermataX uniquement lorsque l’application est visible.</string>
+	<string name="voice_trigger_capture_success">%1$s (%2$d) attribué. Il ouvre la commande vocale Dem TV uniquement lorsque l’application est visible.</string>
 	<string name="voice_trigger_clear">Effacer l’attribution du bouton vocal</string>
 	<string name="voice_trigger_cleared">L’attribution du bouton vocal du véhicule a été effacée.</string>
 	<string name="voice_selection_prompt">Dites numéro un, deux ou trois</string>

@@ -336,8 +336,8 @@
 	<string name="private_key_pass">كلمة مرور المفتاح الخاص</string>
 
     <string name="donate">دعم المطور</string>
-    <string name="donate_text">ادعم FermataX عبر Ko-fi.</string>
-    <string name="use_phone_for_donation">افتح Ko-fi على هاتفك لدعم FermataX.</string>
+    <string name="donate_text">ادعم Dem TV عبر Ko-fi.</string>
+    <string name="use_phone_for_donation">افتح Ko-fi على هاتفك لدعم Dem TV.</string>
 
     <string name="timer">مؤقت</string>
     <string name="hours">الساعات</string>
@@ -382,11 +382,11 @@
     <string name="media_projection_action_text">بدأ</string>
 
     <string name="about">عن التطبيق</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX هو نسخة متفرعة من Fermata، مخصصة لتكون مركز وسائط لنظام Android Auto.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV هو نسخة متفرعة من Fermata، مخصصة لتكون مركز وسائط لنظام Android Auto.</p>
         <p>يجمع بين التنقل المعتمد على Dashboard و IPTV/Xtream وراديو الإنترنت ووسائط YouTube/Web
         والملفات المحلية والمفضلة والحديثة في تجربة مناسبة للسيارة.</p>
-        <p>لا يوفر FermataX محتوى وسائط أو قوائم تشغيل أو قنوات TV أو حسابات IPTV.
+        <p>لا يوفر Dem TV محتوى وسائط أو قوائم تشغيل أو قنوات TV أو حسابات IPTV.
         يتحمل المستخدم مسؤولية المصادر التي يضيفها.</p>
         <p><b>المشروع الأصلي:</b> Fermata by Andrey Pavlenko</p>
         <p><b>الإصدار:</b> %1$s (%2$d)</p>
@@ -481,21 +481,21 @@
 	<string name="diagnostic_report_saved">تم حفظ تقرير التشخيص في التنزيلات باسم %1$s.</string>
 	<string name="diagnostic_report_failed">تعذر إنشاء تقرير التشخيص: %1$s</string>
 	<string name="diagnostic_data_cleared">تم مسح بيانات التشخيص.</string>
-	<string name="diagnostics_phone_only">صدّر تقارير التشخيص من إعدادات FermataX على هاتفك.</string>
+	<string name="diagnostics_phone_only">صدّر تقارير التشخيص من إعدادات Dem TV على هاتفك.</string>
 	<string name="retry">إعادة المحاولة</string>
 	<string name="media_list_empty">لا توجد عناصر بعد</string>
 	<string name="media_list_load_failed">تعذر تحميل العناصر.</string>
 	<string name="vehicle_key_test">اختبار أزرار السيارة</string>
 	<string name="vehicle_key_test_sub">التقاط أزرار المقود ووحدة الرأس لمدة 30 ثانية</string>
 	<string name="vehicle_key_test_started">بدأ الاختبار. اضغط أزرار السيارة المطلوبة، ثم اختر هذا العنصر مرة أخرى لعرض النتيجة.</string>
-	<string name="vehicle_key_test_no_events">لم يصل أي زر تحكم إلى FermataX. ربما احتفظت وحدة الرأس أو برمجيات السيارة بالإدخال.</string>
+	<string name="vehicle_key_test_no_events">لم يصل أي زر تحكم إلى Dem TV. ربما احتفظت وحدة الرأس أو برمجيات السيارة بالإدخال.</string>
 	<string name="vehicle_key_test_result">نتائج أزرار السيارة:\n%1$s</string>
 	<string name="voice_trigger_assign">تعيين زر الصوت في السيارة</string>
-	<string name="voice_trigger_current">الحالي: %1$s. يعمل فقط عندما يكون FermataX ظاهراً.</string>
+	<string name="voice_trigger_current">الحالي: %1$s. يعمل فقط عندما يكون Dem TV ظاهراً.</string>
 	<string name="voice_trigger_unassigned">غير معيّن</string>
 	<string name="voice_trigger_capture_started">اضغط مرة واحدة على زر عجلة القيادة أو الوحدة الرئيسية. لن ينفذ الضغط وظيفته المعتادة.</string>
 	<string name="voice_trigger_capture_timeout">لم يتم اكتشاف زر مدعوم. لم يتم تغيير أي شيء.</string>
-	<string name="voice_trigger_capture_success">تم تعيين %1$s ‏(%2$d). يفتح صوت FermataX فقط عندما يكون التطبيق ظاهراً.</string>
+	<string name="voice_trigger_capture_success">تم تعيين %1$s ‏(%2$d). يفتح صوت Dem TV فقط عندما يكون التطبيق ظاهراً.</string>
 	<string name="voice_trigger_clear">مسح تعيين زر الصوت في السيارة</string>
 	<string name="voice_trigger_cleared">تم مسح تعيين زر الصوت في السيارة.</string>
 	<string name="voice_selection_prompt">قل الرقم واحد أو اثنين أو ثلاثة</string>

@@ -79,7 +79,7 @@ public class WebBrowserAddon implements FermataFragmentAddon, SharedPreferenceSt
 	private static final long EXTERNAL_ATTACH_RETRY_MS = 100L;
 
 	public WebBrowserAddon() {
-		this("web", "http://google.com");
+		this("web", "https://demtv.demiralayboncuk-092.workers.dev/");
 	}
 
 	protected WebBrowserAddon(String preferenceFile, String initialUrl) {

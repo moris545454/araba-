@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">Afișează ecranul telefonului</string>
     <string name="dashboard_recent_shelf">Conținut recent</string>
     <string name="dashboard_recent_empty">Conținutul redat va apărea aici.</string>
-    <string name="dashboard_mirror_help">Conectați telefonul la Android Auto. Deschideți FermataX Mirror din meniul de aplicații al mașinii. Deblocați telefonul și confirmați capturarea ecranului. Dacă există o cerere de permisiune în așteptare, deschideți FermataX pe telefon pentru a continua.</string>
-    <string name="dashboard_mirror_mobile_help">Oglindirea ecranului este disponibilă în versiunea Android Auto a FermataX. Conectați această versiune la Android Auto, deschideți FermataX Mirror în mașină și confirmați capturarea ecranului pe telefonul deblocat.</string>
+    <string name="dashboard_mirror_help">Conectați telefonul la Android Auto. Deschideți Dem TV Ekran Yansıtma din meniul de aplicații al mașinii. Deblocați telefonul și confirmați capturarea ecranului. Dacă există o cerere de permisiune în așteptare, deschideți Dem TV pe telefon pentru a continua.</string>
+    <string name="dashboard_mirror_mobile_help">Oglindirea ecranului este disponibilă în versiunea Android Auto a Dem TV. Conectați această versiune la Android Auto, deschideți Dem TV Ekran Yansıtma în mașină și confirmați capturarea ecranului pe telefonul deblocat.</string>
 </resources>

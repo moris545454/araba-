@@ -43,6 +43,7 @@ public final class DashboardItems {
 	public static final String PLAYLISTS = "playlists";
 	public static final String MENU = "menu";
 	public static final String MIRROR = "screen_mirroring";
+	public static final String DEM_TV = "dem_tv";
 
 	private DashboardItems() {
 	}
@@ -217,7 +218,10 @@ public final class DashboardItems {
 			}
 		}
 
-		if (!navigationLayout) addMissingItem(names, MIRROR, null);
+		if (!navigationLayout) {
+			addMissingItem(names, MIRROR, null);
+			addMissingItem(names, DEM_TV, MIRROR);
+		}
 		addMissingItem(names, FOLDERS, null);
 		addMissingItem(names, FAVORITES, FOLDERS);
 		addMissingItem(names, RECENT, FAVORITES);
@@ -237,6 +241,7 @@ public final class DashboardItems {
 
 		List<String> defaults = new ArrayList<>();
 		defaults.add(MIRROR);
+		defaults.add(DEM_TV);
 		defaults.add(FOLDERS);
 		defaults.add(FAVORITES);
 		defaults.add(RECENT);
@@ -256,6 +261,7 @@ public final class DashboardItems {
 					(AddonUiMetadata.role(info) == AddonUiMetadata.Role.YOUTUBE)) featured.add(info.className);
 		}
 		featured.add(MIRROR);
+		featured.add(DEM_TV);
 		for (AddonUiMetadata.Role role : new AddonUiMetadata.Role[]{
 				AddonUiMetadata.Role.RADIO, AddonUiMetadata.Role.PODCAST, AddonUiMetadata.Role.WEB}) {
 			for (AddonInfo info : AddonManager.get().getAddonInfos()) {
@@ -285,6 +291,7 @@ public final class DashboardItems {
 
 	private static int uiRefreshPriority(String name) {
 		if (MIRROR.equals(name)) return 2;
+		if (DEM_TV.equals(name)) return 3;
 		if (DASHBOARD.equals(name)) return -100;
 		if (FOLDERS.equals(name)) return 4;
 		if (FAVORITES.equals(name)) return 5;
@@ -314,7 +321,7 @@ public final class DashboardItems {
 																	boolean includeDisabled, boolean navigationLayout) {
 		if (DASHBOARD.equals(name)) return includeDashboard;
 		if (MENU.equals(name)) return includeMenu;
-		if (MIRROR.equals(name)) return !navigationLayout;
+		if (MIRROR.equals(name) || DEM_TV.equals(name)) return !navigationLayout;
 		if (FOLDERS.equals(name) || FAVORITES.equals(name) || RECENT.equals(name) ||
 				PLAYLISTS.equals(name)) return true;
 
@@ -345,6 +352,10 @@ public final class DashboardItems {
 				return new Item(name, R.id.dashboard_mirror_action, R.drawable.screen_mirroring,
 						ctx.getString(R.string.dashboard_mirror_title),
 						ctx.getString(R.string.dashboard_mirror_sub), null);
+			case DEM_TV:
+				return new Item(name, R.id.dashboard_dem_tv_action, R.drawable.tv,
+						ctx.getString(R.string.dashboard_dem_tv_title),
+						ctx.getString(R.string.dashboard_dem_tv_sub), null);
 			case DASHBOARD:
 				return new Item(name, R.id.dashboard_fragment, R.drawable.home,
 						ctx.getString(R.string.home), ctx.getString(R.string.dashboard_home_sub), null);

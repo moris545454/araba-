@@ -336,8 +336,8 @@
     <string name="private_key_pass">Пароль приватного ключа</string>
 
     <string name="donate">Поддержать разработчика</string>
-    <string name="donate_text">Поддержите FermataX через Ko-fi.</string>
-    <string name="use_phone_for_donation">Откройте Ko-fi на телефоне, чтобы поддержать FermataX.</string>
+    <string name="donate_text">Поддержите Dem TV через Ko-fi.</string>
+    <string name="use_phone_for_donation">Откройте Ko-fi на телефоне, чтобы поддержать Dem TV.</string>
 
     <string name="timer">Таймер</string>
     <string name="hours">Часы</string>
@@ -378,15 +378,15 @@
     <string name="open_log">Открыть лог файл</string>
     <string name="unlock_phone_and_grant">Разблокируйте телефон и предоставьте запрошенные разрешения.</string>
     <string name="screen_capture_rejected">Запрос на трянсляцию экрана отклонен.</string>
-    <string name="accessibility_dsc">Эта служба используется Fermata Mirror для взаимодействия с экраном телефона.</string>
+    <string name="accessibility_dsc">Эта служба используется Dem TV Ekran Yansıtma для взаимодействия с экраном телефона.</string>
     <string name="media_projection_action_text">Начать</string>
 
     <string name="about">О приложении</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX — это форк Fermata, настроенный как медиа-хаб для Android Auto.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV — это форк Fermata, настроенный как медиа-хаб для Android Auto.</p>
         <p>Он объединяет навигацию через Dashboard, IPTV/Xtream, интернет-радио, медиа YouTube/Web,
         локальные файлы, Избранное и Недавние в удобном для автомобиля интерфейсе.</p>
-        <p>FermataX не предоставляет медиаконтент, плейлисты, ТВ-каналы или IPTV-аккаунты.
+        <p>Dem TV не предоставляет медиаконтент, плейлисты, ТВ-каналы или IPTV-аккаунты.
         Пользователи отвечают за добавленные источники.</p>
         <p><b>Исходный проект:</b> Fermata by Andrey Pavlenko</p>
         <p><b>Версия:</b> %1$s (%2$d)</p>
@@ -481,21 +481,21 @@
 	<string name="diagnostic_report_saved">Отчёт диагностики сохранён в папке «Загрузки» как %1$s.</string>
 	<string name="diagnostic_report_failed">Не удалось создать отчёт диагностики: %1$s</string>
 	<string name="diagnostic_data_cleared">Данные диагностики очищены.</string>
-	<string name="diagnostics_phone_only">Экспортируйте отчёт диагностики в настройках FermataX на телефоне.</string>
+	<string name="diagnostics_phone_only">Экспортируйте отчёт диагностики в настройках Dem TV на телефоне.</string>
 	<string name="retry">Повторить</string>
 	<string name="media_list_empty">Пока нет элементов</string>
 	<string name="media_list_load_failed">Не удалось загрузить элементы.</string>
 	<string name="vehicle_key_test">Проверка кнопок автомобиля</string>
 	<string name="vehicle_key_test_sub">Запись кнопок руля и головного устройства в течение 30 секунд</string>
 	<string name="vehicle_key_test_started">Проверка началась. Нажмите нужные кнопки, затем снова выберите этот пункт для просмотра результата.</string>
-	<string name="vehicle_key_test_no_events">Ни одна кнопка не дошла до FermataX. Головное устройство или прошивка автомобиля могли перехватить сигнал.</string>
+	<string name="vehicle_key_test_no_events">Ни одна кнопка не дошла до Dem TV. Головное устройство или прошивка автомобиля могли перехватить сигнал.</string>
 	<string name="vehicle_key_test_result">Результаты проверки кнопок:\n%1$s</string>
 	<string name="voice_trigger_assign">Назначить голосовую кнопку автомобиля</string>
-	<string name="voice_trigger_current">Текущая: %1$s. Активна только когда FermataX отображается на экране.</string>
+	<string name="voice_trigger_current">Текущая: %1$s. Активна только когда Dem TV отображается на экране.</string>
 	<string name="voice_trigger_unassigned">Не назначена</string>
 	<string name="voice_trigger_capture_started">Один раз нажмите кнопку на руле или головном устройстве. Обычное действие кнопки не будет выполнено.</string>
 	<string name="voice_trigger_capture_timeout">Поддерживаемая кнопка не обнаружена. Изменения не внесены.</string>
-	<string name="voice_trigger_capture_success">Назначена %1$s (%2$d). Она открывает голосовое управление FermataX только когда приложение видно.</string>
+	<string name="voice_trigger_capture_success">Назначена %1$s (%2$d). Она открывает голосовое управление Dem TV только когда приложение видно.</string>
 	<string name="voice_trigger_clear">Удалить назначение голосовой кнопки</string>
 	<string name="voice_trigger_cleared">Назначение голосовой кнопки автомобиля удалено.</string>
 	<string name="voice_selection_prompt">Скажите номер один, два или три</string>

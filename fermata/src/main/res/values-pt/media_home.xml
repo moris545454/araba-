@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">Mostrar a tela do telefone</string>
     <string name="dashboard_recent_shelf">Conteúdo recente</string>
     <string name="dashboard_recent_empty">O conteúdo reproduzido aparecerá aqui.</string>
-    <string name="dashboard_mirror_help">Conecte o telefone ao Android Auto. Abra FermataX Mirror no menu de aplicativos do carro. Desbloqueie o telefone e confirme a captura de tela. Se houver uma solicitação de permissão pendente, abra FermataX no telefone para continuar.</string>
-    <string name="dashboard_mirror_mobile_help">O espelhamento de tela está disponível na versão Android Auto do FermataX. Conecte essa versão ao Android Auto, abra FermataX Mirror no carro e confirme a captura de tela no telefone desbloqueado.</string>
+    <string name="dashboard_mirror_help">Conecte o telefone ao Android Auto. Abra Dem TV Ekran Yansıtma no menu de aplicativos do carro. Desbloqueie o telefone e confirme a captura de tela. Se houver uma solicitação de permissão pendente, abra Dem TV no telefone para continuar.</string>
+    <string name="dashboard_mirror_mobile_help">O espelhamento de tela está disponível na versão Android Auto do Dem TV. Conecte essa versão ao Android Auto, abra Dem TV Ekran Yansıtma no carro e confirme a captura de tela no telefone desbloqueado.</string>
 </resources>

@@ -603,12 +603,28 @@ public class DashboardFragment extends MainActivityFragment
 					return;
 				}
 				if (card.targetId == R.id.dashboard_mirror_action) {
-					new com.google.android.material.dialog.MaterialAlertDialogBuilder(a.getContext())
-							.setTitle(ctx.getString(R.string.dashboard_mirror_title))
-							.setIcon(R.drawable.screen_mirroring)
-							.setMessage(ctx.getString(BuildConfig.AUTO ? R.string.dashboard_mirror_help :
-									R.string.dashboard_mirror_mobile_help))
-							.setPositiveButton(android.R.string.ok, null).show();
+					if (BuildConfig.AUTO) {
+						try {
+							Class<?> launcher = Class.forName("me.app.fermatax.auto.MirrorLauncher");
+							launcher.getMethod("launch").invoke(null);
+						} catch (Throwable error) {
+							new com.google.android.material.dialog.MaterialAlertDialogBuilder(a.getContext())
+									.setTitle(ctx.getString(R.string.dashboard_mirror_title))
+									.setMessage(ctx.getString(R.string.dashboard_mirror_help))
+									.setPositiveButton(android.R.string.ok, null).show();
+						}
+					} else {
+						new com.google.android.material.dialog.MaterialAlertDialogBuilder(a.getContext())
+								.setTitle(ctx.getString(R.string.dashboard_mirror_title))
+								.setIcon(R.drawable.screen_mirroring)
+								.setMessage(ctx.getString(R.string.dashboard_mirror_mobile_help))
+								.setPositiveButton(android.R.string.ok, null).show();
+					}
+					return;
+				}
+				if (card.targetId == R.id.dashboard_dem_tv_action) {
+					ActivityFragment web = a.showFragment(R.id.web_browser_fragment);
+					if (web != null) web.setInput(ctx.getString(R.string.dashboard_dem_tv_url));
 					return;
 				}
 				if (card.targetId == ID_NULL) return;
@@ -744,7 +760,7 @@ public class DashboardFragment extends MainActivityFragment
 		private boolean isFeatured(int position) {
 			DashboardItems.Item item = cards.get(position).item;
 			if (item == null) return false;
-			if (DashboardItems.MIRROR.equals(item.name)) return true;
+			if (DashboardItems.MIRROR.equals(item.name) || DashboardItems.DEM_TV.equals(item.name)) return true;
 			if (item.addonInfo == null) return false;
 			AddonUiMetadata.Role role = AddonUiMetadata.role(item.addonInfo);
 			return (role == AddonUiMetadata.Role.TV) || (role == AddonUiMetadata.Role.YOUTUBE);
