@@ -175,10 +175,10 @@ public class ControlPanelContractTest {
 			String body = viewBlock(layout, "body_layout");
 			String controls = viewBlock(layout, "control_panel");
 			assertTrue(body.contains(
-					"app:layout_constraintBottom_toTopOf=\"@id/phone_bottom_menu\""));
+					"app:layout_constraintBottom_toTopOf=\"@id/tool_bar\""));
 			assertFalse(body.contains("layout_constraintBottom_toTopOf=\"@id/control_panel\""));
 			assertTrue(controls.contains(
-					"app:layout_constraintBottom_toTopOf=\"@id/phone_bottom_menu\""));
+					"app:layout_constraintBottom_toTopOf=\"@id/tool_bar\""));
 			assertFalse(controls.contains("layout_constraintTop_toBottomOf=\"@id/body_layout\""));
 			assertTrue(controls.contains("android:translationZ=\"4dp\""));
 			assertTrue(layout.contains("@+id/control_panel_scrim"));

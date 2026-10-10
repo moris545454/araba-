@@ -15,14 +15,14 @@ public final class VoiceIntentParser {
 	private static final Map<String, String> ADDON_ALIASES = new LinkedHashMap<>();
 
 	static {
-		alias("youtube", "youtube", "you tube", "yt");
+		alias("youtube", "youtube", "you tube", "yt", "youtube’da", "youtube\'da");
 		alias("tv", "tv", "television", "tivi", "truyền hình", "truyen hinh",
-				"xtream", "xtreme", "iptv");
-		alias("radio", "radio", "đài", "dai");
+				"xtream", "xtreme", "iptv", "televizyon");
+		alias("radio", "radio", "đài", "dai", "radyo");
 		alias("stremio", "stremio");
 		alias("podcast", "podcast", "podcasts");
-		alias("audiobook", "audiobook", "audiobooks", "sách nói", "sach noi");
-		alias("web", "web", "browser", "trình duyệt", "trinh duyet");
+		alias("audiobook", "audiobook", "audiobooks", "sách nói", "sach noi", "sesli kitap");
+		alias("web", "web", "browser", "trình duyệt", "trinh duyet", "tarayıcı", "tarayici");
 		alias("chatgpt", "chatgpt", "chat gpt", "gpt", "assistant", "trợ lý", "tro ly");
 	}
 
@@ -35,32 +35,43 @@ public final class VoiceIntentParser {
 
 	@Nullable
 	public static VoiceIntent parse(@Nullable String phrase, @Nullable Locale locale) {
-		String text = normalize(phrase);
+		String text = normalize((phrase != null && locale != null && "tr".equals(locale.getLanguage())) ?
+				phrase.toLowerCase(locale) : phrase);
 		if (text.isEmpty()) return null;
 
-		if (isAny(text, "play", "phát", "phat", "resume", "tiếp tục", "tiep tuc"))
+		if (isAny(text, "play", "phát", "phat", "resume", "tiếp tục", "tiep tuc", "oynat", "başlat", "devam et"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.PLAY);
-		if (isAny(text, "pause", "tạm dừng", "tam dung"))
+		if (isAny(text, "pause", "tạm dừng", "tam dung", "duraklat"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.PAUSE);
-		if (isAny(text, "stop", "dừng", "dung"))
+		if (isAny(text, "stop", "dừng", "dung", "durdur"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.STOP);
 		if (isAny(text, "next", "next track", "next item", "bài tiếp theo", "bai tiep theo",
-				"kênh tiếp theo", "kenh tiep theo", "tập tiếp theo", "tap tiep theo"))
+				"kênh tiếp theo", "kenh tiep theo", "tập tiếp theo", "tap tiep theo", "sonraki", "sonraki kanal", "sonraki bölüm", "sonraki parça"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.NEXT);
 		if (isAny(text, "previous", "previous track", "previous item", "bài trước",
-				"bai truoc", "kênh trước", "kenh truoc", "tập trước", "tap truoc"))
+				"bai truoc", "kênh trước", "kenh truoc", "tập trước", "tap truoc", "önceki", "önceki kanal", "önceki bölüm", "önceki parça"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.PREVIOUS);
-		if (isAny(text, "go back", "quay lại", "quay lai"))
+		if (isAny(text, "go back", "quay lại", "quay lai", "geri", "geri dön"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.BACK);
-		if (isAny(text, "what is playing", "now playing", "đang phát gì", "dang phat gi"))
+		if (isAny(text, "what is playing", "now playing", "đang phát gì", "dang phat gi", "ne çalıyor", "şu an oynatılan"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.OPEN_CURRENT);
 		if (isAny(text, "play favorites", "play my favorites", "phát mục yêu thích",
-				"phat muc yeu thich"))
+				"phat muc yeu thich", "favorileri oynat", "favorilerimi oynat", "oynat favoriler"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.PLAY_FAVORITES);
 
 		int selection = parseSelectionIndex(text);
 		if (selection >= 0) return VoiceIntent.selection(selection);
 
+		// Turkish commonly places the verb after the content: "YouTube aç", "TV TRT 1 oynat".
+		// Keep an already explicit action prefix intact, including English queries ending in a Turkish verb.
+		if (locale != null && "tr".equals(locale.getLanguage()) && parseSearchAction(text) == null && !text.startsWith("altyazı")) {
+			for (String verb : new String[]{"aç", "oynat", "ara", "bul"}) {
+				if (text.endsWith(" " + verb)) {
+					text = verb + " " + text.substring(0, text.length() - verb.length()).trim();
+					break;
+				}
+			}
+		}
 		VoiceIntent.SearchAction action = parseSearchAction(text);
 		if (action == null) return null;
 		String remainder = removeAction(text, action);
@@ -97,32 +108,32 @@ public final class VoiceIntentParser {
 		String text = normalize(phrase);
 		if (text.isEmpty()) return -1;
 		if (isAny(text, "1", "one", "first", "number one", "result one", "số một",
-				"so mot", "kết quả một", "ket qua mot"))
+				"so mot", "kết quả một", "ket qua mot", "bir", "birinci", "birinci sonuç"))
 			return 0;
 		if (isAny(text, "2", "two", "second", "number two", "result two", "số hai",
-				"so hai", "kết quả hai", "ket qua hai"))
+				"so hai", "kết quả hai", "ket qua hai", "iki", "ikinci", "ikinci sonuç"))
 			return 1;
 		if (isAny(text, "3", "three", "third", "number three", "result three", "số ba",
-				"so ba", "kết quả ba", "ket qua ba"))
+				"so ba", "kết quả ba", "ket qua ba", "üç", "üçüncü", "üçüncü sonuç"))
 			return 2;
 		return -1;
 	}
 
 	private static VoiceIntent.SearchAction parseSearchAction(String text) {
-		if (startsWithAny(text, "play ", "phát ", "phat "))
+		if (startsWithAny(text, "play ", "phát ", "phat ", "oynat "))
 			return VoiceIntent.SearchAction.PLAY;
-		if (startsWithAny(text, "find ", "search ", "tìm ", "tim ", "tìm kiếm ", "tim kiem "))
+		if (startsWithAny(text, "find ", "search ", "tìm ", "tim ", "tìm kiếm ", "tim kiem ", "ara ", "bul "))
 			return VoiceIntent.SearchAction.FIND;
-		if (startsWithAny(text, "open ", "mở ", "mo "))
+		if (startsWithAny(text, "open ", "mở ", "mo ", "aç "))
 			return VoiceIntent.SearchAction.OPEN;
 		return null;
 	}
 
 	private static String removeAction(String text, VoiceIntent.SearchAction action) {
 		String[] prefixes = switch (action) {
-			case PLAY -> new String[]{"play ", "phát ", "phat "};
-			case FIND -> new String[]{"find ", "search ", "tìm kiếm ", "tim kiem ", "tìm ", "tim "};
-			case OPEN -> new String[]{"open ", "mở ", "mo "};
+			case PLAY -> new String[]{"play ", "phát ", "phat ", "oynat "};
+			case FIND -> new String[]{"find ", "search ", "tìm kiếm ", "tim kiem ", "tìm ", "tim ", "ara ", "bul "};
+			case OPEN -> new String[]{"open ", "mở ", "mo ", "aç "};
 		};
 		for (String prefix : prefixes) if (text.startsWith(prefix)) return text.substring(prefix.length()).trim();
 		return text;
@@ -131,7 +142,7 @@ public final class VoiceIntentParser {
 	private static String removeContentQualifier(String text) {
 		String[] qualifiers = {"video ", "channel ", "kênh ", "kenh ", "bài ", "bai ",
 				"movie ", "film ", "phim ", "series ",
-				"episode ", "tập ", "tap ", "book ", "sách ", "sach "};
+				"episode ", "tập ", "tap ", "book ", "sách ", "sach ", "kanal ", "bölüm ", "kitap "};
 		for (String qualifier : qualifiers) if (text.startsWith(qualifier)) return text.substring(qualifier.length()).trim();
 		return text;
 	}

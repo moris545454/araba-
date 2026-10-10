@@ -2,8 +2,8 @@
 <resources>
 	<string name="sub_ch">Kanallar: %1$d.</string>
 	<string name="sub_movies">Filmler: %1$d.</string>
-	<string name="sub_series">Seri: %1$d.</string>
-	<string name="sub_seasons">Mevsimler: %1$d.</string>
+	<string name="sub_series">Diziler: %1$d.</string>
+	<string name="sub_seasons">Sezonlar: %1$d.</string>
 	<string name="sub_episodes">Bölümler: %1$d.</string>
 	<string name="sub_gr">Gruplar: %1$d.</string>
 	<string name="sub_ch_gr">Kanallar: %1$d. Gruplar: %2$d.</string>
@@ -12,7 +12,7 @@
 	<string name="tv_source_name">Kaynak adı</string>
 	<string name="xtream_live_tv">Canlı TV</string>
 	<string name="xtream_movies">Filmler</string>
-	<string name="xtream_series">Seri</string>
+	<string name="xtream_series">Diziler</string>
 	<string name="xtream_source_subtitle">Canlı TV / Filmler / Diziler</string>
 	<string name="xtream_watch_from_beginning">Baştan itibaren izle</string>
 	<string name="xtream_catchup_last_24h">Son 24 saat</string>
@@ -26,19 +26,19 @@
 	<string name="epg_time_shift">EPG zaman kaydırması (saat)</string>
 	<string name="logo">Kanal logoları</string>
 	<string name="logo_location">Konum</string>
-	<string name="logo_location_hint">Klasör veya http(ler) temel URL\&apos;si</string>
-	<string name="logo_prefer_epg">EPG\&apos;den logoları tercih edin</string>
+	<string name="logo_location_hint">Klasör veya https başlangıç adresi</string>
+	<string name="logo_prefer_epg">Program rehberindeki logoları kullan</string>
 	<string name="catchup_query">Sorgu biçimi</string>
-	<string name="catchup_type">Yakalama türü</string>
-	<string name="catchup_type_cur">Mevcut yakalama türü: %1$s</string>
+	<string name="catchup_type">Geçmiş yayın türü</string>
+	<string name="catchup_type_cur">Geçmiş yayın türü: %1$s</string>
 	<string name="catchup_type_auto">Otomatik</string>
 	<string name="catchup_days">Gün sayısı</string>
 	<string name="connection_settings">Bağlantı ayarları</string>
 	<string name="err_failed_to_add_tv_source">Kaynak eklenemedi: %1$s</string>
-	<string name="catchup">Yetişmek</string>
+	<string name="catchup">Geçmiş yayınlar</string>
 	<string name="catchup_type_append">Ekle</string>
 	<string name="catchup_type_default">Varsayılan</string>
-	<string name="catchup_type_shift">Vardiya</string>
+	<string name="catchup_type_shift">Zaman kaydırma</string>
 	<string name="xtream_error_incomplete_account">Ana makineyi, kullanıcı adını ve şifreyi girin.</string>
 	<string name="xtream_error_host_not_found">Xtream sunucusu %1$s bulunamıyor. Ana bilgisayarı ve bağlantı noktasını kontrol edin.</string>
 	<string name="xtream_error_connect">Xtream sunucusuna %1$s bağlanılamıyor. Ana bilgisayarı, bağlantı noktasını ve ağı kontrol edin.</string>
@@ -49,7 +49,7 @@
 	<string name="xtream_error_api_not_found">Bu sunucuda Xtream API bulunamadı (HTTP 404). Portal URL\&apos;sini, ana bilgisayarı ve bağlantı noktasını kontrol edin.</string>
 	<string name="xtream_error_server">Xtream sunucu hatası (HTTP %1$d%2$s). Daha sonra tekrar deneyin.</string>
 	<string name="xtream_error_http">Xtream isteği başarısız oldu (HTTP %1$d%2$s).</string>
-	<string name="err_failed_to_load_tv_sources">Aşağıdaki kaynaklar yüklenemedi:\\n%1$s</string>
+	<string name="err_failed_to_load_tv_sources">Aşağıdaki kaynaklar yüklenemedi:\n%1$s</string>
 	<string name="add_stalker_source">Stalker portalı ekle</string>
 	<string name="stalker_portal_url">Portal URL’si</string>
 	<string name="stalker_mac_address">MAC adresi</string>

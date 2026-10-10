@@ -15,7 +15,8 @@ public final class NavBarController {
 	public static void refresh(MainActivityDelegate activity) {
 		NavBarView navBar = activity.getNavBar();
 		if (navBar == null) return;
-		navBar.setVisibility(PhoneRootPolicy.showAddonNavBar(activity.getRuntimeHostMode(),
+		navBar.setVisibility(activity.getPrefs().getBooleanPref(
+				me.aap.fermata.ui.activity.MainActivityPrefs.SHOW_SHORTCUT_RAIL) && PhoneRootPolicy.showAddonNavBar(activity.getRuntimeHostMode(),
 				activity.getPhoneRootId(), activity.isBarsHidden()) ? View.VISIBLE : View.GONE);
 		applySelection(navBar, activity.getActiveNavItemId());
 	}

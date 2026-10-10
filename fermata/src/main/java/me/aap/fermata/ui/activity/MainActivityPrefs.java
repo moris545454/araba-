@@ -44,6 +44,7 @@ public interface MainActivityPrefs
 	Pref<BooleanSupplier> FULLSCREEN = Pref.b("FULLSCREEN", false);
 	Pref<BooleanSupplier> SHOW_PG_UP_DOWN = Pref.b("SHOW_PG_UP_DOWN", true);
 	Pref<BooleanSupplier> USE_DPAD_CURSOR = AUTO ? Pref.b("USE_DPAD_CURSOR", true) : null;
+	Pref<BooleanSupplier> SHOW_SHORTCUT_RAIL = Pref.b("SHOW_SHORTCUT_RAIL", false);
 	Pref<IntSupplier> NAV_BAR_POS = Pref.i("NAV_BAR_POS", NavBarView.POSITION_LEFT);
 	Pref<DoubleSupplier> NAV_BAR_SIZE = Pref.f("NAV_BAR_SIZE", 1f);
 	Pref<DoubleSupplier> TOOL_BAR_SIZE = Pref.f("TOOL_BAR_SIZE", 1f);
@@ -77,7 +78,7 @@ public interface MainActivityPrefs
 	Pref<BooleanSupplier> SMART_TOP_RECENT_VIDEO =
 			Pref.b("smart_top/recent_video", false);
 	Pref<IntSupplier> CLOCK_POS = Pref.i("CLOCK_POS", CLOCK_POS_NONE);
-	Pref<IntSupplier> LOCALE = Pref.i("LOCALE", Lang.EN.ordinal());
+	Pref<IntSupplier> LOCALE = Pref.i("LOCALE", Lang.TR.ordinal());
 	int INITIAL_SETUP_CURRENT_VERSION = 1;
 	Pref<BooleanSupplier> INITIAL_SETUP_COMPLETED =
 			Pref.b("INITIAL_SETUP_COMPLETED", false);
@@ -298,7 +299,8 @@ public interface MainActivityPrefs
 			boolean hasExistingPrefs = false;
 			for (String key : getSharedPreferences().getAll().keySet()) {
 				// AddonManager may run from the media service before the first Activity.
-				if ("ADDONS_ENABLED_BY_DEFAULT".equals(key) ||
+				if ("TURKISH_INTERFACE_V1".equals(key) || "LOCALE".equals(key) ||
+						"ADDONS_ENABLED_BY_DEFAULT".equals(key) ||
 						"ADDONS_ENABLED_BY_DEFAULT_V2".equals(key) ||
 						"DASHBOARD_ITEMS".equals(key) ||
 						"DASHBOARD_LAYOUT_VERSION".equals(key) ||

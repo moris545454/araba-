@@ -17,6 +17,17 @@ public class TvM3uFileSystem extends M3uFileSystem {
 		return instance;
 	}
 
+	/** Registers a normal, editable source without downloading on the UI thread. */
+	public TvM3uFile newDefaultSource(String url, String name) {
+		TvM3uFile file = (TvM3uFile) newFile();
+		file.setName(name);
+		file.setUrl(url);
+		file.setVideo(true);
+		file.setUserAgent("Fermata/" + me.aap.fermata.BuildConfig.VERSION_NAME);
+		file.setMaxAge(me.aap.fermata.vfs.m3u.M3uFile.M3U_FILE_AGE);
+		return file;
+	}
+
 	@Override
 	public String getScheme() {
 		return SCHEME_TVM3U;

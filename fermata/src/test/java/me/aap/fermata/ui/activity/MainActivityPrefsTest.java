@@ -10,6 +10,12 @@ import me.aap.utils.ui.view.NavBarView;
 
 public class MainActivityPrefsTest {
 	@Test
+	public void turkishAndHiddenShortcutRailAreTheDefaults() {
+		assertEquals(MainActivityPrefs.Lang.TR.ordinal(), MainActivityPrefs.LOCALE.getDefaultValue().getAsInt());
+		assertFalse(MainActivityPrefs.SHOW_SHORTCUT_RAIL.getDefaultValue().getAsBoolean());
+	}
+
+	@Test
 	public void voiceControlIsEnabledByDefault() {
 		assertTrue(MainActivityPrefs.VOICE_CONTROl_ENABLED.getDefaultValue().getAsBoolean());
 	}

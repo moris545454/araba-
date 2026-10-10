@@ -4,6 +4,8 @@
 
 TV, YouTube ve ekran yansıtma öncelikli koyu kart tasarımı. Telefon ve Android Auto için tek universal debug APK. Ayarlar → Arayüz → Uygulama güncellemeleri ekranından yeni sürümleri kontrol edip yükleyebilirsiniz. Otomatik bildirimler için Android bildirim iznini açın; arka plan kontrolleri Android tarafından geciktirilebilir.
 
+2.0.3: Türkçe arayüz ve ses komutları, varsayılan olarak gizli yan kısayollar, altta ortak işlem düğmeleri, yenilenen TV/diğer menüler ve silinebilir Türkiye kanal listesi. Kısayolları Ayarlar → Arayüz → Sol kısayol menüsünü göster seçeneğinden açabilirsiniz.
+
 ---
 
 <div align="center">

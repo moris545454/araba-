@@ -131,6 +131,10 @@ public class TvRootItem extends ItemContainer<TvSourceItem> implements TvItem {
 
 	@Override
 	protected FutureSupplier<List<Item>> listChildren() {
+		TvM3uFileSystem fs = TvM3uFileSystem.getInstance();
+		sources.seedDefaultPlaylist(id -> new TvM3uFile(fs.toRid(id)).getUrl(), () ->
+				fs.toId(fs.newDefaultSource(TvSourceRepository.DEFAULT_PLAYLIST_URL,
+						getLib().getContext().getString(R.string.default_turkish_channels)).getRid()));
 		int[] ids = sources.getSourceIds();
 		List<Integer> idList = new ArrayList<>(ids.length);
 		for (int i : ids) idList.add(i);

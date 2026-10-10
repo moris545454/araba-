@@ -23,3 +23,13 @@ JDK 21 ve Android SDK 36 ile proje kökünde:
 ```
 
 Cihazda doğrulanacak akışlar: telefon/Auto ana ekran, büyük yazı ve Türkçe başlıklar, odak ve araç kumandası, kart sıralama/sıfırlama, TV kaynak ekleme/oynatma, YouTube tam ekran/geri, radyo/podcast oynatma, Mirror yakalama onayı ve ekran yönü değişimi.
+
+## 2.0.3 — Türkçe ve ortak işlem alanı
+
+Uygulama bu sürümde bir kez Türkçeye geçirilir; sonraki dil seçimleri korunur. Eski yan kısayol menüsü varsayılan olarak gizlidir. Ayarlar → Arayüz → Sol kısayol menüsünü göster seçeneği telefon, Mirror ve Auto görünümünde aynı tercihi kullanır. Görünür olduğunda önceki düğmeler, sıralama ve gezinme davranışları korunur.
+
+Ortak araç çubuğunun görünümü alttaki yuvarlatılmış işlem alanına taşındı. Mevcut mediatorlar, düğme kimlikleri, geri/filtre/görünüm/kaynak ekleme işlemleri korunur. İçerik üstten başlar; oynatıcı kontrolleri işlem alanının üzerinde gösterilir. Açılır menülerde seçili ve kumandayla odaklanan satırların görünür çerçevesi bulunur.
+
+TV kaynağı https://onureroz.com/indirmeler/turk/index.m3u ilk kaynak listelemesinde bir kez normal M3U kaynağı olarak kaydedilir. Kaynak kaydı ağ isteği gerektirmez; mevcut kaynak yükleme ve önbellek sistemi kullanılır. Silme bir sonraki başlangıçta geri alınmaz. Aynı URL zaten kayıtlıysa ikinci kopyası oluşturulmaz. Başlangıç kaynağı adı “Türkiye kanalları”dır.
+
+Türkçe ses komutları da eklendi: “YouTube aç”, “Radyo aç”, “TV TRT 1 oynat”, “YouTube’da video İstanbul ara”, “sonraki kanal”, “duraklat”, “favorilerimi oynat”. İleri/geri sarma, altyazı ve ses kanalı komutları Türkçe dilbilgisi dosyasını kullanır. Özel oynatıcı işlemleri arama komutu olarak tüketilmez.

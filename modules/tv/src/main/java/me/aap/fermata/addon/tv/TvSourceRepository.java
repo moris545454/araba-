@@ -17,10 +17,40 @@ final class TvSourceRepository {
 			Pref.ia("SOURCE_IDS", () -> new int[0]).withInheritance(false);
 	private static final String SOURCE_TYPE_PREFIX = "SOURCE_TYPE#";
 	private static final String M3U_ID_PREFIX = "M3UID#";
+	static final String DEFAULT_PLAYLIST_URL = "https://onureroz.com/indirmeler/turk/index.m3u";
+	private static final Pref<me.aap.utils.function.BooleanSupplier> DEFAULT_PLAYLIST_SEEDED =
+			Pref.b("TURKISH_PLAYLIST_SEEDED_V1", false).withInheritance(false);
 	private final PreferenceStore store;
 
 	TvSourceRepository(PreferenceStore store) {
 		this.store = store;
+	}
+
+	/** One-time registration; removal is respected even after the next application update. */
+	synchronized void seedDefaultPlaylist(me.aap.utils.function.Function<String, String> urlForId,
+			me.aap.utils.function.Supplier<String> createM3uId) {
+		if (store.getBooleanPref(DEFAULT_PLAYLIST_SEEDED)) return;
+		int[] ids = getSourceIds();
+		for (int id : ids) {
+			String m3uId = getM3uId(id);
+			try {
+				if (m3uId != null && DEFAULT_PLAYLIST_URL.equals(urlForId.apply(m3uId))) {
+					store.applyBooleanPref(DEFAULT_PLAYLIST_SEEDED, true);
+					return;
+				}
+			} catch (RuntimeException failure) {
+				Log.e(failure, "Skipping invalid source while checking the default playlist");
+			}
+		}
+		String m3uId = createM3uId.get();
+		int id = nextSourceId();
+		int[] updated = java.util.Arrays.copyOf(ids, ids.length + 1);
+		updated[ids.length] = id;
+		try (PreferenceStore.Edit edit = store.editPreferenceStore()) {
+			saveM3uSource(edit, id, m3uId);
+			edit.setIntArrayPref(SOURCE_IDS, updated);
+			edit.setBooleanPref(DEFAULT_PLAYLIST_SEEDED, true);
+		}
 	}
 
 	int[] getSourceIds() {

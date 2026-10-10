@@ -31,6 +31,12 @@ final class InterfacePrefsBuilder {
 						Pref<DoubleSupplier> textIconSize) {
 		PreferenceStore store = activity.getPrefs();
 		normalizeNavBarPosition(store, navBarPosition);
+		set.addBooleanPref(o -> {
+			o.store = store;
+			o.pref = MainActivityPrefs.SHOW_SHORTCUT_RAIL;
+			o.title = R.string.show_shortcut_rail;
+			o.subtitle = R.string.show_shortcut_rail_sub;
+		});
 		set.addListPref(o -> {
 			o.store = store;
 			o.pref = theme;

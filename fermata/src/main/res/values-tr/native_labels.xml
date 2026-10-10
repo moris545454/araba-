@@ -1,0 +1,15 @@
+<resources>
+<string name="phone_header_nothing_playing">Oynatılan içerik yok</string>
+<string name="phone_header_choose_media">Kontrol etmek için içerik seçin</string>
+<string name="phone_header_aa_disconnect">AA bağlı değil</string>
+<string name="phone_header_aa_connected">AA bağlı</string>
+<string name="phone_open_on_car_strip_title">Araçta aç</string>
+<string name="playback_live">CANLI</string>
+<string name="media_service_name_auto_release">FermataX Medya Hizmeti</string>
+<string name="media_service_name_auto_debug">FermataX Medya Hizmeti</string>
+<string name="mirror_service_name_debug">FermataX Ekran Yansıtma</string>
+<string name="mirror_service_name_release">FermataX Ekran Yansıtma</string>
+<string name="app_name_mobile_debug">FermataX</string>
+<string name="app_name_auto_debug">FermataX</string>
+<string name="m3u_playlist_agent">Tarayıcı kimliği (User-Agent)</string>
+</resources>

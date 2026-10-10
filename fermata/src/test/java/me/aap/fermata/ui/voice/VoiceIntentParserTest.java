@@ -9,6 +9,33 @@ import org.junit.Test;
 
 public class VoiceIntentParserTest {
 	@Test
+	public void turkishSuffixCommandsOpenAndSearchTheCorrectAddon() {
+		Locale tr = Locale.forLanguageTag("tr");
+		assertEquals("youtube", VoiceIntentParser.parse("YouTube aç", tr).getAddon());
+		assertEquals("radio", VoiceIntentParser.parse("Radyo aç", tr).getAddon());
+		VoiceIntent channel = VoiceIntentParser.parse("TV TRT 1 oynat", tr);
+		assertEquals(VoiceIntent.SearchAction.PLAY, channel.getSearchAction());
+		assertEquals("tv", channel.getAddon());
+		assertEquals("trt 1", channel.getQuery());
+		VoiceIntent query = VoiceIntentParser.parse("YouTube’da video İSTANBUL ara", tr);
+		assertEquals("youtube", query.getAddon());
+		assertEquals("istanbul", query.getQuery());
+	}
+
+	@Test
+	public void turkishPlaybackAndSelectionCommandsAreUnambiguous() {
+		Locale tr = Locale.forLanguageTag("tr");
+		assertEquals(VoiceIntent.PlaybackAction.PAUSE, VoiceIntentParser.parse("duraklat", tr).getPlaybackAction());
+		assertEquals(VoiceIntent.PlaybackAction.NEXT, VoiceIntentParser.parse("sonraki kanal", tr).getPlaybackAction());
+		assertEquals(VoiceIntent.PlaybackAction.BACK, VoiceIntentParser.parse("geri dön", tr).getPlaybackAction());
+		assertEquals(VoiceIntent.PlaybackAction.PLAY_FAVORITES, VoiceIntentParser.parse("favorilerimi oynat", tr).getPlaybackAction());
+		assertEquals(1, VoiceIntentParser.parse("ikinci sonuç", tr).getSelectionIndex());
+		assertNull(VoiceIntentParser.parse("hava nasıl", tr));
+		assertNull(VoiceIntentParser.parse("altyazıları aç", tr));
+		assertNull(VoiceIntentParser.parse("oynat youtube", tr));
+	}
+
+	@Test
 	public void parsesOpenAddonWithoutEmptySearch() {
 		VoiceIntent youtube = VoiceIntentParser.parse("Open YouTube", Locale.ENGLISH);
 		assertEquals(VoiceIntent.Kind.OPEN_ADDON, youtube.getKind());

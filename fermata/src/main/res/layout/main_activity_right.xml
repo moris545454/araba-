@@ -42,22 +42,22 @@
         android:id="@+id/tool_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/body_layout"
+        app:layout_constraintBottom_toTopOf="@id/phone_bottom_menu"
         app:layout_constraintEnd_toStartOf="@id/nav_bar"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/phone_header_divider" />
+        android:layout_margin="8dp" />
 
     <me.aap.fermata.ui.view.BodyLayout
         android:id="@+id/body_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/app_background"
-        app:layout_constraintBottom_toTopOf="@id/phone_bottom_menu"
+        app:layout_constraintBottom_toTopOf="@id/tool_bar"
         app:layout_constraintEnd_toStartOf="@id/nav_bar"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar"
+        app:layout_constraintTop_toBottomOf="@id/phone_header_divider"
         app:layout_constraintVertical_weight="1" />
 
     <View
@@ -69,7 +69,7 @@
         android:translationZ="3dp"
         android:importantForAccessibility="no"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/phone_bottom_menu"
+        app:layout_constraintBottom_toTopOf="@id/tool_bar"
         app:layout_constraintEnd_toStartOf="@id/nav_bar"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -79,7 +79,7 @@
         android:layout_height="@dimen/control_panel_height"
         android:translationZ="4dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/phone_bottom_menu"
+        app:layout_constraintBottom_toTopOf="@id/tool_bar"
         app:layout_constraintEnd_toStartOf="@id/nav_bar"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent" />
@@ -93,7 +93,7 @@
         android:translationY="-76dp"
         android:alpha="0.5"
         android:elevation="10dp"
-        app:layout_constraintBottom_toTopOf="@id/phone_bottom_menu"
+        app:layout_constraintBottom_toTopOf="@id/tool_bar"
         app:layout_constraintEnd_toStartOf="@id/nav_bar" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -120,7 +120,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar" />
+        app:layout_constraintTop_toBottomOf="@id/phone_header_divider" />
 
     <me.aap.fermata.ui.view.MediaHubMenuView
         android:id="@+id/tool_menu"
@@ -129,8 +129,10 @@
         android:elevation="10dp"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/nav_bar"
-        app:layout_constraintTop_toBottomOf="@id/tool_bar"
-        app:layout_constraintVertical_bias="0" />
+        app:layout_constraintBottom_toTopOf="@id/tool_bar"
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintTop_toBottomOf="@id/phone_header_divider"
+        app:layout_constrainedHeight="true" />
 
     <me.aap.fermata.ui.view.MediaHubMenuView
         android:id="@+id/context_menu"
@@ -141,18 +143,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constrainedHeight="true" />
 
     <me.aap.fermata.ui.view.MediaHubMenuView
         android:id="@+id/control_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:elevation="10dp"
-        android:translationY="-76dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/control_panel"
         app:layout_constraintEnd_toStartOf="@id/nav_bar"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintTop_toBottomOf="@id/phone_header_divider"
+        app:layout_constrainedHeight="true" />
 
     <me.aap.fermata.ui.view.MediaHubMenuView
         android:id="@+id/nav_menu_view"
@@ -162,6 +166,8 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/nav_bar"
-        app:layout_constraintVertical_bias="1" />
+        app:layout_constraintVertical_bias="1"
+        app:layout_constraintTop_toBottomOf="@id/phone_header_divider"
+        app:layout_constrainedHeight="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

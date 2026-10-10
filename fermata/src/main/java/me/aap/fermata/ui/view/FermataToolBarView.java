@@ -24,10 +24,18 @@ import me.aap.utils.ui.view.ToolBarView;
 public class FermataToolBarView extends ToolBarView {
 	public FermataToolBarView(@NonNull Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
+		initializeDock();
 	}
 
 	public FermataToolBarView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
+		initializeDock();
+	}
+
+	private void initializeDock() {
+		setBackgroundResource(R.drawable.media_hub_menu_bg);
+		int padding = UiUtils.toIntPx(getContext(), 10);
+		setPadding(padding, 0, padding, 0);
 	}
 
 	@Override
@@ -73,6 +81,14 @@ public class FermataToolBarView extends ToolBarView {
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
+		for (int i = 0; i < getChildCount(); i++) {
+			View child = getChildAt(i);
+			if (child instanceof ImageButton button) {
+				button.setBackground(MediaHubStyle.card(getContext(),
+						MediaHubStyle.routeAccent(MainActivityDelegate.get(getContext())), false));
+				button.setElevation(UiUtils.toIntPx(getContext(), 2));
+			}
+		}
 		if (!(getParent() instanceof ViewGroup parent)) return;
 		View[] buttons = new View[getChildCount()];
 		int count = 0;
@@ -88,9 +104,8 @@ public class FermataToolBarView extends ToolBarView {
 	@Override
 	public void setSize(float scale) {
 		super.setSize(scale);
-		if (!isCarInterface()) return;
 
-		setBackgroundResource(R.drawable.aa_top_bar_bg);
+		setBackgroundResource(R.drawable.media_hub_menu_bg);
 		int horizontalPadding = UiUtils.toIntPx(getContext(), 14);
 		setPadding(horizontalPadding, 0, horizontalPadding, 0);
 

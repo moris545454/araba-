@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vcmd_action_find">(bul|ara)</string>
+    <string name="vcmd_action_open">aç</string>
+    <string name="vcmd_action_pause">duraklat</string>
+    <string name="vcmd_action_stop">durdur</string>
+    <string name="vcmd_action_play">(oynat|başlat|devam et)</string>
+    <string name="vcmd_action_play_favorites">(favorileri|favorilerimi) oynat</string>
+    <string name="vcmd_action_sub_on">altyazıları (aç|göster)</string>
+    <string name="vcmd_action_sub_off">altyazıları (kapat|gizle)</string>
+    <string name="vcmd_action_sub_change">altyazıları değiştir</string>
+    <string name="vcmd_action_audio_change">ses (akışını|kanalını) değiştir</string>
+    <string name="vcmd_location_folders">(dosyalar|klasörler)</string>
+    <string name="vcmd_location_favorites">favoriler</string>
+    <string name="vcmd_location_playlists">oynatma listeleri</string>
+    <string name="vcmd_location_tv">(tv|televizyon)</string>
+    <string name="vcmd_location_youtube">youtube</string>
+    <string name="vcmd_location_browser">(tarayıcı|web)</string>
+    <string name="vcmd_time_unit_second">saniye</string>
+    <string name="vcmd_time_unit_minute">dakika</string>
+    <string name="vcmd_time_unit_hour">saat</string>
+    <string name="vcmd_nums">sıfır bir iki üç dört beş altı yedi sekiz dokuz</string>
+    <string name="vcmd_cur_track">(şu anki parça|şu an oynatılan|ne çalıyor)</string>
+    <string name="vcmd_ff">ileri sar (?&lt;N&gt;\\d+|[a-zçğıöşü]+) (?&lt;U&gt;saniye|dakika|saat)</string>
+    <string name="vcmd_rw">geri sar (?&lt;N&gt;\\d+|[a-zçğıöşü]+) (?&lt;U&gt;saniye|dakika|saat)</string>
+    <string name="vcmd_find_play_open">(?:(?&lt;A&gt;bul|ara|oynat|aç) )?(?:(?&lt;L&gt;dosyalar|klasörler|favoriler|oynatma listeleri|tv|televizyon|youtube|tarayıcı|web) )?(?&lt;Q&gt;.+)</string>
+    <string name="vcmd_chat">(chat ?gpt|sohbet) (?&lt;Q&gt;.+)</string>
+</resources>

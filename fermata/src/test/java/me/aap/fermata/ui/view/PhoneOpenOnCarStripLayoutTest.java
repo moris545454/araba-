@@ -75,7 +75,9 @@ public class PhoneOpenOnCarStripLayoutTest {
 			String navBar = element(shell, "nav_bar");
 			String toolBar = element(shell, "tool_bar");
 			assertTrue(navBar.contains("app:layout_constraintTop_toBottomOf=\"@id/phone_header_divider\""));
-			assertTrue(toolBar.contains("app:layout_constraintTop_toBottomOf=\"@id/phone_header_divider\""));
+			assertTrue(element(shell, "body_layout").contains("app:layout_constraintTop_toBottomOf=\"@id/phone_header_divider\""));
+			assertTrue(toolBar.contains("app:layout_constraintBottom_toTopOf=\"@id/phone_bottom_menu\""));
+			assertFalse(toolBar.contains("app:layout_constraintTop_toBottomOf=\"@id/phone_header_divider\""));
 		}
 	}
 

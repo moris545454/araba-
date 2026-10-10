@@ -113,6 +113,7 @@ import me.aap.fermata.ui.view.MediaItemListViewAdapter;
 import me.aap.fermata.ui.view.PhoneBottomMenuController;
 import me.aap.fermata.ui.view.PhonePlaybackCarHeaderController;
 import me.aap.fermata.ui.view.UiShellController;
+import me.aap.fermata.ui.view.NavBarController;
 import me.aap.fermata.ui.view.VideoView;
 import me.aap.utils.app.App;
 import me.aap.utils.async.FutureSupplier;
@@ -1304,7 +1305,9 @@ public class MainActivityDelegate extends ActivityDelegate
 
 	@Override
 	public void onPreferenceChanged(PreferenceStore store, List<PreferenceStore.Pref<?>> prefs) {
-		if (MainActivityPrefs.hasThemePref(this, prefs)) {
+		if (prefs.contains(MainActivityPrefs.SHOW_SHORTCUT_RAIL)) {
+			NavBarController.refresh(this);
+		} else if (MainActivityPrefs.hasThemePref(this, prefs)) {
 			recreate();
 		} else if (MainActivityPrefs.hasNavBarPosPref(this, prefs)) {
 			recreate();

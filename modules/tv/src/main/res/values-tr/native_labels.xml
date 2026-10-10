@@ -1,0 +1,4 @@
+<resources>
+<string name="epg">Program rehberi</string>
+<string name="epg_url">Program rehberi adresi (XMLTV)</string>
+</resources>

@@ -308,14 +308,14 @@ public class MediaItemView extends ConstraintLayout
 	private void configureItemChrome(Item item) {
 		MainActivityDelegate a = getMainActivity();
 		iconTint = ColorStateList.valueOf(MediaHubStyle.routeAccent(a));
-		boolean sourceHeader = a.isCarActivity() && !a.isGridView() && isTvSourceItem(item);
+		boolean sourceHeader = !a.isGridView() && isTvSourceItem(item);
 		ImageView icon = getIcon();
 		icon.setBackground(MediaHubStyle.badge(getContext(), MediaHubStyle.routeAccent(a)));
 
 		if (sourceHeader) {
-			setMinimumHeight(toIntPx(getContext(), 76));
-			setBackgroundResource(R.drawable.dashboard_source_header_bg);
-			icon.setVisibility(GONE);
+			setMinimumHeight(toIntPx(getContext(), 96));
+			setBackground(MediaHubStyle.card(getContext(), MediaHubStyle.routeAccent(a), true));
+			icon.setVisibility(VISIBLE);
 			getTitle().setTextSize(COMPLEX_UNIT_SP, 22);
 			getTitle().setTypeface(null, Typeface.BOLD);
 			getSubtitle().setTextSize(COMPLEX_UNIT_SP, 13);
@@ -329,7 +329,7 @@ public class MediaItemView extends ConstraintLayout
 
 	private static boolean isTvSourceItem(Item item) {
 		String id = item.getId();
-		return (id != null) && (id.startsWith("tvm3u:") || id.startsWith("tvx:"));
+		return (id != null) && (id.startsWith("tvm3u:") || id.startsWith("tvx:") || id.startsWith("tvs:"));
 	}
 
 	private static Drawable getLoadingDrawable(Context ctx) {

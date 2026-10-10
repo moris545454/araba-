@@ -1,9 +1,9 @@
 <resources>
     <string name="home">Ana sayfa</string>
-    <string name="dashboard">Pano</string>
-    <string name="open_dashboard">Panoyu aç</string>
-    <string name="dashboard_order">Pano sırası</string>
-    <string name="reset_dashboard_order">Pano sırasını sıfırla</string>
+    <string name="dashboard">Ana ekran</string>
+    <string name="open_dashboard">Ana ekranı aç</string>
+    <string name="dashboard_order">Ana ekran sırası</string>
+    <string name="reset_dashboard_order">Ana ekran sırasını sıfırla</string>
     <string name="dashboard_order_sub">Gezinme sırasını da kontrol eder</string>
     <string name="dashboard_now_playing">Şimdi oynatılıyor</string>
     <string name="dashboard_continue">İzlemeye devam et</string>
@@ -21,14 +21,14 @@
     <string name="dashboard_home_sub">Başlangıç ekranı ve hızlı erişim</string>
     <string name="dashboard_folders_sub">Yerel dosyalar ve klasörler</string>
     <string name="dashboard_favorites_sub">Sabitlenmiş kanallar ve medya</string>
-    <string name="dashboard_recent_sub">Araç hub\'ında son oynatılanlar</string>
+    <string name="dashboard_recent_sub">Son oynatılan içerikler</string>
     <string name="dashboard_playlists_sub">Kaydedilmiş kuyruklar ve koleksiyonlar</string>
     <string name="dashboard_menu_sub">Tüm araçlar ve ayarlar</string>
     <string name="dashboard_tv_sub">Canlı TV ve IPTV</string>
     <string name="dashboard_radio_sub">Popüler istasyonlar ve ülkeler</string>
     <string name="dashboard_youtube_sub">Video izle</string>
     <string name="dashboard_web_sub">Tarayıcı ve medya</string>
-    <string name="dashboard_addon_sub">Addon kısayolu</string>
+    <string name="dashboard_addon_sub">Eklenti kısayolu</string>
     <string name="dashboard_addon_disabled_sub">Ayarlarda devre dışı</string>
     <string name="addon_name_radio">Radyo</string>
 
@@ -302,7 +302,7 @@
 
     <string name="vfs_content">İçerik</string>
     <string name="vfs_file_system">Dosyalar</string>
-    <string name="vfs_gdrive">Google drive</string>
+    <string name="vfs_gdrive">Google Drive</string>
     
     
     <string name="m3u_playlist">M3U oynatma listesi</string>
@@ -325,8 +325,8 @@
     <string name="eq_pop">Pop</string>
     <string name="eq_rock">Rock</string>
 
-    <string name="host">Host</string>
-    <string name="port">Port</string>
+    <string name="host">Sunucu</string>
+    <string name="port">Bağlantı noktası</string>
     <string name="path">Yol</string>
     <string name="share_name">Paylaşma adı</string>
     <string name="domain">Alan adı</string>
@@ -458,7 +458,7 @@
 	<string name="module_name_audiobook">Sesli kitap</string>
 	<string name="car_keyboard_cancel">İptal etmek</string>
 	<string name="car_keyboard_input">Giriş</string>
-	<string name="car_keyboard_shift">Vardiya</string>
+	<string name="car_keyboard_shift">Zaman kaydırma</string>
 	<string name="car_keyboard_space">Uzay</string>
 	<string name="car_keyboard_paste">Yapıştır</string>
 	<string name="car_keyboard_delete">Silmek</string>
@@ -466,7 +466,7 @@
 	<string name="car_keyboard_ok">TAMAM</string>
 	<string name="car_keyboard_go">Git</string>
 	<string name="car_keyboard_send">Gönder</string>
-	<string name="car_keyboard_enter">Enter</string>
+	<string name="car_keyboard_enter">Giriş</string>
 	<string name="m3u_playlist_timeout">Yanıt zaman aşımı</string>
 	<string name="diagnostics">Tanılama</string>
 	<string name="diagnostics_sub">Çökmeler, donmalar ve beklenmeyen uygulama durumları için yerel raporlar</string>
@@ -500,23 +500,23 @@
 	<string name="voice_trigger_cleared">Araç ses düğmesi ataması temizlendi.</string>
 	<string name="voice_selection_prompt">Bir, iki veya üç numara deyin</string>
     <string name="equalizer_apply_next_session">Ekolayzır değişiklikleri kaydedildi. Bir sonraki oynatma oturumunda uygulanacak.</string>
-    <string name="audio_effects_apply">Apply</string>
-    <string name="audio_effects_draft">Unsaved EQ changes</string>
-    <string name="audio_effects_applying">Applying EQ changes...</string>
-    <string name="audio_effects_applied">EQ changes applied</string>
-    <string name="audio_effects_apply_failed">EQ changes saved, but could not be applied</string>
-    <string name="audio_effects_flat">Flat</string>
-    <string name="audio_effects_custom">Custom</string>
-    <string name="audio_effects_set_flat">Reset EQ to 0</string>
-    <string name="audio_effects_scale">dB gain, -15 to +15 (0 dB center)</string>
-    <string name="audio_effects_mode">Mode</string>
-    <string name="audio_effects_band_scroll">Equalizer bands</string>
+    <string name="audio_effects_apply">Uygula</string>
+    <string name="audio_effects_draft">Kaydedilmemiş ekolayzır değişiklikleri</string>
+    <string name="audio_effects_applying">Ekolayzır değişiklikleri uygulanıyor…</string>
+    <string name="audio_effects_applied">Ekolayzır değişiklikleri uygulandı</string>
+    <string name="audio_effects_apply_failed">Ekolayzır değişiklikleri kaydedildi ancak uygulanamadı</string>
+    <string name="audio_effects_flat">Düz</string>
+    <string name="audio_effects_custom">Özel</string>
+    <string name="audio_effects_set_flat">Ekolayzırı sıfırla</string>
+    <string name="audio_effects_scale">Ses kazancı: −15 ile +15 dB (orta değer 0 dB)</string>
+    <string name="audio_effects_mode">Mod</string>
+    <string name="audio_effects_band_scroll">Ekolayzır bantları</string>
     <string name="audio_effects_band_format">%1$s Hz, %2$s dB</string>
-    <string name="audio_effects_additional">Additional effects</string>
-    <string name="audio_effects_expand">Show additional effects</string>
-    <string name="audio_effects_collapse">Hide additional effects</string>
-    <string name="audio_effects_disabled">Disabled</string>
-    <string name="audio_effects_range_error">Enter a value from %1$d to %2$d.</string>
+    <string name="audio_effects_additional">Ek ses efektleri</string>
+    <string name="audio_effects_expand">Ek efektleri göster</string>
+    <string name="audio_effects_collapse">Ek efektleri gizle</string>
+    <string name="audio_effects_disabled">Kapalı</string>
+    <string name="audio_effects_range_error">%1$d ile %2$d arasında bir değer girin.</string>
 
     <string name="legacy_preset_migration_notice">Cihazınızın önceki ekolayzır ön ayarı otomatik olarak dönüştürülemedi. Ekolayzırı bir kez seçin veya ayarlayın.</string>
 </resources>

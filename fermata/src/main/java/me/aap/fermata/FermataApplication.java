@@ -77,6 +77,11 @@ public class FermataApplication extends NetSplitCompatApp {
 	protected void attachBaseContext(Context ctx) {
 		var ps = SharedPreferenceStore.create(ctx.getSharedPreferences("fermata", MODE_PRIVATE));
 		preferenceStore = ps;
+		var nativePrefs = ctx.getSharedPreferences("fermata", MODE_PRIVATE);
+		if (!nativePrefs.getBoolean("TURKISH_INTERFACE_V1", false)) {
+			ps.applyIntPref(LOCALE, MainActivityPrefs.Lang.TR.ordinal());
+			nativePrefs.edit().putBoolean("TURKISH_INTERFACE_V1", true).apply();
+		}
 		var loc = MainActivityPrefs.Lang.get(ps.getIntPref(LOCALE)).locale;
 		super.attachBaseContext(MainActivityDelegate.createLocaleContext(ctx, loc));
 	}
