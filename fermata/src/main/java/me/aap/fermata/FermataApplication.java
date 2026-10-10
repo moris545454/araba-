@@ -55,7 +55,8 @@ public class FermataApplication extends NetSplitCompatApp {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		diagnostics = AndroidDiagnosticsRuntime.install(this);
+		me.aap.fermata.update.GithubUpdater.schedule(this);
+        diagnostics = AndroidDiagnosticsRuntime.install(this);
 		diagnostics.recordEssential("application", "application_initializing",
 				DiagnosticPriority.STATE, null, null);
 		vfsManager = new FermataVfsManager();

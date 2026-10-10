@@ -1,0 +1,8 @@
+<resources>
+    <string name="dashboard_mirror_title">Espelhamento de tela</string>
+    <string name="dashboard_mirror_sub">Mostrar a tela do telefone</string>
+    <string name="dashboard_recent_shelf">Conteúdo recente</string>
+    <string name="dashboard_recent_empty">O conteúdo reproduzido aparecerá aqui.</string>
+    <string name="dashboard_mirror_help">Conecte o telefone ao Android Auto. Abra FermataX Mirror no menu de aplicativos do carro. Desbloqueie o telefone e confirme a captura de tela. Se houver uma solicitação de permissão pendente, abra FermataX no telefone para continuar.</string>
+    <string name="dashboard_mirror_mobile_help">O espelhamento de tela está disponível na versão Android Auto do FermataX. Conecte essa versão ao Android Auto, abra FermataX Mirror no carro e confirme a captura de tela no telefone desbloqueado.</string>
+</resources>

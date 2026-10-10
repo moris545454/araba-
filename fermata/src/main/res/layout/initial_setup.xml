@@ -3,7 +3,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@drawable/app_background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -42,6 +43,7 @@
                 android:id="@+id/initial_setup_nav_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minHeight="48dp"
                 android:text="@string/initial_setup_left"
                 android:textColor="?android:attr/textColorPrimary" />
 
@@ -50,6 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:minHeight="48dp"
                 android:text="@string/initial_setup_right"
                 android:textColor="?android:attr/textColorPrimary" />
         </RadioGroup>
@@ -63,11 +66,15 @@
 
         <Spinner
             android:id="@+id/initial_setup_app_language"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:background="@drawable/media_hub_input_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/initial_setup_voice_enabled"
+            android:minHeight="48dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -84,10 +91,13 @@
 
         <Spinner
             android:id="@+id/initial_setup_voice_language"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:background="@drawable/media_hub_input_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/initial_setup_microphone_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -101,7 +111,7 @@
             android:layout_marginTop="4dp"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/initial_setup_continue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,0 +1,8 @@
+<resources>
+    <string name="dashboard_mirror_title">Duplicar pantalla</string>
+    <string name="dashboard_mirror_sub">Mostrar la pantalla del teléfono</string>
+    <string name="dashboard_recent_shelf">Contenido reciente</string>
+    <string name="dashboard_recent_empty">Aquí aparecerá el contenido que reproduzcas.</string>
+    <string name="dashboard_mirror_help">Conecta el teléfono a Android Auto. Abre FermataX Mirror en el menú de aplicaciones del coche. Desbloquea el teléfono y confirma la captura de pantalla. Si hay una solicitud de permiso pendiente, abre FermataX en el teléfono para continuar.</string>
+    <string name="dashboard_mirror_mobile_help">La duplicación de pantalla está disponible en la versión Android Auto de FermataX. Conecta esa versión a Android Auto, abre FermataX Mirror en el coche y confirma la captura de pantalla en el teléfono desbloqueado.</string>
+</resources>

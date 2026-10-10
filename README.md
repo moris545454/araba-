@@ -1,3 +1,11 @@
+# FermataX — yenilenen arayüz ve GitHub güncellemeleri
+
+[APK indir](https://github.com/moris545454/araba-/releases/latest) · [Güncelleme ve yayınlama rehberi](GITHUB_UPDATES_TR.md) · [Arayüz değişiklikleri](UI_REDESIGN_TR.md)
+
+TV, YouTube ve ekran yansıtma öncelikli koyu kart tasarımı. Telefon ve Android Auto için tek universal debug APK. Ayarlar → Arayüz → Uygulama güncellemeleri ekranından yeni sürümleri kontrol edip yükleyebilirsiniz. Otomatik bildirimler için Android bildirim iznini açın; arka plan kontrolleri Android tarafından geciktirilebilir.
+
+---
+
 <div align="center">
   <img src="extracted_logo/fermatax_app_logo.png" width="120" alt="FermataX logo">
 

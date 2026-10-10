@@ -1,0 +1,8 @@
+<resources>
+    <string name="dashboard_mirror_title">Zrcaljenje zaslona</string>
+    <string name="dashboard_mirror_sub">Prikaži zaslon telefona</string>
+    <string name="dashboard_recent_shelf">Nedavni sadržaji</string>
+    <string name="dashboard_recent_empty">Ovdje će se pojaviti sadržaji koje reproducirate.</string>
+    <string name="dashboard_mirror_help">Povežite telefon s Android Autom. Otvorite FermataX Mirror u izborniku aplikacija automobila. Otključajte telefon i potvrdite snimanje zaslona. Ako zahtjev za dopuštenje čeka, otvorite FermataX na telefonu za nastavak.</string>
+    <string name="dashboard_mirror_mobile_help">Zrcaljenje zaslona dostupno je u verziji FermataX za Android Auto. Povežite tu verziju s Android Autom, otvorite FermataX Mirror u automobilu i potvrdite snimanje zaslona na otključanom telefonu.</string>
+</resources>

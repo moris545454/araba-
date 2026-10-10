@@ -103,7 +103,7 @@ public class ControlPanelView extends ConstraintLayout
 						getActivity().postDelayed(task, delay);
 					}
 				});
-		if (BuildConfig.AUTO && a.isCarActivity()) setBackgroundResource(R.drawable.aa_control_panel_bg);
+		setBackgroundResource(R.drawable.aa_control_panel_bg);
 		presentationView = new ControlPanelPresentationView(this);
 		a.addBroadcastListener(this, ACTIVITY_DESTROY | FRAGMENT_CHANGED);
 		a.getPrefs().addBroadcastListener(this);

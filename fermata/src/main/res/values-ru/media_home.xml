@@ -1,0 +1,8 @@
+<resources>
+    <string name="dashboard_mirror_title">Трансляция экрана</string>
+    <string name="dashboard_mirror_sub">Показать экран телефона</string>
+    <string name="dashboard_recent_shelf">Недавний контент</string>
+    <string name="dashboard_recent_empty">Здесь появится воспроизведённый контент.</string>
+    <string name="dashboard_mirror_help">Подключите телефон к Android Auto. Откройте FermataX Mirror в меню приложений автомобиля. Разблокируйте телефон и подтвердите захват экрана. Если запрос разрешения ожидает ответа, откройте FermataX на телефоне, чтобы продолжить.</string>
+    <string name="dashboard_mirror_mobile_help">Трансляция экрана доступна в версии FermataX для Android Auto. Подключите эту версию к Android Auto, откройте FermataX Mirror в автомобиле и подтвердите захват экрана на разблокированном телефоне.</string>
+</resources>

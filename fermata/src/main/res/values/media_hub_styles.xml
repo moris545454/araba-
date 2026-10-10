@@ -1,0 +1,61 @@
+<resources>
+    <style name="MediaHub.Title" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+    <style name="MediaHub.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+    <style name="MediaHub.PopupMenu" parent="Theme.Utils.Base.PopupMenuStyle">
+        <item name="itemPadding">16dp</item>
+        <item name="tint">?attr/colorAccent</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textAppearance">@style/MediaHub.Title</item>
+        <item name="android:colorBackground">?attr/colorSurface</item>
+        <item name="colorPrimarySurface">?attr/colorPrimarySurface</item>
+    </style>
+    <style name="MediaHub.Preference" parent="Theme.Utils.Base.PreferenceStyle">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="titleTextAppearance">@style/MediaHub.Title</item>
+        <item name="subtitleTextAppearance">@style/MediaHub.Caption</item>
+        <item name="tint">?attr/colorAccent</item>
+    </style>
+    <style name="MediaHub.FileList" parent="Theme.Utils.Base.FileListViewStyle">
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textAppearance">@style/MediaHub.Title</item>
+        <item name="background">@drawable/media_item_bg</item>
+    </style>
+    <style name="MediaHub.Dialog" parent="Theme.Utils.Base.AlertDialog">
+        <item name="shapeAppearanceOverlay">@style/MediaHub.DialogShape</item>
+        <item name="colorSurface">?attr/colorSecondary</item>
+        <item name="colorOnSurface">?android:attr/textColorPrimary</item>
+        <item name="buttonBarPositiveButtonStyle">@style/MediaHub.DialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MediaHub.DialogButton</item>
+        <item name="buttonBarNeutralButtonStyle">@style/MediaHub.DialogButton</item>
+    </style>
+    <style name="MediaHub.DialogShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">22dp</item>
+    </style>
+    <style name="MediaHub.DialogButton" parent="Theme.Utils.Base.AlertDialog.Button">
+        <item name="android:minHeight">48dp</item>
+        <item name="cornerRadius">14dp</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="strokeColor">?attr/boxStrokeColor</item>
+    </style>
+    <style name="MediaHub.ToolBar" parent="Theme.Utils.Base.ToolBarStyle">
+        <item name="size">48dp</item>
+        <item name="textAppearance">@style/MediaHub.ToolBarTitle</item>
+    </style>
+    <style name="MediaHub.ToolBarTitle" parent="Theme.Utils.Base.ToolBarTextAppearance">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="MediaHub.Spinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:popupBackground">@drawable/media_hub_menu_bg</item>
+        <item name="android:background">@drawable/media_hub_input_bg</item>
+        <item name="android:minHeight">48dp</item>
+    </style>
+</resources>

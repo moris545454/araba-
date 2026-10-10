@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dashboard_content_padding">12dp</dimen>
+    <dimen name="dashboard_content_padding">10dp</dimen>
     <dimen name="dashboard_card_margin">6dp</dimen>
 
-    <dimen name="dashboard_tile_height">104dp</dimen>
-	<dimen name="dashboard_tile_padding">12dp</dimen>
-	<dimen name="dashboard_tile_icon_size">76dp</dimen>
+    <dimen name="dashboard_tile_height">244dp</dimen>
+	<dimen name="dashboard_tile_padding">16dp</dimen>
+	<dimen name="dashboard_tile_icon_size">56dp</dimen>
 	<dimen name="dashboard_tile_icon_padding">4dp</dimen>
     <dimen name="dashboard_tile_text_gap">14dp</dimen>
     <dimen name="dashboard_tile_title_size">20sp</dimen>
-    <dimen name="dashboard_tile_subtitle_size">13sp</dimen>
+    <dimen name="dashboard_tile_subtitle_size">12sp</dimen>
 
 	<dimen name="dashboard_smart_height">152dp</dimen>
     <dimen name="dashboard_smart_padding">16dp</dimen>

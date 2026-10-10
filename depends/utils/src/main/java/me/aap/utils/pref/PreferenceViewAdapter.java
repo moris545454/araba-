@@ -38,12 +38,13 @@ public class PreferenceViewAdapter extends RecyclerView.Adapter<PreferenceViewAd
 		Context ctx = parent.getContext();
 		PreferenceView v = new PreferenceView(ctx);
 		RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(MATCH_PARENT, WRAP_CONTENT);
-		int margin = (int) UiUtils.toPx(ctx, 1);
-		int padding = (int) UiUtils.toPx(ctx, 5);
+		int margin = (int) UiUtils.toPx(ctx, 4);
+		int padding = (int) UiUtils.toPx(ctx, 14);
 		v.setLayoutParams(lp);
 		lp.setMargins(margin, margin, margin, margin);
 		v.setPadding(padding, padding, padding, padding);
 		v.setFocusable(true);
+		v.setMinimumHeight(UiUtils.toIntPx(ctx, 76));
 		v.setBackgroundResource(R.drawable.box_secondary);
 		return new PrefViewHolder(v);
 	}

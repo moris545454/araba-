@@ -27,6 +27,7 @@ final class DashboardCard {
 	final boolean fixed;
 	final boolean wide;
 	final boolean playing;
+	final boolean recentShelf;
 	@Nullable
 	final List<PlayableItem> recentItems;
 	@Nullable
@@ -36,6 +37,15 @@ final class DashboardCard {
 				CharSequence title, CharSequence subtitle, boolean fixed, boolean wide,
 				boolean playing, @Nullable List<PlayableItem> recentItems,
 				@Nullable SmartTopViewState smartTopState) {
+		this(item, playable, targetId, icon, title, subtitle, fixed, wide, playing,
+				recentItems, smartTopState, false);
+	}
+
+	private DashboardCard(DashboardItems.Item item, PlayableItem playable, int targetId, int icon,
+			CharSequence title, CharSequence subtitle, boolean fixed, boolean wide,
+			boolean playing, @Nullable List<PlayableItem> recentItems,
+			@Nullable SmartTopViewState smartTopState, boolean recentShelf) {
+		this.recentShelf = recentShelf;
 		this.item = item;
 		this.playable = playable;
 		this.targetId = targetId;
@@ -47,6 +57,12 @@ final class DashboardCard {
 		this.playing = playing;
 		this.recentItems = recentItems;
 		this.smartTopState = smartTopState;
+	}
+
+	static DashboardCard recentShelf(Context ctx) {
+		return new DashboardCard(null, null, R.id.recent_fragment, R.drawable.timer,
+				ctx.getString(R.string.dashboard_recent_shelf), "", true, true, false,
+				null, null, true);
 	}
 
 	static DashboardCard item(DashboardItems.Item item) {

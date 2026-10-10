@@ -24,10 +24,10 @@
     <string name="dashboard_recent_sub">Araç hub\'ında son oynatılanlar</string>
     <string name="dashboard_playlists_sub">Kaydedilmiş kuyruklar ve koleksiyonlar</string>
     <string name="dashboard_menu_sub">Tüm araçlar ve ayarlar</string>
-    <string name="dashboard_tv_sub">Canlı TV, VOD ve diziler</string>
+    <string name="dashboard_tv_sub">Canlı TV ve IPTV</string>
     <string name="dashboard_radio_sub">Popüler istasyonlar ve ülkeler</string>
-    <string name="dashboard_youtube_sub">Video arama ve oynatma</string>
-    <string name="dashboard_web_sub">Web medyasını aç</string>
+    <string name="dashboard_youtube_sub">Video izle</string>
+    <string name="dashboard_web_sub">Tarayıcı ve medya</string>
     <string name="dashboard_addon_sub">Addon kısayolu</string>
     <string name="dashboard_addon_disabled_sub">Ayarlarda devre dışı</string>
     <string name="addon_name_radio">Radyo</string>

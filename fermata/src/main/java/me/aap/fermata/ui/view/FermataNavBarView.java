@@ -4,6 +4,7 @@ import static me.aap.utils.ui.activity.ActivityListener.FRAGMENT_CHANGED;
 import static me.aap.utils.ui.activity.ActivityListener.FRAGMENT_CONTENT_CHANGED;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -357,6 +358,8 @@ public class FermataNavBarView extends NavBarView implements GestureListener {
 
 	private void applyVisualState(View item) {
 		if (!(item instanceof NavButtonView button)) return;
+		ImageViewCompat.setImageTintList(button.getIcon(), ColorStateList.valueOf(
+				MediaHubStyle.destinationAccent(item.getId())));
 		button.getIcon().setAlpha(item.isSelected() || item.isFocused() ?
 				1F : INACTIVE_ICON_ALPHA);
 	}

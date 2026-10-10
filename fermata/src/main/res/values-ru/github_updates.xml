@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="github_updates">App updates</string>
+    <string name="github_updates_help">Updates are checked on startup and periodically in the background. Android may delay checks. Download and installation require your confirmation.</string>
+    <string name="github_updates_auto">Notify me about new versions</string>
+    <string name="github_update_available">FermataX update available</string>
+    <string name="github_update_version">Version %1$s</string>
+    <string name="github_updates_check">Check for updates</string>
+    <string name="github_updates_install">Download and install</string>
+    <string name="github_updates_checking">Checking for updates…</string>
+    <string name="github_updates_latest">You have the latest compatible version.</string>
+    <string name="github_updates_downloading">Downloading and verifying the update…</string>
+    <string name="github_updates_permission">Allow installation from this app in Android settings, then return here.</string>
+    <string name="github_updates_confirm">Confirm installation in the Android installer.</string>
+    <string name="github_updates_error">The update could not be checked or verified. Check your connection and try again.</string>
+    <string name="github_updates_close">Close</string>
+    <string name="github_updates_notifications">Notification settings</string>
+</resources>

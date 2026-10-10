@@ -1,0 +1,9 @@
+<resources>
+    <item name="dashboard_mirror_action" type="id" />
+    <string name="dashboard_mirror_title">Screen mirroring</string>
+    <string name="dashboard_mirror_sub">Your phone on Android Auto</string>
+    <string name="dashboard_mirror_help">To mirror your phone:\n\n1. Connect your phone to Android Auto.\n2. Open the FermataX Mirror entry in the Android Auto launcher.\n3. Unlock your phone and accept Android’s screen-capture confirmation.\n\nIf a permission request is pending, open FermataX on the phone to resume it.</string>
+    <string name="dashboard_mirror_mobile_help">Screen mirroring is available in the Android Auto version of FermataX.\n\nConnect that version to Android Auto, open FermataX Mirror in the car launcher, then confirm screen capture on the unlocked phone.</string>
+    <string name="dashboard_recent_shelf">Recent content</string>
+    <string name="dashboard_recent_empty">Your played content will appear here.</string>
+</resources>

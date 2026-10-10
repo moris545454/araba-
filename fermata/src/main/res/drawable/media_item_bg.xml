@@ -11,7 +11,9 @@
 
     <item android:id="@android:id/background">
         <shape>
-            <solid android:color="@color/media_item" />
+            <gradient android:angle="0"
+                android:startColor="@color/media_item"
+                android:endColor="?attr/colorPrimarySurface" />
             <stroke
                 android:width="1dp"
                 android:color="@color/media_item_border" />

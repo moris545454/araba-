@@ -84,3 +84,9 @@ build-custom.gradle
 /.retired-module-build-cache-*/
 /.codex-gradle/
 /.gradle-fermata-temp/
+
+# Local update publishing artifacts
+.android/
+release-assets/
+__pycache__/
+*.pyc

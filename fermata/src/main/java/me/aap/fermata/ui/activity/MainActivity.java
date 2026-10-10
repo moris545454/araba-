@@ -96,6 +96,8 @@ public class MainActivity extends SplitCompatActivityBase
 		});
 		super.onCreate(savedInstanceState);
 		PhoneConnectionObservation.observe(this, this);
+        java.util.concurrent.CompletableFuture.runAsync(() ->
+                me.aap.fermata.update.GithubUpdater.checkAndNotify(getApplicationContext()));
 	}
 
 	@Override
@@ -116,6 +118,8 @@ public class MainActivity extends SplitCompatActivityBase
 	protected void onResume() {
 		super.onResume();
 		activeInstance = this;
+        if (!isCarActivity() && !FermataApplication.get().isMirroringMode())
+            me.aap.fermata.update.GithubUpdater.requestNoticePermission(this);
 	}
 
 	@Override

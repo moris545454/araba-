@@ -19,7 +19,13 @@
         <item name="appEqualizerStyle">@style/AppTheme.EqualizerStyle</item>
         <item name="appStreamProgressStyle">@style/AppTheme.StreamProgressStyle</item>
         <item name="appVideoInfoStyle">@style/AppTheme.VideoInfoStyle</item>
-        <item name="cornerRadius">13dp</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="spinnerStyle">@style/MediaHub.Spinner</item>
+        <item name="toolbarStyle">@style/MediaHub.ToolBar</item>
+        <item name="popupMenuStyle">@style/MediaHub.PopupMenu</item>
+        <item name="android:preferenceStyle">@style/MediaHub.Preference</item>
+        <item name="fileListViewStyle">@style/MediaHub.FileList</item>
+        <item name="materialAlertDialogTheme">@style/MediaHub.Dialog</item>
     </style>
 
     <style name="PhoneBottomMenuThemeOverlay" parent="">
@@ -29,8 +35,8 @@
     <style name="AppTheme.MediaItemStyle">
         <item name="iconColor">?attr/colorOnSecondary</item>
         <item name="hintColor">@android:color/holo_green_light</item>
-        <item name="titleTextAppearance">?attr/textAppearanceListItem</item>
-        <item name="subtitleTextAppearance">?attr/textAppearanceCaption</item>
+        <item name="titleTextAppearance">@style/MediaHub.Title</item>
+        <item name="subtitleTextAppearance">@style/MediaHub.Caption</item>
         <item name="android:textColor">@color/media_item_text_color</item>
         <item name="tint">@color/media_item_tint</item>
         <item name="indicatorColor">@color/media_item_tint</item>
@@ -65,7 +71,7 @@
     </style>
 
     <style name="AppTheme.StreamProgressStyle">
-        <item name="indicatorColor">#7AA7FF</item>
+        <item name="indicatorColor">?attr/colorAccent</item>
         <item name="trackColor">?attr/colorSecondary</item>
         <item name="trackCornerRadius">2dp</item>
     </style>

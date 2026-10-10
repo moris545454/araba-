@@ -1,0 +1,8 @@
+<resources>
+    <string name="dashboard_mirror_title">انعكاس الشاشة</string>
+    <string name="dashboard_mirror_sub">عرض شاشة الهاتف</string>
+    <string name="dashboard_recent_shelf">المحتويات الأخيرة</string>
+    <string name="dashboard_recent_empty">ستظهر المحتويات التي شغّلتها هنا.</string>
+    <string name="dashboard_mirror_help">صِل هاتفك بـ Android Auto، وافتح FermataX Mirror من قائمة تطبيقات السيارة، ثم افتح قفل الهاتف ووافق على طلب التقاط الشاشة. إذا كان هناك طلب إذن معلّق، افتح FermataX على الهاتف للمتابعة.</string>
+    <string name="dashboard_mirror_mobile_help">انعكاس الشاشة متاح في إصدار Android Auto من FermataX. صِل هذا الإصدار بـ Android Auto، وافتح FermataX Mirror في السيارة، ثم وافق على التقاط الشاشة على الهاتف بعد فتح قفله.</string>
+</resources>

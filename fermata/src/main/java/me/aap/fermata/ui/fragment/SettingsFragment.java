@@ -322,7 +322,15 @@ public class SettingsFragment extends MainActivityFragment
 				o.onClick = () -> a.showFragment(R.id.initial_setup_fragment);
 			});
 		}
-		KeyBindingPrefsBuilder.add(sub1);
+		if (!isCar) {
+            sub1.addButton(o -> {
+                o.title = R.string.github_updates;
+                o.subtitle = R.string.github_updates_auto;
+                o.onClick = () -> a.getContext().startActivity(new android.content.Intent(
+                        a.getContext(), me.aap.fermata.update.UpdateActivity.class));
+            });
+        }
+        KeyBindingPrefsBuilder.add(sub1);
 
 		PreferenceSet playback = set.subSet(o -> o.title = R.string.playback_settings);
 		audioEffectsProfiles = new AudioEffectsProfileRepository(

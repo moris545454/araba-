@@ -34,7 +34,7 @@ public final class DashboardItems {
 			Pref.sa("DASHBOARD_ITEMS", (String[]) null);
 	static final Pref<IntSupplier> LAYOUT_VERSION =
 			Pref.i("DASHBOARD_LAYOUT_VERSION", 0);
-	private static final int UI_REFRESH_LAYOUT_VERSION = 2;
+	private static final int UI_REFRESH_LAYOUT_VERSION = 4;
 	public static final String DASHBOARD = "dashboard";
 	public static final String SETTINGS = "settings";
 	public static final String FOLDERS = "folders";
@@ -42,6 +42,7 @@ public final class DashboardItems {
 	public static final String RECENT = "recent";
 	public static final String PLAYLISTS = "playlists";
 	public static final String MENU = "menu";
+	public static final String MIRROR = "screen_mirroring";
 
 	private DashboardItems() {
 	}
@@ -216,6 +217,7 @@ public final class DashboardItems {
 			}
 		}
 
+		if (!navigationLayout) addMissingItem(names, MIRROR, null);
 		addMissingItem(names, FOLDERS, null);
 		addMissingItem(names, FAVORITES, FOLDERS);
 		addMissingItem(names, RECENT, FAVORITES);
@@ -234,6 +236,7 @@ public final class DashboardItems {
 		if (store.getIntPref(LAYOUT_VERSION) >= UI_REFRESH_LAYOUT_VERSION) return pref;
 
 		List<String> defaults = new ArrayList<>();
+		defaults.add(MIRROR);
 		defaults.add(FOLDERS);
 		defaults.add(FAVORITES);
 		defaults.add(RECENT);
@@ -243,7 +246,26 @@ public final class DashboardItems {
 		}
 		defaults.sort((left, right) -> Integer.compare(uiRefreshPriority(left), uiRefreshPriority(right)));
 
-		String[] migrated = mergeUiRefreshOrder(pref, defaults);
+		List<String> featured = new ArrayList<>();
+		for (AddonInfo info : AddonManager.get().getAddonInfos()) {
+			if (AddonUiMetadata.isDashboardItem(info) &&
+					(AddonUiMetadata.role(info) == AddonUiMetadata.Role.TV)) featured.add(info.className);
+		}
+		for (AddonInfo info : AddonManager.get().getAddonInfos()) {
+			if (AddonUiMetadata.isDashboardItem(info) &&
+					(AddonUiMetadata.role(info) == AddonUiMetadata.Role.YOUTUBE)) featured.add(info.className);
+		}
+		featured.add(MIRROR);
+		for (AddonUiMetadata.Role role : new AddonUiMetadata.Role[]{
+				AddonUiMetadata.Role.RADIO, AddonUiMetadata.Role.PODCAST, AddonUiMetadata.Role.WEB}) {
+			for (AddonInfo info : AddonManager.get().getAddonInfos()) {
+				if (AddonUiMetadata.isDashboardItem(info) && (AddonUiMetadata.role(info) == role))
+					featured.add(info.className);
+			}
+		}
+		featured.add(FOLDERS);
+		featured.add(FAVORITES);
+		String[] migrated = featureMediaOrder(pref, defaults, featured);
 		try (PreferenceStore.Edit edit = store.editPreferenceStore()) {
 			edit.setStringArrayPref(PREF, migrated);
 			edit.setIntPref(LAYOUT_VERSION, UI_REFRESH_LAYOUT_VERSION);
@@ -252,15 +274,17 @@ public final class DashboardItems {
 	}
 
 	static String[] mergeUiRefreshOrder(@Nullable String[] persisted, Collection<String> defaults) {
-		LinkedHashSet<String> merged = new LinkedHashSet<>();
-		if (persisted != null) {
-			for (String name : persisted) merged.add(name);
-		}
-		merged.addAll(defaults);
-		return merged.toArray(new String[0]);
+		return DashboardOrder.merge(persisted, defaults);
+	}
+
+	// Apply the requested landing order once; subsequent user edits remain authoritative.
+	static String[] featureMediaOrder(@Nullable String[] persisted, Collection<String> defaults,
+			Collection<String> featured) {
+		return DashboardOrder.feature(persisted, defaults, featured);
 	}
 
 	private static int uiRefreshPriority(String name) {
+		if (MIRROR.equals(name)) return 2;
 		if (DASHBOARD.equals(name)) return -100;
 		if (FOLDERS.equals(name)) return 4;
 		if (FAVORITES.equals(name)) return 5;
@@ -290,6 +314,7 @@ public final class DashboardItems {
 																	boolean includeDisabled, boolean navigationLayout) {
 		if (DASHBOARD.equals(name)) return includeDashboard;
 		if (MENU.equals(name)) return includeMenu;
+		if (MIRROR.equals(name)) return !navigationLayout;
 		if (FOLDERS.equals(name) || FAVORITES.equals(name) || RECENT.equals(name) ||
 				PLAYLISTS.equals(name)) return true;
 
@@ -316,6 +341,10 @@ public final class DashboardItems {
 	@Nullable
 	private static Item getItem(Context ctx, String name, boolean includeDisabled) {
 		switch (name) {
+			case MIRROR:
+				return new Item(name, R.id.dashboard_mirror_action, R.drawable.screen_mirroring,
+						ctx.getString(R.string.dashboard_mirror_title),
+						ctx.getString(R.string.dashboard_mirror_sub), null);
 			case DASHBOARD:
 				return new Item(name, R.id.dashboard_fragment, R.drawable.home,
 						ctx.getString(R.string.home), ctx.getString(R.string.dashboard_home_sub), null);

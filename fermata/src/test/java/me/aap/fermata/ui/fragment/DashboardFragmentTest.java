@@ -12,14 +12,14 @@ public class DashboardFragmentTest {
 		assertEquals(1, DashboardFragment.getSpanCountForWidthDp(400));
 		assertEquals(2, DashboardFragment.getSpanCountForWidthDp(600));
 		assertEquals(3, DashboardFragment.getSpanCountForWidthDp(726));
-		assertEquals(4, DashboardFragment.getSpanCountForWidthDp(1000));
-		assertEquals(4, DashboardFragment.getSpanCountForWidthDp(1400));
+		assertEquals(3, DashboardFragment.getSpanCountForWidthDp(1000));
+		assertEquals(3, DashboardFragment.getSpanCountForWidthDp(1400));
 	}
 
 	@Test
 	public void spanCountUsesProjectedDisplayWidthInsteadOfPhoneDensity() {
 		assertEquals(3, DashboardFragment.getSpanCount(726, 800, 800, 2F));
-		assertEquals(4, DashboardFragment.getSpanCount(1000, 1100, 1100, 3F));
+		assertEquals(3, DashboardFragment.getSpanCount(1000, 1100, 1100, 3F));
 	}
 
 	@Test
@@ -45,7 +45,7 @@ public class DashboardFragmentTest {
 	@Test
 	public void spanCountFallsBackToDisplayDensityWithoutRootMetrics() {
 		assertEquals(3, DashboardFragment.getSpanCount(1452, 0, 0, 2F));
-		assertEquals(4, DashboardFragment.getSpanCount(2000, 0, 0, 2F));
+		assertEquals(3, DashboardFragment.getSpanCount(2000, 0, 0, 2F));
 	}
 
 	@Test

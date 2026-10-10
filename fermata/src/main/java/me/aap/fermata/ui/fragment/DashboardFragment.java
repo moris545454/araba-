@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.IntPredicate;
 
+import me.aap.fermata.BuildConfig;
 import me.aap.fermata.FermataApplication;
 import me.aap.fermata.R;
 import me.aap.fermata.addon.AddonInfo;
@@ -46,7 +47,6 @@ import me.aap.fermata.media.service.MediaSessionCallback;
 import me.aap.fermata.media.service.PlaybackSnapshot;
 import me.aap.fermata.media.service.PlaybackTimelineSnapshot;
 import me.aap.fermata.ui.activity.MainActivityDelegate;
-import me.aap.fermata.ui.activity.MainActivityPrefs;
 import me.aap.fermata.ui.smarttop.SmartTopAction;
 import me.aap.fermata.ui.smarttop.SmartTopBinder;
 import me.aap.fermata.ui.smarttop.SmartTopCoordinator;
@@ -55,6 +55,7 @@ import me.aap.fermata.ui.smarttop.SmartTopLayoutMode;
 import me.aap.fermata.ui.smarttop.SmartTopLayoutPolicy;
 import me.aap.fermata.ui.smarttop.SmartTopViewState;
 import me.aap.fermata.ui.view.MinimumTouchTargetDelegate;
+import me.aap.fermata.ui.view.MediaHubStyle;
 import me.aap.fermata.ui.view.TopBarController;
 import me.aap.fermata.ui.view.TopBarMediatorSupport;
 import me.aap.fermata.ui.voice.VoiceUiPolicy;
@@ -117,12 +118,13 @@ public class DashboardFragment extends MainActivityFragment
 		DashboardAdapter dashboardAdapter = new DashboardAdapter(activity, localizedCtx, prefs);
 		adapter = dashboardAdapter;
 		int spanCount = getSpanCountForWidthDp(getFullWidthDp(ctx));
-		GridLayoutManager layoutManager = new GridLayoutManager(ctx, spanCount);
+		GridLayoutManager layoutManager = new GridLayoutManager(ctx, DashboardGridPolicy.gridSpans(spanCount));
 		this.layoutManager = layoutManager;
 		layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 			@Override
 			public int getSpanSize(int position) {
-				return dashboardAdapter.isWide(position) ? layoutManager.getSpanCount() : 1;
+				return DashboardGridPolicy.itemSpan(dashboardAdapter.isFeatured(position),
+						dashboardAdapter.isWide(position), layoutManager.getSpanCount());
 			}
 		});
 		list.setHasFixedSize(true);
@@ -346,6 +348,7 @@ public class DashboardFragment extends MainActivityFragment
 					list.getResources().getConfiguration().fontScale));
 		}
 		if (editMode) spans = getEditSpanCount(spans);
+		spans = DashboardGridPolicy.gridSpans(spans);
 		if (spans != layoutManager.getSpanCount()) {
 			layoutManager.setSpanCount(spans);
 			layoutManager.getSpanSizeLookup().invalidateSpanIndexCache();
@@ -416,7 +419,7 @@ public class DashboardFragment extends MainActivityFragment
 	static int getSpanCountForWidthDp(float widthDp) {
 		if (widthDp < 460F) return 1;
 		int spans = (int) (widthDp / 220F);
-		return Math.max(2, Math.min(4, spans));
+		return Math.max(2, Math.min(3, spans));
 	}
 
 	static int getEditSpanCount(int normalSpanCount) {
@@ -435,6 +438,8 @@ public class DashboardFragment extends MainActivityFragment
 		private static final int VIEW_TYPE_CARD = 0;
 		private static final int VIEW_TYPE_SMART_TOP = 1;
 		private static final int VIEW_TYPE_SMART_TOP_V2 = 2;
+		private static final int VIEW_TYPE_FEATURED = 3;
+		private static final int VIEW_TYPE_RECENT_SHELF = 4;
 		private static final Object PAYLOAD_SMART_TOP_TIMELINE = new Object();
 		private final Context ctx;
 		private final MainActivityDelegate activity;
@@ -517,6 +522,8 @@ public class DashboardFragment extends MainActivityFragment
 			int layout = switch (viewType) {
 				case VIEW_TYPE_SMART_TOP -> R.layout.dashboard_smart_top_item;
 				case VIEW_TYPE_SMART_TOP_V2 -> R.layout.dashboard_smart_top_v2_item;
+				case VIEW_TYPE_FEATURED -> R.layout.dashboard_featured_item;
+				case VIEW_TYPE_RECENT_SHELF -> R.layout.dashboard_recent_shelf;
 				default -> R.layout.dashboard_item;
 			};
 			View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
@@ -526,12 +533,17 @@ public class DashboardFragment extends MainActivityFragment
 		@Override
 		public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
 			DashboardCard card = cards.get(position);
+			if (card.recentShelf) {
+				holder.shelf.bind(activity);
+				return;
+			}
 			boolean smartTop = card.fixed && card.wide;
 			if (smartTop) {
 				if (card.smartTopState != null) SmartTopLayoutController.apply(holder.itemView,
 						card.smartTopState, activity.isCarActivity());
 				else applySmartTopFontScale(holder.itemView);
 			}
+			if (!smartTop) applyLaunchCardFontScale(holder.itemView, isFeatured(position));
 			boolean editable = editMode && !card.fixed;
 			if ((card.smartTopState != null) && (smartTopBinder != null)) {
 				smartTopBinder.bind(holder.smartTopViews(), card.smartTopState, editMode);
@@ -539,21 +551,18 @@ public class DashboardFragment extends MainActivityFragment
 				return;
 			}
 			holder.icon.setImageResource(card.icon);
-			int currentTheme = MainActivityPrefs.get().getThemePref(activity.isCarActivity());
-			if ((currentTheme == MainActivityPrefs.THEME_MATERIAL_YOU) && (card.item != null)) {
-				int color = AddonUiMetadata.itemColor(card.item.name, card.item.addonInfo);
+			if (card.item != null) {
+				int color = MediaHubStyle.destinationAccent(card.item.id);
+				holder.itemView.setBackground(MediaHubStyle.card(ctx, color, isFeatured(position)));
 				holder.icon.setImageTintList(ColorStateList.valueOf(color));
-				int pad = (int) (8 * ctx.getResources().getDisplayMetrics().density);
+				int pad = (int) (10 * ctx.getResources().getDisplayMetrics().density);
 				holder.icon.setPadding(pad, pad, pad, pad);
-				float radius = 14 * ctx.getResources().getDisplayMetrics().density;
-				holder.icon.setBackground(AddonUiMetadata.createBadgeDrawable(color, radius));
+				holder.icon.setBackground(MediaHubStyle.badge(ctx, color));
+				if (holder.heroArt != null) bindHeroArt(holder, card);
 			} else {
-				int defaultTint = resolveColor(activity.getContext(),
+				int tint = resolveColor(activity.getContext(),
 						com.google.android.material.R.attr.colorOnSecondary, 0xff7aa7ff);
-				if ((defaultTint & 0x00ffffff) == 0) defaultTint = 0xff7aa7ff;
-				holder.icon.setImageTintList(ColorStateList.valueOf(defaultTint));
-				int pad = (int) ctx.getResources().getDimension(R.dimen.dashboard_tile_icon_padding);
-				holder.icon.setPadding(pad, pad, pad, pad);
+				holder.icon.setImageTintList(ColorStateList.valueOf(tint));
 				holder.icon.setBackground(null);
 			}
 			if (holder.eyebrow != null) {
@@ -568,7 +577,8 @@ public class DashboardFragment extends MainActivityFragment
 			}
 			holder.title.setText(card.title);
 			holder.subtitle.setText(card.subtitle);
-			holder.subtitle.setVisibility(View.GONE);
+			holder.subtitle.setVisibility(smartTop || editable || TextUtils.isEmpty(card.subtitle) ?
+					View.GONE : View.VISIBLE);
 			boolean favoriteSupported = (card.playable != null) && !card.playable.isExternal();
 			boolean favorite = favoriteSupported && card.playable.isFavoriteItem();
 			holder.actions.setVisibility(!editMode && (card.playable != null) && card.wide ?
@@ -590,6 +600,15 @@ public class DashboardFragment extends MainActivityFragment
 				MainActivityDelegate a = activity;
 				if (card.playable != null) {
 					DashboardPlayableNavigator.openSmartTop(a, card.playable);
+					return;
+				}
+				if (card.targetId == R.id.dashboard_mirror_action) {
+					new com.google.android.material.dialog.MaterialAlertDialogBuilder(a.getContext())
+							.setTitle(ctx.getString(R.string.dashboard_mirror_title))
+							.setIcon(R.drawable.screen_mirroring)
+							.setMessage(ctx.getString(BuildConfig.AUTO ? R.string.dashboard_mirror_help :
+									R.string.dashboard_mirror_mobile_help))
+							.setPositiveButton(android.R.string.ok, null).show();
 					return;
 				}
 				if (card.targetId == ID_NULL) return;
@@ -651,6 +670,21 @@ public class DashboardFragment extends MainActivityFragment
 			card.setMinimumHeight(height);
 		}
 
+		private void applyLaunchCardFontScale(View card, boolean featured) {
+			float density = ctx.getResources().getDisplayMetrics().density;
+			float fontScale = Math.max(1F, Math.min(2F,
+					ctx.getResources().getConfiguration().fontScale));
+			int height = ctx.getResources().getDimensionPixelSize(featured ? R.dimen.dashboard_tile_height :
+					R.dimen.dashboard_compact_height)
+					+ Math.round((featured ? 100F : 72F) * (fontScale - 1F) * density);
+			ViewGroup.LayoutParams params = card.getLayoutParams();
+			if ((params != null) && (params.height != height)) {
+				params.height = height;
+				card.setLayoutParams(params);
+			}
+			card.setMinimumHeight(height);
+		}
+
 		private void bindEditActions(ItemHolder holder, DashboardCard card, boolean editable) {
 			if (holder.editActions == null) return;
 			holder.editActions.setVisibility(editable ? View.VISIBLE : View.GONE);
@@ -697,12 +731,39 @@ public class DashboardFragment extends MainActivityFragment
 		public int getItemViewType(int position) {
 			DashboardCard card = cards.get(position);
 			if (card.smartTopState != null) return VIEW_TYPE_SMART_TOP_V2;
+			if (card.recentShelf) return VIEW_TYPE_RECENT_SHELF;
+			if (isFeatured(position)) return VIEW_TYPE_FEATURED;
 			return card.fixed && card.wide ? VIEW_TYPE_SMART_TOP : VIEW_TYPE_CARD;
 		}
 
 		@Override
 		public int getItemCount() {
 			return cards.size();
+		}
+
+		private boolean isFeatured(int position) {
+			DashboardItems.Item item = cards.get(position).item;
+			if (item == null) return false;
+			if (DashboardItems.MIRROR.equals(item.name)) return true;
+			if (item.addonInfo == null) return false;
+			AddonUiMetadata.Role role = AddonUiMetadata.role(item.addonInfo);
+			return (role == AddonUiMetadata.Role.TV) || (role == AddonUiMetadata.Role.YOUTUBE);
+		}
+
+		private void bindHeroArt(ItemHolder holder, DashboardCard card) {
+			int art = R.drawable.hero_mirror_art;
+			if (card.item.addonInfo != null) {
+				art = AddonUiMetadata.role(card.item.addonInfo) == AddonUiMetadata.Role.TV ?
+						R.drawable.hero_tv_art : R.drawable.hero_youtube_art;
+			}
+			if (holder.heroBadge != null) {
+				holder.heroBadge.setText(ctx.getString(R.string.playback_live));
+				holder.heroBadge.setVisibility(!editMode && (card.item.addonInfo != null) &&
+						(AddonUiMetadata.role(card.item.addonInfo) == AddonUiMetadata.Role.TV) ?
+						View.VISIBLE : View.GONE);
+			}
+			holder.heroArt.setImageResource(art);
+			holder.heroArt.setVisibility(editMode ? View.GONE : View.VISIBLE);
 		}
 
 		private boolean isWide(int position) {
@@ -966,7 +1027,7 @@ public class DashboardFragment extends MainActivityFragment
 
 		private int findSmartTopCardPosition() {
 			for (int i = 0; i < cards.size(); i++) {
-				if (cards.get(i).fixed) return i;
+				if (cards.get(i).fixed && !cards.get(i).recentShelf) return i;
 			}
 			return -1;
 		}
@@ -1093,6 +1154,9 @@ public class DashboardFragment extends MainActivityFragment
 
 	private static final class ItemHolder extends RecyclerView.ViewHolder {
 		final ImageView icon;
+		final ImageView heroArt;
+		final TextView heroBadge;
+		final DashboardRecentShelfView shelf;
 		final TextView eyebrow;
 		final TextView title;
 		final TextView subtitle;
@@ -1115,6 +1179,9 @@ public class DashboardFragment extends MainActivityFragment
 		private ItemHolder(@NonNull View itemView) {
 			super(itemView);
 			icon = itemView.findViewById(R.id.dashboard_item_icon);
+			heroArt = itemView.findViewById(R.id.dashboard_hero_art);
+			heroBadge = itemView.findViewById(R.id.dashboard_hero_badge);
+			shelf = itemView instanceof DashboardRecentShelfView ? (DashboardRecentShelfView) itemView : null;
 			smartThumbnail = itemView.findViewById(R.id.dashboard_smart_thumbnail);
 			eyebrow = itemView.findViewById(R.id.dashboard_item_eyebrow);
 			title = itemView.findViewById(R.id.dashboard_item_title);

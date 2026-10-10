@@ -1,0 +1,3 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="?attr/rippleColor">
+    <item android:drawable="@drawable/media_item_bg" />
+</ripple>

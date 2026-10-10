@@ -30,7 +30,6 @@ final class DashboardModelBuilder {
 	void rebuild(List<DashboardCard> cards, @Nullable DashboardCard smartTopCard) {
 		cards.clear();
 		DashboardCard visibleSmartTop = smartTopVisible ? smartTopCard : null;
-		if (visibleSmartTop != null) cards.add(visibleSmartTop);
 		for (DashboardItems.Item item : DashboardItems.getDashboardItems(ctx, store)) {
 			if (shouldSuppressRecent(visibleSmartTop != null, item.id)) continue;
 			if ((visibleSmartTop != null) && (visibleSmartTop.targetId == item.id)) continue;
@@ -38,6 +37,8 @@ final class DashboardModelBuilder {
 			if (automotive && (item.addonInfo != null)) card = card.withTitle(emphasizeAddonTitle(card.title));
 			cards.add(card);
 		}
+		cards.add(DashboardCard.recentShelf(ctx));
+		if (visibleSmartTop != null) cards.add(visibleSmartTop);
 	}
 
 	List<DashboardItems.Item> getDashboardItems(List<DashboardCard> cards) {

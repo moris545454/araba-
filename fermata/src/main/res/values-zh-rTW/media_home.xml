@@ -1,0 +1,8 @@
+<resources>
+    <string name="dashboard_mirror_title">螢幕鏡像</string>
+    <string name="dashboard_mirror_sub">顯示手機螢幕</string>
+    <string name="dashboard_recent_shelf">最近的內容</string>
+    <string name="dashboard_recent_empty">您播放過的內容會顯示在這裡。</string>
+    <string name="dashboard_mirror_help">將手機連接至 Android Auto。從車輛的應用程式選單開啟 FermataX Mirror。解鎖手機並確認螢幕擷取要求。如果有待處理的權限要求，請在手機上開啟 FermataX 以繼續。</string>
+    <string name="dashboard_mirror_mobile_help">螢幕鏡像可在 FermataX 的 Android Auto 版本中使用。將該版本連接至 Android Auto，在車輛上開啟 FermataX Mirror，然後在已解鎖的手機上確認螢幕擷取要求。</string>
+</resources>

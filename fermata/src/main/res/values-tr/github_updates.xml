@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="github_updates">Uygulama güncellemeleri</string>
+    <string name="github_updates_help">Yeni sürümler açılışta ve arka planda belirli aralıklarla kontrol edilir. Android kontrolleri geciktirebilir. İndirme ve kurulum sizin onayınızla yapılır.</string>
+    <string name="github_updates_auto">Yeni sürümleri bildir</string>
+    <string name="github_update_available">FermataX güncellemesi hazır</string>
+    <string name="github_update_version">Sürüm %1$s</string>
+    <string name="github_updates_check">Güncellemeleri kontrol et</string>
+    <string name="github_updates_install">İndir ve yükle</string>
+    <string name="github_updates_checking">Güncellemeler kontrol ediliyor…</string>
+    <string name="github_updates_latest">Uyumlu en güncel sürümü kullanıyorsunuz.</string>
+    <string name="github_updates_downloading">Güncelleme indiriliyor ve doğrulanıyor…</string>
+    <string name="github_updates_permission">Android ayarlarında bu uygulamadan yüklemeye izin verin, ardından buraya dönün.</string>
+    <string name="github_updates_confirm">Android yükleme ekranında kurulumu onaylayın.</string>
+    <string name="github_updates_error">Güncelleme kontrol edilemedi veya doğrulanamadı. Bağlantınızı kontrol edip yeniden deneyin.</string>
+    <string name="github_updates_close">Kapat</string>
+    <string name="github_updates_notifications">Bildirim ayarları</string>
+</resources>

@@ -3,34 +3,34 @@
 
     <style name="AppTheme.MaterialYou">
 
-        <item name="android:colorBackground">#0B0E14</item>
+        <item name="android:colorBackground">#030A10</item>
 
-        <item name="colorPrimaryDark">#0F141F</item>
-        <item name="colorPrimary">#0F141F</item>
+        <item name="colorPrimaryDark">#07121C</item>
+        <item name="colorPrimary">#07121C</item>
         <item name="colorOnPrimary">#C3CDDE</item>
         <item name="android:textColorPrimary">#FFFFFF</item>
 
-        <item name="colorSecondary">#131926</item>
-        <item name="colorOnSecondary">#3B82F6</item>
-        <item name="android:textColorSecondary">#94A3B8</item>
-        <item name="boxStrokeColor">#263552</item>
-        <item name="cornerRadius">18dp</item>
+        <item name="colorSecondary">#08131E</item>
+        <item name="colorOnSecondary">#65BFFF</item>
+        <item name="android:textColorSecondary">#A1B2CD</item>
+        <item name="boxStrokeColor">#223747</item>
+        <item name="cornerRadius">16dp</item>
 
         <item name="alpha">1</item>
-        <item name="colorSecondaryVariant">#1C263A</item>
+        <item name="colorSecondaryVariant">#19344A</item>
         <item name="android:textColorTertiary">#FFFFFF</item>
 
-        <item name="colorSurface">#131926</item>
+        <item name="colorSurface">#08131E</item>
         <item name="colorOnSurface">#C3CDDE</item>
-        <item name="colorPrimarySurface">#1A2234</item>
-        <item name="colorOnPrimarySurface">#3B82F6</item>
+        <item name="colorPrimarySurface">#0D1D2D</item>
+        <item name="colorOnPrimarySurface">#65BFFF</item>
 
-        <item name="colorAccent">#3B82F6</item>
+        <item name="colorAccent">#65BFFF</item>
         <item name="rippleColor">#333B82F6</item>
 
         <item name="android:textColorHint">#64748B</item>
-        <item name="colorControlNormal">#94A3B8</item>
-        <item name="colorControlActivated">#3B82F6</item>
+        <item name="colorControlNormal">#A1B2CD</item>
+        <item name="colorControlActivated">#65BFFF</item>
 
     </style>
 

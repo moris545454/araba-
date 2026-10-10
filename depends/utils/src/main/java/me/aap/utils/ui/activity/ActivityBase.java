@@ -263,6 +263,11 @@ public abstract class ActivityBase extends AppCompatActivity implements AppActiv
 		}
 	}
 
+    /** Keep independent notification prompts from interrupting an existing media permission request. */
+    public boolean hasPendingPermissionRequest() {
+        return checkPermissions != null;
+    }
+
 	public FutureSupplier<int[]> checkPermissions(String... perms) {
 		if (checkPermissions != null) {
 			checkPermissions.cancel();
@@ -287,6 +292,7 @@ public abstract class ActivityBase extends AppCompatActivity implements AppActiv
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode != GRANT_PERM_REQ) return;
 		Promise<int[]> p = checkPermissions;
 
 		if (p != null) {

@@ -3,24 +3,24 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dashboard_tile_height"
+    android:layout_height="@dimen/dashboard_compact_height"
     android:layout_margin="@dimen/dashboard_card_margin"
-    android:background="@drawable/media_item_bg"
+    android:background="@drawable/dashboard_launch_card_bg"
     android:clickable="true"
     android:focusable="true"
-    android:minHeight="@dimen/dashboard_tile_height"
-    android:padding="@dimen/dashboard_tile_padding">
+    android:minHeight="@dimen/dashboard_compact_height"
+    android:padding="12dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/dashboard_item_icon"
-        android:layout_width="@dimen/dashboard_tile_icon_size"
-        android:layout_height="@dimen/dashboard_tile_icon_size"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:contentDescription="@null"
         android:padding="@dimen/dashboard_tile_icon_padding"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:tint="?attr/colorOnSecondary" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -29,35 +29,35 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="start"
-        android:maxLines="1"
-        android:textSize="@dimen/dashboard_tile_title_size"
+        android:maxLines="2"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textAppearance="?attr/textAppearanceListItem"
-		app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/dashboard_item_edit_actions"
+		app:layout_constraintEnd_toStartOf="@id/dashboard_item_edit_actions"
         app:layout_constraintStart_toEndOf="@id/dashboard_item_icon"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/dashboard_item_subtitle"
         app:layout_constraintVertical_chainStyle="packed"
         app:layout_goneMarginBottom="0dp"
         app:layout_goneMarginEnd="0dp"
-        android:layout_marginStart="@dimen/dashboard_tile_text_gap" />
+        android:layout_marginStart="10dp" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/dashboard_item_subtitle"
         android:layout_width="0dp"
-		android:layout_height="0dp"
+		android:layout_height="wrap_content"
         android:ellipsize="end"
         android:gravity="start"
-        android:maxLines="1"
-        android:textSize="@dimen/dashboard_tile_subtitle_size"
-        android:alpha="0.58"
+        android:maxLines="2"
+        android:textSize="11sp"
+        android:alpha="0.85"
         android:textAppearance="?android:attr/textAppearanceSmall"
 		android:textColor="?android:attr/textColorSecondary"
-		android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+		android:layout_marginTop="5dp"
         app:layout_constraintEnd_toStartOf="@id/dashboard_item_edit_actions"
         app:layout_constraintStart_toStartOf="@id/dashboard_item_title"
         app:layout_constraintTop_toBottomOf="@id/dashboard_item_title"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_goneMarginEnd="0dp" />
 
     <LinearLayout

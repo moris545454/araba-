@@ -1,0 +1,8 @@
+<resources>
+    <string name="dashboard_mirror_title">Kopia ekranu</string>
+    <string name="dashboard_mirror_sub">Pokaż ekran telefonu</string>
+    <string name="dashboard_recent_shelf">Ostatnie treści</string>
+    <string name="dashboard_recent_empty">Tutaj pojawią się odtworzone treści.</string>
+    <string name="dashboard_mirror_help">Połącz telefon z Android Auto. Otwórz FermataX Mirror w menu aplikacji samochodu. Odblokuj telefon i potwierdź przechwytywanie ekranu. Jeśli oczekuje prośba o uprawnienie, otwórz FermataX na telefonie, aby kontynuować.</string>
+    <string name="dashboard_mirror_mobile_help">Kopia ekranu jest dostępna w wersji FermataX dla Android Auto. Połącz tę wersję z Android Auto, otwórz FermataX Mirror w samochodzie i potwierdź przechwytywanie ekranu na odblokowanym telefonie.</string>
+</resources>

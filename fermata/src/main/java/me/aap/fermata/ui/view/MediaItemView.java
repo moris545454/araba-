@@ -83,7 +83,7 @@ public class MediaItemView extends ConstraintLayout
 	private final int titleTextAppearance;
 	@StyleRes
 	private final int subtitleTextAppearance;
-	private final ColorStateList iconTint;
+	private ColorStateList iconTint;
 	private final ColorStateList textTint;
 	@Nullable
 	private MediaItemViewHolder holder;
@@ -111,7 +111,7 @@ public class MediaItemView extends ConstraintLayout
 		setLongClickable(true);
 		setOnLongClickListener(this);
 		getCheckBox().setOnCheckedChangeListener(this);
-		setBackgroundResource(R.drawable.media_item_bg);
+		setBackground(MediaHubStyle.card(getContext(), MediaHubStyle.routeAccent(getMainActivity()), false));
 		setFocusable(true);
 	}
 
@@ -242,6 +242,7 @@ public class MediaItemView extends ConstraintLayout
 
 												if (bm != null) {
 													icon.setImageTintList(null);
+													icon.setBackground(null);
 													icon.setImageBitmap(bm);
 												} else {
 													icon.setImageTintList(iconTint);
@@ -306,8 +307,10 @@ public class MediaItemView extends ConstraintLayout
 
 	private void configureItemChrome(Item item) {
 		MainActivityDelegate a = getMainActivity();
+		iconTint = ColorStateList.valueOf(MediaHubStyle.routeAccent(a));
 		boolean sourceHeader = a.isCarActivity() && !a.isGridView() && isTvSourceItem(item);
 		ImageView icon = getIcon();
+		icon.setBackground(MediaHubStyle.badge(getContext(), MediaHubStyle.routeAccent(a)));
 
 		if (sourceHeader) {
 			setMinimumHeight(toIntPx(getContext(), 76));
@@ -317,8 +320,8 @@ public class MediaItemView extends ConstraintLayout
 			getTitle().setTypeface(null, Typeface.BOLD);
 			getSubtitle().setTextSize(COMPLEX_UNIT_SP, 13);
 		} else {
-			setMinimumHeight(toIntPx(getContext(), 62));
-			setBackgroundResource(R.drawable.media_item_bg);
+			setMinimumHeight(toIntPx(getContext(), 80));
+			setBackground(MediaHubStyle.card(getContext(), MediaHubStyle.routeAccent(getMainActivity()), false));
 			icon.setVisibility(VISIBLE);
 			setSize(getContext(), a.isGridView(), a.getPrefs().getTextIconSizePref(a));
 		}
