@@ -6,8 +6,8 @@ import re
 import sys
 from pathlib import Path
 
-if len(sys.argv) != 3:
-    raise SystemExit('Usage: create_update_manifest.py APK OUTPUT_JSON')
+if len(sys.argv) not in (3, 4):
+    raise SystemExit('Usage: create_update_manifest.py APK OUTPUT_JSON [repository-lfs]')
 versions = Path('gradle/libs.versions.toml').read_text()
 apk = Path(sys.argv[1])
 version = re.search(r'appVersionName = "([^"]+)"', versions).group(1)
@@ -15,6 +15,7 @@ code = int(re.search(r'appVersionCode = "(\d+)"', versions).group(1))
 with apk.open('rb') as stream:
     checksum = hashlib.file_digest(stream, 'sha256').hexdigest()
 metadata = {
+    'distribution': 'repository-lfs' if len(sys.argv) == 4 and sys.argv[3] == 'repository-lfs' else 'release',
     'versionCode': code,
     'versionName': version,
     'packageId': 'me.app.fermataX.auto.debug',

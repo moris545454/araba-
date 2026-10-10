@@ -58,4 +58,17 @@ public class UpdateManifestTest {
         rejected(release().put("tag_name", "../other"), manifest());
         rejected(release(), manifest().put("apkAsset", "mobile.apk"));
     }
+    @Test public void acceptsVersionBoundRepositoryLfsAndRejectsUnknownChannels() throws Exception {
+        JSONObject release = release().put("assets", new org.json.JSONArray());
+        UpdateManifest update = UpdateManifest.parse(release, manifest().put("distribution", "repository-lfs"),
+                "me.app.fermataX.auto.debug", 36);
+        assertEquals("https://media.githubusercontent.com/media/" + UpdateManifest.REPOSITORY +
+                "/v2.0.3/distribution/" + UpdateManifest.APK_ASSET, update.apkUrl());
+        assertEquals("https://raw.githubusercontent.com/" + UpdateManifest.REPOSITORY +
+                "/v2.0.3/distribution/" + UpdateManifest.MANIFEST_ASSET,
+                UpdateManifest.repositoryAssetUrl(release, UpdateManifest.MANIFEST_ASSET));
+        rejected(release, manifest().put("distribution", "unknown"));
+        rejected(release.put("draft", true), manifest().put("distribution", "repository-lfs"));
+    }
+
 }

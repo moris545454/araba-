@@ -58,7 +58,12 @@ public final class GithubUpdater {
     /** Called off the UI thread; errors do not affect playback or the last successful check. */
     public static UpdateManifest check(Context context) throws Exception {
         JSONObject release = json("https://api.github.com/repos/" + UpdateManifest.REPOSITORY + "/releases/latest");
-        JSONObject manifest = json(UpdateManifest.assetUrl(release, UpdateManifest.MANIFEST_ASSET));
+        String manifestUrl;
+        try { manifestUrl = UpdateManifest.assetUrl(release, UpdateManifest.MANIFEST_ASSET); }
+        catch (org.json.JSONException missingAsset) {
+            manifestUrl = UpdateManifest.repositoryAssetUrl(release, UpdateManifest.MANIFEST_ASSET);
+        }
+        JSONObject manifest = json(manifestUrl);
         UpdateManifest update = UpdateManifest.parse(release, manifest, context.getPackageName(), Build.VERSION.SDK_INT);
         prefs(context).edit().putLong("last_check", System.currentTimeMillis()).apply();
         return update.versionCode() > BuildConfig.VERSION_CODE ? update : null;

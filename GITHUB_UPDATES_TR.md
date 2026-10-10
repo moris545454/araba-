@@ -8,7 +8,16 @@ Uygulama açılışta ve yaklaşık altı saatlik arka plan aralıklarında GitH
 
 APK indirilmeden önce `update-auto-debug.json` okunur; yalnızca bu depodaki tamamlanmış, taslak olmayan ve ön sürüm olmayan Release varlıkları kabul edilir. İndirilen APK'nın SHA-256 özeti, boyutu, paket adı, sürüm kodu ve mevcut kurulumla aynı imzaya sahip olması doğrulanır. Hata veya ağ kesintisi mevcut uygulamayı değiştirmez.
 
-## Sonraki sürümü yayımlama
+## Mevcut dağıtım
+
+GitHub hesabında Actions devre dışı; doğrudan Release varlığı yükleme bağlantısı da bu ortamın kimlik bilgisini kabul etmiyor. Bu nedenle ilk APK `distribution/FermataX-yeni-arayuz-debug.apk` yolunda Git LFS ile tutulur. Release sayfası tek dosya APK indirme bağlantısını verir. `distribution/update-auto-debug.json` sürüm etiketiyle birlikte sabitlenir. Uygulama önce Release varlıklarını arar; bulunmazsa aynı etiketin depodaki manifestini okur ve yalnızca GitHub'ın bu depoya ait sürüm etiketindeki APK dosyasını indirir.
+
+Actions kapalı olsa da uygulama içi sürüm kontrolü, bildirim ve indirme çalışır. Elle yeni sürüm yayımlarken aynı imzayla APK oluşturun, LFS dosyasını güncelleyin, `python scripts/create_update_manifest.py distribution/FermataX-yeni-arayuz-debug.apk distribution/update-auto-debug.json repository-lfs` çalıştırın ve bütün değişiklikleri aynı sürüm etiketiyle yayımlayın. Sürüm kodunu artırın. Yeni Release taslak/ön sürüm olmamalıdır.
+
+## Otomatik derleme için sonraki sürümü yayımlama
+
+Önce GitHub hesabında Actions etkinleştirilmeli ve aynı imza anahtarı secret olarak kurulmalıdır.
+
 
 1. Değişikliği yapın. `gradle/libs.versions.toml` içindeki `appVersionCode` değerini artırın; `appVersionName` değerini yeni sürüme taşıyın.
 2. `UPDATE_RELEASE_NOTES_TR.md` dosyasına o sürümün değişikliklerini yazın ve commit/push yapın.

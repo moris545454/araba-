@@ -1,10 +1,10 @@
 FermataX 2.0.2 (309) — arayüz ve GitHub güncellemeleri
 
-Mobile ana uygulama: 1051 test, 0 hata
-Auto ana uygulama: 1089 test, 0 hata
+Mobile ana uygulama: 1052 test, 0 hata
+Auto ana uygulama: 1090 test, 0 hata
 Web: 299 test, 0 hata
 TV: 80 test, 0 hata
-Toplam: 2519 birim testi başarılı.
+Toplam: 2521 birim testi başarılı.
 Mobile/Auto Android Lint: 0 hata; uyarılar mevcuttur.
 Kaynak XML dosyaları ayrıştırıldı; git diff --check başarılı.
 Universal Auto debug APK: telefon ve Android Auto için aynı paket.
@@ -15,3 +15,6 @@ Güncelleme kontrolleri açılışta ve Android izin verdiği arka plan aralıkl
 Yeni sürüm bildirimleri Android bildirim iznine bağlıdır. Kurulum kullanıcı onayıyla yapılır.
 İndirme özeti, boyutu, APK paket/sürüm kimliği ve mevcut kurulumla aynı imza kontrol edilir.
 GitHub Actions imza secret kurulumu, bu bağlantının secret yönetimi yetkisi bulunmadığından tamamlanmadı.
+
+APK dağıtımı Git LFS ile yapılır. Yeni sürümler GitHub Release etiketine bağlı manifestten kontrol edilir.
+GitHub hesabında Actions devre dışıdır; uygulama içi bildirim/indirme buna bağlı değildir.

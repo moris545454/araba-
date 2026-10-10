@@ -26,6 +26,18 @@ public record UpdateManifest(int versionCode, String versionName, String package
         throw new JSONException("Missing release asset: " + name);
     }
 
+    public static String repositoryAssetUrl(JSONObject release, String name) throws JSONException {
+        if (release.optBoolean("draft") || release.optBoolean("prerelease"))
+            throw new JSONException("Unpublished release");
+        String tag = release.getString("tag_name");
+        if (!tag.matches("[A-Za-z0-9._-]+")) throw new JSONException("Invalid release tag");
+        if (MANIFEST_ASSET.equals(name))
+            return "https://raw.githubusercontent.com/" + REPOSITORY + "/" + tag + "/distribution/" + name;
+        if (APK_ASSET.equals(name))
+            return "https://media.githubusercontent.com/media/" + REPOSITORY + "/" + tag + "/distribution/" + name;
+        throw new JSONException("Unknown repository asset");
+    }
+
     public static UpdateManifest parse(JSONObject release, JSONObject manifest, String installedId,
                                        int sdk) throws JSONException {
         int version = manifest.getInt("versionCode");
@@ -38,6 +50,11 @@ public record UpdateManifest(int versionCode, String versionName, String package
                 manifest.getInt("minSdkVersion") > sdk ||
                 !APK_ASSET.equals(manifest.getString("apkAsset")))
             throw new JSONException("Incompatible update manifest");
-        return new UpdateManifest(version, name, id, hash, assetUrl(release, APK_ASSET), size);
+        String channel = manifest.optString("distribution", "release");
+        String address;
+        if ("repository-lfs".equals(channel)) address = repositoryAssetUrl(release, APK_ASSET);
+        else if ("release".equals(channel)) address = assetUrl(release, APK_ASSET);
+        else throw new JSONException("Unknown update distribution");
+        return new UpdateManifest(version, name, id, hash, address, size);
     }
 }
