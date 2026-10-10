@@ -1,0 +1,122 @@
+package me.aap.fermata.media.service;
+
+import android.support.v4.media.MediaMetadataCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.Objects;
+
+import me.aap.fermata.media.lib.MediaLib.PlayableItem;
+
+/**
+ * Immutable view of the media service playback state at one revision.
+ */
+public final class PlaybackSnapshot {
+	public static final String METADATA_KEY_PREPARATION_STATUS =
+			"me.app.fermatax.PREPARATION_STATUS";
+	private final long revision;
+	@Nullable
+	private final PlayableItem item;
+	@NonNull
+	private final PlaybackStateCompat state;
+	@Nullable
+	private final MediaMetadataCompat metadata;
+	private final boolean canonical;
+
+	PlaybackSnapshot(long revision, @Nullable PlayableItem item,
+			@NonNull PlaybackStateCompat state, @Nullable MediaMetadataCompat metadata) {
+		this(revision, item, state, metadata, false);
+	}
+
+	PlaybackSnapshot(long revision, @Nullable PlayableItem item,
+			@NonNull PlaybackStateCompat state, @Nullable MediaMetadataCompat metadata,
+			boolean canonical) {
+		this.revision = revision;
+		this.item = item;
+		this.state = state;
+		this.metadata = metadata;
+		this.canonical = canonical;
+	}
+
+	public long getRevision() {
+		return revision;
+	}
+
+	@Nullable
+	public PlayableItem getItem() {
+		return item;
+	}
+
+	@NonNull
+	public PlaybackStateCompat getState() {
+		return state;
+	}
+
+	@Nullable
+	public MediaMetadataCompat getMetadata() {
+		return metadata;
+	}
+
+	@NonNull
+	public CharSequence getDisplayTitle() {
+		return resolveDisplayTitle(item, metadata);
+	}
+
+	@NonNull
+	public CharSequence getPreparationStatus() {
+		if (metadata == null) return "";
+		String status = metadata.getString(METADATA_KEY_PREPARATION_STATUS);
+		return (status == null) ? "" : status.trim();
+	}
+
+	@NonNull
+	public static CharSequence resolveDisplayTitle(@Nullable PlayableItem item,
+			@Nullable MediaMetadataCompat metadata) {
+		String title = metadataTitle(metadata, MediaMetadataCompat.METADATA_KEY_TITLE);
+		String displayTitle = metadataTitle(metadata, MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE);
+		return resolveDisplayTitle(title, displayTitle, (item == null) ? "" : item.getName());
+	}
+
+	@NonNull
+	static CharSequence resolveDisplayTitle(@Nullable String title, @Nullable String displayTitle,
+			@NonNull CharSequence fallback) {
+		String normalized = normalizeTitle(title);
+		if (normalized == null) normalized = normalizeTitle(displayTitle);
+		return (normalized == null) ? fallback : normalized;
+	}
+
+	@Nullable
+	private static String metadataTitle(@Nullable MediaMetadataCompat metadata, String key) {
+		if (metadata == null) return null;
+		return normalizeTitle(metadata.getString(key));
+	}
+
+	@Nullable
+	private static String normalizeTitle(@Nullable String title) {
+		if (title == null) return null;
+		title = title.trim();
+		return title.isEmpty() ? null : title;
+	}
+
+	public boolean hasSameItem(@Nullable PlaybackSnapshot other) {
+		return Objects.equals(item, (other == null) ? null : other.item);
+	}
+
+	/** True only after the service ownership token has committed this item and engine. */
+	public boolean isCanonical() {
+		return canonical;
+	}
+
+	/** Transient hand-off states do not own durable Podcast/Audiobook progress. */
+	public boolean canPersistProgress() {
+		return canonical && canPersistProgress(state.getState());
+	}
+
+	public static boolean canPersistProgress(int state) {
+		return (state == PlaybackStateCompat.STATE_PLAYING) ||
+				(state == PlaybackStateCompat.STATE_PAUSED) ||
+				(state == PlaybackStateCompat.STATE_STOPPED);
+	}
+}

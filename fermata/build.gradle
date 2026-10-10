@@ -1,0 +1,187 @@
+if (gradle.ext.enableGoogleServices) apply plugin: 'com.google.gms.google-services'
+
+def defaultApplicationId = 'me.app.fermataX'
+def configuredApplicationId = project.getProperties().getOrDefault('APP_ID', defaultApplicationId)
+def configuredAutoIdSuffix = project.getProperties().getOrDefault('APP_ID_SFX', '')
+def expectedAutoReleaseApplicationId = configuredApplicationId + '.auto' + configuredAutoIdSuffix
+def artifactIdentity = expectedAutoReleaseApplicationId
+        .replaceAll('[^A-Za-z0-9._-]', '_')
+def youtubeAudioRestoreEnabled = project.getProperties()
+        .getOrDefault('YT_AUDIO_RESTORE', 'true').toString().toBoolean()
+def youtubeDiagnosticsEnabled = project.getProperties()
+        .getOrDefault('YT_DIAGNOSTICS', 'false').toString().toBoolean()
+
+android {
+    defaultConfig {
+        namespace = 'me.aap.fermata'
+        applicationId configuredApplicationId
+        versionCode VERSION_CODE
+        versionName VERSION_NAME
+        base.archivesName = "fermata-$versionName-$artifactIdentity"
+        buildConfigField "boolean", 'YT_AUDIO_RESTORE', "${youtubeAudioRestoreEnabled}"
+        buildConfigField "boolean", 'YT_DIAGNOSTICS', "${youtubeDiagnosticsEnabled}"
+
+        ndk {
+            //noinspection ChromeOsAbiSupport
+            abiFilters = gradle.ext.abiFilters
+        }
+    }
+
+    if (gradle.ext.releaseSigningConfigured) {
+        signingConfigs {
+            release {
+                storeFile file(localProps["storeFile"])
+                storePassword localProps["storePassword"]
+                keyAlias localProps["keyAlias"]
+                keyPassword localProps["keyPassword"]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            ndk {
+                debugSymbolLevel 'SYMBOL_TABLE'
+            }
+            resValue "string", "app_name_auto", "@string/app_name_auto_release"
+            resValue "string", "app_name_mobile", "@string/app_name_mobile_release"
+            resValue "string", "media_service_name_auto", "@string/media_service_name_auto_release"
+            resValue "string", "media_service_name_mobile", "@string/media_service_name_mobile_release"
+            resValue "string", "mirror_service_name", "@string/mirror_service_name_release"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),
+                    '../proguard-rules.pro', '../depends/utils/proguard-rules.pro'
+            if (gradle.ext.releaseSigningConfigured) signingConfig = signingConfigs.release
+            buildConfigField "boolean", 'D', 'false'
+        }
+
+        debug {
+            debuggable true
+            applicationIdSuffix '.debug'
+            resValue "string", "app_name_auto", "@string/app_name_auto_debug"
+            resValue "string", "app_name_mobile", "@string/app_name_mobile_debug"
+            resValue "string", "media_service_name_auto", "@string/media_service_name_auto_debug"
+            resValue "string", "media_service_name_mobile", "@string/media_service_name_mobile_debug"
+            resValue "string", "mirror_service_name", "@string/mirror_service_name_debug"
+            buildConfigField "boolean", 'D', 'true'
+        }
+    }
+
+    flavorDimensions += "version"
+
+    productFlavors {
+        mobile {
+            dimension "version"
+            resValue "string", "app_name", project.getProperties()
+                    .getOrDefault('APP_NAME', "@string/app_name_mobile")
+            resValue "string", "media_service_name", "@string/media_service_name_mobile"
+            resValue "drawable", "media_service_icon", "@drawable/launcher"
+            buildConfigField "boolean", 'AUTO', 'false'
+            buildConfigField "boolean", 'ENABLE_GS', "${gradle.ext.enableGoogleServices}"
+        }
+
+        auto {
+            dimension "version"
+            applicationIdSuffix '.auto' + project.getProperties().getOrDefault('APP_ID_SFX', '')
+            resValue "string", "app_name", project.getProperties()
+                    .getOrDefault('APP_NAME', "@string/app_name_auto")
+            resValue "string", "media_service_name", "@string/media_service_name_auto"
+            resValue "drawable", "media_service_icon", "@drawable/media_service"
+            buildConfigField "boolean", 'AUTO', 'true'
+            buildConfigField "boolean", 'ENABLE_GS', "${gradle.ext.enableGoogleServices}"
+
+            dependencies {
+                implementation files('lib/auto/aauto.aar')
+                compileOnly files('lib/auto/xposed-api-82.jar')
+            }
+        }
+    }
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/LICENSE.txt', 'META-INF/license.txt', 'META-INF/NOTICE', 'META-INF/NOTICE.txt', 'META-INF/notice.txt', 'META-INF/ASL2.0']
+        }
+    }
+
+    dynamicFeatures.addAll(gradle.ext.modules)
+
+    namespace = 'me.aap.fermata'
+}
+
+def verifyAutoReleaseIdentity = tasks.register('verifyAutoReleaseIdentity') {
+    group = 'verification'
+    description = 'Verifies the merged Auto release package and provider authority.'
+
+    doLast {
+        def manifestDir = file("$buildDir/intermediates/merged_manifest/autoRelease")
+        def manifests = fileTree(manifestDir).matching { include '**/AndroidManifest.xml' }.files
+        if (manifests.isEmpty()) {
+            throw new GradleException("Auto release merged manifest not found in ${manifestDir}")
+        }
+
+        def manifestFile = manifests.max { it.lastModified() }
+        def factory = javax.xml.parsers.DocumentBuilderFactory.newInstance()
+        factory.setNamespaceAware(true)
+        def manifest = factory.newDocumentBuilder().parse(manifestFile)
+        def actualApplicationId = manifest.documentElement.getAttribute('package')
+        if (actualApplicationId != expectedAutoReleaseApplicationId) {
+            throw new GradleException("Auto release package mismatch: expected " +
+                    "${expectedAutoReleaseApplicationId}, found ${actualApplicationId}")
+        }
+
+        def androidNamespace = 'http://schemas.android.com/apk/res/android'
+        def providers = manifest.getElementsByTagName('provider')
+        def provider = null
+        for (int i = 0; i < providers.length; i++) {
+            def candidate = providers.item(i)
+            if (candidate.getAttributeNS(androidNamespace, 'name') ==
+                    'me.aap.fermata.provider.FermataContentProvider') {
+                provider = candidate
+                break
+            }
+        }
+        if (provider == null) throw new GradleException('FermataContentProvider is missing')
+        if (provider.getAttributeNS(androidNamespace, 'authorities') !=
+                expectedAutoReleaseApplicationId) {
+            throw new GradleException('FermataContentProvider authority does not match the package')
+        }
+        def expectedWritePermission =
+                expectedAutoReleaseApplicationId + '.permission.WRITE_FERMATA_CONTENT'
+        if (provider.getAttributeNS(androidNamespace, 'writePermission') !=
+                expectedWritePermission) {
+            throw new GradleException('FermataContentProvider write permission does not match the package')
+        }
+    }
+}
+
+tasks.configureEach { task ->
+    if (task.name in ['assembleAutoRelease', 'bundleAutoRelease',
+            'packageAutoReleaseUniversalApk']) {
+        task.finalizedBy(verifyAutoReleaseIdentity)
+    }
+}
+
+dependencies {
+    implementation project(':utils')
+    implementation libs.androidxMedia
+    implementation libs.androidxAppcompat
+    implementation libs.androidxWebkit
+    implementation libs.androidMaterial
+	implementation libs.androidxSecurityCrypto
+    implementation libs.androidxConstraintlayout
+    implementation libs.androidxSwiperefreshlayout
+    implementation libs.googlePlayFeatureDelivery
+    implementation libs.googlePlayAppUpdate
+    implementation libs.androidxTvprovider
+    implementation libs.androidxAnnotation
+    implementation libs.androidxLegacySupportCore
+    implementation libs.androidxLocalbroadcastmanager
+    implementation libs.transportApi
+    implementation libs.transportBackendCct
+    implementation libs.transportRuntime
+    implementation libs.firebaseEncodersJson
+    implementation libs.firebaseEncoders
+    implementation libs.javaxInject
+    autoImplementation libs.androidxCarApp
+	testImplementation libs.robolectric
+}

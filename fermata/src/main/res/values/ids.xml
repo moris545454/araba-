@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tool_view" type="id" />
+    <item name="tool_view_title" type="id" />
+    <item name="tool_view_subtitle" type="id" />
+    <item name="tool_seq_num" type="id" />
+    <item name="tool_track_name" type="id" />
+    <item name="tool_file_name" type="id" />
+    <item name="tool_sub_track_name" type="id" />
+    <item name="tool_sub_file_name" type="id" />
+    <item name="tool_sub_album" type="id" />
+    <item name="tool_sub_artist" type="id" />
+    <item name="tool_sub_dur" type="id" />
+    <item name="tool_grid" type="id" />
+    <item name="tool_sort" type="id" />
+    <item name="tool_sort_name" type="id" />
+    <item name="tool_sort_file_name" type="id" />
+    <item name="tool_sort_date" type="id" />
+    <item name="tool_sort_random" type="id" />
+    <item name="tool_sort_desc" type="id" />
+    <item name="tool_sort_none" type="id" />
+    <item name="tool_pg_up" type="id" />
+    <item name="tool_pg_down" type="id" />
+    <item name="tool_voice" type="id" />
+
+    <item name="menu" type="id" />
+
+    <item name="dashboard_fragment" type="id" />
+    <item name="phone_bottom_menu" type="id" />
+    <item name="dashboard_settings" type="id" />
+    <item name="dashboard_edit" type="id" />
+    <item name="dashboard_menu" type="id" />
+    <item name="dashboard_smart_bind_token" type="id" />
+    <item name="dashboard_smart_action_tag" type="id" />
+    <item name="dashboard_smart_state_tag" type="id" />
+    <item name="dashboard_smart_layout_token" type="id" />
+	<item name="dashboard_smart_background_bind_token" type="id" />
+	<item name="dashboard_smart_background_drawable_tag" type="id" />
+	<item name="dashboard_smart_thumbnail_bind_token" type="id" />
+    <item name="folders_fragment" type="id" />
+    <item name="favorites_fragment" type="id" />
+    <item name="recent_fragment" type="id" />
+    <item name="playlists_fragment" type="id" />
+    <item name="settings_fragment" type="id" />
+    <item name="initial_setup_fragment" type="id" />
+    <item name="subtitles_fragment" type="id" />
+    <item name="tv_fragment" type="id" />
+    <item name="radio_fragment" type="id" />
+    <item name="podcast_fragment" type="id" />
+	<item name="audiobook_fragment" type="id" />
+	<item name="stremio_fragment" type="id" />
+	<item name="youtube_fragment" type="id" />
+    <item name="web_browser_fragment" type="id" />
+    <item name="cast_addon" type="id" />
+    <item name="chat_addon" type="id" />
+
+
+    <item name="nav_got_to_current" type="id" />
+    <item name="nav_donate" type="id" />
+    <item name="nav_about" type="id" />
+    <item name="nav_exit" type="id" />
+	<item name="nav_voice" type="id" />
+    <item name="nav_select" type="id" />
+    <item name="nav_select_all" type="id" />
+    <item name="nav_unselect_all" type="id" />
+
+    <item name="folders_add" type="id" />
+    <item name="folders_remove" type="id" />
+
+    <item name="refresh" type="id" />
+    <item name="rescan" type="id" />
+    <item name="edit" type="id" />
+    <item name="delete" type="id" />
+
+    <item name="programme_guide" type="id" />
+
+    <item name="favorites_add" type="id" />
+    <item name="favorites_remove" type="id" />
+
+    <item name="playlist_add" type="id" />
+    <item name="playlist_create" type="id" />
+    <item name="playlist_remove" type="id" />
+    <item name="playlist_remove_item" type="id" />
+
+    <item name="video" type="id" />
+    <item name="video_scaling" type="id" />
+    <item name="video_scaling_default" type="id" />
+    <item name="video_scaling_best" type="id" />
+    <item name="video_scaling_fill" type="id" />
+    <item name="video_scaling_orig" type="id" />
+    <item name="video_scaling_4" type="id" />
+    <item name="video_scaling_16" type="id" />
+    <item name="hw_accel" type="id" />
+    <item name="hw_accel_auto" type="id" />
+    <item name="hw_accel_full" type="id" />
+    <item name="hw_accel_decoding" type="id" />
+    <item name="hw_accel_disabled" type="id" />
+    <item name="preferred_media_engine" type="id" />
+    <item name="preferred_video_engine" type="id" />
+    <item name="preferred_audio_engine" type="id" />
+    <item name="preferred_video_engine_default" type="id" />
+    <item name="preferred_audio_engine_default" type="id" />
+    <item name="preferred_video_engine_mp" type="id" />
+    <item name="preferred_audio_engine_mp" type="id" />
+    <item name="preferred_video_engine_exo" type="id" />
+    <item name="preferred_audio_engine_exo" type="id" />
+    <item name="preferred_video_engine_vlc" type="id" />
+    <item name="preferred_audio_engine_vlc" type="id" />
+    <item name="mark_watched" type="id" />
+    <item name="mark_unwatched" type="id" />
+
+    <item name="audio_delay" type="id" />
+    <item name="audio_prefs" type="id" />
+    <item name="select_audio_stream" type="id" />
+
+    <item name="subtitle_delay" type="id" />
+    <item name="subtitle_prefs" type="id" />
+    <item name="subtitle_auto" type="id" />
+    <item name="select_subtitles" type="id" />
+    <item name="select_subtitle_stream" type="id" />
+
+    <item name="repeat" type="id" />
+    <item name="repeat_enable" type="id" />
+    <item name="repeat_disable" type="id" />
+    <item name="repeat_disable_all" type="id" />
+    <item name="repeat_track" type="id" />
+    <item name="repeat_folder" type="id" />
+
+    <item name="playback_settings" type="id" />
+    <item name="watched_threshold" type="id" />
+    <item name="play_next" type="id" />
+
+    <item name="bookmarks" type="id" />
+    <item name="bookmark_select" type="id" />
+    <item name="bookmark_create" type="id" />
+    <item name="bookmark_remove" type="id" />
+    <item name="bookmark_remove_all" type="id" />
+    <item name="bookmark_remove_all_confirm" type="id" />
+
+    <item name="shuffle_enable" type="id" />
+    <item name="shuffle_disable" type="id" />
+
+    <item name="speed" type="id" />
+    <item name="timer" type="id" />
+
+    <item name="vfs_content" type="id" />
+    <item name="vfs_file_system" type="id" />
+    <item name="vfs_gdrive" type="id" />
+    <item name="vfs_sftp" type="id" />
+    <item name="vfs_smb" type="id" />
+    <item name="m3u_playlist" type="id" />
+    <item name="xtream_source" type="id" />
+    <item name="tool_add_source" type="id" />
+
+    <item name="car_edit_text" type="id" />
+    <item name="share" type="id" />
+
+    <item name="auto" type="id" />
+
+    <item name="cursor" type="id" />
+
+</resources>

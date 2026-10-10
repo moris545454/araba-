@@ -1,0 +1,31 @@
+android {
+    namespace = "me.aap.fermata.addon.tv"
+    defaultConfig {
+        versionCode 1
+        versionName "1.0"
+    }
+}
+
+ext {
+    addons = [
+            [
+                    name : 'tv',
+                    id   : 'tv_fragment',
+                    icon : 'tv',
+                    class: 'me.aap.fermata.addon.tv.TvAddon',
+                    fragment: true,
+					capabilities: 'dashboard,navigation,tv,voice_search',
+					voiceTarget: 'tv',
+                    order: 1
+            ]
+    ]
+}
+
+dependencies {
+    implementation project(':utils')
+    implementation project(':fermata')
+    implementation libs.androidxMedia
+    implementation libs.androidxAppcompat
+    implementation libs.androidMaterial
+    testImplementation libs.robolectric
+}

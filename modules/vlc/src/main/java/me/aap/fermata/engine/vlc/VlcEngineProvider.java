@@ -1,0 +1,258 @@
+package me.aap.fermata.engine.vlc;
+
+import android.content.ContentResolver;
+import android.content.Context;
+import android.media.AudioManager;
+import android.net.Uri;
+import android.os.ParcelFileDescriptor;
+import android.support.v4.media.MediaMetadataCompat;
+
+import org.videolan.libvlc.LibVLC;
+import org.videolan.libvlc.Media;
+import org.videolan.libvlc.interfaces.IMedia;
+
+import java.io.File;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Set;
+
+import me.aap.fermata.BuildConfig;
+import me.aap.fermata.media.engine.MediaEngine;
+import me.aap.fermata.media.engine.MediaEngineProvider;
+import me.aap.fermata.media.engine.MetadataBuilder;
+import me.aap.fermata.media.lib.MediaLib.PlayableItem;
+import me.aap.fermata.media.net.PlaybackRequestProfile;
+import me.aap.fermata.media.net.PlaybackRequestProfile.EngineCapability;
+import me.aap.fermata.media.net.RemotePlaybackItem;
+import me.aap.utils.io.IoUtils;
+import me.aap.utils.log.Log;
+import me.aap.utils.security.SecurityUtils;
+
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.videolan.libvlc.interfaces.IMedia.Parse.DoInteract;
+import static org.videolan.libvlc.interfaces.IMedia.Parse.FetchLocal;
+import static org.videolan.libvlc.interfaces.IMedia.Parse.FetchNetwork;
+import static org.videolan.libvlc.interfaces.IMedia.Parse.ParseLocal;
+import static org.videolan.libvlc.interfaces.IMedia.Parse.ParseNetwork;
+
+/**
+ * @author Andrey Pavlenko
+ */
+public class VlcEngineProvider implements MediaEngineProvider {
+	private static final Set<EngineCapability> PLAYBACK_CAPABILITIES = Collections.emptySet();
+	private static final Set<EngineCapability> LOOPBACK_P2P_CAPABILITIES =
+			Collections.unmodifiableSet(EnumSet.of(
+					EngineCapability.REDIRECT_ORIGIN_POLICY,
+					EngineCapability.P2P_STREAMING));
+
+	static Set<EngineCapability> playbackCapabilities() {
+		return PLAYBACK_CAPABILITIES;
+	}
+	private volatile LibVLC vlc;
+	private Context context;
+	private List<String> options;
+	private int audioSessionId;
+	private String artUri;
+
+	@Override
+	public void init(Context ctx) {
+		List<String> opts = new ArrayList<>(20);
+		AudioManager am = (AudioManager) ctx.getSystemService(Context.AUDIO_SERVICE);
+		audioSessionId = (am != null) ? am.generateAudioSessionId() : AudioManager.ERROR;
+
+		if (BuildConfig.D) opts.add("-vvv");
+		if (audioSessionId != AudioManager.ERROR) opts.add("--audiotrack-session-id=" + audioSessionId);
+		opts.add("--avcodec-skip-idct");
+		opts.add("0");
+		opts.add("--avcodec-skip-frame");
+		opts.add("0");
+		opts.add("--avcodec-skiploopfilter");
+		opts.add("1");
+		opts.add("--android-display-chroma");
+		opts.add("RV24");
+		opts.add("--sout-keep");
+		opts.add("--audio-time-stretch");
+		opts.add("--audio-resampler");
+		opts.add("soxr");
+		opts.add("--subsdec-encoding=UTF8");
+		opts.add("--freetype-rel-fontsize=16");
+		opts.add("--freetype-color=16777215");
+		opts.add("--freetype-opacity=255");
+		opts.add("--freetype-background-opacity=0");
+		opts.add("--freetype-shadow-color=0");
+		opts.add("--freetype-shadow-opacity=128");
+		opts.add("--freetype-outline-thickness=4");
+		opts.add("--freetype-outline-color=0");
+		opts.add("--freetype-outline-opacity=255");
+		opts.add("--freetype-outline-opacity=255");
+		opts.add("--freetype-rel-fontsize=16");
+		opts.add("--network-caching=60000");
+		opts.add("--no-lua");
+		opts.add("--no-stats");
+
+		context = ctx.getApplicationContext();
+		options = List.copyOf(opts);
+	}
+
+	@Override
+	public MediaEngine createEngine(MediaEngine.Listener listener) {
+		return new VlcEngine(this, listener);
+	}
+
+	@Override
+	public Set<EngineCapability> getPlaybackCapabilities() {
+		// LibVLC follows redirects internally, so this adapter cannot enforce per-origin policy.
+		return PLAYBACK_CAPABILITIES;
+	}
+
+	@Override
+	public boolean supportsPlayback(PlayableItem item) {
+		if (!(item instanceof RemotePlaybackItem remote)) return true;
+		return capabilitiesFor(remote.getPlaybackRequestProfile()) != null;
+	}
+
+	Set<EngineCapability> capabilitiesFor(PlaybackRequestProfile profile) {
+		Set<EngineCapability> required = profile.getRequiredEngineCapabilities();
+		if (PLAYBACK_CAPABILITIES.containsAll(required)) return PLAYBACK_CAPABILITIES;
+		return isInternalP2p(profile) ? LOOPBACK_P2P_CAPABILITIES : null;
+	}
+
+	private static boolean isInternalP2p(PlaybackRequestProfile profile) {
+		Set<EngineCapability> required = profile.getRequiredEngineCapabilities();
+		if (!required.contains(EngineCapability.P2P_STREAMING) ||
+				!LOOPBACK_P2P_CAPABILITIES.containsAll(required) ||
+				profile.getRedirectPolicy() != PlaybackRequestProfile.RedirectPolicy.DENY ||
+				profile.getHeaderReference() != null || profile.getAllowedOrigins().size() != 1) {
+			return false;
+		}
+
+		URI target = profile.getTargetUri();
+		if (!"http".equalsIgnoreCase(target.getScheme()) ||
+				!"127.0.0.1".equals(target.getHost()) || target.getRawUserInfo() != null ||
+				target.getRawQuery() != null || target.getRawFragment() != null) {
+			return false;
+		}
+		String path = target.getPath();
+		return (path != null) && (path.startsWith("/torrent/") ||
+				path.startsWith("/stremio-pending/"));
+	}
+
+	@Override
+	public boolean getMediaMetadata(MetadataBuilder meta, PlayableItem item) {
+		if (item.isLocationSensitive()) return false;
+		Media media = null;
+		ParcelFileDescriptor fd = null;
+
+		try {
+			Uri uri = item.getLocation();
+
+			if ("content".equals(uri.getScheme())) {
+				ContentResolver cr = getVlc().getAppContext().getContentResolver();
+				fd = cr.openFileDescriptor(uri, "r");
+				media =
+						(fd != null) ? new Media(getVlc(), fd.getFileDescriptor()) : new Media(getVlc(), uri);
+			} else {
+				media = new Media(getVlc(), uri);
+			}
+
+			media.parse(ParseLocal | ParseNetwork | FetchLocal | FetchNetwork | DoInteract);
+
+			String title = media.getMeta(IMedia.Meta.Title);
+			String artist = media.getMeta(IMedia.Meta.Artist);
+			String album = media.getMeta(IMedia.Meta.Album);
+
+			if (title != null) {
+				if (!title.startsWith("vfs?resource=") && !title.startsWith("fd://")) {
+					meta.putString(MediaMetadataCompat.METADATA_KEY_TITLE, title);
+				} else {
+					meta.putString(MediaMetadataCompat.METADATA_KEY_TITLE, item.getResource().getName());
+				}
+			} else {
+				meta.putString(MediaMetadataCompat.METADATA_KEY_TITLE, item.getResource().getName());
+			}
+
+			if (artist != null) meta.putString(MediaMetadataCompat.METADATA_KEY_ARTIST, artist);
+			if (album != null) meta.putString(MediaMetadataCompat.METADATA_KEY_ALBUM, album);
+
+			String m = media.getMeta(IMedia.Meta.AlbumArtist);
+			if (m != null) meta.putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ARTIST, m);
+
+			m = media.getMeta(IMedia.Meta.Genre);
+			if (m != null) meta.putString(MediaMetadataCompat.METADATA_KEY_GENRE, m);
+
+			long dur = media.getDuration();
+			meta.putLong(MediaMetadataCompat.METADATA_KEY_DURATION, dur);
+
+			m = media.getMeta(IMedia.Meta.ArtworkURL);
+
+			if (m != null) {
+				if (m.startsWith("file://")) {
+					meta.setImageUri(m);
+				} else if (m.startsWith("attachment://")) {
+					if (((artist != null) && !artist.isEmpty() && !"Unknown Artist".equals(artist)) &&
+							((album != null) && !album.isEmpty() && !"Unknown Album".equals(artist))) {
+						m = getArtUri() + "artistalbum/" + artist + "/" + album + "/art.png";
+					} else {
+						String hash = SecurityUtils.md5String(UTF_8, m, title);
+						m = getArtUri() + "arturl/" + hash + "/art.png";
+					}
+
+					if (new File(new URI(m)).isFile()) {
+						meta.setImageUri(m);
+					}
+				}
+			}
+
+			return true;
+		} catch (Throwable ex) {
+			Log.d(ex, "Failed to retrieve media metadata of " + item.getId());
+			return false;
+		} finally {
+			if (media != null) media.release();
+			IoUtils.close(fd);
+		}
+	}
+
+	public LibVLC getVlc() {
+		LibVLC current = vlc;
+		if (current != null) return current;
+		synchronized (this) {
+			current = vlc;
+			if (current != null) return current;
+			Context ctx = context;
+			if (ctx == null) throw new IllegalStateException("VLC provider is not initialized");
+			return vlc = new LibVLC(ctx, mutableOptions(options));
+		}
+	}
+
+	static List<String> mutableOptions(List<String> options) {
+		return new ArrayList<>(options);
+	}
+
+	public int getAudioSessionId() {
+		return audioSessionId;
+	}
+
+	@Override
+	protected synchronized void finalize() {
+		LibVLC current = vlc;
+		if (current != null) {
+			current.release();
+			vlc = null;
+		}
+		artUri = null;
+		context = null;
+		options = null;
+	}
+
+	private String getArtUri() {
+		if (artUri == null) {
+			File dir = getVlc().getAppContext().getDir("vlc", Context.MODE_PRIVATE);
+			artUri = "file://" + dir.getAbsolutePath() + "/.cache/art/";
+		}
+		return artUri;
+	}
+}

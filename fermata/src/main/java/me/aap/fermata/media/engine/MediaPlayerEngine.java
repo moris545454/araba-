@@ -1,0 +1,348 @@
+package me.aap.fermata.media.engine;
+
+import static android.content.ContentResolver.SCHEME_CONTENT;
+import static android.media.MediaPlayer.TrackInfo.MEDIA_TRACK_TYPE_AUDIO;
+import static java.util.Collections.emptyList;
+import static me.aap.utils.async.Completed.completed;
+
+import android.content.Context;
+import android.media.AudioAttributes;
+import android.media.MediaPlayer;
+import android.media.PlaybackParams;
+import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.SurfaceView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+
+import me.aap.fermata.media.lib.MediaLib.PlayableItem;
+import me.aap.fermata.media.pref.MediaPrefs;
+import me.aap.fermata.ui.policy.VideoFormatSnapshot;
+import me.aap.fermata.ui.view.VideoView;
+import me.aap.utils.async.FutureSupplier;
+import me.aap.utils.log.Log;
+
+/**
+ * @author Andrey Pavlenko
+ */
+public class MediaPlayerEngine extends MediaEngineBase
+		implements MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener,
+		MediaPlayer.OnVideoSizeChangedListener, MediaPlayer.OnErrorListener,
+		MediaPlayer.OnInfoListener {
+	private static final long PREPARE_TIMEOUT_MILLIS = 20_000L;
+	private final Context ctx;
+	private final MediaPlayer player;
+	private final EnginePrepareWatchdog prepareWatchdog;
+	private PlayableItem source;
+
+	public MediaPlayerEngine(Context ctx, Listener listener) {
+		super(listener);
+		this.ctx = ctx;
+		player = new MediaPlayer();
+		AudioAttributes attrs = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_MEDIA)
+				.setContentType(AudioAttributes.CONTENT_TYPE_MUSIC).build();
+		player.setAudioAttributes(attrs);
+		player.setOnPreparedListener(this);
+		player.setOnCompletionListener(this);
+		player.setOnErrorListener(this);
+		player.setOnVideoSizeChangedListener(this);
+		player.setOnInfoListener(this);
+		Handler handler = new Handler(Looper.getMainLooper());
+		prepareWatchdog = new EnginePrepareWatchdog(handler::postDelayed,
+				this::onPrepareTimeout);
+	}
+
+	@Override
+	public int getId() {
+		return MediaPrefs.MEDIA_ENG_MP;
+	}
+
+	@Override
+	public void prepare(PlayableItem source) {
+		prepareWatchdog.cancel();
+		stopped(false);
+		this.source = source;
+		Uri u = source.getLocation();
+
+		try {
+			player.reset();
+			String scheme = u.getScheme();
+			if (SCHEME_CONTENT.equals(scheme)) {
+				player.setDataSource(ctx, u);
+			} else if ((scheme != null) && scheme.startsWith("http")) {
+				String agent = source.getUserAgent();
+				Map<String, String> requestHeaders = source.getRequestHeaders();
+				if ((agent != null) || !requestHeaders.isEmpty()) {
+					Map<String, String> headers = new HashMap<>(requestHeaders);
+					if (agent != null) headers.putIfAbsent("User-Agent", agent);
+					player.setDataSource(ctx, u, headers);
+				} else {
+					player.setDataSource(u.toString());
+				}
+			} else {
+				player.setDataSource(ctx, u);
+			}
+			player.prepareAsync();
+			prepareWatchdog.arm(PREPARE_TIMEOUT_MILLIS);
+		} catch (Exception ex) {
+			prepareWatchdog.cancel();
+			listener.onEngineError(this, ex);
+			this.source = null;
+		}
+	}
+
+	@Override
+	public void start() {
+		player.start();
+		started();
+		listener.onEngineStarted(this);
+	}
+
+	@Override
+	public void stop() {
+		prepareWatchdog.cancel();
+		stopped(false);
+		player.stop();
+		player.reset();
+		source = null;
+	}
+
+	@Override
+	public void pause() {
+		stopped(true);
+		player.pause();
+	}
+
+	@Override
+	public PlayableItem getSource() {
+		return source;
+	}
+
+	@Override
+	public FutureSupplier<Long> getDuration() {
+		return completed((source == null) || !source.isSeekable() ? 0L : player.getDuration());
+	}
+
+	@Override
+	public FutureSupplier<Long> getPosition() {
+		long pos = pos();
+		syncSub(pos, speed(), false);
+		return completed(pos);
+	}
+
+	@Override
+	protected FutureSupplier<Long> getSubtitlePosition() {
+		return completed(pos());
+	}
+
+	private long pos() {
+		return (source != null) ? (player.getCurrentPosition() - source.getOffset()) : 0;
+	}
+
+	@Override
+	public void setPosition(long position) {
+		if (source == null) return;
+		long pos = source.getOffset() + position;
+		player.seekTo((int) pos);
+		syncSub(pos, speed(), true);
+	}
+
+	@Override
+	public FutureSupplier<Float> getSpeed() {
+		return completed(speed());
+	}
+
+	private float speed() {
+		try {
+			var speed = player.getPlaybackParams().getSpeed();
+			return (speed <= 0f) ? 1f : speed;
+		} catch (IllegalStateException ex) {
+			Log.d(ex);
+			return 1f;
+		}
+	}
+
+	@Override
+	public void setSpeed(float speed) {
+		try {
+			PlaybackParams p = player.getPlaybackParams();
+			p.setSpeed(speed);
+			player.setPlaybackParams(p);
+			syncSub(pos(), speed, true);
+		} catch (Exception ex) {
+			Log.e(ex, "Failed to set speed: ", speed);
+		}
+	}
+
+	@Override
+	public void setVideoView(VideoView view) {
+		try {
+			super.setVideoView(view);
+			SurfaceView surface = (view == null) ? null : view.getVideoSurface();
+			player.setDisplay((surface == null) ? null : surface.getHolder());
+		} catch (IllegalStateException | IllegalArgumentException ex) {
+			Log.e(ex, "Failed to set display");
+		}
+	}
+
+	@Override
+	public float getVideoWidth() {
+		return player.getVideoWidth();
+	}
+
+	@Override
+	public float getVideoHeight() {
+		return player.getVideoHeight();
+	}
+
+	@Override
+	public VideoFormatSnapshot getVideoFormatSnapshot() {
+		return videoFormatSnapshot(player.getVideoWidth(), player.getVideoHeight());
+	}
+
+	static VideoFormatSnapshot videoFormatSnapshot(int width, int height) {
+		return new VideoFormatSnapshot(width, height, width, height, 1f);
+	}
+
+	@Override
+	public int getAudioSessionId() {
+		return player.getAudioSessionId();
+	}
+
+	@Override
+	public List<AudioStreamInfo> getAudioStreamInfo() {
+		try {
+			var tracks = player.getTrackInfo();
+			if (tracks.length == 0) return emptyList();
+			var streams = new ArrayList<AudioStreamInfo>(tracks.length);
+			for (int i = 0; i < tracks.length; i++) {
+				var t = tracks[i];
+				if (t.getTrackType() != MEDIA_TRACK_TYPE_AUDIO) continue;
+				streams.add(new AudioStreamInfo(i, t.getLanguage(), null));
+			}
+			return streams;
+		} catch (Exception ex) {
+			Log.e(ex, "Failed get audio tracks");
+			return emptyList();
+		}
+	}
+
+	@Nullable
+	@Override
+	public AudioStreamInfo getCurrentAudioStreamInfo() {
+		try {
+			var id = player.getSelectedTrack(MEDIA_TRACK_TYPE_AUDIO);
+			if (id < 0) return null;
+			var t = player.getTrackInfo()[id];
+			return new AudioStreamInfo(id, t.getLanguage(), null);
+		} catch (Exception ex) {
+			Log.e(ex, "Failed get selected audio stream");
+			return null;
+		}
+	}
+
+	@Override
+	public void setCurrentAudioStream(@Nullable AudioStreamInfo i) {
+		try {
+			if (i != null) player.selectTrack((int) i.getId());
+		} catch (Exception ex) {
+			Log.e(ex, "Failed selected audio stream: ", i);
+		}
+	}
+
+	@Override
+	public void close() {
+		prepareWatchdog.cancel();
+		super.close();
+
+		try {
+			if (player.isPlaying()) player.stop();
+		} catch (IllegalStateException ignore) {
+		}
+
+		player.release();
+		source = null;
+	}
+
+	@Override
+	public void mute(Context ctx) {
+		player.setVolume(0f, 0f);
+	}
+
+	@Override
+	public void unmute(Context ctx) {
+		player.setVolume(1f, 1f);
+	}
+
+	@Override
+	public void onPrepared(MediaPlayer mp) {
+		prepareWatchdog.cancel();
+		if (source == null) return;
+		long off = source.getOffset();
+		if (off > 0) player.seekTo((int) off);
+		listener.onEnginePrepared(this);
+	}
+
+	@Override
+	public void onCompletion(MediaPlayer mp) {
+		stopped(false);
+		player.reset();
+		listener.onEngineEnded(this);
+	}
+
+	@Override
+	public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+		listener.onVideoSizeChanged(this, width, height);
+	}
+
+	@Override
+	public boolean onInfo(MediaPlayer mp, int what, int extra) {
+		if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) listener.onVideoFirstFrame(this);
+		return false;
+	}
+
+	@Override
+	public boolean onError(MediaPlayer mp, int what, int extra) {
+		prepareWatchdog.cancel();
+		MediaEngineException err;
+
+		switch (extra) {
+			case MediaPlayer.MEDIA_ERROR_IO -> err = new MediaEngineException("MEDIA_ERROR_IO");
+			case MediaPlayer.MEDIA_ERROR_MALFORMED ->
+					err = new MediaEngineException("MEDIA_ERROR_MALFORMED");
+			case MediaPlayer.MEDIA_ERROR_UNSUPPORTED ->
+					err = new MediaEngineException("MEDIA_ERROR_UNSUPPORTED");
+			case MediaPlayer.MEDIA_ERROR_TIMED_OUT ->
+					err = new MediaEngineException("MEDIA_ERROR_TIMED_OUT");
+			default -> {
+				if (what == MediaPlayer.MEDIA_ERROR_SERVER_DIED) {
+					err = new MediaEngineException("MEDIA_ERROR_SERVER_DIED");
+				} else if ((what == MediaPlayer.MEDIA_ERROR_UNKNOWN) || !player.isPlaying()) {
+					err = new MediaEngineException("MEDIA_ERROR_UNKNOWN");
+				} else {
+					return true;
+				}
+			}
+		}
+
+		listener.onEngineError(this, err);
+		return true;
+	}
+
+	private void onPrepareTimeout() {
+		if (source == null) return;
+		try {
+			player.reset();
+		} catch (IllegalStateException ignored) {
+		}
+		listener.onEngineError(this, new MediaEngineException("MEDIA_PREPARE_TIMEOUT"));
+	}
+}

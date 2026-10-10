@@ -1,0 +1,450 @@
+package me.aap.fermata.ui.view;
+
+import static me.aap.fermata.R.id.subtitles_fragment;
+import static me.aap.fermata.ui.activity.MainActivityPrefs.L_SPLIT_PERCENT;
+import static me.aap.fermata.ui.activity.MainActivityPrefs.P_SPLIT_PERCENT;
+import static me.aap.utils.async.Completed.completedVoid;
+
+import android.content.Context;
+import android.content.res.Configuration;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Guideline;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import me.aap.fermata.R;
+import me.aap.fermata.media.engine.MediaEngine;
+import me.aap.fermata.media.engine.SubtitleStreamInfo;
+import me.aap.fermata.media.lib.MediaLib;
+import me.aap.fermata.media.service.FermataServiceUiBinder;
+import me.aap.fermata.media.service.MediaSessionCallback;
+import me.aap.fermata.ui.activity.MainActivityDelegate;
+import me.aap.fermata.ui.activity.AsyncOperationController.OperationType;
+import me.aap.fermata.ui.activity.MainActivityListener;
+import me.aap.fermata.ui.fragment.MainActivityFragment;
+import me.aap.fermata.ui.fragment.MediaLibFragment;
+import me.aap.fermata.ui.fragment.SubtitlesFragment;
+import me.aap.fermata.ui.policy.PlaybackLayoutPolicy;
+import me.aap.utils.app.App;
+import me.aap.utils.async.FutureSupplier;
+import me.aap.utils.async.Promise;
+import me.aap.utils.function.DoubleSupplier;
+import me.aap.utils.pref.PreferenceStore.Pref;
+import me.aap.utils.ui.fragment.ActivityFragment;
+
+/**
+ * @author Andrey Pavlenko
+ */
+public class BodyLayout extends SplitLayout
+		implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnChildScrollUpCallback,
+		MainActivityListener, FermataServiceUiBinder.Listener, MediaSessionCallback.Listener {
+	private static final long PLAYBACK_LOADING_TIMEOUT_MS = 30_000L;
+	private Mode mode;
+	private FutureSupplier<?> startingPlayback = completedVoid();
+	private FutureSupplier<?> playbackLoading = completedVoid();
+	private final PostLayoutVideoShowGate videoShowAfterLayout = new PostLayoutVideoShowGate();
+	private long playbackStartGeneration;
+
+	public BodyLayout(@NonNull Context ctx, @Nullable AttributeSet attrs) {
+		super(ctx, attrs);
+
+		SwipeRefreshLayout srl = getSwipeRefresh();
+		srl.setId(R.id.swiperefresh);
+		srl.setOnRefreshListener(this);
+		srl.setOnChildScrollUpCallback(this);
+		setMode(Mode.FRAME);
+
+		MainActivityDelegate.getActivityDelegate(ctx).onSuccess(a -> {
+			FermataServiceUiBinder b = a.getMediaServiceBinder();
+			b.addBroadcastListener(this);
+			a.addBroadcastListener(this, FRAGMENT_CHANGED | FRAGMENT_CONTENT_CHANGED | ACTIVITY_DESTROY);
+			b.getMediaSessionCallback().addBroadcastListener(this);
+			onPlayableChanged(null, b.getCurrentItem());
+		});
+	}
+
+	@Override
+	protected int getLayout(boolean portrait) {
+		return portrait ? R.layout.body_layout : R.layout.body_layout_land;
+	}
+
+	@Override
+	protected Pref<DoubleSupplier> getSplitPercentPref(boolean portrait) {
+		return portrait ? P_SPLIT_PERCENT : L_SPLIT_PERCENT;
+	}
+
+	public Mode getMode() {
+		return mode;
+	}
+
+	public boolean isFrameMode() {
+		return getMode() == Mode.FRAME;
+	}
+
+	public boolean isVideoMode() {
+		return getMode() == Mode.VIDEO;
+	}
+
+	public boolean isBothMode() {
+		return getMode() == Mode.BOTH;
+	}
+
+	public void setMode(Mode mode) {
+		this.mode = mode;
+		if (mode == Mode.FRAME) videoShowAfterLayout.cancel();
+		Guideline gl = getGuideline();
+		ConstraintLayout.LayoutParams lp = (ConstraintLayout.LayoutParams) gl.getLayoutParams();
+		MainActivityDelegate a = getActivity();
+		VideoView vv = getVideoView();
+		boolean showVideo = false;
+
+		switch (mode) {
+			case FRAME -> {
+				boolean keepExternalVideoMode = shouldKeepExternalVideoMode(a);
+				vv.setVisibility(GONE);
+				getSplitLine().setVisibility(GONE);
+				getSplitHandle().setVisibility(GONE);
+				getSwipeRefresh().setVisibility(VISIBLE);
+				lp.guidePercent = isPortrait() ? 0f : 1f;
+				if (!keepExternalVideoMode) {
+					a.setVideoMode(false, vv);
+					if (a.isBarsHidden()) a.setBarsHidden(false);
+				}
+			}
+			case VIDEO -> {
+				vv.setVisibility(VISIBLE);
+				getSplitLine().setVisibility(GONE);
+				getSplitHandle().setVisibility(GONE);
+				getSwipeRefresh().setVisibility(GONE);
+				lp.guidePercent = isPortrait() ? 1f : 0f;
+				showVideo = true;
+				a.setVideoMode(true, vv);
+				App.get().getHandler().post(vv::requestFocus);
+			}
+			case BOTH -> {
+				vv.setVisibility(VISIBLE);
+				getSplitLine().setVisibility(VISIBLE);
+				getSplitHandle().setVisibility(VISIBLE);
+				getSwipeRefresh().setVisibility(VISIBLE);
+				lp.guidePercent = a.getPrefs().getFloatPref(getSplitPercentPref(isPortrait()));
+				showVideo = true;
+				a.setVideoMode(true, vv);
+				if (a.isBarsHidden()) a.setBarsHidden(false);
+				MediaItemListView.focusActive(getContext(), a.isCarActivity() ? null : vv);
+			}
+		}
+
+		gl.setLayoutParams(lp);
+		if (showVideo) showVideoAfterLayout(vv);
+		a.fireBroadcastEvent(MODE_CHANGED);
+	}
+
+	private void showVideoAfterLayout(VideoView video) {
+		long request = videoShowAfterLayout.schedule();
+		if (request == PostLayoutVideoShowGate.NO_REQUEST) return;
+		video.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+			@Override
+			public boolean onPreDraw() {
+				ViewTreeObserver observer = video.getViewTreeObserver();
+				if (observer.isAlive()) observer.removeOnPreDrawListener(this);
+				if (videoShowAfterLayout.complete(request)) video.showVideo(true);
+				return true;
+			}
+		});
+	}
+
+	/** Coalesces repeated mode changes until the layout pass that gives video its real viewport. */
+	static final class PostLayoutVideoShowGate {
+		static final long NO_REQUEST = 0L;
+		private long generation;
+		private boolean pending;
+
+		long schedule() {
+			if (pending) return NO_REQUEST;
+			pending = true;
+			return ++generation;
+		}
+
+		boolean complete(long request) {
+			if (!pending || (request != generation)) return false;
+			pending = false;
+			return true;
+		}
+
+		void cancel() {
+			if (!pending) return;
+			pending = false;
+			generation++;
+		}
+	}
+
+	private boolean shouldKeepExternalVideoMode(MainActivityDelegate a) {
+		var hostMode = a.getRuntimeHostMode();
+		MediaEngine eng = a.getMediaSessionCallback().getEngine();
+		if ((eng == null) || !eng.isVideoModeRequired() || eng.isSplitModeSupported()) return false;
+		ActivityFragment f = a.getActiveFragment();
+		return PlaybackLayoutPolicy.shouldKeepExternalVideoMode(hostMode,
+				a.isVideoMode(), true, true, false, f instanceof MainActivityFragment,
+				(f instanceof MainActivityFragment) ? ((MainActivityFragment) f).getFragmentId() : 0);
+	}
+
+	public VideoView getVideoView() {
+		return findViewById(R.id.video_view);
+	}
+
+	private SwipeRefreshLayout getSwipeRefresh() {
+		return findViewById(R.id.swiperefresh);
+	}
+
+	@Override
+	protected void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+		setMode(getMode());
+	}
+
+	@Override
+	public void onActivityEvent(MainActivityDelegate a, long e) {
+		if (handleActivityDestroyEvent(a, e)) {
+			FermataServiceUiBinder b = a.getMediaServiceBinder();
+			b.removeBroadcastListener(this);
+			b.getMediaSessionCallback().removeBroadcastListener(this);
+		} else if ((e == FRAGMENT_CHANGED) || ((e == FRAGMENT_CONTENT_CHANGED) && isFrameMode())) {
+			MediaLibFragment f = a.getActiveMediaLibFragment();
+
+			if (f == null) {
+				setMode(Mode.FRAME);
+			} else {
+				MediaSessionCallback cb = a.getMediaSessionCallback();
+				MediaEngine eng = cb.getEngine();
+
+				if (eng == null) {
+					setMode(Mode.FRAME);
+					return;
+				}
+
+				if (PlaybackLayoutPolicy.shouldShowSplit(f, eng, cb, getVideoView())) {
+					setMode(Mode.BOTH);
+				} else {
+					setMode(Mode.FRAME);
+				}
+			}
+		}
+	}
+
+	public void playItem(MediaLib.PlayableItem i) {
+		playItem(i, -1);
+	}
+
+	public void playItem(MediaLib.PlayableItem item, long position) {
+		FermataServiceUiBinder binder = getActivity().getMediaServiceBinder();
+		playSelection(binder.captureUserSelection(), item, position);
+	}
+
+	public me.aap.utils.async.FutureSupplier<me.aap.fermata.auto.AutomotiveNavigationController.OpenResult>
+	playSelection(me.aap.fermata.auto.OpenOnCarMediaRouting.Selection selection,
+			MediaLib.PlayableItem item, long position) {
+		return getActivity().getMediaServiceBinder().routeUserSelection(selection, item, position,
+				admission -> playRoutedItem(item, position, admission));
+	}
+
+	/** Called only after target capture, including by the guarded car receiver. */
+	public me.aap.utils.async.FutureSupplier<me.aap.fermata.auto.AutomotiveNavigationController.OpenResult>
+	playRoutedItem(MediaLib.PlayableItem i, long position,
+			me.aap.fermata.auto.OpenOnCarMediaRouting.Admission admission) {
+		var result = new Promise<me.aap.fermata.auto.AutomotiveNavigationController.OpenResult>();
+		if (!admission.isCurrent()) {
+			result.complete(me.aap.fermata.auto.AutomotiveNavigationController.OpenResult.CANCELLED);
+			return result;
+		}
+		finishPlaybackLoading();
+		MainActivityDelegate a = getActivity();
+		MediaSessionCallback cb = a.getMediaSessionCallback();
+		boolean customEngineProvider = cb.hasCustomEngineProvider();
+		Mode originalMode = getMode();
+		Mode requestedMode = PlaybackLayoutPolicy.getModeOnPlayRequest(
+				originalMode, i, customEngineProvider);
+		long request = ++playbackStartGeneration;
+		if (requestedMode != originalMode) setMode(requestedMode);
+		awaitPlaybackViewport(i, originalMode, requestedMode, customEngineProvider, request,
+				position, admission, result);
+		return result;
+	}
+
+	private void awaitPlaybackViewport(MediaLib.PlayableItem i, Mode originalMode,
+			Mode requestedMode, boolean customEngineProvider, long request, long position,
+			me.aap.fermata.auto.OpenOnCarMediaRouting.Admission admission,
+			Promise<me.aap.fermata.auto.AutomotiveNavigationController.OpenResult> result) {
+		if (request != playbackStartGeneration || !admission.isCurrent()) {
+			result.complete(me.aap.fermata.auto.AutomotiveNavigationController.OpenResult.CANCELLED); return;
+		}
+		if (requestedMode != originalMode) {
+			VideoView video = getVideoView();
+			ViewTreeObserver observer = video.getViewTreeObserver();
+			if (observer.isAlive()) {
+				observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+					@Override
+					public boolean onPreDraw() {
+						ViewTreeObserver current = video.getViewTreeObserver();
+						if (current.isAlive()) current.removeOnPreDrawListener(this);
+						awaitPlaybackSurface(i, originalMode, requestedMode,
+								customEngineProvider, request, position, admission, result);
+						return true;
+					}
+				});
+				return;
+			}
+		}
+		awaitPlaybackSurface(i, originalMode, requestedMode, customEngineProvider, request, position, admission, result);
+	}
+
+	private void awaitPlaybackSurface(MediaLib.PlayableItem i, Mode originalMode,
+			Mode requestedMode, boolean customEngineProvider, long request, long position,
+			me.aap.fermata.auto.OpenOnCarMediaRouting.Admission admission,
+			Promise<me.aap.fermata.auto.AutomotiveNavigationController.OpenResult> result) {
+		if (request != playbackStartGeneration || !admission.isCurrent()) {
+			result.complete(me.aap.fermata.auto.AutomotiveNavigationController.OpenResult.CANCELLED); return;
+		}
+		VideoView video = getVideoView();
+		if (i.isVideo() && !customEngineProvider && !video.isSurfaceCreated()) {
+			video.onSurfaceCreated(() ->
+					startPlaybackRequest(i, originalMode, requestedMode, request, position, admission, result));
+			return;
+		}
+		startPlaybackRequest(i, originalMode, requestedMode, request, position, admission, result);
+	}
+
+	private void startPlaybackRequest(MediaLib.PlayableItem i, Mode originalMode,
+			Mode requestedMode, long request, long position,
+			me.aap.fermata.auto.OpenOnCarMediaRouting.Admission admission,
+			Promise<me.aap.fermata.auto.AutomotiveNavigationController.OpenResult> result) {
+		if (request != playbackStartGeneration || !admission.isCurrent()) {
+			result.complete(me.aap.fermata.auto.AutomotiveNavigationController.OpenResult.CANCELLED); return;
+		}
+		MainActivityDelegate a = getActivity();
+		FermataServiceUiBinder b = a.getMediaServiceBinder();
+		MediaLib.PlayableItem cur = b.getCurrentItem();
+		startingPlayback = new Promise<Void>().thenRun(() -> startingPlayback = completedVoid());
+		var dispatchResult = FermataServiceUiBinder.dispatchTypedRoutedPlayback(admission,
+				b.getMediaSessionCallback()::hasCustomEngineProvider,
+				() -> b.playRoutedItemResult(i, position, admission));
+		boolean requestStarted = dispatchResult ==
+				me.aap.fermata.auto.AutomotiveNavigationController.OpenResult.LOAD_DISPATCHED;
+		result.complete(dispatchResult);
+		MediaEngine eng = b.getCurrentEngine();
+		boolean currentVideoModeRequired = i.equals(cur) && (eng != null) && eng.isVideoModeRequired();
+
+		if (requestStarted) {
+			playbackLoading = a.setContentLoading(i, OperationType.STREAM_PREPARE,
+					startingPlayback.timeout(PLAYBACK_LOADING_TIMEOUT_MS, () -> null));
+		} else {
+			finishPlaybackLoading();
+			Mode rejectedMode = PlaybackLayoutPolicy.getModeAfterRejectedPlayRequest(
+					originalMode, requestedMode, currentVideoModeRequired);
+			if ((currentVideoModeRequired || (getMode() == requestedMode)) &&
+					(rejectedMode != getMode())) setMode(rejectedMode);
+		}
+
+		if (currentVideoModeRequired && (getMode() != BodyLayout.Mode.VIDEO))
+			setMode(BodyLayout.Mode.VIDEO);
+	}
+
+	@Override
+	public void onPlayableChanged(MediaLib.PlayableItem oldItem, MediaLib.PlayableItem newItem) {
+		finishPlaybackLoading();
+		MainActivityDelegate a = getActivity();
+		if (!(a.getActiveFragment() instanceof MainActivityFragment f)) return;
+		MediaEngine eng = a.getMediaServiceBinder().getCurrentEngine();
+		if (f instanceof SubtitlesFragment) a.goToCurrent();
+		else if (!f.isVideoModeSupported()) {
+			syncAudioPlaybackUi(a, newItem, eng);
+			return;
+		}
+		Mode mode = PlaybackLayoutPolicy.getModeOnPlayableChanged(getMode(), newItem, eng);
+
+		if (mode != getMode()) setMode(mode);
+		else if (PlaybackLayoutPolicy.shouldRefreshVideoInCurrentMode(mode, newItem, eng))
+			getVideoView().showVideo(false);
+
+		syncAudioPlaybackUi(a, newItem, eng);
+	}
+
+	private void syncAudioPlaybackUi(MainActivityDelegate a, @Nullable MediaLib.PlayableItem item,
+																	 @Nullable MediaEngine eng) {
+		if ((item == null) || item.isVideo()) return;
+		if (getMode() != Mode.FRAME) setMode(Mode.FRAME);
+		if ((eng != null) && (getMode() == Mode.FRAME)) eng.selectSubtitleStream();
+
+		ControlPanelView cp = a.getControlPanel();
+		if ((cp != null) && a.isCarActivity()) cp.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public void onSubtitleStreamChanged(MediaSessionCallback cb, @Nullable SubtitleStreamInfo info) {
+		if (getMode() != Mode.FRAME) return;
+		var i = cb.getCurrentItem();
+		if ((i == null) || i.isVideo()) return;
+		var a = getActivity();
+		var f = a.getActiveFragment();
+		if (info == null) {
+			if (f instanceof SubtitlesFragment) a.goToCurrent();
+		} else if (f instanceof SubtitlesFragment) {
+			((SubtitlesFragment) f).restart();
+		} else {
+			a.showFragment(subtitles_fragment);
+		}
+	}
+
+	@Override
+	public void onPlaybackError(String message) {
+		onPlaybackStopped();
+		if (message == null) {
+			message = getContext().getString(R.string.err_failed_to_play,
+					getActivity().getMediaServiceBinder().getCurrentItem());
+		}
+		Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void onPlaybackStopped() {
+		finishPlaybackLoading();
+		var a = getActivity();
+		if (a.getActiveFragment() instanceof SubtitlesFragment) a.goToCurrent();
+	}
+
+	@Override
+	public void onSubtitleLoadFailed(MediaSessionCallback cb, String message) {
+		Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+	}
+
+	private void finishPlaybackLoading() {
+		startingPlayback.cancel();
+		FutureSupplier<?> loading = playbackLoading;
+		playbackLoading = completedVoid();
+		getActivity().clearContentLoading(loading);
+		loading.cancel();
+	}
+
+	@Override
+	public void onRefresh() {
+		ActivityFragment f = getActivity().getActiveFragment();
+		if (f != null) f.onRefresh(getSwipeRefresh()::setRefreshing);
+	}
+
+	@Override
+	public boolean canChildScrollUp(@NonNull SwipeRefreshLayout parent, @Nullable View child) {
+		MainActivityDelegate a = getActivity();
+		if (a.isMenuActive()) return true;
+		ActivityFragment f = a.getActiveFragment();
+		return (f != null) && f.canScrollUp();
+	}
+
+	public enum Mode {
+		FRAME, VIDEO, BOTH
+	}
+}

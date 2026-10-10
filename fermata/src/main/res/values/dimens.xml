@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="control_panel_height">76dp</dimen>
+	<dimen name="control_panel_transport_height">64dp</dimen>
+	<dimen name="control_panel_edge_action_size">44dp</dimen>
+	<dimen name="control_panel_edge_action_padding">8dp</dimen>
+	<dimen name="control_panel_seek_track_height">3dp</dimen>
+	<dimen name="control_panel_scrim_height">92dp</dimen>
+
+    <dimen name="dashboard_content_padding">6dp</dimen>
+    <dimen name="dashboard_card_margin">4dp</dimen>
+
+    <dimen name="dashboard_tile_height">92dp</dimen>
+	<dimen name="dashboard_tile_padding">8dp</dimen>
+	<dimen name="dashboard_tile_icon_size">68dp</dimen>
+	<dimen name="dashboard_tile_icon_padding">3dp</dimen>
+	<dimen name="dashboard_tile_text_gap">10dp</dimen>
+    <dimen name="dashboard_tile_title_size">18sp</dimen>
+    <dimen name="dashboard_tile_subtitle_size">11sp</dimen>
+
+	<dimen name="dashboard_smart_height">140dp</dimen>
+	<dimen name="dashboard_smart_mobile_height">176dp</dimen>
+	<!-- V2 cold baseline is width-class invariant; runtime height changes only by font-scale bucket. -->
+	<dimen name="dashboard_smart_v2_compact_height">152dp</dimen>
+	<dimen name="dashboard_smart_v2_standard_height">152dp</dimen>
+	<dimen name="dashboard_smart_v2_expanded_height">152dp</dimen>
+	<dimen name="dashboard_smart_v2_control_size">48dp</dimen>
+	<dimen name="dashboard_smart_v2_visual_action_size">44dp</dimen>
+	<dimen name="dashboard_smart_v2_action_glyph_size">22dp</dimen>
+	<dimen name="dashboard_smart_v2_action_padding">13dp</dimen>
+    <dimen name="dashboard_smart_padding">10dp</dimen>
+	<dimen name="dashboard_smart_icon_size">78dp</dimen>
+	<dimen name="dashboard_smart_icon_padding">6dp</dimen>
+    <dimen name="dashboard_smart_text_gap">10dp</dimen>
+    <dimen name="dashboard_smart_eyebrow_size">12sp</dimen>
+    <dimen name="dashboard_smart_title_size">20sp</dimen>
+    <dimen name="dashboard_smart_subtitle_size">12sp</dimen>
+    <dimen name="dashboard_smart_action_width">48dp</dimen>
+    <dimen name="dashboard_smart_action_height">48dp</dimen>
+    <dimen name="dashboard_smart_action_gap">6dp</dimen>
+    <dimen name="dashboard_smart_action_padding">10dp</dimen>
+    <dimen name="dashboard_smart_action_top_gap">6dp</dimen>
+    <dimen name="dashboard_smart_actions_start_margin">0dp</dimen>
+    <dimen name="dashboard_smart_mobile_divider_gap">6dp</dimen>
+    <dimen name="dashboard_smart_mobile_recent_top_padding">4dp</dimen>
+</resources>

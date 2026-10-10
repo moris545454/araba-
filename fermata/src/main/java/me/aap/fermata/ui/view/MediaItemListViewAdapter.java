@@ -1,0 +1,329 @@
+package me.aap.fermata.ui.view;
+
+import static me.aap.utils.async.Completed.completedVoid;
+import static me.aap.utils.concurrent.ConcurrentUtils.ensureMainThread;
+import static me.aap.utils.function.ResultConsumer.Cancel.isCancellation;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import me.aap.fermata.R;
+import me.aap.fermata.media.lib.ItemBase;
+import me.aap.fermata.media.lib.MediaLib.BrowsableItem;
+import me.aap.fermata.media.lib.MediaLib.Item;
+import me.aap.fermata.media.lib.MediaLib.PlayableItem;
+import me.aap.fermata.media.lib.SearchFolder;
+import me.aap.fermata.ui.activity.MainActivityDelegate;
+import me.aap.fermata.ui.activity.AsyncOperationController.OperationType;
+import me.aap.utils.app.App;
+import me.aap.utils.async.Async;
+import me.aap.utils.async.FutureSupplier;
+import me.aap.utils.collection.CollectionUtils;
+import me.aap.utils.log.Log;
+import me.aap.utils.ui.view.MovableRecyclerViewAdapter;
+
+/**
+ * @author Andrey Pavlenko
+ */
+public class MediaItemListViewAdapter extends MovableRecyclerViewAdapter<MediaItemViewHolder>
+		implements OnClickListener, Item.ChangeListener {
+	private final MainActivityDelegate activity;
+	private BrowsableItem parent;
+	private String filterText = "";
+	private Pattern filter;
+	private MediaItemListView listView;
+	private List<MediaItemWrapper> list = Collections.emptyList();
+	private LoadState loadState = LoadState.IDLE;
+	@Nullable
+	private LoadStateListener loadStateListener;
+
+	public MediaItemListViewAdapter(MainActivityDelegate activity) {
+		this.activity = activity;
+	}
+
+	@NonNull
+	public MediaItemListView getListView() {
+		return listView;
+	}
+
+	public void setListView(@NonNull MediaItemListView listView) {
+		this.listView = listView;
+	}
+
+	public LoadState getLoadState() {
+		return loadState;
+	}
+
+	public void setLoadStateListener(@Nullable LoadStateListener listener) {
+		loadStateListener = listener;
+		if (listener != null) listener.onLoadStateChanged(loadState);
+	}
+
+	public BrowsableItem getParent() {
+		return parent;
+	}
+
+	public BrowsableItem getRoot() {
+		BrowsableItem p = getParent();
+		return (p == null) ? null : p.getRoot();
+	}
+
+	public FutureSupplier<?> setParent(BrowsableItem parent) {
+		return setParent(parent, true);
+	}
+
+	@CallSuper
+	public FutureSupplier<?> setParent(BrowsableItem parent, boolean userAction) {
+		ensureMainThread(true);
+		if (this.parent != null) this.parent.removeChangeListener(this);
+		this.parent = parent;
+		list = Collections.emptyList();
+		notifyChanged();
+		if (parent == null) {
+			setLoadState(LoadState.IDLE);
+			return completedVoid();
+		}
+		parent.addChangeListener(this);
+		setLoadState(LoadState.LOADING);
+
+		FutureSupplier<?> f = parent.getChildren().main()
+				.addConsumer((result, fail, progress, total) -> {
+					if (this.parent != parent) return;
+
+					if (fail != null) {
+						if (isCancellation(fail)) {
+							setLoadState(LoadState.ERROR);
+							return;
+						}
+						Log.e("Failed to load children (", fail.getClass().getSimpleName(), ')');
+						setLoadState(LoadState.ERROR);
+					} else {
+						setChildren((result == null) ? Collections.emptyList() : result);
+					}
+				});
+
+		if (userAction) activity.setContentLoading(this, getOperationType(parent), f);
+		return f;
+	}
+
+	protected OperationType getOperationType(BrowsableItem parent) {
+		return (parent instanceof SearchFolder) ? OperationType.SEARCH : OperationType.BROWSE;
+	}
+
+	@CallSuper
+	protected void setChildren(List<? extends Item> children) {
+		ensureMainThread(true);
+		var filter = this.filter;
+
+		if (filter == null) {
+			list = CollectionUtils.map(children, MediaItemWrapper::new);
+		} else {
+			var l = list = new ArrayList<>();
+			var app = App.get();
+			Async.forEach(c ->
+					(l != list) ? null : c.getMediaDescription().onSuccess(md -> {
+						if (l != list) return;
+						var s = md.getTitle();
+						var matches = (s != null) && filter.matcher(s).find();
+
+						if (!matches) {
+							s = md.getSubtitle();
+							matches = (s != null) && filter.matcher(s).find();
+						}
+						if (matches) {
+							app.run(() -> {
+								l.add(new MediaItemWrapper(c));
+								notifyItemInserted(l.size() - 1);
+							});
+						}
+					}), children);
+		}
+		notifyChanged();
+		setLoadState(children.isEmpty() ? LoadState.EMPTY : LoadState.CONTENT);
+	}
+
+	private void setLoadState(LoadState state) {
+		if (loadState == state) return;
+		loadState = state;
+		LoadStateListener listener = loadStateListener;
+		if (listener != null) listener.onLoadStateChanged(state);
+	}
+
+	public void setFilter(String filter) {
+		if (!filter.equals(filterText)) {
+			filterText = filter;
+			this.filter = filter.isEmpty() ? null :
+					Pattern.compile(Pattern.quote(filter), Pattern.CASE_INSENSITIVE);
+			var parent = getParent();
+			if (parent == null) return;
+			this.parent.getChildren().main().onSuccess(children -> {
+				if (getParent() == parent) setChildren(children);
+			});
+		}
+	}
+
+	public FutureSupplier<?> reload() {
+		getListView().discardSelection();
+		return setParent(getParent());
+	}
+
+	public void refresh() {
+		getListView().refresh();
+	}
+
+	public List<MediaItemWrapper> getList() {
+		return list;
+	}
+
+	@Override
+	public void mediaItemChanged(Item i) {
+		ensureMainThread(true);
+		if (i == parent) setParent(parent, false);
+	}
+
+	@CallSuper
+	@Override
+	protected void onItemDismiss(int position) {
+		list.remove(position);
+		getParent().updateTitles().main().thenRun(this::refresh);
+	}
+
+	@CallSuper
+	@Override
+	protected boolean onItemMove(int fromPosition, int toPosition) {
+		activity.getContextMenu().hide();
+		move(list, fromPosition, toPosition);
+		return true;
+	}
+
+	protected void swap(List<?> list, int fromPosition, int toPosition) {
+		updatePos((MediaItemWrapper) list.get(fromPosition), fromPosition, toPosition);
+		updatePos((MediaItemWrapper) list.get(toPosition), toPosition, fromPosition);
+		super.swap(list, fromPosition, toPosition);
+	}
+
+	private void updatePos(MediaItemWrapper w, int from, int to) {
+		Item i = w.getItem();
+		if (i instanceof ItemBase ib) {
+			if (ib.getSeqNum() == from + 1) ib.setSeqNum(to + 1);
+		}
+		i.updateTitles().main().onSuccess(t -> activity.post(() -> {
+			MediaItemView v = w.getView();
+			if (v != null) v.refresh();
+		}));
+	}
+
+	@NonNull
+	@Override
+	public MediaItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		MediaItemView v = (MediaItemView) LayoutInflater.from(parent.getContext())
+				.inflate(R.layout.media_item_view, parent, false);
+		v.setClickable(true);
+		v.setOnClickListener(this);
+		return new MediaItemViewHolder(v, getListView());
+	}
+
+	@Override
+	public void onBindViewHolder(@NonNull MediaItemViewHolder holder, int position) {
+		List<MediaItemWrapper> list = getList();
+		if (position < list.size()) holder.bind(list.get(position));
+	}
+
+	public void onDestroy() {
+		for (MediaItemWrapper w : getList()) {
+			MediaItemViewHolder h = w.getViewHolder();
+			if (h != null) h.recycled();
+		}
+		setLoadStateListener(null);
+		setParent(null, false);
+	}
+
+	@Override
+	public void onViewRecycled(@NonNull MediaItemViewHolder holder) {
+		holder.recycled();
+	}
+
+	@Override
+	public void onViewAttachedToWindow(@NonNull MediaItemViewHolder holder) {
+		holder.attached();
+	}
+
+	@Override
+	public void onViewDetachedFromWindow(@NonNull MediaItemViewHolder holder) {
+		holder.detached();
+	}
+
+	@Override
+	public int getItemCount() {
+		return getList().size();
+	}
+
+	@Override
+	public boolean isLongPressDragEnabled() {
+		return filter == null;
+	}
+
+	public boolean isItemViewSwipeEnabled() {
+		return false;
+	}
+
+	@Override
+	public void onClick(View v) {
+		MediaItemView mi = (MediaItemView) v;
+		Item i = mi.getItem();
+
+		if (i instanceof BrowsableItem) {
+			setParent((BrowsableItem) i);
+		}
+	}
+
+	public boolean hasSelectable() {
+		for (MediaItemWrapper w : getList()) {
+			if (w.isSelectionSupported()) return true;
+		}
+		return false;
+	}
+
+	public boolean hasSelected() {
+		for (MediaItemWrapper w : getList()) {
+			if (w.isSelected()) return true;
+		}
+		return false;
+	}
+
+	public List<PlayableItem> getSelectedItems() {
+		List<MediaItemWrapper> list = getList();
+		List<PlayableItem> selection = new ArrayList<>(list.size());
+		for (MediaItemWrapper w : list) {
+			if (w.isSelected() && (w.getItem() instanceof PlayableItem))
+				selection.add((PlayableItem) w.getItem());
+		}
+		return selection;
+	}
+
+	private void notifyChanged() {
+		if ((listView != null) && listView.isComputingLayout())
+			App.get().getHandler().post(this::notifyDataSetChanged);
+		else notifyDataSetChanged();
+	}
+
+	public enum LoadState {
+		IDLE, LOADING, EMPTY, ERROR, CONTENT
+	}
+
+	@FunctionalInterface
+	public interface LoadStateListener {
+		void onLoadStateChanged(LoadState state);
+	}
+}

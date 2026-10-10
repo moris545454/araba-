@@ -1,0 +1,409 @@
+package me.aap.fermata.media.engine;
+
+import static android.media.session.PlaybackState.STATE_PAUSED;
+import static android.media.session.PlaybackState.STATE_PLAYING;
+import static android.media.session.PlaybackState.STATE_STOPPED;
+import static me.aap.fermata.media.sub.SubGrid.Position.BOTTOM_CENTER;
+import static me.aap.fermata.media.sub.SubGrid.Position.BOTTOM_LEFT;
+import static me.aap.fermata.media.sub.SubGrid.Position.BOTTOM_RIGHT;
+import static me.aap.utils.async.Completed.cancelled;
+import static me.aap.utils.async.Completed.completedEmptyList;
+import static me.aap.utils.collection.CollectionUtils.comparing;
+import static me.aap.utils.text.TextUtils.timeToString;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import me.aap.fermata.BuildConfig;
+import me.aap.fermata.media.sub.FileSubtitles;
+import me.aap.fermata.media.sub.SubGrid;
+import me.aap.fermata.media.sub.SubScheduler;
+import me.aap.fermata.media.sub.Subtitles;
+import me.aap.fermata.ui.view.VideoView;
+import me.aap.utils.app.App;
+import me.aap.utils.async.FutureSupplier;
+import me.aap.utils.function.BiConsumer;
+import me.aap.utils.log.Log;
+import me.aap.utils.vfs.VirtualFile;
+import me.aap.utils.vfs.VirtualResource;
+
+/**
+ * @author Andrey Pavlenko
+ */
+public abstract class MediaEngineBase implements MediaEngine {
+	protected final Listener listener;
+	@Nullable
+	protected VideoView videoView;
+	private int state = STATE_STOPPED;
+	private SubMgr subMgr;
+
+	protected MediaEngineBase(Listener listener) {this.listener = listener;}
+
+	@CallSuper
+	@Override
+	public void setVideoView(@Nullable VideoView view) {
+		if ((subMgr != null) && (videoView != null)) subMgr.removeSubtitleConsumer(videoView);
+		videoView = view;
+		if (view == null) return;
+		view.clearSubtitleSurface();
+		if (subMgr != null) subMgr.addSubtitleConsumer(view);
+		else selectSubtitleStream();
+	}
+
+	protected boolean isPlaying() {
+		return state == STATE_PLAYING;
+	}
+
+	protected boolean isPaused() {
+		return state == STATE_PAUSED;
+	}
+
+	protected FutureSupplier<Long> getSubtitlePosition() {
+		return getPosition();
+	}
+
+	protected long subSchedulerClock() {
+		var pos = getSubtitlePosition();
+		return pos.isDoneNotFailed() ? pos.getOrThrow() : System.currentTimeMillis();
+	}
+
+	public FutureSupplier<List<SubtitleStreamInfo>> getSubtitleStreamInfo() {
+		var src = getSource();
+		if (src == null) return completedEmptyList();
+
+		var srcFile = src.getResource();
+		var srcName = srcFile.getName();
+		var idx = srcName.lastIndexOf('.');
+		var baseName = (idx == -1) ? srcName : srcName.substring(0, idx);
+
+		return srcFile.getParent().then(srcDir -> {
+			if (srcDir == null) return completedEmptyList();
+			var filter = srcDir.filterChildren();
+			for (var ext : FileSubtitles.getSupportedFileExtensions())
+				filter = filter.or().startsEnds(baseName, ext);
+			return filter.apply();
+		}).map(children -> {
+			if (children.isEmpty()) return Collections.emptyList();
+
+			long id = 0xFFFFL;
+			var list = new ArrayList<SubtitleStreamInfo>();
+			Collections.sort(children, comparing(VirtualResource::getName));
+
+			for (var f : children) {
+				if (!f.isFile()) continue;
+				if (f instanceof SubtitleTrackFile track) {
+					list.add(new SubtitleStreamInfo(track.getSubtitleTrackId(),
+							track.getSubtitleLanguage(), track.getSubtitleDescription(),
+							(VirtualFile) f));
+					continue;
+				}
+				var name = f.getName();
+				var langStart = baseName.length() + 1;
+				var langEnd = name.length() - 4;
+				var lang = langStart >= langEnd ? null : name.substring(langStart, langEnd);
+				list.add(new SubtitleStreamInfo(id++, lang, null, (VirtualFile) f));
+			}
+
+			if (src.supportsCombinedSubtitles()) {
+				for (int i = 0, n = list.size(); i < n; i++) {
+					for (int j = 0; j < n; j++) {
+						if (i != j) list.add(list.get(i).join(id++, list.get(j)));
+					}
+				}
+			}
+
+			return list;
+		});
+	}
+
+	@Override
+	public int getSubtitleDelay() {
+		return (subMgr == null) ? 0 : subMgr.getSubtitleDelay();
+	}
+
+	@Override
+	public void setSubtitleDelay(int milliseconds) {
+		if ((milliseconds == 0) && (subMgr == null)) return;
+		sub().setSubtitleDelay(milliseconds);
+	}
+
+	@Override
+	public boolean isSubtitlesSupported() {
+		return true;
+	}
+
+	@Nullable
+	@Override
+	public SubtitleStreamInfo getCurrentSubtitleStreamInfo() {
+		return (subMgr == null) ? null : subMgr.getCurrentSubtitleStreamInfo();
+	}
+
+	@Override
+	public void setCurrentSubtitleStream(@Nullable SubtitleStreamInfo i) {
+		if ((i == null) && (subMgr == null)) return;
+		sub().setCurrentSubtitleStream(i);
+	}
+
+	@Override
+	public FutureSupplier<SubGrid> getCurrentSubtitles() {
+		return (subMgr == null) ? NO_SUBTITLES : subMgr.getCurrentSubtitles();
+	}
+
+	@Override
+	public void addSubtitleConsumer(BiConsumer<SubGrid.Position, Subtitles.Text> consumer) {
+		sub().addSubtitleConsumer(consumer);
+	}
+
+	@Override
+	public void removeSubtitleConsumer(BiConsumer<SubGrid.Position, Subtitles.Text> consumer) {
+		if (subMgr != null) subMgr.removeSubtitleConsumer(consumer);
+	}
+
+	@CallSuper
+	@Override
+	public void close() {
+		stopped(false);
+		if (videoView != null) setVideoView(null);
+	}
+
+	protected void started() {
+		if (state == STATE_PLAYING) return;
+		if (state == STATE_PAUSED) {
+			if (subMgr != null) subMgr.start();
+			state = STATE_PLAYING;
+			return;
+		}
+
+		state = STATE_PLAYING;
+
+		if (videoView != null) {
+			if (subMgr != null) subMgr.addSubtitleConsumer(videoView);
+			else selectSubtitleStream();
+		}
+	}
+
+	protected void stopped(boolean paused) {
+		if (paused) {
+			if (state == STATE_PAUSED || state == STATE_STOPPED) return;
+			state = STATE_PAUSED;
+			if (subMgr != null) subMgr.stop(true);
+		} else {
+			state = STATE_STOPPED;
+			if (subMgr != null) {
+				if (videoView != null) subMgr.removeSubtitleConsumer(videoView);
+				subMgr.stop(false);
+				subMgr = null;
+			}
+		}
+	}
+
+	protected void syncSub(long position, float speed, boolean restart) {
+		if (subMgr != null) subMgr.sync(position, speed, restart);
+	}
+
+	private SubMgr sub() {
+		if (subMgr == null) subMgr = new SubMgr();
+		return subMgr;
+	}
+
+	private final class SubMgr implements BiConsumer<SubGrid.Position, Subtitles.Text> {
+		private final List<BiConsumer<SubGrid.Position, Subtitles.Text>> consumers =
+				new ArrayList<>(3);
+		private int delay;
+		private SubScheduler sub;
+		private SubtitleStreamInfo streamInfo;
+		private FutureSupplier<SubScheduler> loading = cancelled();
+
+		int getSubtitleDelay() {
+			return delay;
+		}
+
+		void setSubtitleDelay(int milliseconds) {
+			if (delay == milliseconds) return;
+			delay = milliseconds;
+			if (sub != null) {
+				getSubtitlePosition().then(pos -> getSpeed().main().onSuccess(speed -> {
+					if (sub != null) {
+						sub.stop(false);
+						sub.start(getSubtitleDelay(), getSubtitleDelay(), speed);
+					}
+				}));
+			}
+		}
+
+		SubtitleStreamInfo getCurrentSubtitleStreamInfo() {
+			return streamInfo;
+		}
+
+		void setCurrentSubtitleStream(SubtitleStreamInfo i) {
+			stop(false);
+			streamInfo = i;
+
+			if (videoView == null) {
+				listener.onSubtitleStreamChanged(MediaEngineBase.this, i);
+			} else {
+				addSubtitleConsumer(videoView);
+				load();
+			}
+		}
+
+		FutureSupplier<SubGrid> getCurrentSubtitles() {
+			return load().map(sub -> sub == null ? SubGrid.EMPTY : sub.getSubtitles());
+		}
+
+		void addSubtitleConsumer(@NonNull BiConsumer<SubGrid.Position, Subtitles.Text> consumer) {
+			if (consumers.contains(consumer)) return;
+			consumers.add(consumer);
+			if (consumer == videoView) prepareDrawer(videoView);
+			if (sub == null) load();
+			else if ((state == STATE_PLAYING) && !sub.isStarted()) start();
+			else if (state == STATE_PAUSED) replayPaused(consumer, sub);
+		}
+
+		private void replayPaused(BiConsumer<SubGrid.Position, Subtitles.Text> consumer,
+				SubScheduler scheduler) {
+			getSubtitlePosition().main().onSuccess(position -> {
+				if ((state == STATE_PAUSED) && (sub == scheduler) && consumers.contains(consumer)) {
+					scheduler.replayAt(position, delay, consumer);
+				}
+			});
+		}
+
+		void removeSubtitleConsumer(@NonNull BiConsumer<SubGrid.Position, Subtitles.Text> consumer) {
+			if (!consumers.remove(consumer)) return;
+			if (consumers.isEmpty()) stop(true);
+			if (consumer == videoView) videoView.releaseSubDrawer();
+		}
+
+		private FutureSupplier<SubScheduler> load() {
+			if (!loading.isCancelled()) return loading;
+			var inf = streamInfo;
+			if (inf == null) return loading;
+
+			FutureSupplier<SubGrid> load;
+
+			if (!inf.getFiles().isEmpty()) {
+				load = App.get().execute(() -> {
+					var src = getSource();
+					if (src == null) return null;
+
+					var files = inf.getFiles();
+					var sg = FileSubtitles.load(files.get(0));
+
+					if (files.size() == 1) {
+						if (!src.isVideo()) sg.mergeAtPosition(BOTTOM_LEFT);
+						return sg;
+					}
+
+					var sg1 = FileSubtitles.load(files.get(1));
+					sg.mergeAtPosition(BOTTOM_LEFT);
+					sg1.mergeAtPosition(BOTTOM_RIGHT);
+					sg.mergeWith(sg1);
+
+					if (src.isVideo()) {
+						var s1 = sg.get(BOTTOM_LEFT);
+						var s2 = sg.get(BOTTOM_RIGHT);
+						if (s1.compareTime(s2)) {
+							for (int i = 0, n = s1.size(); i < n; i++) {
+								s1.get(i).setTranslation(s2.get(i).getText());
+							}
+							sg.remove(BOTTOM_RIGHT);
+							sg.move(BOTTOM_LEFT, BOTTOM_CENTER);
+						}
+					}
+
+					return sg;
+				});
+			} else {
+				return loading;
+			}
+
+			FutureSupplier<SubScheduler> request = load.main().map(sg -> {
+				if ((sg == null) || (sub != null) || (inf != streamInfo)) return null;
+				sub = new SubScheduler(App.get().getHandler(), sg, this,
+						MediaEngineBase.this::subSchedulerClock);
+				if ((state == STATE_PLAYING) && !consumers.isEmpty()) start();
+				return sub;
+			});
+			loading = request;
+			request.onFailure(error -> {
+				if (loading == request) loading = cancelled();
+				if (inf == streamInfo) {
+					Log.w("Subtitle load failed: ", error.getClass().getSimpleName());
+					listener.onSubtitleLoadFailed(MediaEngineBase.this, error);
+				}
+			});
+			return request;
+		}
+
+		@Override
+		public void accept(SubGrid.Position position, Subtitles.Text text) {
+			for (var c : consumers) c.accept(position, text);
+
+			if (BuildConfig.D) {
+				getSubtitlePosition().onSuccess(t -> {
+					String time = timeToString((int) (t / 1000));
+
+					if (text == null) {
+						Log.d('[', time, "][", position, "] null");
+					} else {
+						Log.d('[', time, "][", position, "][", timeToString((int) (text.getTime() / 1000)),
+								'-',
+								timeToString((int) ((text.getTime() + text.getDuration()) / 1000)), "] ",
+								text.getText());
+					}
+				});
+			}
+		}
+
+		void start() {
+			SubScheduler sub = this.sub;
+			if (sub == null) return;
+			getSubtitlePosition().then(pos -> getSpeed().main().onSuccess(speed -> {
+				if (sub != this.sub) return;
+				for (@NonNull var c : consumers) {
+					if (c == videoView) {
+						prepareDrawer(videoView);
+						break;
+					}
+				}
+				sub.start(pos, delay, speed);
+			}));
+		}
+
+		void stop(boolean pause) {
+			if (pause) {
+				if (sub != null) sub.stop(true);
+			} else {
+				loading.cancel();
+				loading = cancelled();
+				if (sub != null) {
+					sub.stop(false);
+					sub = null;
+				}
+				consumers.clear();
+			}
+		}
+
+		void sync(long position, float speed, boolean restart) {
+			if (sub == null) return;
+			if (restart) {
+				sub.stop(false);
+				sub.start(position, getSubtitleDelay(), speed);
+				if (!isPlaying()) App.get().getHandler().submit(() -> {if (!isPlaying()) sub.stop(true);});
+			} else {
+				sub.sync(position, getSubtitleDelay(), speed);
+			}
+		}
+
+		private void prepareDrawer(VideoView videoView) {
+			boolean dbl = (streamInfo != null) && (streamInfo.getFiles().size() == 2);
+			videoView.prepareSubDrawer(dbl);
+		}
+	}
+}

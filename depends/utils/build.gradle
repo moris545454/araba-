@@ -1,0 +1,91 @@
+buildscript {
+
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.android.tools.build:gradle:${libs.versions.agp.get()}"
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    namespace = "me.aap.utils"
+    compileSdk SDK_COMPILE_VERSION
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion SDK_TARGET_VERSION
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            buildConfigField "boolean", 'D', 'false'
+            buildConfigField "boolean", 'FUTURE_TRACE', 'false'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+            buildConfigField "boolean", 'D', 'true'
+            buildConfigField "boolean", 'FUTURE_TRACE', 'false'
+        }
+    }
+
+    testOptions {
+        unitTests.all {
+            it.useJUnitPlatform()
+        }
+    }
+}
+
+dependencies {
+    implementation libs.androidxAppcompat
+    implementation libs.androidxConstraintlayout
+    implementation libs.googlePlayFeatureDelivery
+    implementation libs.androidMaterial
+
+    implementation libs.jsch
+    implementation libs.smbj
+    implementation libs.bouncycastleProvider
+    implementation libs.bouncycastlePkix
+
+    implementation libs.googlePlayServicesAuth
+    implementation libs.googlePlayServicesBase
+    implementation libs.googleHttpClientGson
+    implementation(libs.googleApiClientAndroid) {
+        exclude group: 'org.apache.httpcomponents'
+    }
+    implementation(libs.googleApiServicesDrive) {
+        exclude group: 'org.apache.httpcomponents'
+        exclude group: 'com.google.guava'
+    }
+
+    testImplementation libs.junit5Api
+    testImplementation libs.junit5Engine
+    testImplementation libs.junit5Params
+    testRuntimeOnly libs.junitPlatformLauncher
+    androidTestImplementation libs.androidxTestJunit
+    androidTestImplementation libs.androidxTestEspresso
+
+    coreLibraryDesugaring libs.desugarJdkLibs
+}

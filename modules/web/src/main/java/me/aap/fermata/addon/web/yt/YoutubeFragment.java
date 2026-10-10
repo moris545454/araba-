@@ -1,0 +1,627 @@
+package me.aap.fermata.addon.web.yt;
+
+import static me.aap.fermata.util.Utils.dynCtx;
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static me.aap.utils.ui.activity.ActivityListener.FRAGMENT_CHANGED;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+
+import androidx.annotation.Keep;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import me.aap.fermata.addon.AddonManager;
+import me.aap.fermata.addon.external.ExternalPlaybackDelegateItem;
+import me.aap.fermata.addon.web.FermataChromeClient;
+import me.aap.fermata.addon.web.FermataWebView;
+import me.aap.fermata.addon.web.R;
+import me.aap.fermata.addon.web.WebBrowserAddon;
+import me.aap.fermata.addon.web.WebBrowserFragment;
+import me.aap.fermata.media.engine.MediaEngine;
+import me.aap.fermata.media.lib.MediaLib;
+import me.aap.fermata.media.lib.MediaLib.BrowsableItem;
+import me.aap.fermata.media.lib.MediaLib.PlayableItem;
+import me.aap.fermata.media.service.FermataServiceUiBinder;
+import me.aap.fermata.media.service.MediaSessionCallback;
+import me.aap.fermata.media.service.PlaybackSnapshot;
+import me.aap.fermata.ui.activity.MainActivityDelegate;
+import me.aap.fermata.ui.activity.VoiceCommand;
+import me.aap.fermata.ui.view.TopBarController;
+import me.aap.fermata.ui.view.TopBarMediatorSupport;
+import me.aap.fermata.ui.view.TopBarPlaybackContext;
+import me.aap.fermata.ui.view.VideoView;
+import me.aap.utils.ui.activity.ActivityDelegate;
+import me.aap.utils.ui.fragment.ActivityFragment;
+import me.aap.utils.ui.menu.OverlayMenuItem;
+import me.aap.utils.ui.view.ToolBarView;
+
+/**
+ * @author Andrey Pavlenko
+ */
+@Keep
+@SuppressWarnings("unused")
+public class YoutubeFragment extends WebBrowserFragment
+		implements FermataServiceUiBinder.Listener, TopBarPlaybackContext {
+	private static final String DEFAULT_URL = "https://m.youtube.com";
+	private static final long[] HOST_RESTORE_RETRY_MS = {100L, 300L, 750L, 1500L, 3000L};
+	private boolean playOnResume;
+	private YoutubeFullscreenCoordinator.Suspension hostFullscreenSuspension;
+	private long hostSuspensionRelaunchGeneration;
+	private long hostRestoreOperation;
+
+	@Override
+	public int getFragmentId() {
+		return me.aap.fermata.R.id.youtube_fragment;
+	}
+
+	@Override
+	public me.aap.fermata.auto.AutomotiveNavigationController.OpenResult openOnCar(
+			me.aap.fermata.auto.OpenOnCarRequest request, java.util.function.BooleanSupplier stillCurrent) {
+		if (!stillCurrent.getAsBoolean()) return me.aap.fermata.auto.AutomotiveNavigationController.OpenResult.CANCELLED;
+		if (request.kind() != me.aap.fermata.auto.OpenOnCarKind.YOUTUBE_VIDEO ||
+				!(request.payload() instanceof YoutubeItem descriptor) || getWebView() == null)
+			return me.aap.fermata.auto.AutomotiveNavigationController.OpenResult.NOT_READY;
+		MainActivityDelegate activity = MainActivityDelegate.get(requireContext());
+		if (!activity.isCarActivityNotMirror() || activity.getMediaSessionCallback().hasCustomEngineProvider())
+			return me.aap.fermata.auto.AutomotiveNavigationController.OpenResult.NOT_READY;
+		YoutubeAddon addon = (YoutubeAddon) getWebView().getAddon();
+		PlayableItem item = new YoutubeAddon.YoutubeHistoryItem(addon,
+				(me.aap.fermata.media.lib.DefaultMediaLib) activity.getLib(), descriptor);
+		var admission = new me.aap.fermata.auto.OpenOnCarMediaRouting.Admission(
+				me.aap.fermata.ui.policy.RuntimeHostMode.AA_PROJECTION, stillCurrent);
+		return dispatchTypedPlayback(admission, activity.getMediaSessionCallback()::hasCustomEngineProvider,
+				() -> activity.getMediaServiceBinder().playRoutedItemResult(item, 0, admission));
+	}
+
+	static me.aap.fermata.auto.AutomotiveNavigationController.OpenResult dispatchPlayback(
+			me.aap.fermata.auto.OpenOnCarMediaRouting.Admission admission,
+			java.util.function.BooleanSupplier customProvider, java.util.function.BooleanSupplier dispatch) {
+		return FermataServiceUiBinder.dispatchRoutedPlayback(admission, customProvider, dispatch);
+	}
+
+	static me.aap.fermata.auto.AutomotiveNavigationController.OpenResult dispatchTypedPlayback(
+			me.aap.fermata.auto.OpenOnCarMediaRouting.Admission admission,
+			java.util.function.BooleanSupplier customProvider,
+			java.util.function.Supplier<me.aap.fermata.auto.AutomotiveNavigationController.OpenResult> dispatch) {
+		return FermataServiceUiBinder.dispatchTypedRoutedPlayback(admission, customProvider, dispatch);
+	}
+
+	@Nullable
+	@Override
+	public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+		dynCtx(requireContext());
+		return inflater.inflate(R.layout.youtube, container, false);
+	}
+
+	@Override
+	public void onViewCreated(@NonNull View view, @Nullable Bundle state) {
+		YoutubeAddon addon = AddonManager.get().getAddon(YoutubeAddon.class);
+		if (addon == null) return;
+
+		String url;
+		if (state != null) {
+			url = state.getString("url", DEFAULT_URL);
+		} else {
+			url = addon.getLastYoutubeUrl();
+		}
+		if ((url == null) || url.isBlank()) url = DEFAULT_URL;
+		String startUrl = url;
+
+		MainActivityDelegate.getActivityDelegate(view.getContext()).onSuccess(a -> {
+			YoutubeWebView webView = a.findViewById(R.id.ytWebView);
+			VideoView videoView = a.findViewById(R.id.ytVideoView);
+			YoutubeWebClient webClient = new YoutubeWebClient();
+			YoutubeChromeClient chromeClient = new YoutubeChromeClient(webView, videoView);
+			webView.init(addon, webClient, chromeClient);
+			registerListeners(a);
+			boolean directPlayback = webView.consumeInitialPlaybackNavigationClaim();
+			YoutubeAddon.SessionReturnAction returnAction =
+					addon.consumeEntry(a, System.currentTimeMillis(), directPlayback,
+							isYoutubePlaybackActive(a, webView), webView.sessionGeneration());
+			if (!directPlayback) {
+				if (returnAction == YoutubeAddon.SessionReturnAction.RESET_HOME)
+					resetStaleSession(a, webView);
+				else webView.loadUrl(startUrl);
+			}
+		});
+	}
+
+	@Override
+	public void onSaveInstanceState(@NonNull Bundle state) {
+		super.onSaveInstanceState(state);
+		String url = getUrl();
+		if (url != null) state.putString("url", url);
+	}
+
+	@Override
+	public void onDestroyView() {
+		YoutubeWebView view = getWebView();
+		if (view != null) {
+			discardHostFullscreenSuspension(view);
+			view.setFullscreenTapEnabled(false);
+		}
+		unregisterListeners(MainActivityDelegate.get(requireContext()));
+		super.onDestroyView();
+	}
+
+	@Override
+	protected void registerListeners(MainActivityDelegate a) {
+		super.registerListeners(a);
+		a.addBroadcastListener(this, FRAGMENT_CHANGED);
+		a.getMediaServiceBinder().addBroadcastListener(this);
+	}
+
+	protected void unregisterListeners(MainActivityDelegate a) {
+		super.unregisterListeners(a);
+		a.getMediaServiceBinder().removeBroadcastListener(this);
+	}
+
+	@Override
+	public void onActivityEvent(MainActivityDelegate a, long e) {
+		super.onActivityEvent(a, e);
+		if ((e == FRAGMENT_CHANGED) && (a.getActiveFragment() == this)) syncPlaybackStateSoon();
+	}
+
+	@Override
+	public void onPause() {
+		YoutubeWebView runtimeView = getWebView();
+		android.app.Activity host = getActivity();
+		if ((runtimeView != null) && ((host == null) || !host.isChangingConfigurations())) {
+			YoutubeAddon addon = AddonManager.get().getAddon(YoutubeAddon.class);
+			if (addon != null) addon.markSessionInactive(System.currentTimeMillis());
+		}
+		if ((runtimeView != null) && runtimeView.usesAutoPlaybackBehavior()) {
+			runtimeView.setFullscreenTapEnabled(false);
+			suspendPlaybackPresentation(runtimeView);
+		} else {
+			MainActivityDelegate.getActivityDelegate(getContext()).onSuccess(a -> {
+				FermataServiceUiBinder b = a.getMediaServiceBinder();
+				if (YoutubeMediaEngine.isYoutubeItem(b.getCurrentItem()) && b.isPlaying()) {
+					b.getMediaSessionCallback().onPause();
+					playOnResume = true;
+				} else {
+					playOnResume = false;
+				}
+			});
+		}
+		super.onPause();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		YoutubeWebView view = getWebView();
+		if (view != null) {
+			MainActivityDelegate activity = MainActivityDelegate.get(requireContext());
+			YoutubeToolBarMediator.instance.updateVisibility(activity.getToolBar(), this);
+			updatePreviousVisibility(activity);
+			YoutubeAddon addon = AddonManager.get().getAddon(YoutubeAddon.class);
+			if (addon != null) {
+				YoutubeAddon.SessionReturnAction action = addon.consumeEntry(activity,
+						System.currentTimeMillis(), false,
+						playOnResume || isYoutubePlaybackActive(activity, view),
+						view.sessionGeneration());
+				if (action == YoutubeAddon.SessionReturnAction.RESET_HOME)
+					resetStaleSession(activity, view);
+			}
+		}
+		if ((view != null) && view.usesAutoPlaybackBehavior()) {
+			syncPlaybackStateSoon();
+			restorePlaybackPresentationSoon(view);
+			return;
+		}
+		if (!playOnResume) return;
+		playOnResume = false;
+		MainActivityDelegate.getActivityDelegate(getContext()).onSuccess(a -> {
+			FermataServiceUiBinder b = a.getMediaServiceBinder();
+			if (YoutubeMediaEngine.isYoutubeItem(b.getCurrentItem())) {
+				b.getMediaSessionCallback().onPlay();
+			}
+		});
+	}
+
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		super.onHiddenChanged(hidden);
+		YoutubeWebView view = getWebView();
+		if (view == null) return;
+		if (hidden) {
+			YoutubeAddon addon = AddonManager.get().getAddon(YoutubeAddon.class);
+			if (addon != null) addon.markSessionInactive(System.currentTimeMillis());
+			if (!view.usesAutoPlaybackBehavior()) return;
+			discardHostFullscreenSuspension(view);
+			view.setFullscreenTapEnabled(false);
+			view.leavePlaybackPresentation();
+		} else {
+			YoutubeAddon addon = AddonManager.get().getAddon(YoutubeAddon.class);
+			if (addon != null) {
+				MainActivityDelegate activity = MainActivityDelegate.get(requireContext());
+				YoutubeAddon.SessionReturnAction returnAction =
+						addon.consumeEntry(activity, System.currentTimeMillis(), false,
+								isYoutubePlaybackActive(activity, view),
+								view.sessionGeneration());
+				if (returnAction == YoutubeAddon.SessionReturnAction.RESET_HOME)
+					resetStaleSession(activity, view);
+			}
+			if (view.usesAutoPlaybackBehavior()) syncPlaybackStateSoon();
+		}
+	}
+
+	@Override
+	public boolean menuItemSelected(OverlayMenuItem item) {
+		if (item.getItemId() == R.id.fullscreen) {
+			YoutubeWebView web = getWebView();
+			return (web != null) && web.enterManualFullScreen();
+		}
+		return super.menuItemSelected(item);
+	}
+
+	private void syncPlaybackStateSoon() {
+		YoutubeWebView v = getWebView();
+		if (v == null) return;
+		v.post(v::syncPlaybackState);
+		v.postDelayed(v::syncPlaybackState, 600L);
+	}
+
+	private void suspendPlaybackPresentation(YoutubeWebView view) {
+		hostRestoreOperation++;
+		YoutubeFullscreenCoordinator.Suspension current = hostFullscreenSuspension;
+		if ((current != null) && view.isPlaybackPresentationSuspensionCurrent(current)) return;
+
+		hostFullscreenSuspension = view.suspendPlaybackPresentation();
+		if (hostFullscreenSuspension != null) {
+			hostSuspensionRelaunchGeneration =
+					MainActivityDelegate.get(view.getContext()).getHostRelaunchGeneration();
+		}
+	}
+
+	private void restorePlaybackPresentationSoon(YoutubeWebView view) {
+		if (hostFullscreenSuspension == null) return;
+		long operation = ++hostRestoreOperation;
+		view.post(() -> restorePlaybackPresentation(view, operation, 0));
+	}
+
+	private void restorePlaybackPresentation(YoutubeWebView view, long operation, int attempt) {
+		YoutubeFullscreenCoordinator.Suspension suspension = hostFullscreenSuspension;
+		if ((suspension == null) || (operation != hostRestoreOperation)) return;
+
+		MainActivityDelegate activity;
+		try {
+			activity = MainActivityDelegate.get(view.getContext());
+		} catch (RuntimeException ignored) {
+			discardHostFullscreenSuspension(view);
+			return;
+		}
+
+		boolean youtubeActive = !isHidden() && (activity.getActiveFragment() == this);
+		MediaEngine activeEngine = activity.getMediaSessionCallback().getEngine();
+		boolean youtubeOwnsPlayback = (activeEngine instanceof YoutubeMediaEngine) ||
+				(activeEngine instanceof YoutubeSessionEngine);
+		YoutubeHostInterruptionPolicy.Decision decision = YoutubeHostInterruptionPolicy.resolve(
+				hostSuspensionRelaunchGeneration, activity.getHostRelaunchGeneration(),
+				activity.isHostResumed(), view.isAttachedToWindow(), youtubeActive,
+				youtubeOwnsPlayback);
+
+		if (decision == YoutubeHostInterruptionPolicy.Decision.DISCARD) {
+			discardHostFullscreenSuspension(view);
+			return;
+		}
+		if ((decision == YoutubeHostInterruptionPolicy.Decision.RESTORE) &&
+				view.resumePlaybackPresentation(suspension)) {
+			clearHostFullscreenSuspension();
+			view.syncPlaybackState();
+			return;
+		}
+
+		if ((attempt >= HOST_RESTORE_RETRY_MS.length) ||
+				!view.isPlaybackPresentationSuspensionCurrent(suspension)) {
+			discardHostFullscreenSuspension(view);
+			return;
+		}
+		view.postDelayed(() -> restorePlaybackPresentation(view, operation, attempt + 1),
+				HOST_RESTORE_RETRY_MS[attempt]);
+	}
+
+	private void discardHostFullscreenSuspension(@Nullable YoutubeWebView view) {
+		YoutubeFullscreenCoordinator.Suspension suspension = hostFullscreenSuspension;
+		clearHostFullscreenSuspension();
+		if ((view != null) && (suspension != null))
+			view.discardPlaybackPresentationSuspension(suspension);
+	}
+
+	private void clearHostFullscreenSuspension() {
+		hostRestoreOperation++;
+		hostFullscreenSuspension = null;
+		hostSuspensionRelaunchGeneration = 0L;
+	}
+
+	public void loadUrl(String url) {
+		YoutubeWebView v = getWebView();
+		if (v != null) v.loadExplicitUrl(url);
+	}
+
+	private static boolean isYoutubePlaybackActive(MainActivityDelegate activity,
+			YoutubeWebView view) {
+		MediaSessionCallback callback = activity.getMediaSessionCallback();
+		MediaEngine engine = callback.getEngine();
+		return callback.isPlaying() && (((engine instanceof YoutubeMediaEngine youtube) &&
+				youtube.belongsTo(view.getAddon())) ||
+				((engine instanceof YoutubeSessionEngine stable) &&
+						stable.belongsTo(view.getAddon())));
+	}
+
+	private static void resetStaleSession(MainActivityDelegate activity, YoutubeWebView view) {
+		MediaSessionCallback callback = activity.getMediaSessionCallback();
+		MediaEngine engine = callback.getEngine();
+		boolean owned = ((engine instanceof YoutubeMediaEngine youtube) &&
+				youtube.belongsTo(view.getAddon())) ||
+				((engine instanceof YoutubeSessionEngine stable) && stable.belongsTo(view.getAddon()));
+		if (owned) {
+			if (callback.isPlaying()) return;
+			callback.onStop();
+		}
+		view.resetToHome();
+	}
+
+	@Override
+	public void voiceCommand(VoiceCommand cmd) {
+		YoutubeWebView v = getWebView();
+		if (v != null) v.prepareVoiceSearch(cmd.getVoiceRequestId());
+		super.voiceCommand(cmd);
+	}
+
+	boolean playVoiceSelection(String stableId) {
+		if ((stableId == null) || !stableId.startsWith("youtube:")) return false;
+		String videoId = stableId.startsWith("youtube:video:") ?
+				stableId.substring("youtube:video:".length()) :
+				stableId.substring("youtube:".length());
+		if (!videoId.matches("[A-Za-z0-9_-]{6,32}")) return false;
+		YoutubeWebView v = getWebView();
+		if (v == null) return false;
+		v.playVoiceVideo(videoId);
+		return true;
+	}
+
+	@Override
+	public void onPlayableChanged(MediaLib.PlayableItem oldItem, MediaLib.PlayableItem newItem) {
+		MainActivityDelegate activity = MainActivityDelegate.get(getContext());
+		if (!YoutubeMediaEngine.isYoutubeItem(newItem)) {
+			View previous = activity.getControlPanel().findViewById(
+					me.aap.fermata.R.id.control_prev);
+			if (previous != null) previous.setVisibility(VISIBLE);
+			YoutubeWebView web = getWebView();
+			if (web != null) {
+				discardHostFullscreenSuspension(web);
+				web.setFullscreenTapEnabled(false);
+			}
+		}
+		if (isHidden()) return;
+		if (activity.getActiveFragment() == this) {
+			YoutubeToolBarMediator.instance.updateVisibility(activity.getToolBar(), this);
+			updatePreviousVisibility(activity);
+		}
+
+		if (!YoutubeMediaEngine.isYoutubeItem(newItem) && YoutubeMediaEngine.isYoutubeItem(oldItem)) {
+			FermataWebView v = getWebView();
+			if (v == null) return;
+			FermataChromeClient chrome = v.getWebChromeClient();
+			if (chrome != null) chrome.exitFullScreen();
+		}
+	}
+
+	@Override
+	public void onPlaybackMetadataChanged(PlaybackSnapshot snapshot) {
+		if ((snapshot == null) || isHidden() ||
+				!YoutubeMediaEngine.isYoutubeItem(snapshot.getItem()) || (getContext() == null)) return;
+		MainActivityDelegate activity = MainActivityDelegate.get(getContext());
+		if (activity.getActiveFragment() == this)
+			YoutubeToolBarMediator.instance.updateVisibility(activity.getToolBar(), this);
+	}
+
+	@Override
+	public void onPlaybackStateChanged(android.support.v4.media.session.PlaybackStateCompat state) {
+		if (isHidden() || (getContext() == null)) return;
+		MainActivityDelegate activity = MainActivityDelegate.get(getContext());
+		if (activity.getActiveFragment() != this) return;
+		YoutubeToolBarMediator.instance.updateVisibility(activity.getToolBar(), this);
+		updatePreviousVisibility(activity);
+	}
+
+	void onPageNavigationChanged() {
+		if (isHidden() || (getContext() == null)) return;
+		MainActivityDelegate activity = MainActivityDelegate.get(getContext());
+		if (activity.getActiveFragment() == this) {
+			YoutubeToolBarMediator.instance.updateVisibility(activity.getToolBar(), this);
+			updatePreviousVisibility(activity);
+		}
+	}
+
+	private void updatePreviousVisibility(MainActivityDelegate activity) {
+		View previous = activity.getControlPanel().findViewById(me.aap.fermata.R.id.control_prev);
+		YoutubeWebView web = getWebView();
+		if ((previous == null) || (web == null)) return;
+		boolean youtubePlayback = YoutubeMediaEngine.isYoutubeItem(
+				activity.getMediaServiceBinder().getCurrentItem()) &&
+				web.getMediaEngine().isCurrentEngine();
+		if (!youtubePlayback) {
+			previous.setVisibility(VISIBLE);
+			return;
+		}
+		String expectedPage = web.getUrl();
+		previous.setVisibility(View.INVISIBLE);
+		YoutubeTransportCapabilities.hasPreviousVideo(web).main().onSuccess(available -> {
+			if ((getContext() == null) || isHidden() ||
+					(activity.getActiveFragment() != this) ||
+					!web.getMediaEngine().isCurrentEngine() ||
+					!java.util.Objects.equals(expectedPage, web.getUrl())) return;
+			previous.setVisibility(Boolean.TRUE.equals(available) ? VISIBLE : View.INVISIBLE);
+		});
+	}
+
+	@Override
+	public ToolBarView.Mediator getToolBarMediator() {
+		return YoutubeToolBarMediator.instance;
+	}
+
+	@Override
+	public boolean usePlaybackTitle(PlaybackSnapshot snapshot) {
+		YoutubeWebView web = getWebView();
+		return (web != null) && YoutubeToolbarPolicy.usePlaybackTitle(
+				web.getUrl(), YoutubeMediaEngine.isYoutubeItem(snapshot.getItem()));
+	}
+
+	@Override
+	public boolean canScrollUp() {
+		FermataWebView v = getWebView();
+		if (v == null) return false;
+		FermataChromeClient chrome = v.getWebChromeClient();
+		return (chrome != null) && (chrome.isFullScreen() || (v.getScrollY() > 0));
+	}
+
+	@Override
+	public boolean onBackPressed() {
+		MainActivityDelegate activity = MainActivityDelegate.get(requireContext());
+		YoutubeWebView v = getWebView();
+		if ((v != null) && v.exitPlaybackFullScreenForBack()) return true;
+		// The fallback app-video presentation can outlive the browser fullscreen callback.
+		// Treat the Activity layout as the final source of truth for the first Back.
+		if ((v != null) && activity.isVideoMode()) {
+			v.leavePlaybackPresentation();
+			return true;
+		}
+		MediaEngine engine = activity.getMediaSessionCallback().getEngine();
+		PlayableItem owner = (engine instanceof YoutubeSessionEngine stable) ?
+				stable.getExternalPlaybackOwner() : (engine instanceof YoutubeMediaEngine youtube) ?
+				youtube.getExternalPlaybackOwner() : null;
+		if (owner != null) {
+			if (v != null) v.leavePlaybackPresentation();
+			activity.goToItem(owner.getParent());
+			return true;
+		}
+		BrowsableItem parent = externalPlaybackParent(
+				activity.getMediaSessionCallback().getCurrentItem());
+		if (parent != null) {
+			if (v != null) v.leavePlaybackPresentation();
+			activity.goToItem(parent);
+			return true;
+		}
+		return super.onBackPressed();
+	}
+
+	@Nullable
+	static BrowsableItem externalPlaybackParent(@Nullable PlayableItem item) {
+		return (item instanceof ExternalPlaybackDelegateItem) ? item.getParent() : null;
+	}
+
+	@Nullable
+	protected WebBrowserAddon getAddon() {
+		return AddonManager.get().getAddon(YoutubeAddon.class);
+	}
+
+	@Nullable
+	protected YoutubeWebView getWebView() {
+		View v = getView();
+		return (v != null) ? v.findViewById(R.id.ytWebView) : null;
+	}
+
+	protected boolean isDesktopVersionSupported() {
+		return false;
+	}
+
+	@Override
+	protected String getSearchUrl() {
+		return "https://www.youtube.com/results?search_query=";
+	}
+
+	@Override
+	protected boolean shouldRestoreFullScreenOnResume() {
+		return false;
+	}
+
+	private static final class YoutubeToolBarMediator implements ToolBarView.Mediator.BackTitle {
+		static final YoutubeToolBarMediator instance = new YoutubeToolBarMediator();
+
+		@Override
+		public void enable(ToolBarView tb, ActivityFragment f) {
+			TopBarMediatorSupport.installBackTitle(tb, f, this);
+			ImageButton fullScreen = addButton(tb, R.drawable.fullscreen, this, R.id.fullscreen);
+			ImageButton refresh = addButton(tb, me.aap.fermata.R.drawable.refresh, this,
+					me.aap.fermata.R.id.refresh);
+			int minSize = Math.round(48f * tb.getResources().getDisplayMetrics().density);
+			fullScreen.setMinimumWidth(minSize);
+			fullScreen.setMinimumHeight(minSize);
+			refresh.setMinimumWidth(minSize);
+			refresh.setMinimumHeight(minSize);
+			fullScreen.setContentDescription(tb.getContext().getString(
+					me.aap.fermata.R.string.fullscreen_mode));
+			refresh.setContentDescription(tb.getContext().getString(
+					me.aap.fermata.R.string.refresh));
+			updateVisibility(tb, f);
+		}
+
+		@Override
+		public int getVisibility(ToolBarView tb, ActivityFragment f) {
+			MainActivityDelegate a = MainActivityDelegate.get(tb.getContext());
+			return a.isBarsHidden() ? GONE : VISIBLE;
+		}
+
+		@Override
+		public void onActivityEvent(ToolBarView tb, ActivityDelegate a, long e) {
+			ActivityFragment f = a.getActiveFragment();
+			if (f != null) updateVisibility(tb, f);
+		}
+
+		@Override
+		public void onClick(View v) {
+			if (v.getId() == R.id.fullscreen) {
+				ActivityFragment fragment = ActivityDelegate.get(v.getContext()).getActiveFragment();
+				if (fragment instanceof YoutubeFragment youtube) {
+					YoutubeWebView web = youtube.getWebView();
+					if (web != null) web.enterManualFullScreen();
+				}
+				return;
+			}
+			if (v.getId() == me.aap.fermata.R.id.refresh) {
+				ActivityFragment fragment = ActivityDelegate.get(v.getContext()).getActiveFragment();
+				if (fragment instanceof YoutubeFragment youtube) {
+					YoutubeWebView web = youtube.getWebView();
+					if (web != null) web.reload();
+				}
+				return;
+			}
+			ActivityDelegate.get(v.getContext()).onBackPressed();
+		}
+
+		private void updateVisibility(ToolBarView tb, ActivityFragment f) {
+			MainActivityDelegate a = MainActivityDelegate.get(tb.getContext());
+			if ((f instanceof YoutubeFragment) && !a.isVideoMode() && a.isBarsHidden())
+				a.setBarsHiddenNow(false);
+			boolean showFullScreen = shouldShowFullScreen(a, f);
+			if (f instanceof YoutubeFragment youtube) {
+				YoutubeWebView web = youtube.getWebView();
+				if (web != null) web.setFullscreenTapEnabled(showFullScreen);
+			}
+			View fullScreen = tb.findViewById(R.id.fullscreen);
+			if (fullScreen != null) fullScreen.setVisibility(showFullScreen ? VISIBLE : GONE);
+			tb.setVisibility(getVisibility(tb, f));
+			TopBarController.refresh(a, f);
+		}
+
+		private boolean shouldShowFullScreen(MainActivityDelegate activity, ActivityFragment f) {
+			if (!(f instanceof YoutubeFragment youtube) ||
+					(activity.getActiveFragment() != youtube) || activity.isVideoMode()) return false;
+			YoutubeWebView web = youtube.getWebView();
+			if ((web == null) || !web.isAttachedToWindow() ||
+					!web.getMediaEngine().isCurrentEngine()) return false;
+			FermataChromeClient chrome = web.getWebChromeClient();
+			return activity.getMediaSessionCallback().isPlaying() &&
+					((chrome == null) || !chrome.isFullScreen()) && YoutubeMediaEngine.isYoutubeItem(
+					activity.getMediaServiceBinder().getCurrentItem());
+		}
+	}
+}

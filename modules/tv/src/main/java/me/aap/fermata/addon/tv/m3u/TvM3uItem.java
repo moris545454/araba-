@@ -1,0 +1,288 @@
+package me.aap.fermata.addon.tv.m3u;
+
+import static me.aap.fermata.addon.tv.m3u.TvM3uFile.CATCHUP_TYPE_APPEND;
+import static me.aap.fermata.addon.tv.m3u.TvM3uFile.CATCHUP_TYPE_AUTO;
+import static me.aap.fermata.addon.tv.m3u.TvM3uFile.CATCHUP_TYPE_DEFAULT;
+import static me.aap.fermata.addon.tv.m3u.TvM3uFile.CATCHUP_TYPE_FLUSSONIC;
+import static me.aap.fermata.addon.tv.m3u.TvM3uFile.CATCHUP_TYPE_SHIFT;
+import static me.aap.fermata.util.Utils.dynCtx;
+import static me.aap.utils.async.Completed.completed;
+import static me.aap.utils.async.Completed.failed;
+
+import android.content.Context;
+import android.content.res.Resources;
+
+import androidx.annotation.Nullable;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
+import java.util.Objects;
+
+import me.aap.fermata.BuildConfig;
+import me.aap.fermata.addon.tv.R;
+import me.aap.fermata.addon.tv.TvRootItem;
+import me.aap.fermata.addon.tv.TvRefreshMode;
+import me.aap.fermata.addon.tv.TvSourceItem;
+import me.aap.fermata.media.lib.DefaultMediaLib;
+import me.aap.fermata.media.lib.M3uGroupItem;
+import me.aap.fermata.media.lib.M3uItem;
+import me.aap.fermata.media.lib.M3uTrackItem;
+import me.aap.fermata.media.lib.MediaLib;
+import me.aap.fermata.media.lib.MediaLib.BrowsableItem;
+import me.aap.fermata.vfs.m3u.M3uFetchResult;
+import me.aap.fermata.vfs.m3u.M3uRefreshMode;
+import me.aap.utils.async.FutureRef;
+import me.aap.utils.async.FutureSupplier;
+import me.aap.utils.log.Log;
+import me.aap.utils.resource.Rid;
+import me.aap.utils.text.SharedTextBuilder;
+import me.aap.utils.vfs.VirtualResource;
+
+/**
+ * @author Andrey Pavlenko
+ */
+public class TvM3uItem extends M3uItem implements TvSourceItem {
+	public static final String SCHEME = "tvm3u";
+	private String tvgUrl;
+	private final FutureRef<XmlTv> xmlTv = new FutureRef<XmlTv>() {
+		@Override
+		protected FutureSupplier<XmlTv> create() {
+			return getData().get()
+					.then(d -> XmlTv.create(TvM3uItem.this))
+					.ifFail(err -> {
+						Log.e(err, "Failed to load XMLTV: ", getEpgUrl());
+						return null;
+					});
+		}
+	};
+
+	protected TvM3uItem(String id, BrowsableItem parent, TvM3uFile m3uFile) {
+		super(id, parent, m3uFile);
+		xmlTv.get();
+	}
+
+	public static TvM3uItem create(TvRootItem root, TvM3uFile m3u, int srcId) {
+		String id = SharedTextBuilder.get().append(SCHEME).append(':').append(srcId).releaseString();
+		return create(root, m3u, id);
+	}
+
+	public static TvM3uItem create(TvRootItem root, TvM3uFile m3u, String id) {
+		DefaultMediaLib lib = root.getLib();
+
+		synchronized (lib.cacheLock()) {
+			MediaLib.Item i = lib.getFromCache(id);
+
+			if (i != null) {
+				TvM3uItem c = (TvM3uItem) i;
+				if (BuildConfig.D && !root.equals(c.getParent())) throw new AssertionError();
+				if (BuildConfig.D && !m3u.equals(c.getResource())) throw new AssertionError();
+				return c;
+			} else {
+				return new TvM3uItem(id, root, m3u);
+			}
+		}
+	}
+
+	public static FutureSupplier<TvM3uItem> create(TvRootItem root, int srcId, String m3uId) {
+		DefaultMediaLib lib = root.getLib();
+		String id = SharedTextBuilder.get().append(SCHEME).append(':').append(srcId).releaseString();
+
+		synchronized (lib.cacheLock()) {
+			MediaLib.Item i = lib.getFromCache(id);
+			if (i != null) return completed((TvM3uItem) i);
+		}
+
+		TvM3uFileSystem fs = TvM3uFileSystem.getInstance();
+		Rid rid = fs.toRid(m3uId);
+		prepareRemoteSource(fs.createM3uFile(rid));
+		return fs.getResource(rid).map(m3u -> (m3u != null) ? create(root, m3u, id) : null);
+	}
+
+	@Override
+	protected String getScheme() {
+		return SCHEME;
+	}
+
+	@Override
+	public int getSourceId() {
+		return Integer.parseInt(getId().substring(SCHEME.length() + 1));
+	}
+
+	@Override
+	public String getSourceType() {
+		return TYPE_M3U;
+	}
+
+	@Override
+	protected M3uGroupItem createGroup(String idPath, String name, int groupId) {
+		SharedTextBuilder tb = SharedTextBuilder.get();
+		tb.append(TvM3uGroupItem.SCHEME).append(':').append(groupId).append(idPath).append(':').append(name);
+		return new TvM3uGroupItem(tb.releaseString(), this, name, groupId);
+	}
+
+	@Override
+	protected M3uTrackItem createTrack(BrowsableItem parent, int groupNumber, int trackNumber,
+																		 String idPath, VirtualResource file, String name, String album,
+																		 String artist, String genre, String logo, String tvgId,
+																		 String tvgName, long duration, byte type,
+																		 String catchup, String catchupDays, String catchupSource) {
+		SharedTextBuilder tb = SharedTextBuilder.get();
+		tb.append(TvM3uTrackItem.SCHEME).append(':').append(groupNumber).append(':')
+				.append(trackNumber).append(idPath).append(':').append(file.getRid());
+		int ct = CATCHUP_TYPE_AUTO;
+		int cd = -1;
+
+		if (catchup != null) {
+			switch (catchup) {
+				case "default":
+					ct = CATCHUP_TYPE_DEFAULT;
+					break;
+				case "append":
+					ct = CATCHUP_TYPE_APPEND;
+					break;
+				case "shift":
+					ct = CATCHUP_TYPE_SHIFT;
+					break;
+				case "flussonic":
+					ct = CATCHUP_TYPE_FLUSSONIC;
+					break;
+			}
+		}
+		if (catchupDays != null) {
+			try {
+				cd = Integer.parseInt(catchupDays);
+			} catch (NumberFormatException ex) {
+				Log.e(ex, "Invalid catchup days: ", catchupDays);
+			}
+		}
+
+		return new TvM3uTrackItem(tb.releaseString(), parent, trackNumber, file, name, album, artist,
+				genre, logo, tvgId, tvgName, duration, type, ct, cd, catchupSource);
+	}
+
+	@Override
+	protected String createSubtitle(int gr, int ch) {
+		Context ctx = dynCtx(getLib().getContext());
+		Resources res = ctx.getResources();
+		if (ch != 0) {
+			if (gr == 0) return res.getString(R.string.sub_ch, ch);
+		} else if (gr != 0) {
+			return res.getString(R.string.sub_gr, gr);
+		}
+		return res.getString(R.string.sub_ch_gr, ch, gr);
+	}
+
+	FutureSupplier<XmlTv> getXmlTv() {
+		return xmlTv.get().main();
+	}
+
+	@Override
+	public int getIcon() {
+		return me.aap.fermata.R.drawable.tv;
+	}
+
+	public FutureSupplier<TvM3uTrackItem> getTrack(int gid, int tid, @Nullable String uri) {
+		return super.getTrack(gid, tid, uri).cast();
+	}
+
+	public FutureSupplier<TvM3uGroupItem> getGroup(int id, @Nullable String name) {
+		return super.getGroup(id, name).cast();
+	}
+
+	@Override
+	public TvM3uFile getResource() {
+		return (TvM3uFile) super.getResource();
+	}
+
+	@Override
+	public FutureSupplier<Void> refresh() {
+		return refresh(TvRefreshMode.MANUAL);
+	}
+
+	@Override
+	public FutureSupplier<Void> refresh(TvRefreshMode mode) {
+		TvM3uFile file = getResource();
+		prepareRemoteSource(file);
+		if (!isRemote(file)) return super.refresh();
+		M3uRefreshMode fetchMode = switch (mode) {
+			case AUTO -> M3uRefreshMode.AUTO;
+			case MANUAL -> M3uRefreshMode.MANUAL;
+			case EDIT -> M3uRefreshMode.EDIT;
+		};
+		return TvM3uFileSystem.getInstance().refresh(file, fetchMode,
+				KnownProviders.fetchCandidates(file.getUrl())).then(result -> {
+			if (result == null) return super.refresh();
+			if (result.state() == M3uFetchResult.State.STALE_FALLBACK)
+				return failed(result.fallbackFailure());
+			return (result.state() == M3uFetchResult.State.UPDATED) ?
+					super.refresh() : me.aap.utils.async.Completed.completedVoid();
+		});
+	}
+
+	public String getEpgUrl() {
+		String url = getResource().getEpgUrl();
+		return ((url != null) && !url.isEmpty()) ? url : tvgUrl;
+	}
+
+	@Override
+	protected void setTvgUrl(String url) {
+		if (url == null) return;
+		tvgUrl = url = url.trim();
+		TvM3uFile f = getResource();
+		if (f.getEpgUrl() == null) f.setEpgUrl(url);
+	}
+
+	private static void prepareRemoteSource(TvM3uFile file) {
+		KnownProviders.configure(file.getPrefs());
+		boolean invalid = clearInvalidRemoteCache(file);
+		if (invalid) file.invalidatePlaylistValidation();
+	}
+
+	private static boolean clearInvalidRemoteCache(TvM3uFile file) {
+		if (!isRemote(file)) return false;
+		File cache = file.getLocalFile();
+		if (!cache.isFile()) return false;
+
+		try (InputStreamReader reader = new InputStreamReader(new FileInputStream(cache),
+				StandardCharsets.UTF_8)) {
+			char[] buf = new char[(int) Math.min(cache.length(), 4096)];
+			int len = reader.read(buf);
+			String sample = (len > 0) ? new String(buf, 0, len) : "";
+			if (!isInvalidPlaylistCache(sample, cache.length())) return false;
+		} catch (IOException ex) {
+			Log.e(ex, "Failed to inspect cached M3U file: ", cache);
+		}
+
+		if (!cache.delete()) Log.e("Failed to delete invalid M3U cache file ", cache);
+		return true;
+	}
+
+	private static boolean isInvalidPlaylistCache(String sample, long length) {
+		String text = sample.trim().toLowerCase(Locale.ROOT);
+		if (text.isEmpty()) return true;
+		if (text.startsWith("#extm3u") || text.contains("#extinf:")) return false;
+		if (text.startsWith("429:") || text.startsWith("403:") || text.startsWith("404:") ||
+				text.startsWith("500:") || text.startsWith("502:") || text.startsWith("503:") ||
+				text.startsWith("<!doctype") || text.startsWith("<html")) return true;
+		if (text.contains("too many requests") || text.contains("rate limit") ||
+				text.contains("access denied") || text.contains("not found")) return true;
+		return (length < 8192) && isPlainText(text);
+	}
+
+	private static boolean isPlainText(String text) {
+		for (int i = 0, len = text.length(); i < len; i++) {
+			char c = text.charAt(i);
+			if ((c < 0x20) && (c != '\n') && (c != '\r') && (c != '\t')) return false;
+		}
+		return true;
+	}
+
+	private static boolean isRemote(TvM3uFile file) {
+		String url = file.getUrl();
+		return (url != null) && !url.startsWith("/") && !url.startsWith("content://");
+	}
+}
