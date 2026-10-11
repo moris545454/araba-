@@ -6,6 +6,8 @@ TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe And
 
 ## Sürüm durumu
 
+**2.1.6 test APK’sı** (kullanıcıların kendi kanal listelerini eklemesi): [ön sürüm sayfası](https://github.com/moris545454/araba-/releases/tag/v2.1.6-test). GitHub Actions ile derlenir; kararlı imza anahtarı tanımlı değilse yeni bir anahtarla imzalanır, bu durumda kurulu 2.1.5’in üzerine yüklenemez, önce eski sürüm kaldırılmalıdır.
+
 2.1.4, kullanıcıların TV/YouTube açarken kapanma bildirmesi üzerine kararlı sürüm listesinden geri çekildi. **Kullanıcı 2.1.5’in çalıştığını bildirdi; normal kurulumla Android Auto’da görünmediği de bildirildi.** KingInstaller ile araç doğrulaması beklenmektedir; sürüm ön sürüm olarak kalır. Kapanmanın kesin nedeni cihaz hata kaydı olmadan doğrulanmış sayılmaz. Ön sürüm otomatik güncelleme olarak önerilmez.
 
 ## Kapsam
