@@ -15,3 +15,5 @@ Telefon ve Android Auto için tek universal APK. Önceki kurulumun üzerine gün
 Paket kimliği ve imza önceki sürümle aynı tutuldu. Eski güncelleme istemcilerinin uyumluluğu için indirme dosyasının teknik adı değişmedi; uygulama adı Dem TV’dir. GitHub Actions bu hesapta kapalı olduğundan APK yerelde derlenip Git LFS üzerinden yayımlanır.
 
 **Doğrulama sınırı:** Fiziksel telefon/araç testi yapılmadı. Android Auto’nun sistem çubukları ve bölünmüş ekran/harita yerleşimi ana ünitenin denetimindedir; uygulama kendisine ayrılan alanı doldurur, harita bölmesini bütün araçlarda zorla kaldırma garantisi verilmez. TV akışlarının tamamı ayrı ayrı denenmedi.
+
+Depodaki eski `build/outputs/apk/auto/debug/DemTV-auto-debug.apk` örneği farklı bir sertifikayla imzalanmış olduğundan kaldırıldı. Bu dosyayı kurmuş olan cihazlarda Android doğrudan güncellemeyi reddedebilir; yayımlanmış 2.0.3 sürümüyle imza uyumu korunur.

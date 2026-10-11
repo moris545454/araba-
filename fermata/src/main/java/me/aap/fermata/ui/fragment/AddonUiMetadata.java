@@ -45,6 +45,7 @@ final class AddonUiMetadata {
 		if (info != null) return color(role(info));
 		if (name == null) return 0xFF55B9FF;
 		if (DashboardItems.MIRROR.equals(name)) return 0xFFC084FC;
+		if (DashboardItems.DEM_TV.equals(name)) return 0xFF38BDF8;
 		if (DashboardItems.FOLDERS.equals(name)) return 0xFFFFC14D;
 		if (DashboardItems.FAVORITES.equals(name)) return 0xFFFF4165;
 		if (DashboardItems.RECENT.equals(name)) return 0xFF94A3B8;

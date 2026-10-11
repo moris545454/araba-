@@ -3,7 +3,7 @@
     <string name="github_updates">Uygulama güncellemeleri</string>
     <string name="github_updates_help">Yeni sürümler açılışta ve arka planda belirli aralıklarla kontrol edilir. Android kontrolleri geciktirebilir. İndirme ve kurulum sizin onayınızla yapılır.</string>
     <string name="github_updates_auto">Yeni sürümleri bildir</string>
-    <string name="github_update_available">FermataX güncellemesi hazır</string>
+    <string name="github_update_available">Dem TV güncellemesi hazır</string>
     <string name="github_update_version">Sürüm %1$s</string>
     <string name="github_updates_check">Güncellemeleri kontrol et</string>
     <string name="github_updates_install">İndir ve yükle</string>

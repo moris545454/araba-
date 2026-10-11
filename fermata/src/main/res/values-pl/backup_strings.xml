@@ -3,7 +3,7 @@
 	<string name="backup_restore">Kopia i przywracanie</string>
 	<string name="backup_restore_sub">Przenieś ustawienia i konta między urządzeniami</string>
 	<string name="backup_all_data">Utwórz kopię wszystkich danych</string>
-	<string name="backup_all_data_sub">Utwórz jeden zaszyfrowany plik FermataX</string>
+	<string name="backup_all_data_sub">Utwórz jeden zaszyfrowany plik Dem TV</string>
 	<string name="restore_backup">Przywróć kopię</string>
 	<string name="restore_backup_sub">Przywróć plik .fxbackup lub starsze archiwum ZIP</string>
 	<string name="backup_password_title">Chroń kopię</string>

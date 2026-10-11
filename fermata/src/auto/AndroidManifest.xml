@@ -114,6 +114,7 @@
 
         <activity
             android:name="me.app.fermatax.auto.ProjectionActivity"
+            android:configChanges="colorMode|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
             android:excludeFromRecents="true"
             android:exported="true"
             android:launchMode="singleInstance" />

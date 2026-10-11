@@ -1,8 +1,11 @@
 <resources>
     <string name="dashboard_mirror_title">Ekran yansıtma</string>
     <string name="dashboard_mirror_sub">Telefon ekranını göster</string>
-    <string name="dashboard_mirror_help">Telefon ekranını yansıtmak için:\n\n1. Telefonunuzu Android Auto’ya bağlayın.\n2. Android Auto uygulama menüsünden FermataX Mirror girişini açın.\n3. Telefonun kilidini açıp Android’in ekran yakalama isteğini onaylayın.\n\nBekleyen bir izin isteği varsa telefonda FermataX’i açarak devam edin.</string>
-    <string name="dashboard_mirror_mobile_help">Ekran yansıtma, FermataX’in Android Auto sürümünde kullanılabilir.\n\nBu sürümü Android Auto’ya bağlayın, araçtaki uygulama menüsünden FermataX Mirror girişini açın ve kilidi açık telefonda ekran yakalamayı onaylayın.</string>
+    <string name="dashboard_mirror_help">Telefon ekranını yansıtmak için:\n\n1. Telefonunuzu Android Auto’ya bağlayın.\n2. Android Auto uygulama menüsünden Dem TV Ekran Yansıtma girişini açın.\n3. Telefonun kilidini açıp Android’in ekran yakalama isteğini onaylayın.\n\nBekleyen bir izin isteği varsa telefonda Dem TV’yi açarak devam edin.</string>
+    <string name="dashboard_dem_tv_title">Dem TV</string>
+    <string name="dashboard_dem_tv_sub">Dem TV kanallarını hızlıca aç</string>
+    <string name="dashboard_dem_tv_url" translatable="false">https://demtv.demiralayboncuk-092.workers.dev/</string>
+    <string name="dashboard_mirror_mobile_help">Ekran yansıtma, Dem TV’yin Android Auto sürümünde kullanılabilir.\n\nBu sürümü Android Auto’ya bağlayın, araçtaki uygulama menüsünden Dem TV Ekran Yansıtma girişini açın ve kilidi açık telefonda ekran yakalamayı onaylayın.</string>
     <string name="dashboard_recent_shelf">Son içerikler</string>
     <string name="dashboard_recent_empty">Oynattığınız içerikler burada görünecek.</string>
 </resources>

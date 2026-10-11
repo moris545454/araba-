@@ -3,7 +3,7 @@
 	<string name="backup_restore">Copiere și restaurare</string>
 	<string name="backup_restore_sub">Transferă setările și conturile portabile între dispozitive</string>
 	<string name="backup_all_data">Copiază toate datele</string>
-	<string name="backup_all_data_sub">Creează un singur fișier FermataX criptat</string>
+	<string name="backup_all_data_sub">Creează un singur fișier Dem TV criptat</string>
 	<string name="restore_backup">Restaurează copia</string>
 	<string name="restore_backup_sub">Restaurează un fișier .fxbackup sau un ZIP vechi</string>
 	<string name="backup_password_title">Protejează copia</string>

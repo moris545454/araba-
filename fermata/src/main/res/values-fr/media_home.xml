@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">Afficher l’écran du téléphone</string>
     <string name="dashboard_recent_shelf">Contenus récents</string>
     <string name="dashboard_recent_empty">Les contenus lus apparaîtront ici.</string>
-    <string name="dashboard_mirror_help">Connectez le téléphone à Android Auto. Ouvrez FermataX Mirror dans le menu des applications de la voiture. Déverrouillez le téléphone et confirmez la capture d’écran. Si une demande d’autorisation est en attente, ouvrez FermataX sur le téléphone pour continuer.</string>
-    <string name="dashboard_mirror_mobile_help">La recopie d’écran est disponible dans la version Android Auto de FermataX. Connectez cette version à Android Auto, ouvrez FermataX Mirror dans la voiture, puis confirmez la capture d’écran sur le téléphone déverrouillé.</string>
+    <string name="dashboard_mirror_help">Connectez le téléphone à Android Auto. Ouvrez Dem TV Ekran Yansıtma dans le menu des applications de la voiture. Déverrouillez le téléphone et confirmez la capture d’écran. Si une demande d’autorisation est en attente, ouvrez Dem TV sur le téléphone pour continuer.</string>
+    <string name="dashboard_mirror_mobile_help">La recopie d’écran est disponible dans la version Android Auto de Dem TV. Connectez cette version à Android Auto, ouvrez Dem TV Ekran Yansıtma dans la voiture, puis confirmez la capture d’écran sur le téléphone déverrouillé.</string>
 </resources>

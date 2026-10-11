@@ -79,25 +79,25 @@ final class InlineMirrorView extends FrameLayout implements SurfaceHolder.Callba
                     return;
                 }
                 try {
-                projection = capture;
-                projection.registerCallback(callback, handler);
-                lease = new MirrorSurfaceLease<>((surface, w, h, density) -> {
-                    VirtualDisplay display = projection.createVirtualDisplay("Dem TV / Ekran", w, h,
-                            density, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
-                            surface, null, handler);
-                    if (display == null) throw new IllegalStateException("Display unavailable");
-                    return new MirrorSurfaceLease.Display<Surface>() {
-                        @Override public void attach(Surface next, int width, int height, int dpi) {
-                            display.resize(width, height, dpi);
-                            display.setSurface(next);
-                        }
-                        @Override public void detach() { display.setSurface(null); }
-                        @Override public void release() { display.release(); }
-                    };
-                });
-                if (screen.getHolder().getSurface().isValid()) {
-                    attach(screen.getHolder(), screen.getWidth(), screen.getHeight());
-                }
+                    projection = capture;
+                    projection.registerCallback(callback, handler);
+                    lease = new MirrorSurfaceLease<>((surface, w, h, density) -> {
+                        VirtualDisplay display = projection.createVirtualDisplay("Dem TV / Ekran", w, h,
+                                density, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
+                                surface, null, handler);
+                        if (display == null) throw new IllegalStateException("Display unavailable");
+                        return new MirrorSurfaceLease.Display<Surface>() {
+                            @Override public void attach(Surface next, int width, int height, int dpi) {
+                                display.resize(width, height, dpi);
+                                display.setSurface(next);
+                            }
+                            @Override public void detach() { display.setSurface(null); }
+                            @Override public void release() { display.release(); }
+                        };
+                    });
+                    if (screen.getHolder().getSurface().isValid()) {
+                        attach(screen.getHolder(), screen.getWidth(), screen.getHeight());
+                    }
                 } catch (RuntimeException failure) {
                     Log.e(failure, "Dem TV capture grant unavailable");
                     status.setText(R.string.dem_mirror_rejected);

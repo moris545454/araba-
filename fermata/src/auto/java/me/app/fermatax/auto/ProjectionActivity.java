@@ -84,7 +84,10 @@ public class ProjectionActivity extends ActivityBase {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		if (promise != null) promise.cancel();
+		// The system screen-capture dialog can recreate this trampoline activity while
+		// changing the phone/head-unit configuration. Keep the process-wide request alive
+		// so the result can still reach ProjectionService after the dialog closes.
+		if ((promise != null) && !isChangingConfigurations()) promise.cancel();
 	}
 
 	@Override
