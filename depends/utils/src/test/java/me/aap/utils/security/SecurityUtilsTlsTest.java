@@ -55,8 +55,8 @@ class SecurityUtilsTlsTest {
 	}
 
 	@Test
-	void userSourcePolicyAcceptsSelfSignedCertificate() throws Exception {
-		assertEquals(42, connect("localhost", TlsTrustPolicy.TRUST_ALL_USER_SOURCE));
+	void legacyUserSourcePolicyCannotAcceptSelfSignedCertificate() {
+		assertThrows(ExecutionException.class, () -> connect("localhost", TlsTrustPolicy.TRUST_ALL_USER_SOURCE));
 	}
 
 	@Test

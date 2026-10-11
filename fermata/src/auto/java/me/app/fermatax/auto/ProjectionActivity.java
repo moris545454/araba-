@@ -2,23 +2,18 @@ package me.app.fermatax.auto;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP;
-import static android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES;
-import static me.aap.utils.async.Completed.completedVoid;
 import static me.aap.utils.async.Completed.failed;
 import static me.aap.utils.function.ResultConsumer.Cancel.isCancellation;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.media.projection.MediaProjectionConfig;
 import android.media.projection.MediaProjectionManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Build.VERSION;
-import android.provider.Settings;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
@@ -37,9 +32,8 @@ public class ProjectionActivity extends ActivityBase {
 	private static final int NOTIFICATION_ID = 3;
 	private static Promise<Intent> promise;
 	private static boolean starting;
-	private static boolean captureOnly;
 
-	static FutureSupplier<Intent> start() { return start(false); }
+	static FutureSupplier<Intent> start() { return start(true); }
 
 	static FutureSupplier<Intent> start(boolean viewingOnly) {
 		if (!AutomotiveRuntimeGate.allowsNewWork()) {
@@ -47,7 +41,6 @@ public class ProjectionActivity extends ActivityBase {
 					"Automotive projection generation is quiescent"));
 		}
 		if (promise != null) promise.cancel();
-		captureOnly = viewingOnly;
 		var p = promise = new Promise<>();
 		p.thenRun(() -> {
 			if (promise != p) return;
@@ -58,7 +51,7 @@ public class ProjectionActivity extends ActivityBase {
 		showPermissionNotification(FermataApplication.get());
         // A car tap requests phone consent immediately. Keep the notification as a
         // fallback when Android/OEM background-activity restrictions block the launch.
-        if (viewingOnly) {
+        { // Both retained start signatures use the same user-consent-only flow.
             var phone = me.aap.fermata.ui.activity.MainActivity.getActiveInstance();
             resumePendingRequest(phone != null && phone.hasWindowFocus() ?
                     phone : FermataApplication.get());
@@ -105,13 +98,8 @@ public class ProjectionActivity extends ActivityBase {
 			return;
 		}
 		starting = true;
-        FutureSupplier<Intent> capture = captureOnly ? requestScreenCapturePermission() :
-                checkOverlayPermission().then(ignore -> checkWriteSettingsPermission())
-                        .then(ignore -> checkAccessibilityPermission())
-                        .thenIgnoreResult(this::requestRootPermission)
-                        .thenIgnoreResult(this::requestScreenCapturePermission);
+        FutureSupplier<Intent> capture = requestScreenCapturePermission();
         capture.onCompletion((i, err) -> {
-                    if (!captureOnly) AccessibilityEventDispatcherService.autoClickOnButton(null);
 					if (promise != p) return;
 					starting = false;
 					finish();
@@ -127,59 +115,6 @@ public class ProjectionActivity extends ActivityBase {
 						p.complete(i);
 					}
 				});
-	}
-
-	private FutureSupplier<?> checkOverlayPermission() {
-		if (Settings.canDrawOverlays(this)) return completedVoid();
-		Log.i("Requesting ACTION_MANAGE_OVERLAY_PERMISSION permission");
-		return startActivityForResult(() -> new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-				Uri.parse("package:" + getPackageName()))).then(ignore ->
-				Settings.canDrawOverlays(this) ? completedVoid() : permissionRejected("overlay"));
-	}
-
-	private FutureSupplier<?> checkWriteSettingsPermission() {
-		if (Settings.System.canWrite(this)) return completedVoid();
-		Log.i("Requesting ACTION_MANAGE_WRITE_SETTINGS permission");
-		return startActivityForResult(() -> new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS,
-				Uri.parse("package:" + getPackageName()))).then(ignore ->
-				Settings.System.canWrite(this) ? completedVoid() : permissionRejected("write settings"));
-	}
-
-	private FutureSupplier<?> checkAccessibilityPermission() {
-		if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.O) || isAccessibilityEnabled())
-			return completedVoid();
-		Log.i("Requesting ACTION_ACCESSIBILITY_SETTINGS permission");
-		return startActivityForResult(() -> {
-			var intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
-			intent.setFlags(FLAG_ACTIVITY_NEW_TASK | FLAG_ACTIVITY_SINGLE_TOP);
-			return intent;
-		}).then(ignore -> isAccessibilityEnabled() ? completedVoid() :
-				permissionRejected("accessibility"));
-	}
-
-	private FutureSupplier<Void> permissionRejected(String permission) {
-		var err = new IllegalStateException("Required " + permission + " permission is not granted");
-		Log.i(err, "Projection permission flow cancelled");
-		return failed(err);
-	}
-
-	private boolean isAccessibilityEnabled() {
-		var cn = new ComponentName(this, AccessibilityEventDispatcherService.class);
-		var enabledServices =
-				Settings.Secure.getString(getContentResolver(), ENABLED_ACCESSIBILITY_SERVICES);
-		if (enabledServices == null) return false;
-		for (var c : enabledServices.split(":")) {
-			var n = ComponentName.unflattenFromString(c);
-			if ((n != null) && (n.equals(cn))) return true;
-		}
-		return false;
-	}
-
-	private FutureSupplier<?> requestRootPermission() {
-		return Su.get().onSuccess(su -> {
-			EventDispatcher.useSu(su);
-			su.exec("appops set " + getPackageName() + " PROJECT_MEDIA allow");
-		});
 	}
 
 	private FutureSupplier<Intent> requestScreenCapturePermission() {

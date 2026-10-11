@@ -34,11 +34,8 @@ public final class PhoneReadiness {
 	}
 
 	private static Row overlay(Input input) {
-		if (!input.autoBuild()) {
-			return new Row(Check.OVERLAY, Status.NOT_APPLICABLE, Action.NONE);
-		}
-		return new Row(Check.OVERLAY, input.overlayGranted() ? Status.OK : Status.INFO,
-				Action.OVERLAY_SETTINGS);
+		// Native MediaProjection needs no overlay permission, on either host.
+		return new Row(Check.OVERLAY, Status.NOT_APPLICABLE, Action.NONE);
 	}
 
 	public enum Check {

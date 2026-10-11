@@ -531,4 +531,6 @@
     <string name="dem_mirror_connect">Öffne zuerst Dem TV in Android Auto und bestätige dann die Bildschirmfreigabe am Telefon.</string>
     <string name="dem_mirror_external">Mit ScreenOnAuto starten</string>
     <string name="dem_mirror_external_failed">ScreenOnAuto konnte nicht starten. Prüfe die App und die Fahrzeugverbindung.</string>
+    <string name="web_capture_consent">Dieser Website erlauben, Kamera oder Mikrofon während dieser App-Sitzung zu verwenden?</string>
+    <string name="web_location_consent">Dieser Website erlauben, während dieser App-Sitzung auf Ihren Standort zuzugreifen?</string>
 </resources>

@@ -36,8 +36,6 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 
 import me.aap.utils.app.App;
 import me.aap.utils.net.TlsTrustPolicy;
@@ -315,9 +313,9 @@ public class SecurityUtils {
 
 	public static SSLEngine createClientSslEngine(String peerHost, int peerPort,
 			TlsTrustPolicy trustPolicy) {
-		SSLContext context = (trustPolicy == TlsTrustPolicy.TRUST_ALL_USER_SOURCE) ?
-				UserSourceClientContextHolder.context : ClientContextHolder.context;
-		return createClientSslEngine(peerHost, peerPort, trustPolicy, context);
+		// Retain the legacy API, but never disable certificate or host verification.
+		return createClientSslEngine(peerHost, peerPort, TlsTrustPolicy.STRICT,
+				ClientContextHolder.context);
 	}
 
 	static SSLEngine createClientSslEngine(String peerHost, int peerPort,
@@ -325,11 +323,9 @@ public class SecurityUtils {
 		try {
 			SSLEngine eng = context.createSSLEngine(peerHost, peerPort);
 			eng.setUseClientMode(true);
-			if (trustPolicy == TlsTrustPolicy.STRICT) {
-				SSLParameters parameters = eng.getSSLParameters();
-				parameters.setEndpointIdentificationAlgorithm("HTTPS");
-				eng.setSSLParameters(parameters);
-			}
+			SSLParameters parameters = eng.getSSLParameters();
+			parameters.setEndpointIdentificationAlgorithm("HTTPS");
+			eng.setSSLParameters(parameters);
 			return eng;
 		} catch (Exception ex) {
 			throw new RuntimeException(ex);
@@ -361,20 +357,6 @@ public class SecurityUtils {
 			}
 
 			return ctx;
-		}
-	}
-
-	private static final class UserSourceClientContextHolder {
-		static final SSLContext context = create();
-
-		static SSLContext create() {
-			try {
-				SSLContext ctx = SSLContext.getInstance("TLS");
-				ctx.init(null, new TrustManager[]{InsecureTrustManager.instance}, null);
-				return ctx;
-			} catch (Exception ex) {
-				throw new RuntimeException(ex);
-			}
 		}
 	}
 
@@ -429,24 +411,4 @@ public class SecurityUtils {
 		return new JcaX509CertificateConverter().getCertificate(cb.build(cs));
 	}
 
-	/** Deliberately restricted to explicitly marked user-configured media sources. */
-	private static final class InsecureTrustManager implements X509TrustManager {
-		static final InsecureTrustManager instance = new InsecureTrustManager();
-		private static final X509Certificate[] CERTIFICATES = {};
-
-		@Override
-		public void checkClientTrusted(X509Certificate[] chain, String authType) {
-		}
-
-		@Override
-		public void checkServerTrusted(X509Certificate[] chain, String authType) {
-		}
-
-		@Override
-		public X509Certificate[] getAcceptedIssuers() {
-			return CERTIFICATES;
-		}
-	}
-
 }
-

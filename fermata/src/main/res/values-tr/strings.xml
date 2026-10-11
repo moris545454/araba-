@@ -528,4 +528,6 @@ Geri dönüp yeniden deneyebilir ve telefonundaki izni onaylayabilirsin.</string
     <string name="dem_mirror_connect">Android Auto’da Dem TV’yi açtıktan sonra buradan ekranını yansıtabilirsin. Telefonundaki ekran paylaşımı onayı gerekir.</string>
     <string name="dem_mirror_external">ScreenOnAuto ile başlat</string>
     <string name="dem_mirror_external_failed">ScreenOnAuto başlatılamadı. Uygulamayı ve araç bağlantısını kontrol et.</string>
+    <string name="web_capture_consent">Bu web sitesinin kamera veya mikrofon kullanmasına izin verilsin mi? Onay yalnızca bu site ve mevcut uygulama oturumu içindir.</string>
+    <string name="web_location_consent">Bu web sitesinin konumunuza erişmesine izin verilsin mi? Onay yalnızca bu site ve mevcut uygulama oturumu içindir.</string>
 </resources>

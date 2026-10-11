@@ -160,7 +160,11 @@ public class FermataWebView extends WebView
 		s.setDisplayZoomControls(false);
 		s.setDatabaseEnabled(true);
 		s.setDomStorageEnabled(true);
-		s.setAllowFileAccess(true);
+		s.setAllowFileAccess(false);
+		s.setAllowFileAccessFromFileURLs(false);
+		s.setAllowUniversalAccessFromFileURLs(false);
+		s.setSafeBrowsingEnabled(true);
+		s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
 		s.setLoadWithOverviewMode(true);
 		s.setJavaScriptEnabled(true);
 		s.setMediaPlaybackRequiresUserGesture(false);

@@ -102,7 +102,7 @@ final class ReadinessPrefsBuilder {
 
 	private Snapshot collect() {
 		Boolean notifications = queryNotifications();
-		Boolean overlay = queryOverlay();
+		Boolean overlay = false; // No overlay permission is used by native capture.
 		Boolean battery = queryBatteryExemption();
 		Input input = new Input(BuildConfig.AUTO, connection.hasConnectionObservation(),
 				connection.state(), binder.isControlAvailable(), Boolean.TRUE.equals(notifications),
@@ -118,16 +118,6 @@ final class ReadinessPrefsBuilder {
 	private Boolean queryNotifications() {
 		try {
 			return NotificationManagerCompat.from(context).areNotificationsEnabled();
-		} catch (RuntimeException ignored) {
-			return null;
-		}
-	}
-
-	@Nullable
-	private Boolean queryOverlay() {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return null;
-		try {
-			return Settings.canDrawOverlays(context);
 		} catch (RuntimeException ignored) {
 			return null;
 		}

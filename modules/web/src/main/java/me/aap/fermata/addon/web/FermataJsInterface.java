@@ -36,11 +36,11 @@ public class FermataJsInterface {
 	protected void handleEvent(int event, String data) {
 		switch (event) {
 			case JS_EDIT:
-				Log.d("Edit text event: ", data);
+				Log.d("Web text-input event received");
 				getWebView().showKeyboard(data);
 				break;
 			case JS_ERR:
-				Log.e("JavaScript error: ", data);
+				Log.e("Web JavaScript error reported");
 				break;
 		}
 	}

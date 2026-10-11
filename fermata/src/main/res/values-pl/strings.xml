@@ -526,4 +526,6 @@
     <string name="dem_mirror_connect">Otwórz Dem TV w Android Auto, a następnie zatwierdź udostępnianie na telefonie.</string>
     <string name="dem_mirror_external">Uruchom przez ScreenOnAuto</string>
     <string name="dem_mirror_external_failed">Nie udało się uruchomić ScreenOnAuto. Sprawdź aplikację i połączenie z autem.</string>
+    <string name="web_capture_consent">Zezwolić tej stronie na używanie kamery lub mikrofonu podczas tej sesji aplikacji?</string>
+    <string name="web_location_consent">Zezwolić tej stronie na dostęp do lokalizacji podczas tej sesji aplikacji?</string>
 </resources>

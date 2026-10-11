@@ -5,8 +5,6 @@
 	tools:ignore="MissingLeanbackSupport">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
 
@@ -14,16 +12,7 @@
 	<uses-feature
 		android:name="android.hardware.touchscreen"
 		android:required="false" />
-    <uses-permission
-        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
 
-    <queries>
-        <package android:name="idv.lzn.screenonauto" />
-        <intent>
-            <action android:name="android.intent.action.MAIN" />
-        </intent>
-    </queries>
 
 
     <application
@@ -78,18 +67,6 @@
 		</service>
 
         <meta-data
-            android:name="xposedmodule"
-            android:value="true" />
-        <meta-data
-            android:name="xposeddescription"
-            android:value="Android Auto hooks" />
-        <meta-data
-            android:name="xposedminversion"
-            android:value="54" />
-        <meta-data
-            android:name="xposedscope"
-            android:resource="@array/xposedscope" />
-        <meta-data
             android:name="androidx.car.app.minCarApiLevel"
             android:value="5"
             tools:ignore="MetadataTagInsideApplicationTag" />
@@ -107,56 +84,16 @@
             </intent-filter>
         </service>
 
-        <!-- Legacy mirror implementation remains internal; capture opens inside Dem TV. -->
-        <service android:name="me.app.fermatax.auto.MirrorService"
-            android:exported="false" android:icon="@drawable/launcher"
-            android:label="@string/mirror_service_name" />
-
+        <!-- Screen sharing is entered only by our launcher/immutable notification. -->
         <activity
             android:name="me.app.fermatax.auto.ProjectionActivity"
             android:configChanges="colorMode|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
             android:excludeFromRecents="true"
-            android:exported="true"
+            android:exported="false"
             android:launchMode="singleInstance" />
-
-        <activity
-            android:name="me.app.fermatax.auto.LauncherActivity"
-            android:configChanges="colorMode|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
-            android:excludeFromRecents="true"
-            android:exported="true"
-            android:launchMode="singleInstance" />
-
         <service
             android:name="me.app.fermatax.auto.ProjectionService"
             android:exported="false"
             android:foregroundServiceType="mediaProjection" />
-
-        <service
-            android:name="me.app.fermatax.auto.AccessibilityEventDispatcherService"
-            android:exported="true"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-            <meta-data
-                android:name="android.accessibilityservice"
-                android:resource="@xml/accessibility" />
-        </service>
-
-        <service
-            android:name="me.app.fermatax.auto.XposedEventDispatcherService"
-            android:exported="true"
-            tools:ignore="ExportedService" />
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.FileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths" />
-        </provider>
-
     </application>
 </manifest>

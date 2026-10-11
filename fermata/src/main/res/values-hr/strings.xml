@@ -526,4 +526,6 @@
     <string name="dem_mirror_connect">Otvorite Dem TV u Android Autu, zatim potvrdite dijeljenje zaslona na telefonu.</string>
     <string name="dem_mirror_external">Pokreni uz ScreenOnAuto</string>
     <string name="dem_mirror_external_failed">ScreenOnAuto nije pokrenut. Provjerite aplikaciju i vezu s vozilom.</string>
+    <string name="web_capture_consent">Dopustiti ovoj stranici korištenje kamere ili mikrofona tijekom ove sesije aplikacije?</string>
+    <string name="web_location_consent">Dopustiti ovoj stranici pristup lokaciji tijekom ove sesije aplikacije?</string>
 </resources>

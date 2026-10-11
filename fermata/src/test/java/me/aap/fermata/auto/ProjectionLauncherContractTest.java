@@ -35,7 +35,6 @@ public class ProjectionLauncherContractTest {
 
 		assertTrue(source.contains("static boolean resumePendingRequest(Context context)"));
 		assertTrue(source.contains("showPermissionNotification(FermataApplication.get())"));
-        assertTrue(source.contains("if (viewingOnly) {"));
         assertTrue(source.contains("resumePendingRequest(phone != null && phone.hasWindowFocus() ?"));
         assertFalse(source.contains("if (viewingOnly && phone != null"));
 		assertFalse(source.contains("REQUEST_TIMEOUT_MS"));
@@ -43,15 +42,17 @@ public class ProjectionLauncherContractTest {
 	}
 
 	@Test
-	public void specialPermissionScreensCannotLeaveBlankActivityWaitingForever() throws Exception {
+	public void captureNeverRequestsRootOverlayAccessibilityOrGlobalSettings() throws Exception {
 		String source = read(Paths.get("src", "auto", "java", "me", "app", "fermatax",
 				"auto", "ProjectionActivity.java"));
 
 		assertFalse(source.contains("ContentObserver"));
-		assertTrue(source.contains("Settings.canDrawOverlays(this) ? completedVoid()"));
-		assertTrue(source.contains("Settings.System.canWrite(this) ? completedVoid()"));
-		assertTrue(source.contains("isAccessibilityEnabled() ? completedVoid()"));
-		assertTrue(source.contains("permissionRejected(\"accessibility\")"));
+		assertTrue(source.contains("capture = requestScreenCapturePermission()"));
+		assertFalse(source.contains("ACTION_MANAGE_OVERLAY_PERMISSION"));
+		assertFalse(source.contains("ACTION_MANAGE_WRITE_SETTINGS"));
+		assertFalse(source.contains("ACTION_ACCESSIBILITY_SETTINGS"));
+		assertFalse(source.contains("Su.get()"));
+		assertFalse(source.contains("autoClickOnButton"));
 	}
 
 	private static String read(Path path) throws Exception {

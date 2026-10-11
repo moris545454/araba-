@@ -934,7 +934,7 @@ public class PreferenceView extends ConstraintLayout {
 
 		public boolean useSaf() {
 			if (useSaf != null) return useSaf;
-			return (SDK_INT > Build.VERSION_CODES.R) &&
+			return (SDK_INT >= Build.VERSION_CODES.R) &&
 					!App.get().hasManifestPermission(Manifest.permission.MANAGE_EXTERNAL_STORAGE) &&
 					isSafSupported();
 		}

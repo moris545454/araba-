@@ -526,4 +526,6 @@
     <string name="dem_mirror_connect">Deschide Dem TV în Android Auto, apoi confirmă partajarea ecranului pe telefon.</string>
     <string name="dem_mirror_external">Pornește cu ScreenOnAuto</string>
     <string name="dem_mirror_external_failed">ScreenOnAuto nu a pornit. Verifică aplicația și conexiunea cu mașina.</string>
+    <string name="web_capture_consent">Permiteți acestui site să folosească camera sau microfonul în această sesiune a aplicației?</string>
+    <string name="web_location_consent">Permiteți acestui site să acceseze locația în această sesiune a aplicației?</string>
 </resources>

@@ -1,9 +1,13 @@
-[Dem TV 2.1.3 APK indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.3/distribution/FermataX-yeni-arayuz-debug.apk)
+[Dem TV 2.1.4 APK indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.4/distribution/FermataX-yeni-arayuz-debug.apk)
 
-- TV, YouTube ve ekran yansıtma kartlarındaki dairesel çizimler kaldırıldı. Kullanıcının referansındaki özgün büyük simgeler ve ekran görselleri kullanılıyor; TV mavi, YouTube kırmızı, yansıtma mor.
-- Başlıklar ve açıklamalar sola hizalandı; sağ alttaki yuvarlak oklar kart renkleriyle eşleştirildi. Başlıklar yerel arayüz metinleridir ve ekran/yazı boyutuna uyarlanır.
-- Küçük kısayollardaki fazla simge boşluğu ve yeniden renklendirme düzeltildi. Radyo, podcast, web, dosyalar ve favoriler referanstaki renkli görselleri kullanır.
-- Son içerik görselleri yuvarlatılmış dikdörtgenlere geri döndü. Liste gerçek oynatma geçmişinden oluşur; örnek kanal/izleme geçmişi eklenmedi.
-- WindAsist ve Dem TV bağlantıları, kalıcı ana sayfa düğmesi, yansıtma izin akışı ve medya özellikleri korundu. Paket kimliği ve imza aynı; 2.1.2 üzerine güncellenebilir.
+- Eski erişilebilirlik, root ve Xposed kontrol/yansıtma altyapısı yayımlanan APK'dan çıkarıldı. Diğer uygulamaların üzerine çizme, tüm dosyalara erişme, sistem ayarlarını değiştirme ve tam ekran bildirim yetkileri kaldırıldı.
+- Ana ekrandaki ekran yansıtma, Android'in kullanıcı onaylı MediaProjection akışını kullanmaya devam eder. İzin ekranı ve paylaşım servisi yalnızca uygulama içinden açılabilir.
+- Web siteleri için kamera, mikrofon ve konum erişimine ayrı site onayı eklendi. Başka siteye/porta geçişte onay aktarılmaz; uygulama süreci sonlandığında site izinleri unutulur.
+- WebView yerel dosya erişimi kapatıldı; Safe Browsing açık tutulur. Parlaklık ayarı yalnızca uygulama penceresine uygulanır.
+- HTTPS kaynak indirmelerinde sertifika ve sunucu adı doğrulaması zorunlu hale getirildi; geçersiz sertifikalı kaynaklar reddedilir.
+- Yayımlanan APK'da hata ayıklama ve eski dosya günlüğü kapalıdır. Teknik paket adı ve imza aynı olduğundan mevcut 2.1.x sürümünün üzerine güncellenebilir.
+- TV, YouTube, radyo, podcast, dosyalar, favoriler, son içerikler, ana sayfa görselleri ve web kısayolları korunur. Önceden geniş dosya iznine dayanan klasörlerin Android klasör seçicisinden yeniden seçilmesi gerekebilir.
 
-**Doğrulama sınırı:** Fiziksel telefon/araç testi yapılmadı. Kart ölçüleri cihazın ekran boyutu, yoğunluğu ve yazı ayarına göre uyarlanır; Android Auto sistem çubukları uygulama tarafından çizilmez.
+[Kurulum rehberi](https://github.com/moris545454/araba-/blob/main/KURULUM_REHBERI_TR.md) · [Güvenlik değişiklikleri ve sınırları](https://github.com/moris545454/araba-/blob/main/GUVENLIK_NOTLARI_TR.md)
+
+**Bu sürüm antivirüs sertifikası veya banka/Play Protect onayı değildir.** Uyarının kesin kaynağı doğrulanmış değil; KingInstaller ve cihaz politikaları da etkili olabilir. Fiziksel telefon/araç ve bankacılık uygulaması testi yapılmış gibi sunulmaz. Koruma mekanizmalarını kapatmanız önerilmez.

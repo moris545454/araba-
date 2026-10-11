@@ -33,11 +33,6 @@ final class AutoSessionShutdown {
 		startedGeneration = generation;
 		Log.i("Android Auto projection generation started: ", generation);
 		try {
-			MirrorDisplay.projectionSessionStarted(generation);
-		} catch (Throwable failure) {
-			Log.e(failure, "Failed to open mirror projection generation");
-		}
-		try {
 			List<String> failures = AddonManager.get().onAutomotiveSessionStarted();
 			if (!failures.isEmpty()) Log.w("Automotive addon restart failures: ", failures);
 		} catch (Throwable failure) {
@@ -59,9 +54,6 @@ final class AutoSessionShutdown {
 			failures = AutoShutdownSequence.run(
 					new AutoShutdownSequence.Step("media",
 							FermataMediaService::suspendActiveInstanceForAutomotiveDisconnect),
-					new AutoShutdownSequence.Step("mirror_surface",
-							MirrorServiceFS::shutdownForAutoDisconnect),
-					new AutoShutdownSequence.Step("mirror_display", MirrorDisplay::close),
 					new AutoShutdownSequence.Step("projection_service", ProjectionService::stop),
 					new AutoShutdownSequence.Step("addons",
 							() -> addonFailures.addAll(AddonManager.get().onAutomotiveShutdown())),
@@ -73,8 +65,6 @@ final class AutoSessionShutdown {
 					new AutoShutdownSequence.Step("car_ui", MainCarActivity::finishForAutoDisconnect),
 					new AutoShutdownSequence.Step("media_service", () ->
 							app.stopService(new Intent(app, AutoFermataMediaService.class))),
-					new AutoShutdownSequence.Step("xposed_service", () ->
-							app.stopService(new Intent(app, XposedEventDispatcherService.class))),
 					new AutoShutdownSequence.Step("ui_tasks", () -> finishTasks(app)));
 		} finally {
 			AutomotiveRuntimeGate.completeShutdown(generation);

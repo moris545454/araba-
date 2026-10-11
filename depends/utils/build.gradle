@@ -45,8 +45,8 @@ android {
         }
 
         debug {
-            debuggable true
-            buildConfigField "boolean", 'D', 'true'
+            debuggable false
+            buildConfigField "boolean", 'D', 'false'
             buildConfigField "boolean", 'FUTURE_TRACE', 'false'
         }
     }

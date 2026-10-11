@@ -521,4 +521,6 @@
     <string name="dem_mirror_external">Start with ScreenOnAuto</string>
     <string name="dem_mirror_external_failed">ScreenOnAuto could not start. Check the app and car connection.</string>
     <string name="dem_home_windasist" translatable="false">WindAsist ↗</string>
+    <string name="web_capture_consent">Allow this website to use your camera or microphone for this app session?</string>
+    <string name="web_location_consent">Allow this website to access your location for this app session?</string>
 </resources>

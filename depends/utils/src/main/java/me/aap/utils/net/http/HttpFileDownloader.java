@@ -91,9 +91,9 @@ public class HttpFileDownloader {
 				}, tlsTrustPolicy);
 	}
 
-	/** Downloader for an explicitly user-configured IPTV/M3U or XMLTV/EPG source. */
+	/** User-configured media must verify TLS certificates just like every other download. */
 	public static HttpFileDownloader forUserSource() {
-		return new HttpFileDownloader(TlsTrustPolicy.TRUST_ALL_USER_SOURCE);
+		return new HttpFileDownloader(TlsTrustPolicy.STRICT);
 	}
 
 	TlsTrustPolicy tlsTrustPolicy() {

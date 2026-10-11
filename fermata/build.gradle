@@ -57,14 +57,15 @@ android {
         }
 
         debug {
-            debuggable true
+            // Preserve the installed package/signature while shipping a non-debuggable APK.
+            debuggable false
             applicationIdSuffix '.debug'
             resValue "string", "app_name_auto", "@string/app_name_auto_debug"
             resValue "string", "app_name_mobile", "@string/app_name_mobile_debug"
             resValue "string", "media_service_name_auto", "@string/media_service_name_auto_debug"
             resValue "string", "media_service_name_mobile", "@string/media_service_name_mobile_debug"
             resValue "string", "mirror_service_name", "@string/mirror_service_name_debug"
-            buildConfigField "boolean", 'D', 'true'
+            buildConfigField "boolean", 'D', 'false'
         }
     }
 
@@ -93,10 +94,18 @@ android {
 
             dependencies {
                 implementation files('lib/auto/aauto.aar')
-                compileOnly files('lib/auto/xposed-api-82.jar')
             }
         }
     }
+    // The dashboard uses InlineMirrorView + Android MediaProjection consent. Legacy
+    // root/input injection and Xposed code are retained as history, never compiled into APKs.
+    sourceSets.auto.java {
+        exclude '**/AccessibilityEventDispatcherService.java', '**/XposedEventDispatcherService.java',
+                '**/Xposed.java', '**/Su.java', '**/EventDispatcher.java',
+                '**/MirrorDisplay.java', '**/MirrorActivity.java', '**/MirrorService.java',
+                '**/MirrorServiceFS.java', '**/LauncherActivity.java'
+    }
+
     packagingOptions {
         resources {
             excludes += ['META-INF/DEPENDENCIES', 'META-INF/LICENSE', 'META-INF/LICENSE.txt', 'META-INF/license.txt', 'META-INF/NOTICE', 'META-INF/NOTICE.txt', 'META-INF/notice.txt', 'META-INF/ASL2.0']

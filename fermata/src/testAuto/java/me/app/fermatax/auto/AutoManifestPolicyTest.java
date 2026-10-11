@@ -90,6 +90,24 @@ public class AutoManifestPolicyTest {
 				"androidx.car.app.NAVIGATION_TEMPLATES"));
 	}
 
+    @Test
+    public void nativeCaptureIsInternalAndLegacyPrivilegesAreNotAdvertised() throws Exception {
+        Document manifest = parse("src/auto/AndroidManifest.xml");
+        for (String permission : new String[]{"SYSTEM_ALERT_WINDOW", "MANAGE_EXTERNAL_STORAGE",
+                "DISABLE_KEYGUARD"}) {
+            assertFalse(hasNamed(manifest, "uses-permission", "android.permission." + permission));
+        }
+        for (String service : new String[]{"AccessibilityEventDispatcherService",
+                "XposedEventDispatcherService", "MirrorService"}) {
+            assertFalse(hasNamed(manifest, "service", "me.app.fermatax.auto." + service));
+        }
+        assertFalse(hasNamed(manifest, "meta-data", "xposedmodule"));
+        assertEquals("false", findNamed(manifest, "activity",
+                "me.app.fermatax.auto.ProjectionActivity").getAttributeNS(ANDROID_NS, "exported"));
+        assertEquals("false", findNamed(manifest, "service",
+                "me.app.fermatax.auto.ProjectionService").getAttributeNS(ANDROID_NS, "exported"));
+    }
+
 	private static Document parse(String path) throws Exception {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);

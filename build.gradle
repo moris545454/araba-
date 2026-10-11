@@ -67,6 +67,8 @@ subprojects {
         }
 
         if (isDynFeature) {
+            // Match the hardened base APK; features must not enable debugging either.
+            buildTypes.debug.debuggable = false
             flavorDimensions "version"
 
             productFlavors {

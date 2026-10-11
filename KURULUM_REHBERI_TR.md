@@ -1,17 +1,21 @@
 # Dem TV — Android Auto kurulum rehberi
 
-Bu rehber Dem TV 2.1.3 ve KingInstaller 2.3 içindir. Telefon ve Android Auto için **tek Dem TV APK** yeterlidir. Kurulumu telefonunuzda, araç park halindeyken yapın.
+Bu rehber Dem TV 2.1.4 ve KingInstaller 2.3 içindir. Telefon ve Android Auto için **tek Dem TV APK** yeterlidir. Kurulumu telefonunuzda, araç park halindeyken yapın.
 
 ## 1. İndirme bağlantıları
 
 | Uygulama | Doğrudan APK indirme | Sürüm sayfası |
 | --- | --- | --- |
-| **Dem TV 2.1.3** | [Dem TV APK indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.3/distribution/FermataX-yeni-arayuz-debug.apk) | [Dem TV yayını](https://github.com/moris545454/araba-/releases/tag/v2.1.3) |
+| **Dem TV 2.1.4** | [Dem TV APK indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.4/distribution/FermataX-yeni-arayuz-debug.apk) | [Dem TV yayını](https://github.com/moris545454/araba-/releases/tag/v2.1.4) |
 | **KingInstaller 2.3** | [KingInstaller APK indir](https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk) | [KingInstaller yayını](https://github.com/fcaronte/KingInstaller/releases/tag/2.3) |
 
 Bağlantılar APK dosyasına gider; tarayıcı indirmeyi onaylamanızı isteyebilir. İkisini de telefonunuza indirin. Önce KingInstaller'ı kurun; Dem TV APK dosyasını sonraki adımda KingInstaller içinden seçin.
 
-Dem TV dosyasının adı `FermataX-yeni-arayuz-debug.apk` olarak görünebilir. Bu, eski güncellemelerle uyumluluk için korunmuş dosya adıdır; kurulan uygulamanın adı **Dem TV** olur. Dosya yaklaşık 171 MiB'dir.
+Dem TV dosyasının adı `FermataX-yeni-arayuz-debug.apk` olarak görünebilir. Bu, eski güncellemelerle uyumluluk için korunmuş dosya adıdır; kurulan uygulamanın adı **Dem TV** olur. Dosya yaklaşık 168 MiB'dir.
+
+## Güvenlik uyarısı
+
+2.1.4, eski erişilebilirlik/root/Xposed altyapısını ve gereksiz hassas izinleri kaldırır. Bu bir banka veya Play Protect onayı değildir. Play Protect engeli ya da banka uyarısı devam ederse korumayı kapatmayın; bankanın resmî desteğine başvurun. KingInstaller ayrı bir uygulamadır ve cihaz denetimini etkileyebilir. [Değişikliklerin kapsamı ve sınırları](GUVENLIK_NOTLARI_TR.md).
 
 ## 2. Gerekenler
 
@@ -81,7 +85,7 @@ Android ekran paylaşımı onayı her yeni paylaşım oturumunda gerekir; uygula
 - Bildirimi veya güncelleme ekranını açın, APK'yı indirin ve **telefonda** yüklemeyi onaylayın. Android bilinmeyen uygulama yükleme izni isterse ekrandaki ayarlardan verin.
 - Güncellemeyi mevcut uygulamanın üzerine kurun. Aynı paket ve imzayla yayımlanan güncellemelerde ayarlarınız korunur.
 
-Yukarıdaki doğrudan Dem TV bağlantısı özellikle 2.1.3 sürümüne aittir. Daha yeni sürümleri [GitHub sürümlerinden](https://github.com/moris545454/araba-/releases/latest) veya uygulama içi güncelleme ekranından alın.
+Yukarıdaki doğrudan Dem TV bağlantısı özellikle 2.1.4 sürümüne aittir. Daha yeni sürümleri [GitHub sürümlerinden](https://github.com/moris545454/araba-/releases/latest) veya uygulama içi güncelleme ekranından alın.
 
 ## 8. Sık karşılaşılan sorunlar
 

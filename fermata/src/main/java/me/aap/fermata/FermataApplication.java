@@ -2,12 +2,9 @@ package me.aap.fermata;
 
 import static me.aap.fermata.ui.activity.MainActivityPrefs.LOCALE;
 
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
-import android.os.IBinder;
 import android.os.SystemClock;
 
 import androidx.annotation.NonNull;
@@ -43,7 +40,6 @@ public class FermataApplication extends NetSplitCompatApp {
 	private volatile SharedPreferenceStore preferenceStore;
 	private volatile AddonManager addonManager;
 	private int mirroringMode;
-	private ServiceConnection eventService;
 	private AndroidDiagnosticsRuntime diagnostics;
 	private final AtomicLong legacyDiagnosticWindow = new AtomicLong();
 	private final AtomicInteger legacyDiagnosticCount = new AtomicInteger();
@@ -210,37 +206,8 @@ public class FermataApplication extends NetSplitCompatApp {
 		return mirroringMode;
 	}
 
+	/** Retained preference API; native screen sharing does not bind input-control services. */
 	public void setMirroringMode(int mirroringMode) {
-		if (!BuildConfig.AUTO) return;
-		this.mirroringMode = mirroringMode;
-
-		if (mirroringMode == 0) {
-			if (eventService != null) {
-				unbindService(eventService);
-				eventService = null;
-			}
-		} else if (eventService == null) {
-			eventService = new ServiceConnection() {
-				@Override
-				public void onServiceConnected(ComponentName name, IBinder service) {
-					Log.d("Connected to XposedEventDispatcherService");
-				}
-
-				@Override
-				public void onServiceDisconnected(ComponentName name) {
-					Log.d("Disconnected from XposedEventDispatcherService");
-				}
-			};
-			try {
-				Log.i("Starting XposedEventDispatcherService");
-				var i = new Intent();
-				i.setComponent(
-						new ComponentName(this, "me.app.fermatax.auto" + ".XposedEventDispatcherService"));
-				bindService(i, eventService, Context.BIND_AUTO_CREATE);
-			} catch (Exception err) {
-				eventService = null;
-				Log.e(err, "Failed to bind EventDispatcherService");
-			}
-		}
+		if (BuildConfig.AUTO) this.mirroringMode = mirroringMode;
 	}
 }

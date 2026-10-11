@@ -32,7 +32,7 @@ public class ProjectionService extends Service {
 	private static Promise<MediaProjection> promise;
     private MediaProjection activeProjection;
 
-	static FutureSupplier<MediaProjection> start() { return start(false); }
+	static FutureSupplier<MediaProjection> start() { return start(true); }
 
     static FutureSupplier<MediaProjection> start(boolean viewingOnly) {
 		if (!AutomotiveRuntimeGate.allowsNewWork()) {

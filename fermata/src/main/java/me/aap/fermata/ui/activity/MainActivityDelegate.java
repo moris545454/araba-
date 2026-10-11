@@ -163,7 +163,7 @@ public class MainActivityDelegate extends ActivityDelegate
 	private boolean barsHidden;
 	private int phoneRootId = R.id.dashboard_fragment;
 	private boolean videoMode;
-	private int brightness = 255;
+	private float brightness = -1f;
 	private final VoiceInteractionCoordinator voiceInteraction;
 	private final long diagnosticsActivityId = AsyncOperationController.DiagnosticsObserver.nextId();
 	private long hostRelaunchGeneration;
@@ -765,10 +765,12 @@ public class MainActivityDelegate extends ActivityDelegate
 
 				if (p.getChangeBrightnessPref()) {
 					if (videoMode) {
-						brightness = getBrightness();
+						brightness = getWindow().getAttributes().screenBrightness;
 						setBrightness(p.getBrightnessPref());
 					} else {
-						setBrightness(brightness);
+						var attributes = getWindow().getAttributes();
+						attributes.screenBrightness = brightness;
+						getWindow().setAttributes(attributes);
 					}
 				}
 				if (p.getLandscapeVideoPref()) {
@@ -819,15 +821,17 @@ public class MainActivityDelegate extends ActivityDelegate
 	}
 
 	public int getBrightness() {
-		return Settings.System.getInt(getContext().getContentResolver(), SCREEN_BRIGHTNESS, 255);
+		float current = getWindow().getAttributes().screenBrightness;
+		return current >= 0f ? Math.round(current * 255) :
+				Settings.System.getInt(getContext().getContentResolver(), SCREEN_BRIGHTNESS, 255);
 	}
 
 	public void setBrightness(int br) {
-		try {
-			Settings.System.putInt(getContext().getContentResolver(), SCREEN_BRIGHTNESS, br);
-		} catch (SecurityException ex) {
-			Log.e(ex, "Failed to change brightness");
-		}
+		// Affect only this application window; never modify the phone's global settings.
+		var window = getWindow();
+		var attributes = window.getAttributes();
+		attributes.screenBrightness = Math.max(0, Math.min(255, br)) / 255f;
+		window.setAttributes(attributes);
 	}
 
 	public boolean isVideoMode() {
@@ -1327,12 +1331,12 @@ public class MainActivityDelegate extends ActivityDelegate
 		} else if (MainActivityPrefs.hasFullscreenPref(this, prefs)) {
 			setSystemUiVisibility();
 		} else if (prefs.contains(CHANGE_BRIGHTNESS)) {
-			if (getPrefs().getChangeBrightnessPref()) {
-				if (!Settings.System.canWrite(getContext())) {
-					Intent i = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
-					i.setData(Uri.parse("package:" + getContext().getPackageName()));
-					startActivity(i);
-				}
+			if (getPrefs().getChangeBrightnessPref() && isVideoMode()) {
+				setBrightness(getPrefs().getBrightnessPref());
+			} else {
+				var attributes = getWindow().getAttributes();
+				attributes.screenBrightness = -1f;
+				getWindow().setAttributes(attributes);
 			}
 		} else if (prefs.contains(BRIGHTNESS)) {
 			if (isVideoMode()) setBrightness(getPrefs().getBrightnessPref());

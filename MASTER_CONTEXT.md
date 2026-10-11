@@ -8,6 +8,28 @@
 > implementation note, verify the current code and then update this file with the confirmed
 > decision.
 
+## Current Dem TV security override — 2026-10-11
+
+The current distribution is **Dem TV 2.1.4 (315)** in `moris545454/araba-`, package
+`me.app.fermataX.auto.debug`, target/compile SDK 36. The package and existing signing identity
+are retained for updates; the shipped APK and dynamic features are **not debuggable**.
+The original FermataX identity/direction below is historical context where it conflicts with
+this Dem TV override or the current code.
+
+The supported dashboard mirror is `InlineMirrorView` → `ProjectionService` → Android
+MediaProjection consent. It does not provide remote touch control. Legacy accessibility,
+root/input injection and Xposed implementations are excluded from Auto compilation; their
+manifest entries and xposed_init asset are removed. They must not return to published APKs.
+No overlay, all-files, write-settings, keyguard-disable or full-screen-intent privileges are
+required. Local folders use SAF. Brightness applies only to the app window. Website camera,
+microphone and location access requires phone consent for the current HTTPS origin separately
+from Android runtime permission. Update APKs retain hash/package/version/signature validation.
+
+The user-authorized editable default IPTV list and current dashboard/web shortcuts remain.
+See [GUVENLIK_NOTLARI_TR.md](GUVENLIK_NOTLARI_TR.md) for migration and verification limits.
+Never describe this hardening as antivirus certification, Play Protect acceptance or guaranteed
+banking compatibility; those external decisions have not been tested or verified.
+
 ## 1. Project Identity
 
 - Product name: **FermataX**

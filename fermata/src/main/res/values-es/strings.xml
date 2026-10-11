@@ -534,4 +534,6 @@ Por favor, reinicie la aplicación.</string>
     <string name="dem_mirror_connect">Abre Dem TV en Android Auto y confirma el permiso de pantalla en el teléfono.</string>
     <string name="dem_mirror_external">Iniciar con ScreenOnAuto</string>
     <string name="dem_mirror_external_failed">No se pudo iniciar ScreenOnAuto. Comprueba la aplicación y la conexión al coche.</string>
+    <string name="web_capture_consent">¿Permitir que este sitio use la cámara o el micrófono durante esta sesión de la aplicación?</string>
+    <string name="web_location_consent">¿Permitir que este sitio acceda a tu ubicación durante esta sesión de la aplicación?</string>
 </resources>

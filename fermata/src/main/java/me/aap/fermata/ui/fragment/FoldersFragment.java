@@ -132,7 +132,7 @@ public class FoldersFragment extends MediaLibFragment {
 			b.setTitle(R.string.add_folder);
 			b.setSelectionHandler(this::addFolder);
 			if (isSafSupported(a)) {
-				if ((SDK_INT < Build.VERSION_CODES.TIRAMISU) ||
+				if ((SDK_INT < Build.VERSION_CODES.R) ||
 						App.get().hasManifestPermission(Manifest.permission.MANAGE_EXTERNAL_STORAGE)) {
 					b.addItem(R.id.vfs_file_system, R.string.vfs_file_system);
 				}

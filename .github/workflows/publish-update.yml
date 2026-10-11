@@ -51,6 +51,7 @@ jobs:
           cp fermata/build/outputs/apk_from_bundle/autoDebug/*-universal.apk release-assets/FermataX-yeni-arayuz-debug.apk
           "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs release-assets/FermataX-yeni-arayuz-debug.apk | tee release-assets/signature.txt
           grep -q '318ddbe5f2e238ed1f0afa30616641ec45f1f0cd7ab449a80311dca51984fdc5' release-assets/signature.txt
+          python3 scripts/verify_security_apk.py release-assets/FermataX-yeni-arayuz-debug.apk --aapt "$ANDROID_HOME/build-tools/36.0.0/aapt" --output release-assets/security-apk-check.json
           python3 scripts/create_update_manifest.py release-assets/FermataX-yeni-arayuz-debug.apk release-assets/update-auto-debug.json
           python3 - <<'PY'
           import json, os

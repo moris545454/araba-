@@ -45,7 +45,7 @@ class HttpFileDownloaderTest {
 	@Test
 	void downloaderFactoriesKeepModelDownloadsStrictAndUserSourcesExplicit() throws Exception {
 		assertEquals(TlsTrustPolicy.STRICT, new HttpFileDownloader().tlsTrustPolicy());
-		assertEquals(TlsTrustPolicy.TRUST_ALL_USER_SOURCE,
+		assertEquals(TlsTrustPolicy.STRICT,
 				HttpFileDownloader.forUserSource().tlsTrustPolicy());
 		URL source = new URL("https://self-hosted.example.test/playlist.m3u");
 		TrackingConnector strictConnector = new TrackingConnector();
