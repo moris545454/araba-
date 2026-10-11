@@ -43,6 +43,8 @@ public final class DashboardItems {
 	public static final String PLAYLISTS = "playlists";
 	public static final String MENU = "menu";
 	public static final String MIRROR = "screen_mirroring";
+    // Retained identifier for existing layouts; the live link is now in the home header.
+    public static final String DEM_TV = "dem_tv";
 
 	private DashboardItems() {
 	}

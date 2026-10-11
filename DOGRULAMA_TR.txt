@@ -1,25 +1,17 @@
-FermataX 2.0.3 (310) — Türkçe, ortak işlem alanı ve başlangıç kanal listesi
+Dem TV 2.1.0 (311) doğrulaması
 
-Mobile ana uygulama: 1056 test, 0 hata
-Auto ana uygulama: 1094 test, 0 hata
-Web: 299 test, 0 hata
-TV: 84 test, 0 hata
-Toplam: 2533 birim testi başarılı.
-Türkçe ses ayrıştırıcısı ve ileri/geri sarma-altyazı dilbilgisi test edildi.
-Kaynak listesi: bir kez ekleme, silinince geri gelmeme, aynı URL varsa kopyalamama,
-mevcut kaynakları koruma ve başarısız kaydı yeniden deneme test edildi.
-Mobile/Auto Android Lint: 0 hata; mevcut uyarılar bulunur.
-Kaynak XML dosyaları ayrıştırıldı; git diff --check başarılı.
-Universal Auto debug APK: telefon ve Android Auto için aynı paket.
-Paket: me.app.fermataX.auto.debug; Android 9+ (API 28).
+fermata/build/test-results/testMobileDebugUnitTest: 1057 test, sıfır hata/başarısızlık
+fermata/build/test-results/testAutoDebugUnitTest: 1099 test, sıfır hata/başarısızlık
+modules/web/build/test-results/testMobileDebugUnitTest: 299 test, sıfır hata/başarısızlık
+modules/tv/build/test-results/testMobileDebugUnitTest: 84 test, sıfır hata/başarısızlık
+lint-results-autoDebug.xml: sıfır hata, 721 uyarı
+lint-results-mobileDebug.xml: sıfır hata, 708 uyarı
+
+APK SHA-256: 8f36fff634f133c1ac1c1b2c52e2be69ef1a7387f4c49a07df4f550cc49a231c
+Boyut: 178945218 bayt
+İmza: 318ddbe5f2e238ed1f0afa30616641ec45f1f0cd7ab449a80311dca51984fdc5
+Paket: me.app.fermataX.auto.debug
+ZIP CRC kontrolü başarılı.
 Fiziksel telefon/araç testi yapılmadı.
-
-Kanal listesi URL'si Fermata/2.0.3 User-Agent ile HTTP 200 ve #EXTM3U başlığı döndürdü.
-Tüm kanalların yayını ayrı ayrı denenmedi.
-
-Güncelleme kontrolleri açılışta ve Android izin verdiği arka plan aralıklarında yapılır.
-Yeni sürüm bildirimleri Android bildirim iznine bağlıdır. Kurulum kullanıcı onayıyla yapılır.
-İndirme özeti, boyutu, APK paket/sürüm kimliği ve mevcut kurulumla aynı imza kontrol edilir.
-APK dağıtımı Git LFS ile yapılır. Yeni sürümler GitHub Release etiketine bağlı manifestten kontrol edilir.
-GitHub hesabında Actions devre dışıdır; uygulama içi bildirim/indirme buna bağlı değildir.
-İmza anahtarı depoya veya kaynak ZIP'e eklenmez.
+ScreenOnAuto ZIP’i dokümantasyon içerir; kaynak kod aktarımı yapılmadı.
+Farklı imzalı eski örnek APK dağıtımdan çıkarıldı.

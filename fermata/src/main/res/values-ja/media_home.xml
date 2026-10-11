@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">スマートフォンの画面を表示</string>
     <string name="dashboard_recent_shelf">最近のコンテンツ</string>
     <string name="dashboard_recent_empty">再生したコンテンツがここに表示されます。</string>
-    <string name="dashboard_mirror_help">スマートフォンを Android Auto に接続します。車のアプリメニューから Dem TV Ekran Yansıtma を開きます。スマートフォンのロックを解除し、画面キャプチャを許可します。保留中の権限要求がある場合は、スマートフォンで Dem TV を開いて続行してください。</string>
-    <string name="dashboard_mirror_mobile_help">画面ミラーリングは Dem TV の Android Auto 版で利用できます。Android Auto 版を接続し、車で Dem TV Ekran Yansıtma を開いて、ロック解除したスマートフォンで画面キャプチャを許可してください。</string>
+    <string name="dashboard_mirror_help">@string/dem_mirror_connect</string>
+    <string name="dashboard_mirror_mobile_help">@string/dem_mirror_connect</string>
 </resources>

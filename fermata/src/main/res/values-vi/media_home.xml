@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">Hiển thị màn hình điện thoại</string>
     <string name="dashboard_recent_shelf">Nội dung gần đây</string>
     <string name="dashboard_recent_empty">Nội dung đã phát sẽ xuất hiện ở đây.</string>
-    <string name="dashboard_mirror_help">Kết nối điện thoại với Android Auto. Mở Dem TV Ekran Yansıtma trong trình đơn ứng dụng của xe. Mở khóa điện thoại và xác nhận yêu cầu chụp màn hình. Nếu có yêu cầu cấp quyền đang chờ, hãy mở Dem TV trên điện thoại để tiếp tục.</string>
-    <string name="dashboard_mirror_mobile_help">Phản chiếu màn hình có trong phiên bản Android Auto của Dem TV. Kết nối phiên bản đó với Android Auto, mở Dem TV Ekran Yansıtma trên xe và xác nhận yêu cầu chụp màn hình trên điện thoại đã mở khóa.</string>
+    <string name="dashboard_mirror_help">@string/dem_mirror_connect</string>
+    <string name="dashboard_mirror_mobile_help">@string/dem_mirror_connect</string>
 </resources>

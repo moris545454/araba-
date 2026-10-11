@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">휴대전화 화면 표시</string>
     <string name="dashboard_recent_shelf">최근 콘텐츠</string>
     <string name="dashboard_recent_empty">재생한 콘텐츠가 여기에 표시됩니다.</string>
-    <string name="dashboard_mirror_help">휴대전화를 Android Auto에 연결하세요. 차량 앱 메뉴에서 Dem TV Ekran Yansıtma를 여세요. 휴대전화의 잠금을 해제하고 화면 캡처 요청을 승인하세요. 대기 중인 권한 요청이 있으면 휴대전화에서 Dem TV를 열어 계속하세요.</string>
-    <string name="dashboard_mirror_mobile_help">화면 미러링은 Dem TV의 Android Auto 버전에서 사용할 수 있습니다. 해당 버전을 Android Auto에 연결하고 차량에서 Dem TV Ekran Yansıtma를 연 다음 잠금을 해제한 휴대전화에서 화면 캡처를 승인하세요.</string>
+    <string name="dashboard_mirror_help">@string/dem_mirror_connect</string>
+    <string name="dashboard_mirror_mobile_help">@string/dem_mirror_connect</string>
 </resources>

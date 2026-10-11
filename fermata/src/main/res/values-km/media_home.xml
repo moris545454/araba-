@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">បង្ហាញអេក្រង់ទូរសព្ទ</string>
     <string name="dashboard_recent_shelf">មាតិកាថ្មីៗ</string>
     <string name="dashboard_recent_empty">មាតិកាដែលអ្នកបានចាក់នឹងបង្ហាញនៅទីនេះ។</string>
-    <string name="dashboard_mirror_help">ភ្ជាប់ទូរសព្ទទៅ Android Auto។ បើក Dem TV Ekran Yansıtma ពីម៉ឺនុយកម្មវិធីរបស់រថយន្ត។ ដោះសោទូរសព្ទ ហើយយល់ព្រមលើការថតអេក្រង់។ បើមានសំណើសុំការអនុញ្ញាតកំពុងរង់ចាំ សូមបើក Dem TV លើទូរសព្ទដើម្បីបន្ត។</string>
-    <string name="dashboard_mirror_mobile_help">ការឆ្លុះអេក្រង់មាននៅក្នុងកំណែ Android Auto របស់ Dem TV។ ភ្ជាប់កំណែនោះទៅ Android Auto បើក Dem TV Ekran Yansıtma ក្នុងរថយន្ត ហើយយល់ព្រមលើការថតអេក្រង់នៅលើទូរសព្ទដែលបានដោះសោ។</string>
+    <string name="dashboard_mirror_help">@string/dem_mirror_connect</string>
+    <string name="dashboard_mirror_mobile_help">@string/dem_mirror_connect</string>
 </resources>

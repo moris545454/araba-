@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">عرض شاشة الهاتف</string>
     <string name="dashboard_recent_shelf">المحتويات الأخيرة</string>
     <string name="dashboard_recent_empty">ستظهر المحتويات التي شغّلتها هنا.</string>
-    <string name="dashboard_mirror_help">صِل هاتفك بـ Android Auto، وافتح Dem TV Ekran Yansıtma من قائمة تطبيقات السيارة، ثم افتح قفل الهاتف ووافق على طلب التقاط الشاشة. إذا كان هناك طلب إذن معلّق، افتح Dem TV على الهاتف للمتابعة.</string>
-    <string name="dashboard_mirror_mobile_help">انعكاس الشاشة متاح في إصدار Android Auto من Dem TV. صِل هذا الإصدار بـ Android Auto، وافتح Dem TV Ekran Yansıtma في السيارة، ثم وافق على التقاط الشاشة على الهاتف بعد فتح قفله.</string>
+    <string name="dashboard_mirror_help">@string/dem_mirror_connect</string>
+    <string name="dashboard_mirror_mobile_help">@string/dem_mirror_connect</string>
 </resources>

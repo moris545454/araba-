@@ -3,6 +3,6 @@
     <string name="dashboard_mirror_sub">Mostra lo schermo del telefono</string>
     <string name="dashboard_recent_shelf">Contenuti recenti</string>
     <string name="dashboard_recent_empty">Qui appariranno i contenuti riprodotti.</string>
-    <string name="dashboard_mirror_help">Collega il telefono ad Android Auto. Apri Dem TV Ekran Yansıtma nel menu delle app dell’auto. Sblocca il telefono e conferma la cattura dello schermo. Se una richiesta di autorizzazione è in attesa, apri Dem TV sul telefono per continuare.</string>
-    <string name="dashboard_mirror_mobile_help">La duplicazione dello schermo è disponibile nella versione Android Auto di Dem TV. Collega questa versione ad Android Auto, apri Dem TV Ekran Yansıtma nell’auto e conferma la cattura dello schermo sul telefono sbloccato.</string>
+    <string name="dashboard_mirror_help">@string/dem_mirror_connect</string>
+    <string name="dashboard_mirror_mobile_help">@string/dem_mirror_connect</string>
 </resources>
