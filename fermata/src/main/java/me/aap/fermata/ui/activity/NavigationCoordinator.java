@@ -15,7 +15,7 @@ public final class NavigationCoordinator {
 	 */
 	public static boolean select(MainActivityDelegate activity, int destinationId) {
 		if (destinationId == R.id.dashboard_fragment) {
-			activity.showDashboard();
+			activity.returnToDashboard();
 			return true;
 		}
 

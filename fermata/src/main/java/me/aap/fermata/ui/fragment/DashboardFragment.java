@@ -112,9 +112,7 @@ public class DashboardFragment extends MainActivityFragment
 		MainActivityDelegate activity = MainActivityDelegate.get(ctx);
 		Context localizedCtx = activity.getLocalizedContext(ctx);
 		prefs = activity.getPrefs();
-        view.findViewById(R.id.dem_home_web).setOnClickListener(v -> DemTvActions.openWeb(activity));
-        view.findViewById(R.id.dem_home_windasist).setOnClickListener(v ->
-                DemTvActions.openWeb(activity, DemTvActions.WINDASIST_URL));
+
 		RecyclerView list = view.findViewById(R.id.dashboard_list);
 		this.list = list;
 		if (activity.getRuntimeHostMode().usesAutomotivePresentation()) list.setSaveEnabled(false);
@@ -606,7 +604,13 @@ public class DashboardFragment extends MainActivityFragment
 					DashboardPlayableNavigator.openSmartTop(a, card.playable);
 					return;
 				}
-				if (card.targetId == R.id.dashboard_mirror_action) {
+				if (card.targetId == R.id.dashboard_windasist_action ||
+                        card.targetId == R.id.dashboard_dem_tv_action) {
+                    DemTvActions.openWeb(a, card.targetId == R.id.dashboard_windasist_action ?
+                            DemTvActions.WINDASIST_URL : DemTvActions.HOME_URL);
+                    return;
+                }
+                if (card.targetId == R.id.dashboard_mirror_action) {
                     DemTvActions.mirror(a);
 					return;
 				}

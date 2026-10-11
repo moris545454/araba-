@@ -1,6 +1,12 @@
-# Dem TV 2.1.1 arayüz ve yansıtma
+## 2.1.2 — Önceki ana sayfa düzeni, cam yüzeyler ve kalıcı ana sayfa
 
-Görünen marka ve launcher/bildirim simgesi Dem TV olarak yenilendi. Grafit, fildişi ve deniz yeşili temel palet; TV, YouTube ve yansıtma için farklı pastel vurgular kullanılır. Ana kısayollar asimetrik geniş köşeli yüzeylerde, son içerik görselleri dairesel olarak sunulur. TV kaynakları, medya listeleri, radyo/podcast alt sayfaları, ayarlar, açılır menüler ve işlem alanları ortak görsel sistemden yararlanır. Odak çerçeveleri kumanda kullanımında korunur.
+TV, YouTube ve ekran yansıtma üç öncelikli bölüm olarak kalır; altında radyo/podcast ve diğer kompakt kısayollar ile Son içerikler bulunur. WindAsist ve Dem TV bağlantıları üst başlıktan bu kısayol grubuna taşındı. Yeni bir düzen geçişi bu sırayı mevcut kurulumlara da uygular; sonrasındaki kullanıcı düzenlemeleri korunur.
+
+Yüzeylerde yarı saydam renk geçişleri, ince ışıklı kenarlar ve belirgin kumanda odağı kullanılır; cam görünümü gerçek arka plan bulanıklaştırması gerektirmez. Ana sayfa düğmesi ortak kök yerleşiminde bulunduğundan video/WEB tam ekranı veya gizli yan menü tarafından gizlenmez. Düğme araçtaki yansıtma katmanını kapatır, video sunumundan çıkar ve doğrudan ana sayfayı açar. Medya kaynağını silmez veya oynatma motorunu durdurmaz.
+
+# Dem TV 2.1.2 arayüz ve yansıtma
+
+Görünen marka ve launcher/bildirim simgesi Dem TV olarak yenilendi. Grafit, fildişi ve deniz yeşili temel palet; TV, YouTube ve yansıtma için farklı pastel vurgular kullanılır. Ana kısayollar cam görünümündeki yuvarlatılmış yüzeylerde, son içerik görselleri dairesel olarak sunulur. TV kaynakları, medya listeleri, radyo/podcast alt sayfaları, ayarlar, açılır menüler ve işlem alanları ortak görsel sistemden yararlanır. Odak çerçeveleri kumanda kullanımında korunur.
 
 Ana ekrandaki WindAsist ve Dem TV canlı yayın düğmeleri mevcut web eklentisine URL girdisi gönderir; bağlantılar açılırken eklentinin yükleme/hazır olma akışı korunur. Sol kısayol menüsü varsayılan olarak gizlidir ve ayarlardan açılabilir.
 

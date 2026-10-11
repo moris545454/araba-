@@ -1,11 +1,9 @@
-[Dem TV 2.1.1 APK indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.1/distribution/FermataX-yeni-arayuz-debug.apk)
+[Dem TV 2.1.2 APK indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.2/distribution/FermataX-yeni-arayuz-debug.apk)
 
-- Android Auto’da **Ekran yansıt** düğmesi telefonda Android ekran paylaşımı iznini açmayı dener. Onaydan sonra telefonun ekranı Dem TV’nin araç ekranındaki alanında gösterilir.
-- Android/OEM arka plandan izin penceresini açmayı engellerse telefondaki Dem TV bildirimine dokunun veya Dem TV’yi açın; aynı bekleyen izin isteği devam eder.
-- Telefonda izin penceresi açılırken araç etkinliğinin geçici duraklaması yansıtma isteğini artık iptal etmez. Geri, **Yansıtmayı bitir**, başka bölüme geçiş veya bağlantının sonlanması paylaşımı durdurur.
-- Ana sayfaya **WindAsist** (https://windasist.com) ve **Dem TV canlı yayın** (https://demtv.demiralayboncuk-092.workers.dev/) düğmeleri eklendi. Bağlantılar mevcut web bölümünde açılır; telefon ve geniş araç ekranlarında yerleşim uyarlanır.
-- Mevcut medya özellikleri, paket kimliği, imza, Türkçe varsayılanı, yan menü ayarı ve düzenlenebilir Türkiye kanal kaynağı korundu.
+- Ana sayfa önceki düzene döndü: üstte TV, YouTube ve ekran yansıtma; altında kompakt kısayollar ve Son içerikler.
+- **WindAsist** (https://windasist.com) ve **Dem TV canlı yayın** (https://demtv.demiralayboncuk-092.workers.dev/) radyo/podcast gibi kısayolların yanında yer alır. Üst başlıktaki bağlantı düğmeleri kaldırıldı.
+- Cam görünümünü güçlendiren yarı saydam yüzeyler, yumuşak renk geçişleri ve ince aydınlık kenarlar eklendi; kumanda odağı belirgin kalır.
+- Ortak kök yerleşimindeki **Ana sayfa** düğmesi tam ekran TV/video, web ve ekran yansıtma dahil uygulama sayfalarında görünür. Yansıtma açıksa kapatır ve doğrudan ana sayfaya döner; normal medya oynatma motorunu durdurmaz.
+- 2.1.1’deki telefon ekran paylaşımı izin akışı ve mevcut medya özellikleri korundu. Paket kimliği ve imza aynı; 2.1.1 üzerine güncellenebilir.
 
-Telefon ve Android Auto için tek universal APK. 2.1.0 ile aynı imza kullanılır; farklı imzalı eski örnek APK’nın üzerine kurulum Android tarafından reddedilebilir. Güncellemeler Ayarlar → Arayüz → Uygulama güncellemeleri üzerinden kontrol edilebilir.
-
-**Doğrulama sınırı:** Fiziksel telefon/araç testi yapılmadı. Yansıtma görüntü aktarır; ses veya telefon dokunmatik kontrolü içermez. Android Auto’nun sistem çubukları ve bölünmüş ekran yerleşimini uygulama değiştiremez. Android’in ekran paylaşımı onayı zorunludur.
+**Doğrulama sınırı:** Fiziksel telefon/araç testi yapılmadı. Android Auto’nun sistem ekranlarında veya uygulama dışındaki pencerelerde düğme gösterilmez. Ekran paylaşımı için Android onayı gerekir; yansıtma görüntü aktarır, ses veya dokunmatik kontrol içermez.

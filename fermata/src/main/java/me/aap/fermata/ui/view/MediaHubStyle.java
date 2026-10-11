@@ -53,19 +53,12 @@ public final class MediaHubStyle {
 		states.addState(new int[0], surface(context, accent, featured, false));
 		GradientDrawable mask = new GradientDrawable();
 		mask.setColor(0xFFFFFFFF);
-		mask.setCornerRadius(dp(context, featured ? 64 : 40));
+		mask.setCornerRadius(dp(context, featured ? 26 : 20));
 		return new RippleDrawable(ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 55)), states, mask);
 	}
 
 	public static Drawable launcher(Context context, int accent) {
-        StateListDrawable states = new StateListDrawable();
-        states.addState(new int[]{android.R.attr.state_focused}, surface(context, accent, true, true));
-        states.addState(new int[]{android.R.attr.state_selected}, surface(context, accent, true, true));
-        states.addState(new int[0], new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
-        GradientDrawable mask = new GradientDrawable();
-        mask.setColor(0xFFFFFFFF);
-        mask.setCornerRadius(dp(context, 64));
-        return new RippleDrawable(ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 55)), states, mask);
+        return card(context, accent, true);
     }
 
     public static Drawable badge(Context context, int accent) {
@@ -78,12 +71,12 @@ public final class MediaHubStyle {
 	private static Drawable surface(Context context, int accent, boolean featured, boolean focused) {
 		int base = color(context, com.google.android.material.R.attr.colorSecondary, 0xFF08131E);
 		GradientDrawable shape = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
-				new int[]{ColorUtils.blendARGB(base, accent, focused ? .24F : featured ? .12F : .02F), base});
-		if (featured) {
-            float large = dp(context, 64), small = dp(context, 28);
-            shape.setCornerRadii(new float[]{large, large, small, small, large, large, small, small});
-        } else shape.setCornerRadius(dp(context, 40));
-		if (focused) shape.setStroke(Math.max(1, Math.round(dp(context, 2))), accent);
+				new int[]{ColorUtils.blendARGB(base, 0xFFFFFFFF, focused ? .22F : .14F),
+                        ColorUtils.setAlphaComponent(ColorUtils.blendARGB(base, accent, .13F), 220),
+                        ColorUtils.setAlphaComponent(base, 195)});
+        shape.setCornerRadius(dp(context, featured ? 26 : 20));
+        shape.setStroke(Math.max(1, Math.round(dp(context, focused ? 2 : 1))),
+                focused ? accent : 0x48FFFFFF);
 		return shape;
 	}
 

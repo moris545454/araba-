@@ -353,6 +353,11 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 		FermataApplication.get().getHandler().post(activity::finish);
 	}
 
+    @Override public void onHomeRequested() {
+        stopInlineMirror();
+        stopInput();
+    }
+
     private void stopInlineMirror() {
         InlineMirrorView view = inlineMirror;
         inlineMirror = null;

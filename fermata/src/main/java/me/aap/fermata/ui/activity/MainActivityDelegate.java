@@ -382,6 +382,13 @@ public class MainActivityDelegate extends ActivityDelegate
 		else showDashboard();
 	}
 
+    public void returnToDashboard() {
+        getAppActivity().onHomeRequested();
+        setVideoMode(false, null);
+        showDashboard();
+        setBarsHiddenNow(false);
+    }
+
 	public void showDashboard() {
 		if (PhoneRootPolicy.usesPhoneRoots(getRuntimeHostMode())) {
 			showPhoneRoot(R.id.dashboard_fragment);

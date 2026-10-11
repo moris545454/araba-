@@ -58,7 +58,7 @@ final class InlineMirrorView extends FrameLayout implements SurfaceHolder.Callba
         close.setFocusable(true);
         close.setBackground(me.aap.fermata.ui.view.MediaHubStyle.card(context, 0xFF76DFC5, false));
         close.setOnClickListener(v -> exit.run());
-        LayoutParams button = new LayoutParams(LayoutParams.WRAP_CONTENT, dp(52), Gravity.TOP | Gravity.END);
+        LayoutParams button = new LayoutParams(LayoutParams.WRAP_CONTENT, dp(52), Gravity.TOP | Gravity.START);
         button.setMargins(dp(16), dp(16), dp(16), dp(16));
         close.setPadding(dp(24), 0, dp(24), 0);
         addView(close, button);

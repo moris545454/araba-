@@ -159,4 +159,6 @@
 
     <item name="cursor" type="id" />
 
+    <item name="dashboard_windasist_action" type="id" />
+    <item name="dashboard_dem_tv_action" type="id" />
 </resources>

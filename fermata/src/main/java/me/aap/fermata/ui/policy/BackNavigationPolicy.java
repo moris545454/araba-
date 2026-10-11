@@ -55,7 +55,7 @@ public final class BackNavigationPolicy {
 		return switch (action) {
 			case LEAVE_VIDEO_MODE -> leaveVideoMode(a);
 			case SHOW_DASHBOARD -> {
-				a.showDashboard();
+				a.returnToDashboard();
 				yield true;
 			}
 			case UNHANDLED -> false;
@@ -64,8 +64,8 @@ public final class BackNavigationPolicy {
 
 	static NavReselectionAction resolveNavReselection(boolean videoMode,
 			boolean dashboardDestination) {
-		if (videoMode) return NavReselectionAction.LEAVE_VIDEO_MODE;
 		if (dashboardDestination) return NavReselectionAction.SHOW_DASHBOARD;
+		if (videoMode) return NavReselectionAction.LEAVE_VIDEO_MODE;
 		return NavReselectionAction.UNHANDLED;
 	}
 

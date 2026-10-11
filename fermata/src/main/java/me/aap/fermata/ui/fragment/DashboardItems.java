@@ -34,7 +34,7 @@ public final class DashboardItems {
 			Pref.sa("DASHBOARD_ITEMS", (String[]) null);
 	static final Pref<IntSupplier> LAYOUT_VERSION =
 			Pref.i("DASHBOARD_LAYOUT_VERSION", 0);
-	private static final int UI_REFRESH_LAYOUT_VERSION = 4;
+	private static final int UI_REFRESH_LAYOUT_VERSION = 5;
 	public static final String DASHBOARD = "dashboard";
 	public static final String SETTINGS = "settings";
 	public static final String FOLDERS = "folders";
@@ -43,8 +43,9 @@ public final class DashboardItems {
 	public static final String PLAYLISTS = "playlists";
 	public static final String MENU = "menu";
 	public static final String MIRROR = "screen_mirroring";
-    // Retained identifier for existing layouts; the live link is now in the home header.
+    // Web shortcuts share the compact media shortcut grid.
     public static final String DEM_TV = "dem_tv";
+    public static final String WINDASIST = "windasist";
 
 	private DashboardItems() {
 	}
@@ -219,7 +220,11 @@ public final class DashboardItems {
 			}
 		}
 
-		if (!navigationLayout) addMissingItem(names, MIRROR, null);
+		if (!navigationLayout) {
+            addMissingItem(names, MIRROR, null);
+            addMissingItem(names, WINDASIST, null);
+            addMissingItem(names, DEM_TV, WINDASIST);
+        }
 		addMissingItem(names, FOLDERS, null);
 		addMissingItem(names, FAVORITES, FOLDERS);
 		addMissingItem(names, RECENT, FAVORITES);
@@ -239,6 +244,8 @@ public final class DashboardItems {
 
 		List<String> defaults = new ArrayList<>();
 		defaults.add(MIRROR);
+        defaults.add(WINDASIST);
+        defaults.add(DEM_TV);
 		defaults.add(FOLDERS);
 		defaults.add(FAVORITES);
 		defaults.add(RECENT);
@@ -265,7 +272,9 @@ public final class DashboardItems {
 					featured.add(info.className);
 			}
 		}
-		featured.add(FOLDERS);
+		featured.add(WINDASIST);
+        featured.add(DEM_TV);
+        featured.add(FOLDERS);
 		featured.add(FAVORITES);
 		String[] migrated = featureMediaOrder(pref, defaults, featured);
 		try (PreferenceStore.Edit edit = store.editPreferenceStore()) {
@@ -316,7 +325,7 @@ public final class DashboardItems {
 																	boolean includeDisabled, boolean navigationLayout) {
 		if (DASHBOARD.equals(name)) return includeDashboard;
 		if (MENU.equals(name)) return includeMenu;
-		if (MIRROR.equals(name)) return !navigationLayout;
+		if (MIRROR.equals(name) || DEM_TV.equals(name) || WINDASIST.equals(name)) return !navigationLayout;
 		if (FOLDERS.equals(name) || FAVORITES.equals(name) || RECENT.equals(name) ||
 				PLAYLISTS.equals(name)) return true;
 
@@ -343,6 +352,12 @@ public final class DashboardItems {
 	@Nullable
 	private static Item getItem(Context ctx, String name, boolean includeDisabled) {
 		switch (name) {
+            case WINDASIST:
+                return new Item(name, R.id.dashboard_windasist_action, R.drawable.web,
+                        "WindAsist", "windasist.com", null);
+            case DEM_TV:
+                return new Item(name, R.id.dashboard_dem_tv_action, R.drawable.dem_mark,
+                        "Dem TV", ctx.getString(R.string.dem_home_web), null);
 			case MIRROR:
 				return new Item(name, R.id.dashboard_mirror_action, R.drawable.screen_mirroring,
 						ctx.getString(R.string.dashboard_mirror_title),

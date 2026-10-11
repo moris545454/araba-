@@ -15,6 +15,9 @@ public interface FermataActivity extends AppActivity {
 
 	boolean isCarActivity();
 
+    /** Release host-owned overlays before returning to the app home. */
+    default void onHomeRequested() { stopInput(); }
+
 	void setRequestedOrientation(int requestedOrientation);
 
 	@Nullable

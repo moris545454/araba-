@@ -9,10 +9,10 @@ import org.junit.Test;
 
 public class NavReselectionPolicyTest {
 	@Test
-	public void activeVideoWinsOverDestinationReselection() {
+	public void homeReselectionNavigatesDirectlyWhileOtherDestinationsLeaveVideo() {
 		assertEquals(LEAVE_VIDEO_MODE,
 				BackNavigationPolicy.resolveNavReselection(true, false));
-		assertEquals(LEAVE_VIDEO_MODE,
+		assertEquals(SHOW_DASHBOARD,
 				BackNavigationPolicy.resolveNavReselection(true, true));
 	}
 
