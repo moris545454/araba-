@@ -2,11 +2,11 @@
 
 Depo: https://github.com/moris545454/araba-
 
-Dağıtılan tek APK, telefon ve Android Auto için `me.app.fermataX.auto.debug` paketidir. İlk yayımlanan sürüm 2.0.2 (309); 2.1.4 (315), kapanma bildirimi nedeniyle kararlı listeden çekildi. Dem TV 2.1.5 (316), dört temel işlevi içeren ön sürümdür; gerçek telefon/araç doğrulaması tamamlanmadan kararlı güncelleme olarak sunulmaz.
+Dağıtılan tek APK, telefon ve Android Auto için `me.app.fermataX.auto.debug` paketidir. İlk yayımlanan sürüm 2.0.2 (309); 2.1.4 (315), kapanma bildirimi nedeniyle kararlı listeden çekildi. Dem TV 2.1.5 (316), dört temel işlevi içeren ön sürümdür. Kullanıcı çalıştığını bildirdi; normal kurulumla Android Auto görünürlüğü sağlanamadı. Rehber KingInstaller üzerinden kurulumla güncellendi; araç doğrulaması tamamlanmadan kararlı güncelleme olarak sunulmaz.
 
 Uygulama açılışta ve yaklaşık altı saatlik arka plan aralıklarında GitHub'ın en son yayımlanmış Release kaydını kontrol eder. Android pil/ağ politikaları bu kontrolleri geciktirebilir; bu anlık sunucu push bildirimi değildir. Açılış kontrolleri bir saatlik başarı önbelleği kullanır. Bildirim izni verilmişse daha yüksek sürüm kodu için tek bildirim gösterilir. Ayarlar → Arayüz → Uygulama güncellemeleri ekranından kontrol, bildirim ayarları, otomatik kontrolü kapatma ve İndir ve yükle erişilebilir. Kurulum telefonda Android'in onayıyla yapılır; araç arayüzünde APK kurulumu açılmaz.
 
-APK indirilmeden önce `update-auto-debug.json` okunur; yalnızca bu depodaki tamamlanmış, taslak olmayan ve ön sürüm olmayan Release varlıkları kabul edilir. İndirilen APK'nın SHA-256 özeti, boyutu, paket adı, sürüm kodu ve mevcut kurulumla aynı imzaya sahip olması doğrulanır. Hata veya ağ kesintisi mevcut uygulamayı değiştirmez.
+APK indirilmeden önce `update-auto-debug.json` okunur; yalnızca bu depodaki tamamlanmış, taslak olmayan ve ön sürüm olmayan Release varlıkları kabul edilir. İndirilen APK'nın SHA-256 özeti, boyutu, paket adı, sürüm kodu ve mevcut kurulumla aynı imzaya sahip olması doğrulanır. Hata veya ağ kesintisi mevcut uygulamayı değiştirmez. Android Auto görünürlüğü güncelleme sonrası kaybolursa indirilen güncel APK’yı KingInstaller içinden mevcut uygulamanın üzerine yüklemeyi deneyin; yükleme kaynağının korunması her cihazda garanti değildir.
 
 ## Mevcut dağıtım
 

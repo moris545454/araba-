@@ -6,7 +6,7 @@ TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe And
 
 ## Sürüm durumu
 
-2.1.4, kullanıcıların TV/YouTube açarken kapanma bildirmesi üzerine kararlı sürüm listesinden geri çekildi. **2.1.5 bir ön sürümdür; araçta çalışma doğrulaması beklenmektedir.** Kapanmanın kesin nedeni cihaz hata kaydı olmadan doğrulanmış sayılmaz. Ön sürüm otomatik güncelleme olarak önerilmez.
+2.1.4, kullanıcıların TV/YouTube açarken kapanma bildirmesi üzerine kararlı sürüm listesinden geri çekildi. **Kullanıcı 2.1.5’in çalıştığını bildirdi; normal kurulumla Android Auto’da görünmediği de bildirildi.** KingInstaller ile araç doğrulaması beklenmektedir; sürüm ön sürüm olarak kalır. Kapanmanın kesin nedeni cihaz hata kaydı olmadan doğrulanmış sayılmaz. Ön sürüm otomatik güncelleme olarak önerilmez.
 
 ## Kapsam
 
@@ -18,7 +18,7 @@ Ekran yansıtma Android’in MediaProjection iznini ister. Android Auto telefon 
 
 ## Android Auto
 
-APK’da KingInstaller bağımlılığı, kurulum kaynağını taklit eden kod, erişilebilirlik servisi, root veya Xposed yoktur. APK standart Android yükleyicisiyle kurulabilir. **Bu, her telefonda Android Auto’nun uygulamayı kabul edeceği anlamına gelmez.** Özel video/tarayıcı/yansıtma arayüzü eski projection SDK’sını kullanır; Google’ın dağıtım kuralları, telefon ve Android Auto sürümü görünürlüğü belirler. Google onayı veya bütün yeni Android sürümlerinde sorunsuz çalışma garantisi verilmez.
+APK’da KingInstaller bağımlılığı, kurulum kaynağını taklit eden kod, erişilebilirlik servisi, root veya Xposed yoktur. Telefona standart Android yükleyicisiyle kurulabilir; Android Auto’da görünmeyen kurulumlar için [KingInstaller 2.3 üzerinden kurulum](KURULUM_REHBERI_TR.md) rehberini izleyin. KingInstaller ayrı bir üçüncü taraf yükleyicidir. [Resmî APK indirme](https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk). **Bu, her telefonda Android Auto’nun uygulamayı kabul edeceği anlamına gelmez.** Özel video/tarayıcı/yansıtma arayüzü eski projection SDK’sını kullanır; Google’ın dağıtım kuralları, telefon ve Android Auto sürümü görünürlüğü belirler. Google onayı veya bütün yeni Android sürümlerinde sorunsuz çalışma garantisi verilmez.
 
 ## Doğrulama ve derleme
 

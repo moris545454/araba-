@@ -1,41 +1,72 @@
-# Dem TV — standart APK kurulumu
+# Dem TV 2.1.5 — Android Auto ve KingInstaller kurulum rehberi
 
-**Güncel hazırlanan sürüm: 2.1.5 ön sürüm.** 2.1.4’te kapanma bildirildi; kararlı olarak dağıtılmıyor. Yeni sürümün araç testi henüz tamamlanmadı. Bu rehber KingInstaller, root veya Shizuku gerektirmeyen normal APK kurulumunu anlatır; Android Auto’nun her cihazda uygulamayı göstermesini garanti etmez.
+Dem TV 2.1.5, TV/IPTV, YouTube, tarayıcı ve izinli ekran yansıtmayı içerir. Kullanıcı bu sürümün çalıştığını, normal kurulumdan sonra Android Auto’da görünmediğini bildirdi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
 
-## İndirme
+## 1. Doğrudan indirme bağlantıları
 
-Herkese açık sayfa: https://dem-tv-indir.chirpypeach128.chatgpt.site
+Dem TV 2.1.5 APK:
+https://media.githubusercontent.com/media/moris545454/araba-/v2.1.5/distribution/FermataX-yeni-arayuz-debug.apk
 
-Doğrudan test APK’sı: https://media.githubusercontent.com/media/moris545454/araba-/v2.1.5/distribution/FermataX-yeni-arayuz-debug.apk
+KingInstaller 2.3 APK — geliştiricinin resmî GitHub yayını:
+https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk
 
-Sürüm ayrıntıları: https://github.com/moris545454/araba-/releases/tag/v2.1.5
+İki indirme düğmesi ve kısa rehber:
+https://dem-tv-indir.chirpypeach128.chatgpt.site
 
-## Telefona yükleme
+Dem TV sürüm ayrıntıları:
+https://github.com/moris545454/araba-/releases/tag/v2.1.5
 
-1. Bağlantıyı Chrome gibi bir tarayıcıda açın. Instagram indirme başlatmazsa menüsünden harici tarayıcıda açın.
-2. APK’yı indirin, ardından indirilen dosyaya dokunun.
-3. Android izin isterse **Ayarlar → Uygulamalar → Özel uygulama erişimi → Bilinmeyen uygulamaları yükle** yolunu izleyin. Dosyayı açan tarayıcı/dosya yöneticisi için **Bu kaynaktan izin ver** seçeneğini açın. Telefon üreticisine göre menü adı değişebilir.
-4. Kurulum ekranına dönüp **Yükle/Güncelle** seçeneğini kullanın. Önceki Dem TV’yi kaldırmayın; paket ve imza aynı tutulmuştur.
-5. Telefonda uygulamayı açın. Yeni güncelleme/izin bildirimlerini almak istiyorsanız bildirim iznini verin. Kurulum bittikten sonra tarayıcının bilinmeyen uygulama yükleme iznini kapatabilirsiniz.
+KingInstaller sürüm ayrıntıları:
+https://github.com/fcaronte/KingInstaller/releases/tag/2.3
 
-Kamera, mikrofon, konum, erişilebilirlik, diğer uygulamaların üzerinde gösterme ve tüm dosyalara erişim izni gerekmez. Play Protect engelini aşmak için korumayı kapatmayın; kaynağı, dosya bütünlüğünü ve uyarıyı kontrol edin.
+Her iki APK’yı telefona indirin. Dem TV dosyası `FermataX-yeni-arayuz-debug.apk` adıyla görünebilir; kurulan uygulama **Dem TV**’dir. Instagram indirme başlatmazsa menüsünden harici tarayıcıda açın. Dem TV için en az Android 9 ve araçta çalışan bir Android Auto bağlantısı gerekir.
 
-## Android Auto ayarları
+## 2. KingInstaller’ı kurun ve yükleme iznini açın
 
-1. Android Auto ve Android System WebView/Chrome’u güncelleyin.
-2. Telefon ayarlarında **Android Auto** sayfasını bulun. Test kurulumu için gerekiyorsa **Sürüm** bilgisine yaklaşık 10 kez dokunarak geliştirici ayarlarını açın.
-3. Menüde varsa **⋮ → Geliştirici ayarları → Bilinmeyen kaynaklar** seçeneğini açın. Bu seçenek telefonun APK kurulum izninden ayrıdır; Google’ın uygulama kabul kurallarını ortadan kaldırmaz.
-4. **Android Auto → Başlatıcıyı özelleştir** bölümünde Dem TV listeleniyorsa işaretleyin, araç bağlantısını yenileyin.
-5. Araç park halindeyken Dem TV’yi açıp TV, YouTube, tarayıcı ve yansıtmayı ayrı ayrı doğrulayın.
+1. İndirilen **KingInstaller-v2.3.apk** dosyasını açın.
+2. Android izin isterse **Ayarlar → Uygulamalar → Özel uygulama erişimi → Bilinmeyen uygulamaları yükle** bölümüne girin.
+3. Dosyayı açan tarayıcı/dosya yöneticisi için **Bu kaynaktan izin ver** seçeneğini açın; kuruluma dönüp **Yükle** seçeneğini kullanın.
+4. KingInstaller’ın Dem TV’yi kurabilmesi için aynı bölümde **KingInstaller → Bu kaynaktan izin ver** seçeneğini de açın. Tarayıcıya verilen izin KingInstaller’ı kapsamaz.
 
-**Dem TV listelenmiyorsa:** APK’nın normal yüklenmesi Android Auto kabulü için yeterli olmayabilir. Telefon üreticisi, Android Auto sürümü, sertifika/dağıtım kuralları ve eski projection SDK desteği sonucu etkiler. KingInstaller’in veya yükleme kaynağı taklidinin bu sürümün bir gerekliliği olduğu söylenmez; uygulama bunu yapmaz. Tüm cihazlarda dört işlevi garanti etmek için onaylı dağıtım ve gerçek cihaz/araç testleri gerekir.
+Telefon üreticisine göre menü adları değişebilir. Ayarlarda “bilinmeyen uygulamalar” araması yapabilirsiniz. Yükleme işi bitince verdiğiniz kurulum izinlerini kapatabilirsiniz; sonraki yüklemede tekrar istenebilir.
 
-## Ekran yansıtma
+## 3. Dem TV’yi KingInstaller içinden yükleyin
 
-Android Auto’da **Ekran Yansıtma** düğmesine dokunun. Telefonun kilidini açıp Android ekran paylaşımı isteğini onaylayın. İstek otomatik görünmezse telefondaki Dem TV bildirimine veya uygulama simgesine dokunun. Paylaşımı iptal ederseniz görüntü yakalanmaz. Uygulama içindeki ana sayfa düğmesi paylaşımı bitirir. Banka/DRM uygulamalarının koruduğu ekranlar siyah görünebilir; bu koruma aşılmaz.
+1. **KingInstaller** uygulamasını açın.
+2. Dosya seçme düğmesinden **İndirilenler / Downloads** klasörüne gidin; **FermataX-yeni-arayuz-debug.apk** dosyasını seçin. KingInstaller’ın kendi APK’sını seçmeyin.
+3. İlk denemede **Shizuku / Root seçenekleri kapalıyken Install / Yükle** düğmesine dokunun. Bu, geliştiricinin önerdiği klasik kurulum yöntemidir.
+4. Android’in kurulum/güncelleme ekranını onaylayın. KingInstaller için bilinmeyen uygulama yükleme izni sorulursa verin.
+5. Kurulum bitince **Dem TV**’yi telefonda bir kez açın. Güncelleme ve ekran paylaşımı bildirimlerini almak istiyorsanız bildirim iznini verin.
 
-## Güncelleme ve hata bildirimi
+**Dem TV zaten kuruluysa:** Aynı 2.1.5 APK’sını KingInstaller üzerinden mevcut uygulamanın üzerine yüklemeyi deneyin. Paket ve imza korunmuştur. Sırf yükleme yöntemini değiştirmek için uygulamayı hemen kaldırmayın; kaldırmak eklediğiniz IPTV kaynaklarını ve ayarları silebilir. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
 
-Uygulama güncelleme denetleyicisi yalnızca kararlı sürümleri önerir. 2.1.5 ön sürümü yukarıdaki doğrudan bağlantıyla elle yüklenir; araç doğrulaması olmadan otomatik dağıtılmaz.
+KingInstaller ayrı bir üçüncü taraf yükleyicidir; Dem TV APK’sının içine eklenmemiştir. Geliştiricisi, yükleme kaynağını Google Play olarak kaydetmenin bazı Android Auto görünürlük kısıtlamalarında yardımcı olduğunu belirtir. Bu, Dem TV’nin Google Play’den yayımlandığı veya Google tarafından onaylandığı anlamına gelmez. Klasik yöntemin başarısı Android ve üretici politikalarına bağlıdır.
 
-Kapanma varsa **telefon modeli, Android sürümü, Dem TV sürümü ve sorunun telefon ekranında mı Android Auto’da mı olduğu** bilgilerini paylaşın. Uygulama açılabiliyorsa **Ayarlar → Tanılama → Tanılama raporunu dışa aktar** bölümünü kullanın; raporu herkese açık depoya kişisel bilgilerle göndermeyin. Geliştirici için USB hata ayıklama/logcat kaydı, Java hatası ile yerel oynatma çökmesini ayırt etmekte kullanılır.
+## 4. Android Auto’da bilinmeyen kaynakları açın
+
+1. Telefon ayarlarında **Android Auto** aratın.
+2. Sayfanın altındaki **Sürüm** bilgisine yaklaşık **10 kez** dokunun; geliştirici ayarlarını etkinleştirmeyi onaylayın.
+3. **⋮ → Geliştirici ayarları → Bilinmeyen kaynaklar / Unknown sources** seçeneği varsa açın.
+4. **Android Auto → Başlatıcıyı özelleştir** bölümünde Dem TV listeleniyorsa işaretleyin.
+5. Araç bağlantısını kesip yeniden bağlanın. Gerekirse telefonu yeniden başlatın.
+6. Araç park halindeyken **Dem TV**’yi açıp TV, YouTube, tarayıcı ve yansıtmayı ayrı ayrı kontrol edin.
+
+Telefondaki APK yükleme izni ile Android Auto’daki bilinmeyen kaynaklar farklı ayarlardır. İkisi de bütün cihazlarda görünme garantisi vermez. Ayrı bir “Medya hizmeti”, “FermataX Mirror” veya ScreenOnAuto APK’sı kurmanız gerekmez.
+
+**Hâlâ görünmüyorsa:** Dem TV’nin telefonda açıldığını, KingInstaller kurulumunun tamamlandığını ve Android Auto başlatıcı listesini kontrol edin. Android Auto ve Android System WebView/Chrome’u güncelleyin. Klasik yöntemin desteklenmediği cihazlarda yalnızca bu adımlar yeterli olmayabilir; [KingInstaller geliştiricisinin uyumluluk açıklamalarını](https://github.com/fcaronte/KingInstaller#readme) inceleyin. Bu rehber root veya Shizuku kurulumu gerektiren bir yöntem anlatmaz.
+
+## 5. Ekran yansıtma
+
+Android Auto’da **Dem TV → Ekran Yansıtma** düğmesine dokunun. Telefonun kilidini açıp Android ekran paylaşımı isteğini onaylayın. İstek otomatik görünmezse telefondaki Dem TV bildirimine veya uygulama simgesine dokunun. Seçenek sunulursa tüm telefon ekranını paylaşmayı seçin. Paylaşımı iptal ederseniz görüntü yakalanmaz; uygulamadaki **Ana sayfa** düğmesi veya araç bağlantısının kesilmesi paylaşımı bitirir.
+
+Paylaşım görüntü içindir; telefon sesi veya uzaktan dokunmatik kontrol aktarılmaz. Banka/DRM uygulamalarının koruduğu ekranlar siyah görünebilir. Dem TV, Android Auto’nun harita/bölünmüş ekran düzenini zorla değiştirmez; kendisine ayrılan alanı kullanır.
+
+## 6. Güncelleme ve sorun bildirimi
+
+2.1.4 kapanma bildirimi nedeniyle kararlı listeden çekildi. **2.1.5 ön sürümü elle indirilir; otomatik kararlı güncelleme bildirimi gönderilmez.** Sonraki kararlı sürümler için **Ayarlar → Arayüz → Uygulama güncellemeleri** bölümünü kullanabilirsiniz.
+
+Güncelleme sonrasında Dem TV Android Auto’dan kaybolursa güncel Dem TV APK’sını KingInstaller içinden yeniden, mevcut kurulumun üzerine yüklemeyi deneyin. Android Auto bağlantısını yenileyin. Kurulum kaynağının güncellemelerde korunması her cihazda garanti değildir.
+
+Dem TV’de kamera, mikrofon, konum, erişilebilirlik, diğer uygulamaların üzerinde gösterme ve genel dosya okuma izinleri kaldırılmıştır. KingInstaller’ın yükleme izni ayrıdır. Play Protect engelini aşmak için korumayı kapatmayın; dosyanın kaynağını ve uyarıyı kontrol edin. Bu rehber banka veya Play Protect kabul garantisi değildir.
+
+Sorun bildirirken **telefon modeli, Android sürümü, Android Auto sürümü, Dem TV sürümü, kurulum yöntemi ve tam hata mesajını** paylaşın. Kapanma varsa uygulama açılabildiğinde **Ayarlar → Tanılama → Tanılama raporunu dışa aktar** bölümünü kullanın; kişisel bilgiler içeren raporları herkese açık yayımlamayın.

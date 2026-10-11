@@ -1,6 +1,6 @@
 # Dem TV 2.1.5 — dört temel işlev için ön sürüm
 
-2.1.4’te kullanıcı TV/YouTube açılışında uygulamanın kapandığını bildirdi. Bu sürüm kararlı listeden çekildi. **2.1.5, kapsamı azaltılmış bir test sürümüdür; bu kapanmanın kesin nedeni gerçek cihaz hata kaydıyla doğrulanmış değildir.** Bu nedenle henüz otomatik kararlı güncelleme olarak yayınlanmaz.
+2.1.4’te kullanıcı TV/YouTube açılışında uygulamanın kapandığını bildirdi. Bu sürüm kararlı listeden çekildi. **Kullanıcı 2.1.5’in çalıştığını bildirdi.** Normal kurulumla Android Auto’da görünmediği bildirildiği için rehbere KingInstaller üzerinden kurulum eklendi. Araç doğrulaması beklenmektedir; kapanmanın kesin nedeni gerçek cihaz hata kaydıyla doğrulanmış değildir. Bu nedenle henüz otomatik kararlı güncelleme olarak yayınlanmaz.
 
 ## Değişiklikler
 
@@ -15,10 +15,10 @@
 
 ## Kurulum ve sınırlar
 
-APK standart Android yükleyicisiyle kurulur; KingInstaller bağımlılığı veya yükleme kaynağı taklidi yoktur. Android Auto’da özel video/tarayıcı/yansıtma arayüzünün kabulü Google kuralları ve cihaz desteğine bağlıdır. Her yeni Android sürümünde sorunsuz çalışma veya banka/Play Protect kabulü garanti edilmez.
+Telefona standart Android yükleyicisiyle kurulabilir. Android Auto’da görünmeyen kurulumlar için rehberde KingInstaller 2.3 üzerinden klasik kurulum anlatılır. KingInstaller ayrı yükleyicidir; Dem TV APK’sında KingInstaller bağımlılığı veya yükleme kaynağı taklidi yoktur. Android Auto’da özel video/tarayıcı/yansıtma arayüzünün kabulü Google kuralları ve cihaz desteğine bağlıdır. Her yeni Android sürümünde sorunsuz çalışma veya banka/Play Protect kabulü garanti edilmez.
 
 Doğrulama: 2.510 birim testi geçti; telefon ve Auto lint kontrollerinde hata yok (mevcut uyarılar sürüyor). Nihai APK statik izin/sınıf denetiminden geçti; güncelleme imzası ve ana kart görselleri önceki sürümle aynı.
 
-Android 11 yazılım emülatörü, uygulama kurulmadan önce sistem yeniden başlamaları yaşadığı için güvenilir TV/YouTube çalışma sonucu alınamadı. Fiziksel telefon/araç testi henüz yapılmadı. Birim testleri, lint ve statik APK denetimi fiziksel telefon/araç testinin yerine geçmez. Kapanmayı tamamıyla doğrulamak için telefon modeli, Android ve uygulama sürümüyle hata kaydı gerekir.
+Android 11 yazılım emülatörü, uygulama kurulmadan önce sistem yeniden başlamaları yaşadığı için güvenilir TV/YouTube çalışma sonucu alınamadı. Geliştirici tarafından kontrollü fiziksel telefon/araç testi yapılmadı; kullanıcı çalışma teyidi bir cihaz bildirimiyle sınırlıdır. Birim testleri, lint ve statik APK denetimi fiziksel telefon/araç testinin yerine geçmez. Kapanmayı tamamıyla doğrulamak için telefon modeli, Android ve uygulama sürümüyle hata kaydı gerekir.
 
 [Kurulum rehberi](KURULUM_REHBERI_TR.md) · [Güvenlik kapsamı](GUVENLIK_NOTLARI_TR.md)
