@@ -1,10 +1,10 @@
 {
   "distribution": "repository-lfs",
-  "versionCode": 311,
-  "versionName": "2.1.0",
+  "versionCode": 312,
+  "versionName": "2.1.1",
   "packageId": "me.app.fermataX.auto.debug",
   "minSdkVersion": 28,
   "apkAsset": "FermataX-yeni-arayuz-debug.apk",
-  "sha256": "8f36fff634f133c1ac1c1b2c52e2be69ef1a7387f4c49a07df4f550cc49a231c",
-  "size": 178945218
+  "sha256": "6958ec4b2c70fb41001fc107dc46ad09987051f3ae8d4b583497029b9aec54be",
+  "size": 178949404
 }

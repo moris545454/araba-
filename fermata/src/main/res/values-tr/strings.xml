@@ -520,8 +520,8 @@
 
     <string name="legacy_preset_migration_notice">Cihazınızın önceki ekolayzır ön ayarı otomatik olarak dönüştürülemedi. Ekolayzırı bir kez seçin veya ayarlayın.</string>
     <string name="dem_home_web">Dem TV • Canlı yayın ↗</string>
-    <string name="dem_mirror_waiting">Telefonunda Dem TV’yi aç ve ekran paylaşımını onayla.
-Yansıtma burada başlayacak.</string>
+    <string name="dem_mirror_waiting">Telefonundaki ekran paylaşımı iznini onayla.
+İzin ekranı açılmazsa Dem TV bildirimine dokun veya telefonda Dem TV’yi aç.</string>
     <string name="dem_mirror_stop">✕  Yansıtmayı bitir</string>
     <string name="dem_mirror_rejected">Ekran paylaşımı başlatılamadı.
 Geri dönüp yeniden deneyebilir ve telefonundaki izni onaylayabilirsin.</string>

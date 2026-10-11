@@ -1,12 +1,12 @@
-# Dem TV 2.1.0 arayüz ve yansıtma
+# Dem TV 2.1.1 arayüz ve yansıtma
 
 Görünen marka ve launcher/bildirim simgesi Dem TV olarak yenilendi. Grafit, fildişi ve deniz yeşili temel palet; TV, YouTube ve yansıtma için farklı pastel vurgular kullanılır. Ana kısayollar asimetrik geniş köşeli yüzeylerde, son içerik görselleri dairesel olarak sunulur. TV kaynakları, medya listeleri, radyo/podcast alt sayfaları, ayarlar, açılır menüler ve işlem alanları ortak görsel sistemden yararlanır. Odak çerçeveleri kumanda kullanımında korunur.
 
-Ana ekrandaki Dem TV canlı yayın bağlantısı mevcut web eklentisine URL girdisi gönderir; bağlantı açılırken eklentinin yükleme/hazır olma akışı korunur. Sol kısayol menüsü varsayılan olarak gizlidir ve ayarlardan açılabilir.
+Ana ekrandaki WindAsist ve Dem TV canlı yayın düğmeleri mevcut web eklentisine URL girdisi gönderir; bağlantılar açılırken eklentinin yükleme/hazır olma akışı korunur. Sol kısayol menüsü varsayılan olarak gizlidir ve ayarlardan açılabilir.
 
 Android Auto manifestinde yalnızca CarService ana uygulama girişi yayınlanır. Medya servisi doğrudan uygulama bağlantılarına açıktır; eski MirrorService dışarıya yayınlanmaz. Ana ekrandaki yansıtma eylemi mevcut AutomotiveNavigationController üzerinden MainCarActivity’ye gider ve orada tam alan SurfaceView açar.
 
-Yeni capture-only izin yolu doğrudan Android MediaProjection onayı ister; eski etkileşimli yansıtmanın özel izinleri ve root dalı bu yolda çalışmaz. Tek onay için tek VirtualDisplay oluşturulur; yüzey boyutu değişiminde resize/setSurface kullanılır. Durdurma, geri, host pause/destroy ve bağlantı kesilmesinde sanal ekran, capture ve ön plan servisi bırakılır. Bu akış görüntü aktarır; ses veya telefonun dokunmatik kontrolünü sağlamaz.
+Araçtaki düğme telefonda izin etkinliğini doğrudan açmayı dener. Android arka plan etkinliği kısıtları bunu engellerse bildirim/telefon simgesinden aynı istek devam eder. İzin penceresi sırasında host pause isteği iptal etmez. Yeni capture-only izin yolu doğrudan Android MediaProjection onayı ister; eski etkileşimli yansıtmanın özel izinleri ve root dalı bu yolda çalışmaz. Tek onay için tek VirtualDisplay oluşturulur; yüzey boyutu değişiminde resize/setSurface kullanılır. Durdurma, geri, başka bir bölüme gezinme, host destroy ve bağlantı kesilmesinde sanal ekran, capture ve ön plan servisi bırakılır. Bu akış görüntü aktarır; ses veya telefonun dokunmatik kontrolünü sağlamaz.
 
 ScreenOnAuto-releases-main.zip yalnızca dokümantasyon ve web varlıkları içerir. İçinden kod veya APK entegre edildiği iddia edilmez. Belgelenen explicit MirrorControlActivity / START_MIRROR çağrısı kurulu ScreenOnAuto için isteğe bağlı alternatif olarak kullanılır. Kaynak: https://github.com/slzn/ScreenOnAuto-releases/blob/main/docs/tr/control-mirroring-from-another-app.md
 

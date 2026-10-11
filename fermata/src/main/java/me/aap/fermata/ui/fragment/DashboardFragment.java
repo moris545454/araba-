@@ -113,6 +113,8 @@ public class DashboardFragment extends MainActivityFragment
 		Context localizedCtx = activity.getLocalizedContext(ctx);
 		prefs = activity.getPrefs();
         view.findViewById(R.id.dem_home_web).setOnClickListener(v -> DemTvActions.openWeb(activity));
+        view.findViewById(R.id.dem_home_windasist).setOnClickListener(v ->
+                DemTvActions.openWeb(activity, DemTvActions.WINDASIST_URL));
 		RecyclerView list = view.findViewById(R.id.dashboard_list);
 		this.list = list;
 		if (activity.getRuntimeHostMode().usesAutomotivePresentation()) list.setSaveEnabled(false);

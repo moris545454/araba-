@@ -56,9 +56,13 @@ public class ProjectionActivity extends ActivityBase {
 			cancelPermissionNotification(FermataApplication.get());
 		});
 		showPermissionNotification(FermataApplication.get());
-        // A phone tap may show the consent immediately. A car-only tap waits for phone action.
-        var phone = me.aap.fermata.ui.activity.MainActivity.getActiveInstance();
-        if (viewingOnly && phone != null && phone.hasWindowFocus()) resumePendingRequest(phone);
+        // A car tap requests phone consent immediately. Keep the notification as a
+        // fallback when Android/OEM background-activity restrictions block the launch.
+        if (viewingOnly) {
+            var phone = me.aap.fermata.ui.activity.MainActivity.getActiveInstance();
+            resumePendingRequest(phone != null && phone.hasWindowFocus() ?
+                    phone : FermataApplication.get());
+        }
 		return p;
 	}
 

@@ -1,17 +1,18 @@
-Dem TV 2.1.0 (311) doğrulaması
+Dem TV 2.1.1 (312) doğrulaması
 
 fermata/build/test-results/testMobileDebugUnitTest: 1057 test, sıfır hata/başarısızlık
 fermata/build/test-results/testAutoDebugUnitTest: 1099 test, sıfır hata/başarısızlık
 modules/web/build/test-results/testMobileDebugUnitTest: 299 test, sıfır hata/başarısızlık
 modules/tv/build/test-results/testMobileDebugUnitTest: 84 test, sıfır hata/başarısızlık
-lint-results-autoDebug.xml: sıfır hata, 721 uyarı
+lint-results-autoDebug.xml: sıfır hata, 720 uyarı
 lint-results-mobileDebug.xml: sıfır hata, 708 uyarı
 
-APK SHA-256: 8f36fff634f133c1ac1c1b2c52e2be69ef1a7387f4c49a07df4f550cc49a231c
-Boyut: 178945218 bayt
+APK SHA-256: 6958ec4b2c70fb41001fc107dc46ad09987051f3ae8d4b583497029b9aec54be
+Boyut: 178949404 bayt
 İmza: 318ddbe5f2e238ed1f0afa30616641ec45f1f0cd7ab449a80311dca51984fdc5
 Paket: me.app.fermataX.auto.debug
 ZIP CRC kontrolü başarılı.
 Fiziksel telefon/araç testi yapılmadı.
-ScreenOnAuto ZIP’i dokümantasyon içerir; kaynak kod aktarımı yapılmadı.
-Farklı imzalı eski örnek APK dağıtımdan çıkarıldı.
+Araçtan telefon izin ekranı açılışı denenir; Android engellerse bildirim/telefon simgesi kullanılır.
+Telefon izin penceresi sırasında araç host pause bekleyen isteği iptal etmez.
+WindAsist ve Dem TV canlı yayın ana sayfa düğmeleri mevcut web yönlendirmesini kullanır.

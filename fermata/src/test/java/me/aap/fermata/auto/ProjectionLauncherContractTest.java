@@ -29,12 +29,15 @@ public class ProjectionLauncherContractTest {
 	}
 
 	@Test
-	public void pendingRequestWaitsForExplicitPhoneAction() throws Exception {
+	public void carCaptureRequestsPhoneConsentWithNotificationFallback() throws Exception {
 		String source = read(Paths.get("src", "auto", "java", "me", "app", "fermatax",
 				"auto", "ProjectionActivity.java"));
 
 		assertTrue(source.contains("static boolean resumePendingRequest(Context context)"));
 		assertTrue(source.contains("showPermissionNotification(FermataApplication.get())"));
+        assertTrue(source.contains("if (viewingOnly) {"));
+        assertTrue(source.contains("resumePendingRequest(phone != null && phone.hasWindowFocus() ?"));
+        assertFalse(source.contains("if (viewingOnly && phone != null"));
 		assertFalse(source.contains("REQUEST_TIMEOUT_MS"));
 		assertFalse(source.contains("Projection permission screen did not open"));
 	}

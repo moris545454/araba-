@@ -9,12 +9,17 @@ import me.aap.fermata.ui.activity.MainActivityDelegate;
 
 /** Home actions use the existing host bridge and the documented ScreenOnAuto public API. */
 final class DemTvActions {
+    static final String WINDASIST_URL = "https://windasist.com";
     static final String HOME_URL = "https://demtv.demiralayboncuk-092.workers.dev/";
     static final String SCREEN_ON_AUTO_PACKAGE = "idv.lzn.screenonauto";
     private DemTvActions() { }
 
     static void openWeb(MainActivityDelegate activity) {
-        activity.showFragmentWhenReady(R.id.web_browser_fragment, HOME_URL);
+        openWeb(activity, HOME_URL);
+    }
+
+    static void openWeb(MainActivityDelegate activity, String url) {
+        activity.showFragmentWhenReady(R.id.web_browser_fragment, url);
     }
 
     static void mirror(MainActivityDelegate activity) {

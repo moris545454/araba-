@@ -514,10 +514,11 @@
 	<string name="media_list_empty">No items yet</string>
 	<string name="media_list_load_failed">Unable to load items.</string>
     <string name="dem_home_web">Dem TV • Live ↗</string>
-    <string name="dem_mirror_waiting">Open Dem TV on your phone and confirm screen sharing. Mirroring will start here.</string>
+    <string name="dem_mirror_waiting">Confirm screen sharing on your phone. If the permission screen does not open, tap the Dem TV notification or open Dem TV on your phone.</string>
     <string name="dem_mirror_stop">✕ Stop mirroring</string>
     <string name="dem_mirror_rejected">Screen sharing could not start. Go back, try again and approve it on your phone.</string>
     <string name="dem_mirror_connect">Open Dem TV in Android Auto first, then confirm screen sharing on your phone.</string>
     <string name="dem_mirror_external">Start with ScreenOnAuto</string>
     <string name="dem_mirror_external_failed">ScreenOnAuto could not start. Check the app and car connection.</string>
+    <string name="dem_home_windasist" translatable="false">WindAsist ↗</string>
 </resources>

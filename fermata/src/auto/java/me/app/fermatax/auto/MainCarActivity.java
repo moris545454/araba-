@@ -252,7 +252,8 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 
 	@Override
 	public void onPause() {
-        stopInlineMirror();
+        // Phone consent may temporarily pause the car host. Keep the capture request
+        // alive; explicit exit, navigation and host destruction release it.
 		stopInput();
 		AutomotiveNavigationController.get().unregister(phoneNavigator);
 		AutomotiveConnectionState.get().appVisibilityChanged(controlVisibilityOwner, false);
