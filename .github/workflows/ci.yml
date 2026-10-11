@@ -62,7 +62,7 @@ jobs:
 
       - name: Mobile unit suite
         run: >-
-          ./gradlew testMobileDebugUnitTest :whisper:testMobileDebugUnitTest
+          ./gradlew testMobileDebugUnitTest
           --no-daemon --no-parallel --stacktrace
 
       - name: Auto unit suite
