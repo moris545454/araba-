@@ -2,7 +2,7 @@
 
 Android Auto ve telefon için Türkçe medya uygulaması. TV, YouTube ve ekran yansıtma ana sayfanın öncelikli bölümleridir.
 
-[Dem TV 2.1.3 indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.3/distribution/FermataX-yeni-arayuz-debug.apk) · [Türkçe kurulum rehberi](KURULUM_REHBERI_TR.md) · [Sürüm ve yansıtma ayrıntıları](UPDATE_RELEASE_NOTES_TR.md)
+[Tek sayfadan APK indirme ve kurulum](https://dem-tv-indir.chirpypeach128.chatgpt.site) · [Dem TV 2.1.3 indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.3/distribution/FermataX-yeni-arayuz-debug.apk) · [Türkçe kurulum rehberi](KURULUM_REHBERI_TR.md) · [Sürüm ve yansıtma ayrıntıları](UPDATE_RELEASE_NOTES_TR.md)
 
 Ana sayfa önceki üç öncelikli bölüm ve kompakt kısayol düzenini kullanır. WindAsist ve Dem TV canlı yayın, radyo/podcast gibi kısayolların yanında bulunur. Ana kartların simge ve ekran görselleri kullanıcı referansındaki özgün görsellerle düzeltildi; başlıklar sola hizalı ve oklar kart rengindedir. Cam görünümü güçlendirildi; tam ekran video ve yansıtma dahil uygulama sayfalarında kalıcı ana sayfa düğmesi vardır. Android Auto’daki Ekran yansıt eylemi telefonda ekran paylaşımı onayını açmayı dener; Android bunu engellerse Dem TV bildirimi veya telefon simgesi aynı bekleyen izin isteğini açar.
 
