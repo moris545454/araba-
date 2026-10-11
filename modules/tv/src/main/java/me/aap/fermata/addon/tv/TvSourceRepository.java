@@ -53,6 +53,21 @@ final class TvSourceRepository {
 		}
 	}
 
+	/** True when an M3U source already points at the given playlist location. */
+	boolean containsM3uUrl(me.aap.utils.function.Function<String, String> urlForId, String url) {
+		for (int id : getSourceIds()) {
+			if (!TvSourceItem.TYPE_M3U.equals(getSourceType(id))) continue;
+			String m3uId = getM3uId(id);
+			if (m3uId == null) continue;
+			try {
+				if (TvPlaylistUrls.sameLocation(url, urlForId.apply(m3uId))) return true;
+			} catch (RuntimeException failure) {
+				Log.e(failure, "Skipping invalid source while checking playlist location");
+			}
+		}
+		return false;
+	}
+
 	int[] getSourceIds() {
 		return store.getIntArrayPref(SOURCE_IDS);
 	}

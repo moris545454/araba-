@@ -265,6 +265,26 @@ public class TvRootItem extends ItemContainer<TvSourceItem> implements TvItem {
 		m3uSources.addSource(m3u);
 	}
 
+	/** True when an M3U source with the same playlist location is already registered. */
+	boolean hasM3uSource(String url) {
+		TvM3uFileSystem fs = TvM3uFileSystem.getInstance();
+		return sources.containsM3uUrl(id -> new TvM3uFile(fs.toRid(id)).getUrl(), url);
+	}
+
+	boolean hasDefaultPlaylist() {
+		return hasM3uSource(TvSourceRepository.DEFAULT_PLAYLIST_URL);
+	}
+
+	/** Registers an editable M3U source by link, exactly like the bundled default list. */
+	void addM3uSource(String url, String name) {
+		addSource(TvM3uFileSystem.getInstance().newDefaultSource(url, name));
+	}
+
+	void restoreDefaultPlaylist() {
+		addM3uSource(TvSourceRepository.DEFAULT_PLAYLIST_URL,
+				getLib().getContext().getString(R.string.default_turkish_channels));
+	}
+
 	@Override
 	protected void itemAdded(TvSourceItem item) {
 		super.itemAdded(item);

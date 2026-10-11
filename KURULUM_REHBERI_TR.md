@@ -70,3 +70,17 @@ Güncelleme sonrasında Dem TV Android Auto’dan kaybolursa güncel Dem TV APK�
 Dem TV’de kamera, mikrofon, konum, erişilebilirlik, diğer uygulamaların üzerinde gösterme ve genel dosya okuma izinleri kaldırılmıştır. KingInstaller’ın yükleme izni ayrıdır. Play Protect engelini aşmak için korumayı kapatmayın; dosyanın kaynağını ve uyarıyı kontrol edin. Bu rehber banka veya Play Protect kabul garantisi değildir.
 
 Sorun bildirirken **telefon modeli, Android sürümü, Android Auto sürümü, Dem TV sürümü, kurulum yöntemi ve tam hata mesajını** paylaşın. Kapanma varsa uygulama açılabildiğinde **Ayarlar → Tanılama → Tanılama raporunu dışa aktar** bölümünü kullanın; kişisel bilgiler içeren raporları herkese açık yayımlamayın.
+
+## 7. Kendi kanal listenizi ekleme
+
+Varsayılan **Türkiye kanalları** listesi olduğu gibi kalır; yanına istediğiniz kadar liste ekleyebilirsiniz.
+
+1. **TV** bölümünü açın. Alttaki işlem çubuğunda **+ (IPTV kaynağı ekle)** düğmesi artık TV'nin her sayfasında görünür. Aynı seçenek menü düğmesinde ve bir kaynağa uzun basınca açılan menüde de vardır.
+2. Açılan listeden birini seçin:
+   - **Bağlantı ile liste ekle:** Yalnızca M3U bağlantısını (http:// veya https://) yazın. Ad otomatik verilir; aynı liste zaten ekliyse uyarı gösterilir.
+   - **M3U oynatma listesi:** Ad, bağlantı/dosya, EPG, logo ve bağlantı ayarlarıyla ayrıntılı ekleme.
+   - **Xtream Codes** veya **Stalker portalı:** Sağlayıcınızın verdiği hesap bilgileriyle ekleme.
+   - **Varsayılan kanal listesini geri yükle:** Yalnızca varsayılan listeyi sildiyseniz görünür.
+3. Eklenen listeye uzun basarak **Yenile**, **Düzenle**, **Sil** ve M3U listelerde **Liste bağlantısını kopyala** seçeneklerini kullanabilirsiniz.
+
+Kendi eklediğiniz listelerin içeriğinden ve yayın haklarından liste sağlayıcısı sorumludur.

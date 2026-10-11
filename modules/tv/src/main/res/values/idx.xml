@@ -2,4 +2,8 @@
 <resources>
 	<item name="stalker_source" type="id" />
 	<item name="stalker_check_source" type="id" />
+	<item name="tv_quick_add_link" type="id" />
+	<item name="tv_restore_default" type="id" />
+	<item name="tv_add_source_menu" type="id" />
+	<item name="tv_copy_link" type="id" />
 </resources>

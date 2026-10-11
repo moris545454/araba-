@@ -67,6 +67,27 @@ public class TvSourceRepositoryTest {
 	}
 
 	@Test
+	public void findsExistingM3uLocationOnly() {
+		BasicPreferenceStore store = new BasicPreferenceStore();
+		TvSourceRepository repo = new TvSourceRepository(store);
+		try (PreferenceStore.Edit edit = store.editPreferenceStore()) {
+			repo.saveM3uSource(edit, 1, "default");
+			repo.saveM3uSource(edit, 2, "other");
+		}
+		repo.setSourceIds(new int[]{1, 2});
+		java.util.Map<String, String> urls = java.util.Map.of(
+				"default", TvSourceRepository.DEFAULT_PLAYLIST_URL,
+				"other", "https://example.com/other.m3u");
+		assertEquals(true, repo.containsM3uUrl(urls::get, "https://example.com/other.m3u/"));
+		assertEquals(true, repo.containsM3uUrl(urls::get, TvSourceRepository.DEFAULT_PLAYLIST_URL));
+		assertFalse(repo.containsM3uUrl(urls::get, "https://example.com/new.m3u"));
+
+		repo.removeSource(1);
+		assertFalse(repo.containsM3uUrl(urls::get, TvSourceRepository.DEFAULT_PLAYLIST_URL));
+		assertArrayEquals(new int[]{2}, repo.getSourceIds());
+	}
+
+	@Test
 	public void defaultsMissingSourceTypeToM3u() {
 		BasicPreferenceStore store = new BasicPreferenceStore();
 		assertEquals(TvSourceItem.TYPE_M3U, TvSourceRepository.getSourceType(store, 7));
