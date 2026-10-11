@@ -1,9 +1,9 @@
-[Dem TV 2.1.2 APK indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.2/distribution/FermataX-yeni-arayuz-debug.apk)
+[Dem TV 2.1.3 APK indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.3/distribution/FermataX-yeni-arayuz-debug.apk)
 
-- Ana sayfa önceki düzene döndü: üstte TV, YouTube ve ekran yansıtma; altında kompakt kısayollar ve Son içerikler.
-- **WindAsist** (https://windasist.com) ve **Dem TV canlı yayın** (https://demtv.demiralayboncuk-092.workers.dev/) radyo/podcast gibi kısayolların yanında yer alır. Üst başlıktaki bağlantı düğmeleri kaldırıldı.
-- Cam görünümünü güçlendiren yarı saydam yüzeyler, yumuşak renk geçişleri ve ince aydınlık kenarlar eklendi; kumanda odağı belirgin kalır.
-- Ortak kök yerleşimindeki **Ana sayfa** düğmesi tam ekran TV/video, web ve ekran yansıtma dahil uygulama sayfalarında görünür. Yansıtma açıksa kapatır ve doğrudan ana sayfaya döner; normal medya oynatma motorunu durdurmaz.
-- 2.1.1’deki telefon ekran paylaşımı izin akışı ve mevcut medya özellikleri korundu. Paket kimliği ve imza aynı; 2.1.1 üzerine güncellenebilir.
+- TV, YouTube ve ekran yansıtma kartlarındaki dairesel çizimler kaldırıldı. Kullanıcının referansındaki özgün büyük simgeler ve ekran görselleri kullanılıyor; TV mavi, YouTube kırmızı, yansıtma mor.
+- Başlıklar ve açıklamalar sola hizalandı; sağ alttaki yuvarlak oklar kart renkleriyle eşleştirildi. Başlıklar yerel arayüz metinleridir ve ekran/yazı boyutuna uyarlanır.
+- Küçük kısayollardaki fazla simge boşluğu ve yeniden renklendirme düzeltildi. Radyo, podcast, web, dosyalar ve favoriler referanstaki renkli görselleri kullanır.
+- Son içerik görselleri yuvarlatılmış dikdörtgenlere geri döndü. Liste gerçek oynatma geçmişinden oluşur; örnek kanal/izleme geçmişi eklenmedi.
+- WindAsist ve Dem TV bağlantıları, kalıcı ana sayfa düğmesi, yansıtma izin akışı ve medya özellikleri korundu. Paket kimliği ve imza aynı; 2.1.2 üzerine güncellenebilir.
 
-**Doğrulama sınırı:** Fiziksel telefon/araç testi yapılmadı. Android Auto’nun sistem ekranlarında veya uygulama dışındaki pencerelerde düğme gösterilmez. Ekran paylaşımı için Android onayı gerekir; yansıtma görüntü aktarır, ses veya dokunmatik kontrol içermez.
+**Doğrulama sınırı:** Fiziksel telefon/araç testi yapılmadı. Kart ölçüleri cihazın ekran boyutu, yoğunluğu ve yazı ayarına göre uyarlanır; Android Auto sistem çubukları uygulama tarafından çizilmez.

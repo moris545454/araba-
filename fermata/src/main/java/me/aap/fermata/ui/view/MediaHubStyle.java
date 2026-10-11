@@ -27,15 +27,15 @@ public final class MediaHubStyle {
 		if (destination == R.id.favorites_fragment) return 0xFFFF4165;
 		if (destination == R.id.recent_fragment) return 0xFF76DFC5;
 		if (destination == R.id.playlists_fragment) return 0xFF9A83FF;
-		if (destination == R.id.dashboard_mirror_action) return 0xFFC4B2E9;
+		if (destination == R.id.dashboard_mirror_action) return 0xFFC084FC;
 		AddonInfo info = AddonManager.get().getAddonInfo(destination);
 		if (info != null) {
-			if (info.hasCapability(AddonCapability.TV)) return 0xFF76DFC5;
-			if (info.hasCapability(AddonCapability.YOUTUBE)) return 0xFFEDAB91;
-			if (info.hasCapability(AddonCapability.RADIO)) return 0xFFEDAB91;
-			if (info.hasCapability(AddonCapability.PODCAST)) return 0xFFC4B2E9;
+			if (info.hasCapability(AddonCapability.TV)) return 0xFF55B9FF;
+			if (info.hasCapability(AddonCapability.YOUTUBE)) return 0xFFFF263E;
+			if (info.hasCapability(AddonCapability.RADIO)) return 0xFFFF4165;
+			if (info.hasCapability(AddonCapability.PODCAST)) return 0xFFC084FC;
 			if (info.hasCapability(AddonCapability.AUDIOBOOK)) return 0xFF9A83FF;
-			if (info.hasCapability(AddonCapability.WEB)) return 0xFF83C5CE;
+			if (info.hasCapability(AddonCapability.WEB)) return 0xFF55B9FF;
 			if (info.hasCapability(AddonCapability.STREMIO)) return 0xFFAA83FF;
 		}
 		return 0xFF76DFC5;
@@ -58,7 +58,22 @@ public final class MediaHubStyle {
 	}
 
 	public static Drawable launcher(Context context, int accent) {
-        return card(context, accent, true);
+        StateListDrawable states = new StateListDrawable();
+        for (int[] state : new int[][]{new int[]{android.R.attr.state_focused},
+                new int[]{android.R.attr.state_selected}, new int[0]}) {
+            boolean focused = state.length != 0;
+            GradientDrawable surface = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
+                    new int[]{ColorUtils.blendARGB(0xFF071320, accent, .12F), 0xFF06090E});
+            surface.setCornerRadius(dp(context, 18));
+            surface.setStroke(Math.max(1, Math.round(dp(context, focused ? 2 : 1))),
+                    ColorUtils.setAlphaComponent(accent, focused ? 255 : 160));
+            states.addState(state, surface);
+        }
+        GradientDrawable mask = new GradientDrawable();
+        mask.setColor(0xFFFFFFFF);
+        mask.setCornerRadius(dp(context, 18));
+        return new RippleDrawable(ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 55)),
+                states, mask);
     }
 
     public static Drawable badge(Context context, int accent) {

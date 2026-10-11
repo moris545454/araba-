@@ -1,3 +1,9 @@
+## 2.1.3 — Referanstaki kart görselleri
+
+TV, YouTube ve ekran yansıtma kartları kullanıcı referansındaki özgün simge/ekran görsellerini kullanır. Referans dosyası değiştirilmeden nodpi kaynağı olarak saklanır; yalnızca dekoratif bölgeler Drawable ile çizilir. Ana kartlarda başlık ve açıklamalar yerel metin öğeleri, oklar yerel yüzeylerdir; ekranın geri kalanı görüntü olarak taklit edilmez. Görseller yeniden renklendirilmez; mavi TV, kırmızı YouTube, mor yansıtma ve referanstaki radyo/podcast/web/dosya/favori simgeleri korunur. Son içerik görselleri daire yerine yuvarlatılmış dikdörtgenlerde gösterilir; gerçek geçmiş kullanılır.
+
+WindAsist/Dem TV kısayolları, kalıcı ana sayfa eylemi, yansıtma izni, oynatma ve kaynak yönetimi değiştirilmedi. Piksel ölçüleri ekran boyutu, yoğunluk ve yazı boyutu ayarına göre uyarlanır; sistem çubuklarını Android Auto çizer.
+
 ## 2.1.2 — Önceki ana sayfa düzeni, cam yüzeyler ve kalıcı ana sayfa
 
 TV, YouTube ve ekran yansıtma üç öncelikli bölüm olarak kalır; altında radyo/podcast ve diğer kompakt kısayollar ile Son içerikler bulunur. WindAsist ve Dem TV bağlantıları üst başlıktan bu kısayol grubuna taşındı. Yeni bir düzen geçişi bu sırayı mevcut kurulumlara da uygular; sonrasındaki kullanıcı düzenlemeleri korunur.

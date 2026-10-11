@@ -1,8 +1,8 @@
 <resources>
-    <string name="dashboard_mirror_title">Ekran yansıtma</string>
+    <string name="dashboard_mirror_title">Ekran Yansıtma</string>
     <string name="dashboard_mirror_sub">Telefon ekranını göster</string>
     <string name="dashboard_mirror_help">@string/dem_mirror_connect</string>
     <string name="dashboard_mirror_mobile_help">@string/dem_mirror_connect</string>
-    <string name="dashboard_recent_shelf">Son içerikler</string>
+    <string name="dashboard_recent_shelf">Son İçerikler</string>
     <string name="dashboard_recent_empty">Oynattığınız içerikler burada görünecek.</string>
 </resources>

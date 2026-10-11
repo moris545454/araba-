@@ -556,10 +556,14 @@ public class DashboardFragment extends MainActivityFragment
 				int color = MediaHubStyle.destinationAccent(card.item.id);
 				holder.itemView.setBackground(isFeatured(position) ? MediaHubStyle.launcher(ctx, color) :
                         MediaHubStyle.card(ctx, color, false));
-				holder.icon.setImageTintList(ColorStateList.valueOf(color));
-				int pad = (int) (10 * ctx.getResources().getDisplayMetrics().density);
+				android.graphics.drawable.Drawable originalIcon =
+                        DashboardArtwork.icon(ctx, card.item.id,
+                                card.item.addonInfo == null ? null : AddonUiMetadata.role(card.item.addonInfo));
+                holder.icon.setImageTintList(originalIcon == null ? ColorStateList.valueOf(color) : null);
+                if (originalIcon != null) holder.icon.setImageDrawable(originalIcon);
+				int pad = originalIcon == null ? (int) (3 * ctx.getResources().getDisplayMetrics().density) : 0;
 				holder.icon.setPadding(pad, pad, pad, pad);
-				holder.icon.setBackground(MediaHubStyle.badge(ctx, color));
+				holder.icon.setBackground(originalIcon == null ? MediaHubStyle.badge(ctx, color) : null);
 				if (holder.heroArt != null) bindHeroArt(holder, card);
 			} else {
 				int tint = resolveColor(activity.getContext(),
@@ -754,18 +758,23 @@ public class DashboardFragment extends MainActivityFragment
 		}
 
 		private void bindHeroArt(ItemHolder holder, DashboardCard card) {
-			int art = R.drawable.hero_mirror_art;
-			if (card.item.addonInfo != null) {
-				art = AddonUiMetadata.role(card.item.addonInfo) == AddonUiMetadata.Role.TV ?
-						R.drawable.hero_tv_art : R.drawable.hero_youtube_art;
-			}
-			if (holder.heroBadge != null) {
-				holder.heroBadge.setText(ctx.getString(R.string.playback_live));
-				holder.heroBadge.setVisibility(!editMode && (card.item.addonInfo != null) &&
-						(AddonUiMetadata.role(card.item.addonInfo) == AddonUiMetadata.Role.TV) ?
-						View.VISIBLE : View.GONE);
-			}
-			holder.heroArt.setImageResource(art);
+            AddonUiMetadata.Role role = card.item.addonInfo == null ? null :
+                    AddonUiMetadata.role(card.item.addonInfo);
+            if (holder.heroBadge != null) holder.heroBadge.setVisibility(View.GONE);
+            View arrow = holder.itemView.findViewById(R.id.dashboard_hero_arrow);
+            if (arrow != null) {
+                int accent = MediaHubStyle.destinationAccent(card.item.id);
+                android.graphics.drawable.GradientDrawable circle =
+                        new android.graphics.drawable.GradientDrawable();
+                circle.setShape(android.graphics.drawable.GradientDrawable.OVAL);
+                circle.setColor(androidx.core.graphics.ColorUtils.setAlphaComponent(accent, 65));
+                circle.setStroke(Math.max(1, (int) ctx.getResources().getDisplayMetrics().density),
+                        androidx.core.graphics.ColorUtils.setAlphaComponent(accent, 85));
+                arrow.setBackground(circle);
+                arrow.setVisibility(editMode ? View.GONE : View.VISIBLE);
+            }
+            holder.heroArt.setImageTintList(null);
+            holder.heroArt.setImageDrawable(DashboardArtwork.hero(ctx, role));
 			holder.heroArt.setVisibility(editMode ? View.GONE : View.VISIBLE);
 		}
 

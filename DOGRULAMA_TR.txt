@@ -1,14 +1,14 @@
-Dem TV 2.1.2 (313) doğrulaması
+Dem TV 2.1.3 (314) doğrulaması
 
 fermata/build/test-results/testMobileDebugUnitTest: 1057 test, sıfır hata/başarısızlık
 fermata/build/test-results/testAutoDebugUnitTest: 1099 test, sıfır hata/başarısızlık
 modules/web/build/test-results/testMobileDebugUnitTest: 299 test, sıfır hata/başarısızlık
 modules/tv/build/test-results/testMobileDebugUnitTest: 84 test, sıfır hata/başarısızlık
-lint-results-autoDebug.xml: sıfır hata, 724 uyarı
-lint-results-mobileDebug.xml: sıfır hata, 712 uyarı
+lint-results-autoDebug.xml: sıfır hata, 728 uyarı
+lint-results-mobileDebug.xml: sıfır hata, 716 uyarı
 
-APK SHA-256: 198c41019f9f1304812400c99e9be9691f5acc533e70e6794d4375291a3e3d1e
-Boyut: 178961602 bayt
+APK SHA-256: 73d60f12beeb22fb1e2b6d4d2f66ab259b36f015fa37703c0e486fcae266e7ca
+Boyut: 179129715 bayt
 İmza: 318ddbe5f2e238ed1f0afa30616641ec45f1f0cd7ab449a80311dca51984fdc5
 Paket: me.app.fermataX.auto.debug
 ZIP CRC kontrolü başarılı.
@@ -18,3 +18,4 @@ Telefon izin penceresi sırasında araç host pause bekleyen isteği iptal etmez
 WindAsist ve Dem TV canlı yayın kompakt kısayol grubunda mevcut web yönlendirmesini kullanır.
 Ana sayfa düğmesi ortak kök yerleşiminde video/web/yansıtma chrome durumundan bağımsızdır.
 Ana sayfa seçimi video açıkken de doğrudan ana sayfaya gider; diğer yeniden seçme davranışları korunur.
+Özgün referans görseli APK’da değişmeden mevcut; yalnızca dekoratif kart bölgeleri gösterilir.

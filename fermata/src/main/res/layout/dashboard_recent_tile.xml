@@ -9,7 +9,7 @@
     android:clickable="true">
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/dashboard_recent_art"
-        android:layout_width="88dp"
+        android:layout_width="match_parent"
         android:layout_height="88dp"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/dem_recent_art_bg"
@@ -23,7 +23,7 @@
         android:layout_marginTop="8dp"
         android:maxLines="1"
         android:ellipsize="end"
-        android:gravity="center"
+        android:gravity="start"
         android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="?android:attr/textColorPrimary" />
@@ -34,7 +34,7 @@
         android:layout_marginTop="3dp"
         android:maxLines="1"
         android:ellipsize="end"
-        android:gravity="center"
+        android:gravity="start"
         android:textSize="12sp"
         android:textColor="?android:attr/textColorSecondary" />
 </LinearLayout>
