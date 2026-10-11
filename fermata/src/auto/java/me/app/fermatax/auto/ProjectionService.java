@@ -30,8 +30,11 @@ import me.aap.utils.log.Log;
 public class ProjectionService extends Service {
 	private static final String CAPTURE_INTENT = "CaptureIntent";
 	private static Promise<MediaProjection> promise;
+    private MediaProjection activeProjection;
 
-	static FutureSupplier<MediaProjection> start() {
+	static FutureSupplier<MediaProjection> start() { return start(false); }
+
+    static FutureSupplier<MediaProjection> start(boolean viewingOnly) {
 		if (!AutomotiveRuntimeGate.allowsNewWork()) {
 			return Completed.failed(new IllegalStateException(
 					"Automotive projection generation is quiescent"));
@@ -41,7 +44,7 @@ public class ProjectionService extends Service {
 		p.thenRun(() -> {
 			if (promise == p) promise = null;
 		});
-		var start = ProjectionActivity.start().onCompletion((i, err) -> {
+		var start = ProjectionActivity.start(viewingOnly).onCompletion((i, err) -> {
 			if (promise != p) return;
 			if (err == null) {
 				try {
@@ -118,26 +121,41 @@ public class ProjectionService extends Service {
 			return START_NOT_STICKY;
 		}
 		var p = promise;
+        if (p == null) {
+            stopSelf(startId);
+            return START_NOT_STICKY;
+        }
 		if (p != null) {
 			promise = null;
-			var ex = intent.getExtras();
-			if (ex != null) {
-				Intent i;
-				if (SDK_INT >= VERSION_CODES.TIRAMISU) i = ex.getParcelable(CAPTURE_INTENT, Intent.class);
-				else i = (Intent) ex.get(CAPTURE_INTENT);
-				if (i != null) {
-					Log.i("Creating MediaProjection: ", i);
-					var mpm = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
-					p.complete(mpm.getMediaProjection(Activity.RESULT_OK, i));
-				}
-			}
-			p.complete(null);
+            try {
+                var ex = intent == null ? null : intent.getExtras();
+                Intent grant = ex == null ? null : SDK_INT >= VERSION_CODES.TIRAMISU ?
+                        ex.getParcelable(CAPTURE_INTENT, Intent.class) : (Intent) ex.get(CAPTURE_INTENT);
+                if (grant == null) {
+                    p.complete(null);
+                    stopSelf(startId);
+                } else {
+                    var manager = (MediaProjectionManager) getSystemService(MEDIA_PROJECTION_SERVICE);
+                    activeProjection = manager.getMediaProjection(Activity.RESULT_OK, grant);
+                    p.complete(activeProjection);
+                    if (activeProjection == null) stopSelf(startId);
+                }
+            } catch (RuntimeException error) {
+                p.completeExceptionally(error);
+                stopSelf(startId);
+            }
 		}
-		return super.onStartCommand(intent, flags, startId);
+		return START_NOT_STICKY;
 	}
 
 	@Override
 	public void onDestroy() {
+        MediaProjection capture = activeProjection;
+        activeProjection = null;
+        if (capture != null) {
+            try { capture.stop(); }
+            catch (RuntimeException error) { Log.d(error, "Capture already stopped"); }
+        }
 		super.onDestroy();
 		if (promise != null) {
 			promise.cancel();

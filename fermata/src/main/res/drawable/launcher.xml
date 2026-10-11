@@ -1,4 +1,1 @@
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/fermata_bg" />
-    <item android:drawable="@drawable/fermata_l" />
-</layer-list>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"><item android:drawable="@drawable/dem_icon_bg" /><item android:drawable="@drawable/dem_mark" /></layer-list>

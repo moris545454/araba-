@@ -4,15 +4,18 @@
     android:layout_marginEnd="10dp"
     android:orientation="vertical"
     android:padding="8dp"
-    android:background="@drawable/media_item_bg"
+    android:background="@drawable/dashboard_launch_card_bg"
     android:focusable="true"
     android:clickable="true">
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/dashboard_recent_art"
-        android:layout_width="match_parent"
+        android:layout_width="88dp"
         android:layout_height="88dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/dem_recent_art_bg"
+        android:clipToOutline="true"
         android:contentDescription="@null"
-        android:scaleType="fitCenter" />
+        android:scaleType="centerCrop" />
     <TextView
         android:id="@+id/dashboard_recent_name"
         android:layout_width="match_parent"
@@ -20,7 +23,8 @@
         android:layout_marginTop="8dp"
         android:maxLines="1"
         android:ellipsize="end"
-        android:textSize="16sp"
+        android:gravity="center"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:textColor="?android:attr/textColorPrimary" />
     <TextView
@@ -30,6 +34,7 @@
         android:layout_marginTop="3dp"
         android:maxLines="1"
         android:ellipsize="end"
+        android:gravity="center"
         android:textSize="12sp"
         android:textColor="?android:attr/textColorSecondary" />
 </LinearLayout>

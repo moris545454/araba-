@@ -343,8 +343,8 @@
     <string name="private_key_pass">プライベートキーパスワード</string>
 
     <string name="donate">開発者を支援</string>
-    <string name="donate_text">Ko-fi で FermataX を支援できます。</string>
-    <string name="use_phone_for_donation">FermataX を支援するには、スマートフォンで Ko-fi を開いてください。</string>
+    <string name="donate_text">Ko-fi で Dem TV を支援できます。</string>
+    <string name="use_phone_for_donation">Dem TV を支援するには、スマートフォンで Ko-fi を開いてください。</string>
 
     <string name="timer">タイマー</string>
     <string name="hours">時</string>
@@ -385,15 +385,15 @@
     <string name="open_log">ログファイルを開く</string>
     <string name="unlock_phone_and_grant">スマートフォンのロックを解除し、要求された権限を付与してください。</string>
     <string name="screen_capture_rejected">画面キャプチャ要求が拒否されました。</string>
-    <string name="accessibility_dsc">アクセシビリティサービスは、Fermata Mirror によってタッチスクリーンをシミュレートするために使用されます。</string>
+    <string name="accessibility_dsc">アクセシビリティサービスは、Dem TV Yansıtma によってタッチスクリーンをシミュレートするために使用されます。</string>
     <string name="media_projection_action_text">今すぐ始めましょう</string>
 
-    <string name="about">FermataX について</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX は Fermata のフォークで、Android Auto 向けのメディアハブとしてカスタマイズされています。</p>
+    <string name="about">Dem TV について</string>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV は Fermata のフォークで、Android Auto 向けのメディアハブとしてカスタマイズされています。</p>
         <p>Dashboard を中心にしたナビゲーション、IPTV/Xtream、インターネットラジオ、YouTube/Web メディア、
         ローカルファイル、お気に入り、最近再生した項目を、車内で使いやすい体験にまとめます。</p>
-        <p>FermataX はメディアコンテンツ、プレイリスト、TV チャンネル、IPTV アカウントを提供しません。
+        <p>Dem TV はメディアコンテンツ、プレイリスト、TV チャンネル、IPTV アカウントを提供しません。
         追加するソースについてはユーザー自身が責任を負います。</p>
         <p><b>元のプロジェクト:</b> Fermata by Andrey Pavlenko</p>
         <p><b>バージョン:</b> %1$s (%2$d)</p>
@@ -486,21 +486,21 @@
 	<string name="diagnostic_report_saved">診断レポートをダウンロードに %1$s として保存しました。</string>
 	<string name="diagnostic_report_failed">診断レポートを作成できませんでした：%1$s</string>
 	<string name="diagnostic_data_cleared">診断データを消去しました。</string>
-	<string name="diagnostics_phone_only">スマートフォンのFermataX設定から診断レポートをエクスポートしてください。</string>
+	<string name="diagnostics_phone_only">スマートフォンのDem TV設定から診断レポートをエクスポートしてください。</string>
 	<string name="retry">再試行</string>
 	<string name="media_list_empty">項目はまだありません</string>
 	<string name="media_list_load_failed">項目を読み込めませんでした。</string>
 	<string name="vehicle_key_test">車両コントロールをテスト</string>
 	<string name="vehicle_key_test_sub">ステアリングとヘッドユニットのキーを30秒間記録します</string>
 	<string name="vehicle_key_test_started">テストを開始しました。確認するボタンを押し、もう一度この項目を選択して結果を表示してください。</string>
-	<string name="vehicle_key_test_no_events">FermataXにコントロールキーが届きませんでした。ヘッドユニットまたは車両ファームウェアが入力を保持した可能性があります。</string>
+	<string name="vehicle_key_test_no_events">Dem TVにコントロールキーが届きませんでした。ヘッドユニットまたは車両ファームウェアが入力を保持した可能性があります。</string>
 	<string name="vehicle_key_test_result">車両コントロールの結果：\n%1$s</string>
 	<string name="voice_trigger_assign">車両の音声ボタンを割り当てる</string>
-	<string name="voice_trigger_current">現在: %1$s。FermataX が表示されている間だけ有効です。</string>
+	<string name="voice_trigger_current">現在: %1$s。Dem TV が表示されている間だけ有効です。</string>
 	<string name="voice_trigger_unassigned">未割り当て</string>
 	<string name="voice_trigger_capture_started">ステアリングまたはヘッドユニットのボタンを1回押してください。この操作では通常の機能は実行されません。</string>
 	<string name="voice_trigger_capture_timeout">対応するボタンを検出できませんでした。変更はありません。</string>
-	<string name="voice_trigger_capture_success">%1$s（%2$d）を割り当てました。アプリが表示されている間だけ FermataX の音声操作を開きます。</string>
+	<string name="voice_trigger_capture_success">%1$s（%2$d）を割り当てました。アプリが表示されている間だけ Dem TV の音声操作を開きます。</string>
 	<string name="voice_trigger_clear">音声ボタンの割り当てを解除</string>
 	<string name="voice_trigger_cleared">車両の音声ボタンの割り当てを解除しました。</string>
 	<string name="voice_selection_prompt">1、2、3のいずれかを言ってください</string>
@@ -524,4 +524,11 @@
     <string name="audio_effects_range_error">Enter a value from %1$d to %2$d.</string>
 
     <string name="legacy_preset_migration_notice">以前の端末のイコライザープリセットを自動変換できませんでした。一度イコライザーを選択または調整してください。</string>
+    <string name="dem_home_web">Dem TV • ライブ ↗</string>
+    <string name="dem_mirror_waiting">スマートフォンで Dem TV を開き、画面共有を許可してください。</string>
+    <string name="dem_mirror_stop">✕ ミラーリングを終了</string>
+    <string name="dem_mirror_rejected">画面共有を開始できませんでした。戻ってスマートフォンで再度許可してください。</string>
+    <string name="dem_mirror_connect">Android Auto で Dem TV を開き、スマートフォンで画面共有を許可してください。</string>
+    <string name="dem_mirror_external">ScreenOnAuto で開始</string>
+    <string name="dem_mirror_external_failed">ScreenOnAuto を開始できませんでした。アプリと車の接続を確認してください。</string>
 </resources>

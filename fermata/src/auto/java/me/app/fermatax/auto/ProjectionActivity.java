@@ -37,13 +37,17 @@ public class ProjectionActivity extends ActivityBase {
 	private static final int NOTIFICATION_ID = 3;
 	private static Promise<Intent> promise;
 	private static boolean starting;
+	private static boolean captureOnly;
 
-	static FutureSupplier<Intent> start() {
+	static FutureSupplier<Intent> start() { return start(false); }
+
+	static FutureSupplier<Intent> start(boolean viewingOnly) {
 		if (!AutomotiveRuntimeGate.allowsNewWork()) {
 			return failed(new IllegalStateException(
 					"Automotive projection generation is quiescent"));
 		}
 		if (promise != null) promise.cancel();
+		captureOnly = viewingOnly;
 		var p = promise = new Promise<>();
 		p.thenRun(() -> {
 			if (promise != p) return;
@@ -52,6 +56,9 @@ public class ProjectionActivity extends ActivityBase {
 			cancelPermissionNotification(FermataApplication.get());
 		});
 		showPermissionNotification(FermataApplication.get());
+        // A phone tap may show the consent immediately. A car-only tap waits for phone action.
+        var phone = me.aap.fermata.ui.activity.MainActivity.getActiveInstance();
+        if (viewingOnly && phone != null && phone.hasWindowFocus()) resumePendingRequest(phone);
 		return p;
 	}
 
@@ -91,16 +98,21 @@ public class ProjectionActivity extends ActivityBase {
 			return;
 		}
 		starting = true;
-		checkOverlayPermission().then(ignore -> checkWriteSettingsPermission())
-				.then(ignore -> checkAccessibilityPermission())
-				.thenIgnoreResult(this::requestRootPermission)
-				.thenIgnoreResult(this::requestScreenCapturePermission).onCompletion((i, err) -> {
-					AccessibilityEventDispatcherService.autoClickOnButton(null);
+        FutureSupplier<Intent> capture = captureOnly ? requestScreenCapturePermission() :
+                checkOverlayPermission().then(ignore -> checkWriteSettingsPermission())
+                        .then(ignore -> checkAccessibilityPermission())
+                        .thenIgnoreResult(this::requestRootPermission)
+                        .thenIgnoreResult(this::requestScreenCapturePermission);
+        capture.onCompletion((i, err) -> {
+                    if (!captureOnly) AccessibilityEventDispatcherService.autoClickOnButton(null);
 					if (promise != p) return;
 					starting = false;
 					finish();
 					if (err != null) {
-						if (!isCancellation(err)) Log.i(err, "Screen capture request failed");
+						if (!isCancellation(err)) {
+                            Log.i(err, "Screen capture request failed");
+                        }
+                        p.completeExceptionally(err);
 					} else if (i == null) {
 						Log.i("Screen capture request rejected");
 						p.cancel();

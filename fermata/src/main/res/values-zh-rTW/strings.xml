@@ -343,8 +343,8 @@
     <string name="private_key_pass">私密金鑰密碼</string>
 
     <string name="donate">支持開發者</string>
-    <string name="donate_text">透過 Ko-fi 支持 FermataX。</string>
-    <string name="use_phone_for_donation">請在手機上開啟 Ko-fi 以支持 FermataX。</string>
+    <string name="donate_text">透過 Ko-fi 支持 Dem TV。</string>
+    <string name="use_phone_for_donation">請在手機上開啟 Ko-fi 以支持 Dem TV。</string>
 
     <string name="timer">計時器</string>
     <string name="hours">小時</string>
@@ -385,15 +385,15 @@
     <string name="open_log">開啟記錄檔</string>
     <string name="unlock_phone_and_grant">請解鎖手機並同意需要的權限</string>
     <string name="screen_capture_rejected">無法取得螢幕截圖權限</string>
-    <string name="accessibility_dsc">Fermata Mirror使用無障礙功能進行螢幕觸控模擬</string>
+    <string name="accessibility_dsc">Dem TV Yansıtma使用無障礙功能進行螢幕觸控模擬</string>
     <string name="media_projection_action_text">正在開始</string>
 
     <string name="about">關於</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX 是 Fermata 的分支版本，已客製為 Android Auto 的媒體中心。</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV 是 Fermata 的分支版本，已客製為 Android Auto 的媒體中心。</p>
         <p>它將以 Dashboard 為核心的導覽、IPTV/Xtream、網路廣播、YouTube/Web 媒體、
         本機檔案、我的最愛與最近項目整合為適合車內使用的體驗。</p>
-        <p>FermataX 不提供媒體內容、播放清單、電視頻道或 IPTV 帳號。
+        <p>Dem TV 不提供媒體內容、播放清單、電視頻道或 IPTV 帳號。
         使用者須自行負責其新增的媒體來源。</p>
         <p><b>原始專案:</b> Fermata by Andrey Pavlenko</p>
         <p><b>版本:</b> %1$s (%2$d)</p>
@@ -486,21 +486,21 @@
 	<string name="diagnostic_report_saved">診斷報告已儲存到「下載」，檔名為 %1$s。</string>
 	<string name="diagnostic_report_failed">無法建立診斷報告：%1$s</string>
 	<string name="diagnostic_data_cleared">診斷資料已清除。</string>
-	<string name="diagnostics_phone_only">請從手機上的 FermataX 設定匯出診斷報告。</string>
+	<string name="diagnostics_phone_only">請從手機上的 Dem TV 設定匯出診斷報告。</string>
 	<string name="retry">重試</string>
 	<string name="media_list_empty">尚無項目</string>
 	<string name="media_list_load_failed">無法載入項目。</string>
 	<string name="vehicle_key_test">測試車輛控制鍵</string>
 	<string name="vehicle_key_test_sub">記錄方向盤與車機控制鍵 30 秒</string>
 	<string name="vehicle_key_test_started">測試已開始。請按下要測試的控制鍵，然後再次選取此項目以查看結果。</string>
-	<string name="vehicle_key_test_no_events">沒有控制鍵傳到 FermataX。車機或車輛韌體可能已攔截輸入。</string>
+	<string name="vehicle_key_test_no_events">沒有控制鍵傳到 Dem TV。車機或車輛韌體可能已攔截輸入。</string>
 	<string name="vehicle_key_test_result">車輛控制結果：\n%1$s</string>
 	<string name="voice_trigger_assign">指派車輛語音按鈕</string>
-	<string name="voice_trigger_current">目前：%1$s。僅在 FermataX 顯示時啟用。</string>
+	<string name="voice_trigger_current">目前：%1$s。僅在 Dem TV 顯示時啟用。</string>
 	<string name="voice_trigger_unassigned">尚未指派</string>
 	<string name="voice_trigger_capture_started">請按一下方向盤或主機按鈕。此次按壓不會執行原本功能。</string>
 	<string name="voice_trigger_capture_timeout">未偵測到支援的按鈕。未變更任何設定。</string>
-	<string name="voice_trigger_capture_success">已指派 %1$s（%2$d）。僅在應用程式顯示時開啟 FermataX 語音控制。</string>
+	<string name="voice_trigger_capture_success">已指派 %1$s（%2$d）。僅在應用程式顯示時開啟 Dem TV 語音控制。</string>
 	<string name="voice_trigger_clear">清除語音按鈕指派</string>
 	<string name="voice_trigger_cleared">已清除車輛語音按鈕指派。</string>
 	<string name="voice_selection_prompt">請說一、二或三</string>
@@ -524,4 +524,11 @@
     <string name="audio_effects_range_error">Enter a value from %1$d to %2$d.</string>
 
     <string name="legacy_preset_migration_notice">無法自動轉換您先前裝置的等化器預設值。請選擇或調整一次等化器。</string>
+    <string name="dem_home_web">Dem TV • 直播 ↗</string>
+    <string name="dem_mirror_waiting">請在手機上開啟 Dem TV 並允許螢幕分享。</string>
+    <string name="dem_mirror_stop">✕ 停止鏡像</string>
+    <string name="dem_mirror_rejected">無法開始螢幕分享。請返回並在手機上重新允許。</string>
+    <string name="dem_mirror_connect">請先在 Android Auto 開啟 Dem TV，再於手機上允許螢幕分享。</string>
+    <string name="dem_mirror_external">使用 ScreenOnAuto 啟動</string>
+    <string name="dem_mirror_external_failed">無法啟動 ScreenOnAuto。請檢查應用程式及車輛連線。</string>
 </resources>

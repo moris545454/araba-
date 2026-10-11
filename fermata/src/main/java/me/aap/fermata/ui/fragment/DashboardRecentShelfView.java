@@ -126,7 +126,7 @@ public final class DashboardRecentShelfView extends LinearLayout {
 			holder.item = item;
 			int request = generation;
 			holder.art.setImageResource(item.getIcon());
-			holder.art.setImageTintList(ColorStateList.valueOf(0xFF65BFFF));
+			holder.art.setImageTintList(ColorStateList.valueOf(0xFF76DFC5));
 			holder.title.setText(item.getName());
 			holder.subtitle.setText(item.getParent() == null ? "" : item.getParent().getName());
 			holder.itemView.getLayoutParams().height = row.getLayoutParams().height;

@@ -2,7 +2,7 @@
 
 Depo: https://github.com/moris545454/araba-
 
-Dağıtılan tek APK, telefon ve Android Auto için `me.app.fermataX.auto.debug` paketidir. İlk yayımlanan sürüm 2.0.2 (309); güncel sürüm 2.0.3 (310). Mevcut arayüz ve diğer özellikler korunur.
+Dağıtılan tek APK, telefon ve Android Auto için `me.app.fermataX.auto.debug` paketidir. İlk yayımlanan sürüm 2.0.2 (309); güncel sürüm Dem TV 2.1.0 (311). Mevcut arayüz ve diğer özellikler korunur.
 
 Uygulama açılışta ve yaklaşık altı saatlik arka plan aralıklarında GitHub'ın en son yayımlanmış Release kaydını kontrol eder. Android pil/ağ politikaları bu kontrolleri geciktirebilir; bu anlık sunucu push bildirimi değildir. Açılış kontrolleri bir saatlik başarı önbelleği kullanır. Bildirim izni verilmişse daha yüksek sürüm kodu için tek bildirim gösterilir. Ayarlar → Arayüz → Uygulama güncellemeleri ekranından kontrol, bildirim ayarları, otomatik kontrolü kapatma ve İndir ve yükle erişilebilir. Kurulum telefonda Android'in onayıyla yapılır; araç arayüzünde APK kurulumu açılmaz.
 
@@ -21,7 +21,7 @@ Actions kapalı olsa da uygulama içi sürüm kontrolü, bildirim ve indirme ça
 
 1. Değişikliği yapın. `gradle/libs.versions.toml` içindeki `appVersionCode` değerini artırın; `appVersionName` değerini yeni sürüme taşıyın.
 2. `UPDATE_RELEASE_NOTES_TR.md` dosyasına o sürümün değişikliklerini yazın ve commit/push yapın.
-3. Sürüm adıyla eşleşen etiketi gönderin: örneğin `git tag v2.0.3` ve `git push origin v2.0.3`.
+3. Sürüm adıyla eşleşen etiketi gönderin: örneğin `git tag v2.1.0` ve `git push origin v2.1.0`.
 4. `Publish app update` workflow'u test, Lint ve universal APK derlemesini çalıştırır. Aynı imza korunur. APK ve güncelleme manifesti önce taslak Release'e yüklenir; ikisi de hazır olduğunda yayımlanır. Kontroller başarısızsa sürüm yayımlanmaz.
 
 Workflow aynı etiketi yeniden yazmaz. Yeni bir sürüm için sürüm kodunu da artırmak gerekir. GitHub Actions bölümünden elle de tetiklenebilir.

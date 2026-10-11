@@ -19,7 +19,7 @@
         <item name="appEqualizerStyle">@style/AppTheme.EqualizerStyle</item>
         <item name="appStreamProgressStyle">@style/AppTheme.StreamProgressStyle</item>
         <item name="appVideoInfoStyle">@style/AppTheme.VideoInfoStyle</item>
-        <item name="cornerRadius">16dp</item>
+        <item name="cornerRadius">40dp</item>
         <item name="spinnerStyle">@style/MediaHub.Spinner</item>
         <item name="toolbarStyle">@style/MediaHub.ToolBar</item>
         <item name="popupMenuStyle">@style/MediaHub.PopupMenu</item>

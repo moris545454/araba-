@@ -85,6 +85,7 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 			new DirectAppStartupCoordinator<>(FermataMediaServiceConnection::isConnected,
 					FermataMediaServiceConnection::disconnect);
 	private static MainCarActivity currentInstance;
+	private InlineMirrorView inlineMirror;
 	@SuppressWarnings("unchecked")
 	@NonNull
 	private FutureSupplier<MainActivityDelegate> delegate =
@@ -251,6 +252,7 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 
 	@Override
 	public void onPause() {
+        stopInlineMirror();
 		stopInput();
 		AutomotiveNavigationController.get().unregister(phoneNavigator);
 		AutomotiveConnectionState.get().appVisibilityChanged(controlVisibilityOwner, false);
@@ -266,6 +268,7 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 	@Override
 	@SuppressWarnings("unchecked")
 	public void onDestroy() {
+		stopInlineMirror();
 		stopInput();
 		AutomotiveNavigationController.get().unregister(phoneNavigator);
 		AutomotiveConnectionState.get().appVisibilityChanged(controlVisibilityOwner, false);
@@ -349,6 +352,14 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 		FermataApplication.get().getHandler().post(activity::finish);
 	}
 
+    private void stopInlineMirror() {
+        InlineMirrorView view = inlineMirror;
+        inlineMirror = null;
+        if (view == null) return;
+        view.close();
+        if (view.getParent() instanceof android.view.ViewGroup parent) parent.removeView(view);
+    }
+
 	private FutureSupplier<OpenResult> openFromPhone(int destinationId,
 			BooleanSupplier stillCurrent) {
 		MainActivityDelegate delegate = createdDelegate;
@@ -361,6 +372,21 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 				result.complete(OpenResult.CANCELLED);
 				return;
 			}
+            if (destinationId == R.id.dashboard_mirror_action) {
+                android.view.ViewGroup root = (android.view.ViewGroup) findViewById(R.id.main_activity);
+                if (root == null) { result.complete(OpenResult.NOT_READY); return; }
+                stopInlineMirror();
+                inlineMirror = new InlineMirrorView(root.getContext(), this::stopInlineMirror);
+                androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
+                        new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(0, 0);
+                params.leftToLeft = params.rightToRight = params.topToTop = params.bottomToBottom = 0;
+                root.addView(inlineMirror, params);
+                inlineMirror.setTranslationZ(100 * root.getResources().getDisplayMetrics().density);
+                inlineMirror.requestFocus();
+                result.complete(OpenResult.OPENED);
+                return;
+            }
+            stopInlineMirror();
 			delegate.showFragmentWhenReadyGuarded(destinationId, null, () ->
 					stillCurrent.getAsBoolean() && resumed && !destroyed &&
 							(createdDelegate == delegate)).onCompletion((opened, error) -> {
@@ -376,6 +402,9 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 
 	private FutureSupplier<OpenResult> openFromPhone(OpenOnCarRequest request,
 			BooleanSupplier stillCurrent) {
+        FermataApplication.get().getHandler().post(() -> {
+            if (stillCurrent.getAsBoolean()) stopInlineMirror();
+        });
 		return dispatchPhoneRequest(request, stillCurrent,
 				destinationId -> openFromPhone(destinationId, stillCurrent),
 				typed -> openWebFromPhone(typed, stillCurrent),
@@ -770,6 +799,10 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent keyEvent) {
+        if (inlineMirror != null) {
+            if (keyCode == KEYCODE_BACK) { stopInlineMirror(); return true; }
+            return super.onKeyUp(keyCode, keyEvent);
+        }
 		Log.i(keyEvent);
 		if ((keyboardOverlay != null) && keyboardOverlay.isShowing()) {
 			if (keyCode == KEYCODE_BACK) return true;
@@ -805,11 +838,16 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 	@Override
 	@SuppressWarnings("deprecation")
 	public void onBackPressed() {
+        if (inlineMirror != null) { stopInlineMirror(); return; }
 		getActivityDelegate().onSuccess(MainActivityDelegate::onBackPressed);
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent keyEvent) {
+        if (inlineMirror != null) {
+            if (keyCode == KEYCODE_BACK) return true;
+            return super.onKeyDown(keyCode, keyEvent);
+        }
 		Log.i(keyEvent);
 		if (projectedBackEventFilter.shouldSuppress(keyCode == KEYCODE_BACK,
 				keyEvent.getEventTime(), keyEvent.getDeviceId(), SystemClock.uptimeMillis())) return true;

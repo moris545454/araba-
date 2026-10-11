@@ -336,8 +336,8 @@
     <string name="private_key_pass">Özel anahtar şifresi</string>
 
     <string name="donate">Geliştiriciyi destekle</string>
-    <string name="donate_text">FermataX projesini Ko-fi ile destekleyin.</string>
-    <string name="use_phone_for_donation">FermataX projesini desteklemek için telefonunuzda Ko-fi açın.</string>
+    <string name="donate_text">Orijinal FermataX projesini Ko-fi ile destekleyin.</string>
+    <string name="use_phone_for_donation">Orijinal projeyi desteklemek için telefonunuzda Ko-fi açın.</string>
 
     <string name="timer">Süre</string>
 	<string name="hours">Saat</string>
@@ -378,15 +378,15 @@
     <string name="open_log">Günlük dosyasını aç</string>
     <string name="unlock_phone_and_grant">Telefonun kilidini açın ve istenen izinleri verin.</string>
     <string name="screen_capture_rejected">Ekran yakalama isteği reddedildi.</string>
-    <string name="accessibility_dsc">Erişilebilirlik hizmeti, Fermata Mirror tarafından dokunmatik ekran olaylarını simüle etmek için kullanılır.</string>
+    <string name="accessibility_dsc">Erişilebilirlik hizmeti, Dem TV Yansıtma tarafından dokunmatik ekran olaylarını simüle etmek için kullanılır.</string>
     <string name="media_projection_action_text">Şimdi başlat</string>
 
     <string name="about">Hakkında</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX, Android Auto için bir medya merkezi olarak özelleştirilmiş Fermata tabanlı bir fork sürümüdür.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV, Android Auto için bir medya merkezi olarak özelleştirilmiş Fermata tabanlı bir fork sürümüdür.</p>
         <p>Dashboard öncelikli gezinme, IPTV/Xtream, İnternet Radyosu, YouTube/Web medyası,
         yerel dosyalar, Favoriler ve Son Kullanılanlar özelliklerini araç dostu bir deneyimde birleştirir.</p>
-        <p>FermataX medya içeriği, oynatma listesi, TV kanalı veya IPTV hesabı sağlamaz.
+        <p>Dem TV medya içeriği, oynatma listesi, TV kanalı veya IPTV hesabı sağlamaz.
         Kullanıcılar ekledikleri kaynaklardan sorumludur.</p>
         <p><b>Orijinal proje:</b> Fermata by Andrey Pavlenko</p>
         <p><b>Sürüm:</b> %1$s (%2$d)</p>
@@ -481,21 +481,21 @@
 	<string name="diagnostic_report_saved">Tanılama raporu İndirilenler klasörüne %1$s olarak kaydedildi.</string>
 	<string name="diagnostic_report_failed">Tanılama raporu oluşturulamadı: %1$s</string>
 	<string name="diagnostic_data_cleared">Tanılama verileri temizlendi.</string>
-	<string name="diagnostics_phone_only">Tanılama raporlarını telefonunuzun FermataX ayarlarından dışa aktarın.</string>
+	<string name="diagnostics_phone_only">Tanılama raporlarını telefonunuzun Dem TV ayarlarından dışa aktarın.</string>
 	<string name="retry">Tekrar dene</string>
 	<string name="media_list_empty">Henüz öğe yok</string>
 	<string name="media_list_load_failed">Öğeler yüklenemedi.</string>
 	<string name="vehicle_key_test">Araç kontrollerini test et</string>
 	<string name="vehicle_key_test_sub">Direksiyon ve ana ünite tuşlarını 30 saniye boyunca yakala</string>
 	<string name="vehicle_key_test_started">Test başladı. Denemek istediğiniz kontrollere basın, ardından sonucu görmek için bu öğeyi yeniden seçin.</string>
-	<string name="vehicle_key_test_no_events">FermataX’e hiçbir kontrol tuşu ulaşmadı. Ana ünite veya araç yazılımı girişi tutmuş olabilir.</string>
+	<string name="vehicle_key_test_no_events">Dem TV’e hiçbir kontrol tuşu ulaşmadı. Ana ünite veya araç yazılımı girişi tutmuş olabilir.</string>
 	<string name="vehicle_key_test_result">Araç kontrol sonuçları:\n%1$s</string>
 	<string name="voice_trigger_assign">Araç ses düğmesini ata</string>
-	<string name="voice_trigger_current">Geçerli: %1$s. Yalnızca FermataX görünürken etkindir.</string>
+	<string name="voice_trigger_current">Geçerli: %1$s. Yalnızca Dem TV görünürken etkindir.</string>
 	<string name="voice_trigger_unassigned">Atanmamış</string>
 	<string name="voice_trigger_capture_started">Direksiyon veya ana ünite düğmesine bir kez basın. Bu basış normal işlevini çalıştırmaz.</string>
 	<string name="voice_trigger_capture_timeout">Desteklenen bir düğme algılanmadı. Hiçbir şey değiştirilmedi.</string>
-	<string name="voice_trigger_capture_success">%1$s (%2$d) atandı. FermataX sesini yalnızca uygulama görünürken açar.</string>
+	<string name="voice_trigger_capture_success">%1$s (%2$d) atandı. Dem TV sesini yalnızca uygulama görünürken açar.</string>
 	<string name="voice_trigger_clear">Ses düğmesi atamasını temizle</string>
 	<string name="voice_trigger_cleared">Araç ses düğmesi ataması temizlendi.</string>
 	<string name="voice_selection_prompt">Bir, iki veya üç numara deyin</string>
@@ -519,4 +519,13 @@
     <string name="audio_effects_range_error">%1$d ile %2$d arasında bir değer girin.</string>
 
     <string name="legacy_preset_migration_notice">Cihazınızın önceki ekolayzır ön ayarı otomatik olarak dönüştürülemedi. Ekolayzırı bir kez seçin veya ayarlayın.</string>
+    <string name="dem_home_web">Dem TV • Canlı yayın ↗</string>
+    <string name="dem_mirror_waiting">Telefonunda Dem TV’yi aç ve ekran paylaşımını onayla.
+Yansıtma burada başlayacak.</string>
+    <string name="dem_mirror_stop">✕  Yansıtmayı bitir</string>
+    <string name="dem_mirror_rejected">Ekran paylaşımı başlatılamadı.
+Geri dönüp yeniden deneyebilir ve telefonundaki izni onaylayabilirsin.</string>
+    <string name="dem_mirror_connect">Android Auto’da Dem TV’yi açtıktan sonra buradan ekranını yansıtabilirsin. Telefonundaki ekran paylaşımı onayı gerekir.</string>
+    <string name="dem_mirror_external">ScreenOnAuto ile başlat</string>
+    <string name="dem_mirror_external_failed">ScreenOnAuto başlatılamadı. Uygulamayı ve araç bağlantısını kontrol et.</string>
 </resources>

@@ -112,6 +112,7 @@ public class DashboardFragment extends MainActivityFragment
 		MainActivityDelegate activity = MainActivityDelegate.get(ctx);
 		Context localizedCtx = activity.getLocalizedContext(ctx);
 		prefs = activity.getPrefs();
+        view.findViewById(R.id.dem_home_web).setOnClickListener(v -> DemTvActions.openWeb(activity));
 		RecyclerView list = view.findViewById(R.id.dashboard_list);
 		this.list = list;
 		if (activity.getRuntimeHostMode().usesAutomotivePresentation()) list.setSaveEnabled(false);
@@ -553,7 +554,8 @@ public class DashboardFragment extends MainActivityFragment
 			holder.icon.setImageResource(card.icon);
 			if (card.item != null) {
 				int color = MediaHubStyle.destinationAccent(card.item.id);
-				holder.itemView.setBackground(MediaHubStyle.card(ctx, color, isFeatured(position)));
+				holder.itemView.setBackground(isFeatured(position) ? MediaHubStyle.launcher(ctx, color) :
+                        MediaHubStyle.card(ctx, color, false));
 				holder.icon.setImageTintList(ColorStateList.valueOf(color));
 				int pad = (int) (10 * ctx.getResources().getDisplayMetrics().density);
 				holder.icon.setPadding(pad, pad, pad, pad);
@@ -603,12 +605,7 @@ public class DashboardFragment extends MainActivityFragment
 					return;
 				}
 				if (card.targetId == R.id.dashboard_mirror_action) {
-					new com.google.android.material.dialog.MaterialAlertDialogBuilder(a.getContext())
-							.setTitle(ctx.getString(R.string.dashboard_mirror_title))
-							.setIcon(R.drawable.screen_mirroring)
-							.setMessage(ctx.getString(BuildConfig.AUTO ? R.string.dashboard_mirror_help :
-									R.string.dashboard_mirror_mobile_help))
-							.setPositiveButton(android.R.string.ok, null).show();
+                    DemTvActions.mirror(a);
 					return;
 				}
 				if (card.targetId == ID_NULL) return;

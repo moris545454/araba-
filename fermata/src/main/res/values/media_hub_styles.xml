@@ -37,11 +37,11 @@
     </style>
     <style name="MediaHub.DialogShape" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">22dp</item>
+        <item name="cornerSize">32dp</item>
     </style>
     <style name="MediaHub.DialogButton" parent="Theme.Utils.Base.AlertDialog.Button">
         <item name="android:minHeight">48dp</item>
-        <item name="cornerRadius">14dp</item>
+        <item name="cornerRadius">24dp</item>
         <item name="android:textColor">?attr/colorAccent</item>
         <item name="strokeColor">?attr/boxStrokeColor</item>
     </style>

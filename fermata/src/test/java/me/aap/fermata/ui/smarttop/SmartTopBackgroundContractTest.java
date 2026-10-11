@@ -116,13 +116,13 @@ public class SmartTopBackgroundContractTest {
 	}
 
 	@Test
-	public void recentIconsStayBlueAcrossEveryItemState() throws Exception {
+	public void recentIconsKeepDemTvAccentAcrossEveryItemState() throws Exception {
 		String binder = source("ui/smarttop/SmartTopBinder.java");
 		assertTrue(binder.contains("view.setCompoundDrawableTintList("));
 		assertTrue(binder.contains("R.color.dashboard_smart_recent_icon_tint"));
 		assertTrue(binder.contains("view.setCompoundDrawableTintList(null)"));
 		String tint = resource("color/dashboard_smart_recent_icon_tint.xml");
-		assertTrue(tint.contains("android:color=\"#7AA7FF\""));
+		assertTrue(tint.contains("android:color=\"#76DFC5\""));
 		assertFalse(tint.contains("state_activated"));
 	}
 

@@ -25,7 +25,7 @@ public class AutoManifestPolicyTest {
 			"me.app.fermatax.auto.AutoFermataMediaService";
 
 	@Test
-	public void autoManifestExposesSingleMediaBrowserServiceAndRemovesLegacyEntryPoints()
+	public void autoManifestKeepsExplicitPlaybackWithoutAdvertisingDuplicateMediaEntry()
 			throws Exception {
 		Document manifest = parse("src/auto/AndroidManifest.xml");
 		Element legacy = findNamed(manifest, "service", LEGACY_SERVICE);
@@ -36,7 +36,7 @@ public class AutoManifestPolicyTest {
 		assertNotNull(internal);
 		assertEquals("true", internal.getAttributeNS(ANDROID_NS, "exported"));
 		assertTrue(hasNamed(internal, "action", "android.intent.action.MEDIA_BUTTON"));
-		assertTrue(hasNamed(internal, "action", "android.media.browse.MediaBrowserService"));
+		assertFalse(hasNamed(internal, "action", "android.media.browse.MediaBrowserService"));
 		assertTrue(hasNamed(internal, "action",
 				"android.media.action.MEDIA_PLAY_FROM_SEARCH"));
 		assertFalse(hasNamed(manifest, "receiver",

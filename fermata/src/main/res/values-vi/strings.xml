@@ -160,11 +160,11 @@
     <string name="voice_search">Tìm kiếm bằng giọng nói</string>
 	<string name="voice_control">Điều khiển bằng giọng nói</string>
 	<string name="voice_trigger_assign">Gán nút voice trên xe</string>
-	<string name="voice_trigger_current">Hiện tại: %1$s. Chỉ hoạt động khi FermataX đang hiển thị.</string>
+	<string name="voice_trigger_current">Hiện tại: %1$s. Chỉ hoạt động khi Dem TV đang hiển thị.</string>
 	<string name="voice_trigger_unassigned">Chưa gán</string>
 	<string name="voice_trigger_capture_started">Hãy nhấn một lần nút trên vô-lăng hoặc head unit. Lần nhấn này sẽ không chạy chức năng gốc.</string>
 	<string name="voice_trigger_capture_timeout">Không phát hiện nút được hỗ trợ. Không có thay đổi nào được lưu.</string>
-	<string name="voice_trigger_capture_success">Đã gán %1$s (%2$d). Nút chỉ mở voice của FermataX khi ứng dụng đang hiển thị.</string>
+	<string name="voice_trigger_capture_success">Đã gán %1$s (%2$d). Nút chỉ mở voice của Dem TV khi ứng dụng đang hiển thị.</string>
 	<string name="voice_trigger_clear">Xóa nút voice đã gán</string>
 	<string name="voice_trigger_cleared">Đã xóa nút voice trên xe.</string>
 	<string name="voice_selection_prompt">Hãy nói số một, hai hoặc ba</string>
@@ -308,7 +308,7 @@
     <string name="loading">Đang tải…</string>
     <string name="press_back_again">Nhấn nút quay lại lần nữa để thoát.</string>
     <string name="please_restart_app">Vui lòng khởi động lại ứng dụng.</string>
-	<string name="use_phone_to_grant_perm">Tính năng này cần được cấp quyền trên điện thoại. Hãy mở FermataX trên điện thoại và thử lại.</string>
+	<string name="use_phone_to_grant_perm">Tính năng này cần được cấp quyền trên điện thoại. Hãy mở Dem TV trên điện thoại và thử lại.</string>
 
     <string name="vfs_content">Nội dung</string>
     <string name="vfs_file_system">Tệp tin hệ thống</string>
@@ -346,8 +346,8 @@
 	<string name="private_key_pass">Mật khẩu khóa riêng</string>
 
     <string name="donate">Ủng hộ nhà phát triển</string>
-    <string name="donate_text">Ủng hộ FermataX qua Ko-fi.</string>
-    <string name="use_phone_for_donation">Mở Ko-fi trên điện thoại để ủng hộ FermataX.</string>
+    <string name="donate_text">Ủng hộ Dem TV qua Ko-fi.</string>
+    <string name="use_phone_for_donation">Mở Ko-fi trên điện thoại để ủng hộ Dem TV.</string>
 
     <string name="timer">Hẹn giờ</string>
     <string name="hours">Giờ</string>
@@ -388,17 +388,17 @@
     <string name="import_prefs_failed">Không thể nhập tệp tin cấu hình cài đặt: %1$s</string>
     <string name="prefs_not_found">Không tìm thấy tệp tin cấu hình cài đặt</string>
     <string name="open_log">Mở tệp nhật ký</string>
-    <string name="unlock_phone_and_grant">Mở khóa điện thoại, mở FermataX và xác nhận chia sẻ màn hình để bắt đầu mirroring.</string>
+    <string name="unlock_phone_and_grant">Mở khóa điện thoại, mở Dem TV và xác nhận chia sẻ màn hình để bắt đầu mirroring.</string>
     <string name="screen_capture_rejected">Yêu cầu chụp ảnh màn hình bị từ chối.</string>
-    <string name="accessibility_dsc">Dịch vụ trợ năng được Fermata Mirror sử dụng để mô phỏng các sự kiện trên màn hình cảm ứng.</string>
+    <string name="accessibility_dsc">Dịch vụ trợ năng được Dem TV Yansıtma sử dụng để mô phỏng các sự kiện trên màn hình cảm ứng.</string>
     <string name="media_projection_action_text">Bắt đầu ngay</string>
 
     <string name="about">Giới thiệu</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX là một bản fork của Fermata, được tùy biến thành media hub cho Android Auto.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV là một bản fork của Fermata, được tùy biến thành media hub cho Android Auto.</p>
         <p>Ứng dụng kết hợp điều hướng ưu tiên Dashboard, IPTV/Xtream, Internet Radio, YouTube/Web media,
         file cục bộ, Yêu thích và Gần đây trong một trải nghiệm thân thiện cho xe.</p>
-        <p>FermataX không cung cấp nội dung media, playlist, kênh TV hoặc tài khoản IPTV.
+        <p>Dem TV không cung cấp nội dung media, playlist, kênh TV hoặc tài khoản IPTV.
         Người dùng tự chịu trách nhiệm với các nguồn mình thêm vào.</p>
         <p><b>Dự án gốc:</b> Fermata by Andrey Pavlenko</p>
         <p><b>Phiên bản:</b> %1$s (%2$d)</p>
@@ -485,7 +485,7 @@
 	<string name="vehicle_key_test">Kiểm tra nút điều khiển trên xe</string>
 	<string name="vehicle_key_test_sub">Ghi nhận nút vô lăng và đầu xe trong 30 giây</string>
 	<string name="vehicle_key_test_started">Đã bắt đầu kiểm tra. Hãy nhấn các nút cần thử, sau đó chọn lại mục này để xem kết quả.</string>
-	<string name="vehicle_key_test_no_events">Không có nút điều khiển nào tới FermataX. Đầu xe hoặc firmware có thể đã giữ lại sự kiện.</string>
+	<string name="vehicle_key_test_no_events">Không có nút điều khiển nào tới Dem TV. Đầu xe hoặc firmware có thể đã giữ lại sự kiện.</string>
 	<string name="vehicle_key_test_result">Kết quả điều khiển trên xe:\n%1$s</string>
 	<string name="export_diagnostic_report">Xuất báo cáo chẩn đoán</string>
 	<string name="export_diagnostic_report_sub">Tạo báo cáo ZIP riêng tư để lưu hoặc chia sẻ với bộ phận hỗ trợ</string>
@@ -496,7 +496,7 @@
 	<string name="diagnostic_report_saved">Đã lưu báo cáo chẩn đoán vào Tệp tải xuống với tên %1$s.</string>
 	<string name="diagnostic_report_failed">Không thể tạo báo cáo chẩn đoán: %1$s</string>
 	<string name="diagnostic_data_cleared">Đã xóa dữ liệu chẩn đoán.</string>
-	<string name="diagnostics_phone_only">Xuất báo cáo chẩn đoán từ phần Cài đặt FermataX trên điện thoại.</string>
+	<string name="diagnostics_phone_only">Xuất báo cáo chẩn đoán từ phần Cài đặt Dem TV trên điện thoại.</string>
 	<string name="retry">Thử lại</string>
 	<string name="media_list_empty">Chưa có mục nào</string>
 	<string name="media_list_load_failed">Không thể tải các mục.</string>
@@ -520,4 +520,11 @@
 	<string name="audio_effects_range_error">Nhập giá trị từ %1$d đến %2$d.</string>
 
     <string name="legacy_preset_migration_notice">Không thể tự động chuyển đổi cấu hình bộ chỉnh âm trước đó của thiết bị. Hãy chọn hoặc điều chỉnh bộ chỉnh âm một lần.</string>
+    <string name="dem_home_web">Dem TV • Trực tiếp ↗</string>
+    <string name="dem_mirror_waiting">Mở Dem TV trên điện thoại và cho phép chia sẻ màn hình.</string>
+    <string name="dem_mirror_stop">✕ Dừng phản chiếu</string>
+    <string name="dem_mirror_rejected">Không thể chia sẻ màn hình. Quay lại và thử cho phép trên điện thoại.</string>
+    <string name="dem_mirror_connect">Mở Dem TV trong Android Auto, rồi cho phép chia sẻ màn hình trên điện thoại.</string>
+    <string name="dem_mirror_external">Bắt đầu với ScreenOnAuto</string>
+    <string name="dem_mirror_external_failed">Không thể mở ScreenOnAuto. Kiểm tra ứng dụng và kết nối với xe.</string>
 </resources>

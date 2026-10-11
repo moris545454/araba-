@@ -106,10 +106,10 @@ public class OverlayMenuItemView extends AppCompatTextView implements OverlayMen
 		setOnClickListener(this);
 		setOnLongClickListener(this);
 		android.graphics.drawable.GradientDrawable surface = new android.graphics.drawable.GradientDrawable();
-		surface.setColor(Color.argb(24, 110, 150, 205));
-		surface.setCornerRadius(14 * getResources().getDisplayMetrics().density);
+		surface.setColor(Color.argb(12, 118, 223, 197));
+		surface.setCornerRadius(32 * getResources().getDisplayMetrics().density);
 		setBackground(new android.graphics.drawable.RippleDrawable(
-				ColorStateList.valueOf(Color.argb(65, 100, 180, 255)), menuStates(surface), null));
+				ColorStateList.valueOf(Color.argb(65, 118, 223, 197)), menuStates(surface), null));
 		int inset = Math.round(16 * getResources().getDisplayMetrics().density);
 		setPadding(inset, inset, inset, inset);
 		setCompoundDrawablePadding(inset);
@@ -135,9 +135,9 @@ public class OverlayMenuItemView extends AppCompatTextView implements OverlayMen
 	private Drawable menuStates(Drawable normal) {
 		float density = getResources().getDisplayMetrics().density;
 		android.graphics.drawable.GradientDrawable focused = new android.graphics.drawable.GradientDrawable();
-		focused.setColor(Color.argb(65, 100, 180, 255));
-		focused.setCornerRadius(14 * density);
-		focused.setStroke(Math.max(1, Math.round(2 * density)), Color.rgb(100, 180, 255));
+		focused.setColor(Color.argb(65, 118, 223, 197));
+		focused.setCornerRadius(32 * density);
+		focused.setStroke(Math.max(1, Math.round(2 * density)), Color.rgb(118, 223, 197));
 		android.graphics.drawable.StateListDrawable states = new android.graphics.drawable.StateListDrawable();
 		states.addState(new int[]{android.R.attr.state_focused}, focused);
 		states.addState(new int[]{android.R.attr.state_selected}, focused);

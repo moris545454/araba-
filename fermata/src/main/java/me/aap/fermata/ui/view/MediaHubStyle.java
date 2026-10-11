@@ -25,20 +25,20 @@ public final class MediaHubStyle {
 	public static int destinationAccent(int destination) {
 		if (destination == R.id.folders_fragment) return 0xFFFFC14D;
 		if (destination == R.id.favorites_fragment) return 0xFFFF4165;
-		if (destination == R.id.recent_fragment) return 0xFF65BFFF;
+		if (destination == R.id.recent_fragment) return 0xFF76DFC5;
 		if (destination == R.id.playlists_fragment) return 0xFF9A83FF;
-		if (destination == R.id.dashboard_mirror_action) return 0xFFC084FC;
+		if (destination == R.id.dashboard_mirror_action) return 0xFFC4B2E9;
 		AddonInfo info = AddonManager.get().getAddonInfo(destination);
 		if (info != null) {
-			if (info.hasCapability(AddonCapability.TV)) return 0xFF55B9FF;
-			if (info.hasCapability(AddonCapability.YOUTUBE)) return 0xFFFF344A;
-			if (info.hasCapability(AddonCapability.RADIO)) return 0xFFFF4B78;
-			if (info.hasCapability(AddonCapability.PODCAST)) return 0xFFBC7AFF;
+			if (info.hasCapability(AddonCapability.TV)) return 0xFF76DFC5;
+			if (info.hasCapability(AddonCapability.YOUTUBE)) return 0xFFEDAB91;
+			if (info.hasCapability(AddonCapability.RADIO)) return 0xFFEDAB91;
+			if (info.hasCapability(AddonCapability.PODCAST)) return 0xFFC4B2E9;
 			if (info.hasCapability(AddonCapability.AUDIOBOOK)) return 0xFF9A83FF;
-			if (info.hasCapability(AddonCapability.WEB)) return 0xFF65C8FF;
+			if (info.hasCapability(AddonCapability.WEB)) return 0xFF83C5CE;
 			if (info.hasCapability(AddonCapability.STREMIO)) return 0xFFAA83FF;
 		}
-		return 0xFF65BFFF;
+		return 0xFF76DFC5;
 	}
 
 	public static int routeAccent(MainActivityDelegate activity) {
@@ -53,24 +53,37 @@ public final class MediaHubStyle {
 		states.addState(new int[0], surface(context, accent, featured, false));
 		GradientDrawable mask = new GradientDrawable();
 		mask.setColor(0xFFFFFFFF);
-		mask.setCornerRadius(dp(context, featured ? 20 : 16));
+		mask.setCornerRadius(dp(context, featured ? 64 : 40));
 		return new RippleDrawable(ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 55)), states, mask);
 	}
 
-	public static Drawable badge(Context context, int accent) {
+	public static Drawable launcher(Context context, int accent) {
+        StateListDrawable states = new StateListDrawable();
+        states.addState(new int[]{android.R.attr.state_focused}, surface(context, accent, true, true));
+        states.addState(new int[]{android.R.attr.state_selected}, surface(context, accent, true, true));
+        states.addState(new int[0], new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT));
+        GradientDrawable mask = new GradientDrawable();
+        mask.setColor(0xFFFFFFFF);
+        mask.setCornerRadius(dp(context, 64));
+        return new RippleDrawable(ColorStateList.valueOf(ColorUtils.setAlphaComponent(accent, 55)), states, mask);
+    }
+
+    public static Drawable badge(Context context, int accent) {
 		GradientDrawable shape = new GradientDrawable();
 		shape.setColor(ColorUtils.setAlphaComponent(accent, 28));
-		shape.setCornerRadius(dp(context, 14));
+		shape.setCornerRadius(dp(context, 28));
 		return shape;
 	}
 
 	private static Drawable surface(Context context, int accent, boolean featured, boolean focused) {
 		int base = color(context, com.google.android.material.R.attr.colorSecondary, 0xFF08131E);
 		GradientDrawable shape = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
-				new int[]{ColorUtils.blendARGB(base, accent, focused ? .24F : featured ? .13F : .035F), base});
-		shape.setCornerRadius(dp(context, featured ? 20 : 16));
-		shape.setStroke(Math.max(1, Math.round(dp(context, focused ? 2 : 1))),
-				ColorUtils.setAlphaComponent(accent, focused ? 255 : featured ? 135 : 48));
+				new int[]{ColorUtils.blendARGB(base, accent, focused ? .24F : featured ? .12F : .02F), base});
+		if (featured) {
+            float large = dp(context, 64), small = dp(context, 28);
+            shape.setCornerRadii(new float[]{large, large, small, small, large, large, small, small});
+        } else shape.setCornerRadius(dp(context, 40));
+		if (focused) shape.setStroke(Math.max(1, Math.round(dp(context, 2))), accent);
 		return shape;
 	}
 

@@ -344,8 +344,8 @@ Apagado: pausa</string>
     <string name="private_key_pass">Contraseña de clave privada</string>
 
     <string name="donate">Apoyar al desarrollador</string>
-    <string name="donate_text">Apoya FermataX en Ko-fi.</string>
-    <string name="use_phone_for_donation">Abre Ko-fi en tu teléfono para apoyar a FermataX.</string>
+    <string name="donate_text">Apoya Dem TV en Ko-fi.</string>
+    <string name="use_phone_for_donation">Abre Ko-fi en tu teléfono para apoyar a Dem TV.</string>
 
     <string name="timer">Horas</string>
     <string name="hours">Horas</string>
@@ -388,15 +388,15 @@ Por favor, reinicie la aplicación.</string>
     <string name="open_log">Abrir archivo de registro</string>
     <string name="unlock_phone_and_grant">Desbloquee el teléfono y otorgue los permisos solicitados.</string>
     <string name="screen_capture_rejected">Solicitud de captura de pantalla rechazada.</string>
-    <string name="accessibility_dsc">El servicio de accesibilidad es utilizado por Fermata Mirror para simular eventos de pantalla táctil.</string>
+    <string name="accessibility_dsc">El servicio de accesibilidad es utilizado por Dem TV Yansıtma para simular eventos de pantalla táctil.</string>
     <string name="media_projection_action_text">Empieza ahora</string>
 
     <string name="about">Acerca de</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX es un fork de Fermata, personalizado como centro multimedia para Android Auto.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV es un fork de Fermata, personalizado como centro multimedia para Android Auto.</p>
         <p>Combina navegación centrada en el Dashboard, IPTV/Xtream, radio por Internet, medios de YouTube/Web,
         archivos locales, Favoritos y Recientes en una experiencia adecuada para el coche.</p>
-        <p>FermataX no proporciona contenido multimedia, listas de reproducción, canales de TV ni cuentas IPTV.
+        <p>Dem TV no proporciona contenido multimedia, listas de reproducción, canales de TV ni cuentas IPTV.
         Los usuarios son responsables de las fuentes que añaden.</p>
         <p><b>Proyecto original:</b> Fermata by Andrey Pavlenko</p>
         <p><b>Versión:</b> %1$s (%2$d)</p>
@@ -489,21 +489,21 @@ Por favor, reinicie la aplicación.</string>
 	<string name="diagnostic_report_saved">El informe de diagnóstico se guardó en Descargas como %1$s.</string>
 	<string name="diagnostic_report_failed">No se pudo crear el informe de diagnóstico: %1$s</string>
 	<string name="diagnostic_data_cleared">Datos de diagnóstico borrados.</string>
-	<string name="diagnostics_phone_only">Exporta los informes de diagnóstico desde Ajustes de FermataX en el teléfono.</string>
+	<string name="diagnostics_phone_only">Exporta los informes de diagnóstico desde Ajustes de Dem TV en el teléfono.</string>
 	<string name="retry">Reintentar</string>
 	<string name="media_list_empty">Aún no hay elementos</string>
 	<string name="media_list_load_failed">No se pudieron cargar los elementos.</string>
 	<string name="vehicle_key_test">Probar controles del vehículo</string>
 	<string name="vehicle_key_test_sub">Captura durante 30 segundos las teclas del volante y de la unidad principal</string>
 	<string name="vehicle_key_test_started">Prueba iniciada. Pulsa los controles que quieras probar y vuelve a seleccionar esta opción para ver el resultado.</string>
-	<string name="vehicle_key_test_no_events">Ninguna tecla de control llegó a FermataX. Es posible que la unidad principal o el firmware la haya retenido.</string>
+	<string name="vehicle_key_test_no_events">Ninguna tecla de control llegó a Dem TV. Es posible que la unidad principal o el firmware la haya retenido.</string>
 	<string name="vehicle_key_test_result">Resultados de los controles:\n%1$s</string>
 	<string name="voice_trigger_assign">Asignar botón de voz del vehículo</string>
-	<string name="voice_trigger_current">Actual: %1$s. Solo está activo mientras FermataX está visible.</string>
+	<string name="voice_trigger_current">Actual: %1$s. Solo está activo mientras Dem TV está visible.</string>
 	<string name="voice_trigger_unassigned">Sin asignar</string>
 	<string name="voice_trigger_capture_started">Pulsa una vez el botón del volante o de la unidad principal. La pulsación no ejecutará su función normal.</string>
 	<string name="voice_trigger_capture_timeout">No se detectó ningún botón compatible. No se cambió nada.</string>
-	<string name="voice_trigger_capture_success">Se asignó %1$s (%2$d). Solo abre la voz de FermataX mientras la aplicación está visible.</string>
+	<string name="voice_trigger_capture_success">Se asignó %1$s (%2$d). Solo abre la voz de Dem TV mientras la aplicación está visible.</string>
 	<string name="voice_trigger_clear">Borrar asignación del botón de voz</string>
 	<string name="voice_trigger_cleared">Se borró la asignación del botón de voz del vehículo.</string>
 	<string name="voice_selection_prompt">Di número uno, dos o tres</string>
@@ -527,4 +527,11 @@ Por favor, reinicie la aplicación.</string>
     <string name="audio_effects_range_error">Enter a value from %1$d to %2$d.</string>
 
     <string name="legacy_preset_migration_notice">No se pudo convertir automáticamente el preajuste del ecualizador de tu dispositivo anterior. Elige o ajusta el ecualizador una vez.</string>
+    <string name="dem_home_web">Dem TV • En directo ↗</string>
+    <string name="dem_mirror_waiting">Abre Dem TV en el teléfono y confirma que quieres compartir la pantalla.</string>
+    <string name="dem_mirror_stop">✕ Detener duplicación</string>
+    <string name="dem_mirror_rejected">No se pudo compartir la pantalla. Vuelve e inténtalo de nuevo desde el teléfono.</string>
+    <string name="dem_mirror_connect">Abre Dem TV en Android Auto y confirma el permiso de pantalla en el teléfono.</string>
+    <string name="dem_mirror_external">Iniciar con ScreenOnAuto</string>
+    <string name="dem_mirror_external_failed">No se pudo iniciar ScreenOnAuto. Comprueba la aplicación y la conexión al coche.</string>
 </resources>

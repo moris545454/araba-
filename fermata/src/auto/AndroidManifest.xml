@@ -19,6 +19,7 @@
         tools:ignore="ScopedStorage" />
 
     <queries>
+        <package android:name="idv.lzn.screenonauto" />
         <intent>
             <action android:name="android.intent.action.MAIN" />
         </intent>
@@ -67,9 +68,7 @@
             android:icon="@drawable/media_service_icon"
 			android:label="@string/media_service_name"
 			tools:ignore="ExportedService">
-			<intent-filter>
-				<action android:name="android.media.browse.MediaBrowserService" />
-			</intent-filter>
+            <!-- Explicit MediaBrowser connections retain playback without a second AA tile. -->
 			<intent-filter>
 				<action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
 			</intent-filter>
@@ -108,19 +107,10 @@
             </intent-filter>
         </service>
 
-        <service
-            android:name="me.app.fermatax.auto.MirrorService"
-            android:exported="true"
-            android:icon="@drawable/mirror"
-            android:label="@string/mirror_service_name"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="com.google.android.gms.car.category.CATEGORY_PROJECTION" />
-                <category android:name="com.google.android.gms.car.category.CATEGORY_PROJECTION_OEM" />
-            </intent-filter>
-        </service>
+        <!-- Legacy mirror implementation remains internal; capture opens inside Dem TV. -->
+        <service android:name="me.app.fermatax.auto.MirrorService"
+            android:exported="false" android:icon="@drawable/launcher"
+            android:label="@string/mirror_service_name" />
 
         <activity
             android:name="me.app.fermatax.auto.ProjectionActivity"

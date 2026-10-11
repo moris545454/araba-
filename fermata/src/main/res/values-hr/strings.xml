@@ -336,8 +336,8 @@
     <string name="private_key_pass">Lozinka privatnog ključa</string>
 
     <string name="donate">Podrži programera</string>
-    <string name="donate_text">Podržite FermataX na Ko-fi.</string>
-    <string name="use_phone_for_donation">Otvorite Ko-fi na telefonu kako biste podržali FermataX.</string>
+    <string name="donate_text">Podržite Dem TV na Ko-fi.</string>
+    <string name="use_phone_for_donation">Otvorite Ko-fi na telefonu kako biste podržali Dem TV.</string>
 
     <string name="timer">Tajmer</string>
     <string name="hours">Sati</string>
@@ -378,15 +378,15 @@
     <string name="open_log">Otvori zapisnik</string>
     <string name="unlock_phone_and_grant">Otključajte telefon i dodijelite tražene dozvole.</string>
     <string name="screen_capture_rejected">Zahtjev za snimanje zaslona odbijen.</string>
-    <string name="accessibility_dsc">Usluga pristupačnosti koristi se od strane Fermata Mirror za simuliranje događaja na zaslonu osjetljivom na dodir.</string>
+    <string name="accessibility_dsc">Usluga pristupačnosti koristi se od strane Dem TV Yansıtma za simuliranje događaja na zaslonu osjetljivom na dodir.</string>
     <string name="media_projection_action_text">Započni sada</string>
 
     <string name="about">O programu</string>
-    <string name="about_html"><![CDATA[<H1 align="center">FermataX</H1>
-        <p>FermataX je fork Fermate, prilagođen kao medijsko središte za Android Auto.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
+        <p>Dem TV je fork Fermate, prilagođen kao medijsko središte za Android Auto.</p>
         <p>Objedinjuje navigaciju usmjerenu na Dashboard, IPTV/Xtream, internetski radio, YouTube/Web medije,
         lokalne datoteke, Favorite i Nedavno u iskustvo prikladno za automobil.</p>
-        <p>FermataX ne pruža medijski sadržaj, playliste, TV kanale ni IPTV račune.
+        <p>Dem TV ne pruža medijski sadržaj, playliste, TV kanale ni IPTV račune.
         Korisnici su odgovorni za izvore koje dodaju.</p>
         <p><b>Izvorni projekt:</b> Fermata by Andrey Pavlenko</p>
         <p><b>Verzija:</b> %1$s (%2$d)</p>
@@ -481,21 +481,21 @@
 	<string name="diagnostic_report_saved">Dijagnostičko izvješće spremljeno je u Preuzimanja kao %1$s.</string>
 	<string name="diagnostic_report_failed">Nije moguće izraditi dijagnostičko izvješće: %1$s</string>
 	<string name="diagnostic_data_cleared">Dijagnostički podaci su izbrisani.</string>
-	<string name="diagnostics_phone_only">Izvezite dijagnostička izvješća u postavkama FermataX na telefonu.</string>
+	<string name="diagnostics_phone_only">Izvezite dijagnostička izvješća u postavkama Dem TV na telefonu.</string>
 	<string name="retry">Pokušaj ponovno</string>
 	<string name="media_list_empty">Još nema stavki</string>
 	<string name="media_list_load_failed">Nije moguće učitati stavke.</string>
 	<string name="vehicle_key_test">Testiraj kontrole vozila</string>
 	<string name="vehicle_key_test_sub">Bilježi tipke upravljača i glavne jedinice 30 sekundi</string>
 	<string name="vehicle_key_test_started">Test je pokrenut. Pritisnite kontrole koje želite testirati, zatim ponovno odaberite ovu stavku za rezultat.</string>
-	<string name="vehicle_key_test_no_events">Nijedna kontrolna tipka nije stigla do FermataX-a. Glavna jedinica ili firmware vozila možda je zadržao unos.</string>
+	<string name="vehicle_key_test_no_events">Nijedna kontrolna tipka nije stigla do Dem TV-a. Glavna jedinica ili firmware vozila možda je zadržao unos.</string>
 	<string name="vehicle_key_test_result">Rezultati kontrola vozila:\n%1$s</string>
 	<string name="voice_trigger_assign">Dodijeli glasovnu tipku vozila</string>
-	<string name="voice_trigger_current">Trenutačno: %1$s. Aktivno samo dok je FermataX vidljiv.</string>
+	<string name="voice_trigger_current">Trenutačno: %1$s. Aktivno samo dok je Dem TV vidljiv.</string>
 	<string name="voice_trigger_unassigned">Nije dodijeljeno</string>
 	<string name="voice_trigger_capture_started">Jednom pritisnite tipku na upravljaču ili glavnoj jedinici. Pritisak neće pokrenuti njezinu uobičajenu radnju.</string>
 	<string name="voice_trigger_capture_timeout">Nije otkrivena podržana tipka. Ništa nije promijenjeno.</string>
-	<string name="voice_trigger_capture_success">Dodijeljeno: %1$s (%2$d). Otvara FermataX glas samo dok je aplikacija vidljiva.</string>
+	<string name="voice_trigger_capture_success">Dodijeljeno: %1$s (%2$d). Otvara Dem TV glas samo dok je aplikacija vidljiva.</string>
 	<string name="voice_trigger_clear">Ukloni dodjelu glasovne tipke</string>
 	<string name="voice_trigger_cleared">Dodjela glasovne tipke vozila je uklonjena.</string>
 	<string name="voice_selection_prompt">Recite broj jedan, dva ili tri</string>
@@ -519,4 +519,11 @@
     <string name="audio_effects_range_error">Enter a value from %1$d to %2$d.</string>
 
     <string name="legacy_preset_migration_notice">Prethodna postavka ekvilizatora uređaja nije se mogla automatski pretvoriti. Jednom odaberite ili prilagodite ekvilizator.</string>
+    <string name="dem_home_web">Dem TV • Uživo ↗</string>
+    <string name="dem_mirror_waiting">Otvorite Dem TV na telefonu i potvrdite dijeljenje zaslona.</string>
+    <string name="dem_mirror_stop">✕ Zaustavi zrcaljenje</string>
+    <string name="dem_mirror_rejected">Dijeljenje zaslona nije pokrenuto. Vratite se i ponovno potvrdite na telefonu.</string>
+    <string name="dem_mirror_connect">Otvorite Dem TV u Android Autu, zatim potvrdite dijeljenje zaslona na telefonu.</string>
+    <string name="dem_mirror_external">Pokreni uz ScreenOnAuto</string>
+    <string name="dem_mirror_external_failed">ScreenOnAuto nije pokrenut. Provjerite aplikaciju i vezu s vozilom.</string>
 </resources>
