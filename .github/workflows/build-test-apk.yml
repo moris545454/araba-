@@ -90,3 +90,15 @@ jobs:
               --notes-file UPDATE_RELEASE_NOTES_TR.md \
               out/FermataX-yeni-arayuz-debug.apk out/sha256.txt out/security-apk-check.json
           fi
+
+      - name: Write download summary
+        if: ${{ success() }}
+        env:
+          TAG: ${{ steps.apk.outputs.tag }}
+        run: |
+          {
+            echo "## Dem TV $TAG"
+            echo
+            echo "- APK: https://github.com/${{ github.repository }}/releases/download/$TAG/FermataX-yeni-arayuz-debug.apk"
+            echo "- SHA-256: \`$(cut -d' ' -f1 out/sha256.txt)\`"
+          } >> "$GITHUB_STEP_SUMMARY"
