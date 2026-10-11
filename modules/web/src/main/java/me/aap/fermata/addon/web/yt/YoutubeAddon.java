@@ -766,7 +766,7 @@ public class YoutubeAddon extends WebBrowserAddon
 		FILL, CONTAIN, COVER, NONE;
 
 		String prefName() {
-			return name().toLowerCase();
+			return name().toLowerCase(java.util.Locale.ROOT);
 		}
 	}
 
