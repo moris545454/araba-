@@ -1,3 +1,15 @@
+# Dem TV 2.1.6 — kullanıcı kanal listeleri (hazırlık)
+
+- TV'de **IPTV kaynağı ekle (+)** düğmesi artık her TV sayfasında görünür; aynı seçenek menüde ve kaynağa uzun basınca da vardır.
+- **Bağlantı ile liste ekle:** Yalnızca M3U bağlantısı yazılarak liste eklenir; geçersiz ve tekrar eden bağlantılar reddedilir.
+- **Varsayılan kanal listesini geri yükle:** Varsayılan liste silinmişse tek dokunuşla geri eklenir.
+- **Liste bağlantısını kopyala:** M3U kaynaklarının uzun basma menüsünde.
+- Varsayılan Türkiye kanalları listesi, kayıtlı kaynaklar ve mevcut M3U/Xtream/Stalker ekleme, düzenleme, silme akışları değiştirilmedi.
+
+Durum: Kaynak kod hazır; APK henüz derlenmedi ve cihazda doğrulanmadı. APK, mevcut imza anahtarıyla derlenene kadar dağıtılan dosya 2.1.5 olarak kalır.
+
+---
+
 # Dem TV 2.1.5 — dört temel işlev için ön sürüm
 
 2.1.4’te kullanıcı TV/YouTube açılışında uygulamanın kapandığını bildirdi. Bu sürüm kararlı listeden çekildi. **Kullanıcı 2.1.5’in çalıştığını bildirdi.** Normal kurulumla Android Auto’da görünmediği bildirildiği için rehbere KingInstaller üzerinden kurulum eklendi. Araç doğrulaması beklenmektedir; kapanmanın kesin nedeni gerçek cihaz hata kaydıyla doğrulanmış değildir. Bu nedenle henüz otomatik kararlı güncelleme olarak yayınlanmaz.
