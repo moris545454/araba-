@@ -169,7 +169,7 @@ tasks.register('clean', Delete) {
 
 tasks.register('verifyWebOnlyProductionGraph') {
     group = 'verification'
-    description = 'Verifies the Web-only Stremio graph contains no retired native feature or libtorrent dependency.'
+    description = 'Verifies the minimal TV/Web/YouTube graph contains no retired or torrent feature.'
 
     doLast {
         def violations = []
@@ -179,8 +179,8 @@ tasks.register('verifyWebOnlyProductionGraph') {
         if (!configuredModules.contains(':web')) {
             violations.add('The Web add-on is missing from the production graph.')
         }
-        if (!file('modules/web/src/main/java/me/aap/fermata/addon/web/stremio/StremioWebAddon.java').isFile()) {
-            violations.add('The Web-only Stremio add-on source is missing.')
+        if (configuredModules != gradle.ext.coreProductionModules) {
+            violations.add('Only TV, Web and their ExoPlayer/VLC playback engines may be packaged.')
         }
         retiredModules.each { module ->
             if (configuredModules.contains(module) || findProject(module) != null) {

@@ -4,7 +4,6 @@ import static android.app.PendingIntent.FLAG_IMMUTABLE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE;
 import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT;
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
-import static android.provider.Settings.System.SCREEN_BRIGHTNESS;
 import static android.util.Base64.URL_SAFE;
 import static android.view.View.GONE;
 import static android.view.WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD;
@@ -41,7 +40,6 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.LocaleList;
-import android.provider.Settings;
 import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Base64;
 import android.view.KeyEvent;
@@ -163,7 +161,7 @@ public class MainActivityDelegate extends ActivityDelegate
 	private boolean barsHidden;
 	private int phoneRootId = R.id.dashboard_fragment;
 	private boolean videoMode;
-	private float brightness = -1f;
+    private final WindowBrightnessController brightness = new WindowBrightnessController(this::getWindow);
 	private final VoiceInteractionCoordinator voiceInteraction;
 	private final long diagnosticsActivityId = AsyncOperationController.DiagnosticsObserver.nextId();
 	private long hostRelaunchGeneration;
@@ -255,6 +253,9 @@ public class MainActivityDelegate extends ActivityDelegate
 		if ((state != null) && state.getBoolean("restoreFragment", false)) {
 			navId = state.getInt("navId", ID_NULL);
 			fragmentId = state.getInt("fragmentId", ID_NULL);
+            int supported = me.aap.fermata.ui.policy.CoreRoutePolicy.restore(fragmentId);
+            if (supported != fragmentId) navId = R.id.dashboard_fragment;
+            fragmentId = supported;
 			phoneRootId = PhoneRootPolicy.resolvePhoneRoot(
 					state.getInt("phoneRootId", R.id.dashboard_fragment), fragmentId);
 		} else {
@@ -765,12 +766,9 @@ public class MainActivityDelegate extends ActivityDelegate
 
 				if (p.getChangeBrightnessPref()) {
 					if (videoMode) {
-						brightness = getWindow().getAttributes().screenBrightness;
-						setBrightness(p.getBrightnessPref());
+                        brightness.enter(isCarActivity(), p.getBrightnessPref());
 					} else {
-						var attributes = getWindow().getAttributes();
-						attributes.screenBrightness = brightness;
-						getWindow().setAttributes(attributes);
+                        brightness.restore(isCarActivity());
 					}
 				}
 				if (p.getLandscapeVideoPref()) {
@@ -821,17 +819,11 @@ public class MainActivityDelegate extends ActivityDelegate
 	}
 
 	public int getBrightness() {
-		float current = getWindow().getAttributes().screenBrightness;
-		return current >= 0f ? Math.round(current * 255) :
-				Settings.System.getInt(getContext().getContentResolver(), SCREEN_BRIGHTNESS, 255);
+        return brightness.get(isCarActivity());
 	}
 
 	public void setBrightness(int br) {
-		// Affect only this application window; never modify the phone's global settings.
-		var window = getWindow();
-		var attributes = window.getAttributes();
-		attributes.screenBrightness = Math.max(0, Math.min(255, br)) / 255f;
-		window.setAttributes(attributes);
+        brightness.set(isCarActivity(), br);
 	}
 
 	public boolean isVideoMode() {
@@ -1334,9 +1326,7 @@ public class MainActivityDelegate extends ActivityDelegate
 			if (getPrefs().getChangeBrightnessPref() && isVideoMode()) {
 				setBrightness(getPrefs().getBrightnessPref());
 			} else {
-				var attributes = getWindow().getAttributes();
-				attributes.screenBrightness = -1f;
-				getWindow().setAttributes(attributes);
+                brightness.reset(isCarActivity());
 			}
 		} else if (prefs.contains(BRIGHTNESS)) {
 			if (isVideoMode()) setBrightness(getPrefs().getBrightnessPref());

@@ -4,6 +4,8 @@ android {
         versionCode 1
         versionName "1.0"
     }
+    sourceSets.main.java.exclude '**/stremio/**'
+    sourceSets.test.java.exclude '**/stremio/**'
 }
 
 ext {
@@ -28,17 +30,6 @@ ext {
 					capabilities: 'dashboard,navigation,web,voice_search',
 					voiceTarget: 'web',
                     order: 3
-            ],
-            [
-                    name : 'stremio',
-                    id   : 'stremio_fragment',
-                    icon : 'stremio',
-                    class: 'me.aap.fermata.addon.web.stremio.StremioWebAddon',
-                    fragment: true,
-                    capabilities: 'dashboard,navigation,stremio,voice_search',
-                    voiceTarget: 'stremio',
-                    resolverSchemes: 'stremio',
-                    order: 7
             ]
     ]
 }

@@ -34,7 +34,7 @@ public final class DashboardItems {
 			Pref.sa("DASHBOARD_ITEMS", (String[]) null);
 	static final Pref<IntSupplier> LAYOUT_VERSION =
 			Pref.i("DASHBOARD_LAYOUT_VERSION", 0);
-	private static final int UI_REFRESH_LAYOUT_VERSION = 5;
+    private static final int UI_REFRESH_LAYOUT_VERSION = 6;
 	public static final String DASHBOARD = "dashboard";
 	public static final String SETTINGS = "settings";
 	public static final String FOLDERS = "folders";
@@ -225,10 +225,6 @@ public final class DashboardItems {
             addMissingItem(names, WINDASIST, null);
             addMissingItem(names, DEM_TV, WINDASIST);
         }
-		addMissingItem(names, FOLDERS, null);
-		addMissingItem(names, FAVORITES, FOLDERS);
-		addMissingItem(names, RECENT, FAVORITES);
-		addMissingItem(names, PLAYLISTS, RECENT);
 
 		for (AddonInfo ai : AddonManager.get().getAddonInfos()) {
 			if ((navigationLayout ? isNavigationAddon(ai, includeDisabled) :
@@ -246,10 +242,6 @@ public final class DashboardItems {
 		defaults.add(MIRROR);
         defaults.add(WINDASIST);
         defaults.add(DEM_TV);
-		defaults.add(FOLDERS);
-		defaults.add(FAVORITES);
-		defaults.add(RECENT);
-		defaults.add(PLAYLISTS);
 		for (AddonInfo info : AddonManager.get().getAddonInfos()) {
 			if (AddonUiMetadata.isDashboardItem(info)) defaults.add(info.className);
 		}
@@ -274,8 +266,6 @@ public final class DashboardItems {
 		}
 		featured.add(WINDASIST);
         featured.add(DEM_TV);
-        featured.add(FOLDERS);
-		featured.add(FAVORITES);
 		String[] migrated = featureMediaOrder(pref, defaults, featured);
 		try (PreferenceStore.Edit edit = store.editPreferenceStore()) {
 			edit.setStringArrayPref(PREF, migrated);
@@ -327,7 +317,7 @@ public final class DashboardItems {
 		if (MENU.equals(name)) return includeMenu;
 		if (MIRROR.equals(name) || DEM_TV.equals(name) || WINDASIST.equals(name)) return !navigationLayout;
 		if (FOLDERS.equals(name) || FAVORITES.equals(name) || RECENT.equals(name) ||
-				PLAYLISTS.equals(name)) return true;
+                PLAYLISTS.equals(name)) return false;
 
 		for (AddonInfo ai : AddonManager.get().getAddonInfos()) {
 			if (ai.className.equals(name)) return navigationLayout ?

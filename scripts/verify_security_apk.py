@@ -20,7 +20,9 @@ badging = dump('badging')
 manifest = subprocess.check_output([args.aapt, 'dump', 'xmltree', str(args.apk), 'AndroidManifest.xml'], text=True)
 forbidden = ['SYSTEM_ALERT_WINDOW', 'MANAGE_EXTERNAL_STORAGE', 'WRITE_SETTINGS',
              'DISABLE_KEYGUARD', 'USE_FULL_SCREEN_INTENT', 'READ_SMS', 'RECEIVE_SMS',
-             'READ_CONTACTS', 'READ_CALL_LOG', 'READ_PHONE_STATE', 'QUERY_ALL_PACKAGES']
+             'READ_CONTACTS', 'READ_CALL_LOG', 'READ_PHONE_STATE', 'QUERY_ALL_PACKAGES',
+             'CAMERA', 'RECORD_AUDIO', 'ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION',
+             'READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE', 'READ_MEDIA_AUDIO', 'READ_MEDIA_VIDEO']
 for name in forbidden:
     assert "name='android.permission." + name + "'" not in permissions, name
 assert 'application-debuggable' not in badging, 'APK is debuggable'
@@ -40,6 +42,9 @@ with zipfile.ZipFile(args.apk) as apk:
             dex = apk.read(name)
             assert b'Lme/aap/utils/security/SecurityUtils$InsecureTrustManager;' not in dex
             assert b'Lde/robv/android/xposed/' not in dex
+            for addon in ['radio', 'podcast', 'audiobook', 'chat', 'cast', 'gdrive']:
+                assert ('Lme/aap/fermata/addon/' + addon + '/').encode() not in dex, addon
+            assert b'Lme/aap/fermata/addon/web/stremio/' not in dex, 'stremio'
             for cls in removed:
                 assert ('Lme/app/fermatax/auto/' + cls + ';').encode() not in dex, cls
     assert 'res/drawable-nodpi-v4/dashboard_reference.jpg' in apk.namelist(), 'Dashboard artwork missing'

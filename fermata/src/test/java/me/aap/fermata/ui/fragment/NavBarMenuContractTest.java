@@ -28,7 +28,8 @@ public class NavBarMenuContractTest {
 		int exit = menu.indexOf("R.id.nav_exit");
 		int support = menu.indexOf("R.id.nav_donate");
 		assertTrue((settings >= 0) && (settings < about));
-		assertTrue((about < exit) && (exit < support));
+		assertTrue(about < exit);
+		assertEquals(-1, support);
 		assertFalse(menu.contains("isCarActivityNotMirror"));
 	}
 

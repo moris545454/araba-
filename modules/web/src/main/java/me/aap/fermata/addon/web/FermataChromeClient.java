@@ -59,9 +59,6 @@ public class FermataChromeClient extends WebChromeClient {
 	private Promise<Void> fullScreenReq;
 	private long touchStamp;
 	private boolean phonePermissionHintShown;
-    private static final WebPermissionPolicy websitePermissions = new WebPermissionPolicy();
-    private final java.util.Set<PermissionRequest> cancelledPermissions =
-            java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
 
 	protected final DiagnosticsObserver diagnosticsObserver;
 
@@ -314,132 +311,19 @@ public class FermataChromeClient extends WebChromeClient {
 
     @Override
     public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback cb) {
-        if (cb == null) return;
-        if (!WebPermissionPolicy.sameOrigin(origin, web.getUrl())) {
-            cb.invoke(origin, false, false);
-            return;
-        }
-        MainActivityDelegate activity = MainActivityDelegate.get(web.getContext());
-        Runnable request = () -> {
-            if (!WebPermissionPolicy.sameOrigin(origin, web.getUrl())) {
-                cb.invoke(origin, false, false);
-                return;
-            }
-            if (BuildConfig.AUTO && activity.isCarActivityNotMirror()) {
-                Context context = web.getContext();
-                boolean permission = ContextCompat.checkSelfPermission(context,
-                        Manifest.permission.ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED ||
-                        ContextCompat.checkSelfPermission(context,
-                                Manifest.permission.ACCESS_FINE_LOCATION) == PERMISSION_GRANTED;
-                cb.invoke(origin, permission, false);
-                if (!permission) showPhonePermissionHint(context);
-                return;
-            }
-            activity.getAppActivity().checkPermissions(Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.ACCESS_FINE_LOCATION).onCompletion((permissions, error) -> {
-                boolean ok = error == null && permissions.length == 2 &&
-                        (permissions[0] == PERMISSION_GRANTED || permissions[1] == PERMISSION_GRANTED) &&
-                        WebPermissionPolicy.sameOrigin(origin, web.getUrl());
-                if (ok) websitePermissions.approve(origin, web.getUrl(), WebPermissionPolicy.LOCATION);
-                cb.invoke(origin, ok, false);
-            });
-        };
-        if (websitePermissions.allows(origin, web.getUrl(), WebPermissionPolicy.LOCATION)) request.run();
-        else if (BuildConfig.AUTO && activity.isCarActivityNotMirror()) {
-            cb.invoke(origin, false, false);
-            showPhonePermissionHint(web.getContext());
-        } else {
-            new com.google.android.material.dialog.MaterialAlertDialogBuilder(web.getContext())
-                    .setMessage(WebPermissionPolicy.origin(origin) + "\n\n" +
-                            web.getContext().getString(me.aap.fermata.R.string.web_location_consent))
-                    .setNegativeButton(android.R.string.cancel, (d, w) -> cb.invoke(origin, false, false))
-                    .setPositiveButton(android.R.string.ok, (d, w) -> request.run())
-                    .setOnCancelListener(d -> cb.invoke(origin, false, false)).show();
-        }
-    }
-
-    @Override
-    public void onPermissionRequestCanceled(PermissionRequest request) {
-        cancelledPermissions.add(request);
+        if (cb != null) cb.invoke(origin, false, false);
     }
 
     @Override
     public void onPermissionRequest(PermissionRequest request) {
-        String origin = request.getOrigin().toString();
-        if (!WebPermissionPolicy.sameOrigin(origin, web.getUrl())) {
-            request.deny();
-            return;
-        }
-        Map<String, String> perms = new java.util.LinkedHashMap<>();
-        boolean protectedMedia = false;
+        boolean sameOrigin = WebPermissionPolicy.sameOrigin(request.getOrigin().toString(), web.getUrl());
         for (String resource : request.getResources()) {
-            switch (resource) {
-                case PermissionRequest.RESOURCE_AUDIO_CAPTURE ->
-                        perms.put(Manifest.permission.RECORD_AUDIO, resource);
-                case PermissionRequest.RESOURCE_VIDEO_CAPTURE ->
-                        perms.put(Manifest.permission.CAMERA, resource);
-                case PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID -> protectedMedia = true;
-                default -> { } // Unknown WebView permissions are never granted.
-            }
-        }
-        final boolean drm = protectedMedia;
-        if (perms.isEmpty()) {
-            if (drm) request.grant(new String[]{PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID});
-            else request.deny();
-            return;
-        }
-        MainActivityDelegate activity = MainActivityDelegate.get(web.getContext());
-        Runnable grant = () -> {
-            if (cancelledPermissions.remove(request)) return;
-            if (!WebPermissionPolicy.sameOrigin(origin, web.getUrl())) { request.deny(); return; }
-            String[] keys = perms.keySet().toArray(new String[0]);
-            if (BuildConfig.AUTO && activity.isCarActivityNotMirror()) {
-                List<String> allowed = new ArrayList<>();
-                for (String permission : keys) {
-                    if (websitePermissions.allows(origin, web.getUrl(), perms.get(permission)) &&
-                            ContextCompat.checkSelfPermission(web.getContext(), permission) == PERMISSION_GRANTED)
-                        allowed.add(perms.get(permission));
-                }
-                if (drm) allowed.add(PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID);
-                if (allowed.isEmpty()) { request.deny(); showPhonePermissionHint(web.getContext()); }
-                else request.grant(allowed.toArray(new String[0]));
+            if (sameOrigin && PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID.equals(resource)) {
+                request.grant(new String[]{PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID});
                 return;
             }
-            activity.getAppActivity().checkPermissions(keys).onCompletion((permissions, error) -> {
-                if (cancelledPermissions.remove(request)) return;
-                if (error != null || !WebPermissionPolicy.sameOrigin(origin, web.getUrl())) {
-                    request.deny(); return;
-                }
-                List<String> allowed = new ArrayList<>();
-                for (int i = 0; i < Math.min(keys.length, permissions.length); i++) {
-                    if (permissions[i] == PERMISSION_GRANTED) {
-                        String resource = perms.get(keys[i]);
-                        websitePermissions.approve(origin, web.getUrl(), resource);
-                        allowed.add(resource);
-                    }
-                }
-                if (drm) allowed.add(PermissionRequest.RESOURCE_PROTECTED_MEDIA_ID);
-                if (allowed.isEmpty()) request.deny();
-                else request.grant(allowed.toArray(new String[0]));
-            });
-        };
-        boolean approved = perms.values().stream().allMatch(resource ->
-                websitePermissions.allows(origin, web.getUrl(), resource));
-        if (approved) grant.run();
-        else if (BuildConfig.AUTO && activity.isCarActivityNotMirror()) {
-            request.deny(); showPhonePermissionHint(web.getContext());
-        } else {
-            new com.google.android.material.dialog.MaterialAlertDialogBuilder(web.getContext())
-                    .setMessage(WebPermissionPolicy.origin(origin) + "\n\n" +
-                            web.getContext().getString(me.aap.fermata.R.string.web_capture_consent))
-                    .setNegativeButton(android.R.string.cancel, (d, w) -> {
-                        if (!cancelledPermissions.remove(request)) request.deny();
-                    })
-                    .setPositiveButton(android.R.string.ok, (d, w) -> grant.run())
-                    .setOnCancelListener(d -> {
-                        if (!cancelledPermissions.remove(request)) request.deny();
-                    }).show();
         }
+        request.deny();
     }
 
 	private void showPhonePermissionHint(Context context) {

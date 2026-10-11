@@ -249,7 +249,8 @@ public interface MainActivityPrefs
 	}
 
 	default boolean getVoiceControlEnabledPref() {
-		return getBooleanPref(VOICE_CONTROl_ENABLED);
+        // The minimal Dem TV build does not request microphone access.
+        return false;
 	}
 
 	default boolean getVoiceControlFBPref() {

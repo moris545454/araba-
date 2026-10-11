@@ -2,7 +2,7 @@
 
 Depo: https://github.com/moris545454/araba-
 
-Dağıtılan tek APK, telefon ve Android Auto için `me.app.fermataX.auto.debug` paketidir. İlk yayımlanan sürüm 2.0.2 (309); güncel sürüm Dem TV 2.1.4 (315). Mevcut arayüz ve diğer özellikler korunur.
+Dağıtılan tek APK, telefon ve Android Auto için `me.app.fermataX.auto.debug` paketidir. İlk yayımlanan sürüm 2.0.2 (309); 2.1.4 (315), kapanma bildirimi nedeniyle kararlı listeden çekildi. Dem TV 2.1.5 (316), dört temel işlevi içeren ön sürümdür; gerçek telefon/araç doğrulaması tamamlanmadan kararlı güncelleme olarak sunulmaz.
 
 Uygulama açılışta ve yaklaşık altı saatlik arka plan aralıklarında GitHub'ın en son yayımlanmış Release kaydını kontrol eder. Android pil/ağ politikaları bu kontrolleri geciktirebilir; bu anlık sunucu push bildirimi değildir. Açılış kontrolleri bir saatlik başarı önbelleği kullanır. Bildirim izni verilmişse daha yüksek sürüm kodu için tek bildirim gösterilir. Ayarlar → Arayüz → Uygulama güncellemeleri ekranından kontrol, bildirim ayarları, otomatik kontrolü kapatma ve İndir ve yükle erişilebilir. Kurulum telefonda Android'in onayıyla yapılır; araç arayüzünde APK kurulumu açılmaz.
 
@@ -12,7 +12,7 @@ APK indirilmeden önce `update-auto-debug.json` okunur; yalnızca bu depodaki ta
 
 GitHub hesabında Actions devre dışı; doğrudan Release varlığı yükleme bağlantısı da bu ortamın kimlik bilgisini kabul etmiyor. Bu nedenle ilk APK `distribution/FermataX-yeni-arayuz-debug.apk` yolunda Git LFS ile tutulur. Release sayfası tek dosya APK indirme bağlantısını verir. `distribution/update-auto-debug.json` sürüm etiketiyle birlikte sabitlenir. Uygulama önce Release varlıklarını arar; bulunmazsa aynı etiketin depodaki manifestini okur ve yalnızca GitHub'ın bu depoya ait sürüm etiketindeki APK dosyasını indirir.
 
-Actions kapalı olsa da uygulama içi sürüm kontrolü, bildirim ve indirme çalışır. Elle yeni sürüm yayımlarken aynı imzayla APK oluşturun, `python scripts/verify_security_apk.py APK --aapt /SDK/build-tools/36.0.0/aapt` kontrolünü çalıştırın, LFS dosyasını güncelleyin, `python scripts/create_update_manifest.py distribution/FermataX-yeni-arayuz-debug.apk distribution/update-auto-debug.json repository-lfs` çalıştırın ve bütün değişiklikleri aynı sürüm etiketiyle yayımlayın. Sürüm kodunu artırın. Yeni Release taslak/ön sürüm olmamalıdır.
+Actions kapalı olsa da uygulama içi sürüm kontrolü, bildirim ve indirme çalışır. Elle yeni sürüm yayımlarken aynı imzayla APK oluşturun, `python scripts/verify_security_apk.py APK --aapt /SDK/build-tools/36.0.0/aapt` kontrolünü çalıştırın, LFS dosyasını güncelleyin, `python scripts/create_update_manifest.py distribution/FermataX-yeni-arayuz-debug.apk distribution/update-auto-debug.json repository-lfs` çalıştırın ve bütün değişiklikleri aynı sürüm etiketiyle yayımlayın. Sürüm kodunu artırın. Otomatik güncelleme için Release taslak/ön sürüm olmamalıdır. Doğrulama bekleyen 2.1.5 gibi test APK’larını ön sürüm olarak yayımlayın; bunlar uygulamadaki otomatik güncelleme akışına girmez.
 
 ## Otomatik derleme için sonraki sürümü yayımlama
 
@@ -26,4 +26,4 @@ Actions kapalı olsa da uygulama içi sürüm kontrolü, bildirim ve indirme ça
 
 Workflow aynı etiketi yeniden yazmaz. Yeni bir sürüm için sürüm kodunu da artırmak gerekir. GitHub Actions bölümünden elle de tetiklenebilir.
 
-İmza anahtarı Git'e eklenmez. Otomatik APK derlemesinin çalışması için aynı anahtarın `FERMATAX_DEBUG_KEYSTORE_BASE64` GitHub Actions secret'ına kurulması gerekir. Bu oturumdaki GitHub bağlantısı Actions secret yönetimine yetkili değildir; secret kurulumu henüz yapılmadı. Bu secret veya imza anahtarı değiştirilirse mevcut kullanıcılar uygulamanın üzerine güncelleme kuramaz. Kaynak ZIP imza anahtarı içermez. Bu dağıtım mevcut imzayı ve teknik debug paket adını korur; 2.1.4 APK ve dinamik modüllerinde debuggable=false kullanılır; ileride release paketine geçiş ayrı bir paket/imza geçişi olarak planlanmalıdır.
+İmza anahtarı Git'e eklenmez. Otomatik APK derlemesinin çalışması için aynı anahtarın `FERMATAX_DEBUG_KEYSTORE_BASE64` GitHub Actions secret'ına kurulması gerekir. Bu oturumdaki GitHub bağlantısı Actions secret yönetimine yetkili değildir; secret kurulumu henüz yapılmadı. Bu secret veya imza anahtarı değiştirilirse mevcut kullanıcılar uygulamanın üzerine güncelleme kuramaz. Kaynak ZIP imza anahtarı içermez. Bu dağıtım mevcut imzayı ve teknik debug paket adını korur; 2.1.4 ve 2.1.5 APK ve dinamik modüllerinde debuggable=false kullanılır; ileride release paketine geçiş ayrı bir paket/imza geçişi olarak planlanmalıdır.

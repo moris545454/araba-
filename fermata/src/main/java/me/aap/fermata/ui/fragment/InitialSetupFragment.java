@@ -127,7 +127,12 @@ public class InitialSetupFragment extends me.aap.utils.ui.fragment.ActivityFragm
 		voiceEnabled.setOnCheckedChangeListener((button, checked) -> updateVoiceControls(checked));
 		microphoneTest.setOnClickListener(v -> testMicrophone());
 		view.findViewById(R.id.initial_setup_continue).setOnClickListener(v -> applyAndContinue());
-		updateVoiceControls(voiceEnabled.isChecked());
+		voiceEnabled.setChecked(false);
+		voiceEnabled.setVisibility(GONE);
+		voiceLanguage.setVisibility(GONE);
+		microphoneTest.setVisibility(GONE);
+		microphoneStatus.setVisibility(GONE);
+		view.findViewById(R.id.initial_setup_voice_language_label).setVisibility(GONE);
 	}
 
 	@Override
@@ -231,7 +236,7 @@ public class InitialSetupFragment extends me.aap.utils.ui.fragment.ActivityFragm
 		int nav = (navPosition.getCheckedRadioButtonId() == R.id.initial_setup_nav_right)
 				? NavBarView.POSITION_RIGHT : NavBarView.POSITION_LEFT;
 		int locale = appLanguage.getSelectedItemPosition();
-		boolean voice = voiceEnabled.isChecked();
+		boolean voice = false;
 		String voiceLocale = selectedVoiceLocale(activity);
 		boolean autoVoice = voiceLanguage.getSelectedItemPosition() == VOICE_AUTO;
 		boolean navChanged = prefs.getNavBarPosPref(activity) != nav;

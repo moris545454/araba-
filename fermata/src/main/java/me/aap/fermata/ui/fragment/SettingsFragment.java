@@ -339,7 +339,7 @@ public class SettingsFragment extends MainActivityFragment
 		PlaybackPrefsBuilder.add(a, playback, mediaPrefs, audioEffectsProfiles, audioEffectsDraft);
 		MediaEnginePrefsBuilder.add(a, playback, mediaPrefs, isCar);
 
-		VoicePrefsBuilder.add(a, set);
+
 
 		DashboardPrefsBuilder.add(a, set, this::refreshPrefs);
 		addAddons(set);

@@ -23,7 +23,7 @@ public class SettingsMenuContractTest {
 	public void playbackSettingsDoesNotExposeSubtitleSubmenu() throws Exception {
 		String source = source("SettingsFragment.java");
 		int start = source.indexOf("PreferenceSet playback =");
-		int end = source.indexOf("VoicePrefsBuilder.add", start);
+		int end = source.indexOf("DashboardPrefsBuilder.add", start);
 
 		assertTrue(start >= 0);
 		assertTrue(end > start);

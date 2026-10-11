@@ -221,7 +221,6 @@ public class NavBarMediator extends PrefNavBarMediator
 			b.addItem(R.id.nav_about, R.drawable.about, R.string.about);
 			b.addItem(R.id.nav_exit, R.drawable.exit, R.string.exit);
 
-			if (BuildConfig.AUTO) b.addItem(R.id.nav_donate, R.drawable.coffee, R.string.donate);
 		});
 	}
 

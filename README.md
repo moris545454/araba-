@@ -1,115 +1,40 @@
 # Dem TV
 
-Android Auto ve telefon için Türkçe medya uygulaması. TV, YouTube ve ekran yansıtma ana sayfanın öncelikli bölümleridir.
+TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe Android uygulaması.
 
-[Tek sayfadan APK indirme ve kurulum](https://dem-tv-indir.chirpypeach128.chatgpt.site) · [Dem TV 2.1.4 indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.4/distribution/FermataX-yeni-arayuz-debug.apk) · [Türkçe kurulum rehberi](KURULUM_REHBERI_TR.md) · [Güvenlik düzenlemeleri](GUVENLIK_NOTLARI_TR.md) · [Sürüm ve yansıtma ayrıntıları](UPDATE_RELEASE_NOTES_TR.md)
+[APK indirme ve kurulum sayfası](https://dem-tv-indir.chirpypeach128.chatgpt.site) · [2.1.5 test APK’sını indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.5/distribution/FermataX-yeni-arayuz-debug.apk) · [Kurulum rehberi](KURULUM_REHBERI_TR.md) · [Güvenlik kapsamı](GUVENLIK_NOTLARI_TR.md) · [Sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
 
-Ana sayfa önceki üç öncelikli bölüm ve kompakt kısayol düzenini kullanır. WindAsist ve Dem TV canlı yayın, radyo/podcast gibi kısayolların yanında bulunur. Ana kartların simge ve ekran görselleri kullanıcı referansındaki özgün görsellerle düzeltildi; başlıklar sola hizalı ve oklar kart rengindedir. Cam görünümü güçlendirildi; tam ekran video ve yansıtma dahil uygulama sayfalarında kalıcı ana sayfa düğmesi vardır. Android Auto’daki Ekran yansıt eylemi telefonda ekran paylaşımı onayını açmayı dener; Android bunu engellerse Dem TV bildirimi veya telefon simgesi aynı bekleyen izin isteğini açar.
+## Sürüm durumu
 
-Uygulama içinden güncelleme desteklenir. Eski kurulumların güncellenebilmesi için paket kimliği ve imza korunmuştur. Proje Fermata tabanlıdır; orijinal kaynak ve lisans atıfları korunur.
+2.1.4, kullanıcıların TV/YouTube açarken kapanma bildirmesi üzerine kararlı sürüm listesinden geri çekildi. **2.1.5 bir ön sürümdür; araçta çalışma doğrulaması beklenmektedir.** Kapanmanın kesin nedeni cihaz hata kaydı olmadan doğrulanmış sayılmaz. Ön sürüm otomatik güncelleme olarak önerilmez.
 
-# FermataX — yenilenen arayüz ve GitHub güncellemeleri
+## Kapsam
 
-[APK indir](https://github.com/moris545454/araba-/releases/latest) · [Güncelleme ve yayınlama rehberi](GITHUB_UPDATES_TR.md) · [Arayüz değişiklikleri](UI_REDESIGN_TR.md)
+Ana sayfada TV, YouTube ve ekran yansıtma ana kartları; tarayıcı, WindAsist ve Dem TV web kısayolları bulunur. Uygulama sayfalarında ana sayfaya dönüş korunur. Yan kısayollar varsayılan olarak gizlidir; ayarlardan açılır.
 
-TV, YouTube ve ekran yansıtma öncelikli koyu kart tasarımı. Telefon ve Android Auto için tek universal debug APK. Ayarlar → Arayüz → Uygulama güncellemeleri ekranından yeni sürümleri kontrol edip yükleyebilirsiniz. Otomatik bildirimler için Android bildirim iznini açın; arka plan kontrolleri Android tarafından geciktirilebilir.
+TV’nin varsayılan M3U kaynağı https://onureroz.com/indirmeler/turk/index.m3u adresidir; kullanıcı kaynağı ekleyebilir veya silebilir. HLS, DASH ve diğer IPTV biçimlerini oynatmak için ExoPlayer/VLC motorları korunmuştur. Radyo, podcast, sesli kitap, Stremio, sohbet, Cast, Google Drive, SMB ve SFTP eklentileri APK’ya derlenmez. Kamera, mikrofon, konum ve genel medya/dosya okuma izinleri kaldırılmıştır.
 
-2.0.3: Türkçe arayüz ve ses komutları, varsayılan olarak gizli yan kısayollar, altta ortak işlem düğmeleri, yenilenen TV/diğer menüler ve silinebilir Türkiye kanal listesi. Kısayolları Ayarlar → Arayüz → Sol kısayol menüsünü göster seçeneğinden açabilirsiniz.
+Ekran yansıtma Android’in MediaProjection iznini ister. Android Auto telefon ekranını kendiliğinden açmaya izin vermezse telefon uygulama simgesi veya bildirim aynı bekleyen isteği açar. İzin iptali kaydı başlatmaz; ana sayfaya dönüş/bağlantı kesilmesi paylaşımı durdurur. Bu görüntü paylaşımıdır; uzaktan dokunmatik kontrol veya telefon sesi aktarımı değildir.
 
----
+## Android Auto
 
-<div align="center">
-  <img src="extracted_logo/fermatax_app_logo.png" width="120" alt="FermataX logo">
+APK’da KingInstaller bağımlılığı, kurulum kaynağını taklit eden kod, erişilebilirlik servisi, root veya Xposed yoktur. APK standart Android yükleyicisiyle kurulabilir. **Bu, her telefonda Android Auto’nun uygulamayı kabul edeceği anlamına gelmez.** Özel video/tarayıcı/yansıtma arayüzü eski projection SDK’sını kullanır; Google’ın dağıtım kuralları, telefon ve Android Auto sürümü görünürlüğü belirler. Google onayı veya bütün yeni Android sürümlerinde sorunsuz çalışma garantisi verilmez.
 
-  <h1>FermataX</h1>
+## Doğrulama ve derleme
 
-  <p>
-    A free and open source media hub built for Android Auto.
-  </p>
+`verifyWebOnlyProductionGraph` görevi artık yalnızca `tv`, `web`, `exoplayer`, `vlc` üretim modüllerine izin verir. Statik APK kapısı yasak izinleri, kaldırılan eklenti sınıflarını, root/Xposed/erişilebilirlik kodlarını ve yansıtma bileşenlerini kontrol eder. Bu kontroller banka/Play Protect onayı veya zararlı yazılım sertifikası değildir.
 
-  <p>
-    <img alt="Android" src="https://img.shields.io/badge/Android-9.0%2B-3DDC84?logo=android&logoColor=white">
-    <img alt="Android Auto" src="https://img.shields.io/badge/Android%20Auto-supported-4285F4?logo=androidauto&logoColor=white">
-    <img alt="Open Source" src="https://img.shields.io/badge/open%20source-yes-brightgreen">
-    <img alt="License" src="https://img.shields.io/badge/license-GPL--3.0-blue">
-  </p>
-</div>
+Java 21, Android SDK 36 ve Gradle wrapper ile:
 
-> [!IMPORTANT]
-> FermataX is free and open source. If you paid for the app through an unofficial website or seller, you may have been scammed.
+```bash
+./gradlew :fermata:testMobileDebugUnitTest :fermata:testAutoDebugUnitTest :web:testMobileDebugUnitTest :tv:testMobileDebugUnitTest
+./gradlew :fermata:lintMobileDebug :fermata:lintAutoDebug verifyWebOnlyProductionGraph
+./gradlew :fermata:packageAutoDebugUniversalApk
+python3 scripts/verify_security_apk.py /path/to/app.apk --aapt /path/to/aapt
+```
 
-## About
+Eski kurulumların güncellenmesi için paket kimliği ve imza korunur. Dağıtım varyantı dosya adında `debug` taşısa da APK `debuggable=false` olarak paketlenir. Yayın sertifikasının özel anahtarı depoya konmaz. [Teknik bağlam](MASTER_CONTEXT.md) ve [yayın süreci](GITHUB_UPDATES_TR.md).
 
-FermataX is a GPL-3.0 fork of [Fermata Media Player](https://github.com/AndreyPavlenko/Fermata), customized as a car-friendly media hub for Android Auto.
+## Lisans ve kaynak
 
-It brings local media, IPTV, Xtream and Stalker Portal, Internet Radio, Podcasts, Audiobooks, Stremio-compatible services, YouTube and Web media together in one interface. Favorites, Recent, playback progress, voice control, and media controls are integrated across supported sources.
-
-## Continuous integration
-
-Every pull request targeting `main` and every push to `main` runs the repository's verification pipeline. CI executes the Mobile and Auto unit suites, Web/TV UI-shell guards, UI single-writer and architecture boundary guards, Android Lint, and a three-dot `git diff --check` against the pull-request base (or push base). After every successful run, the workflow packages and uploads exactly one unsigned universal debug APK for phone and Android Auto/DHU device testing. Release signing and publishing remain separate maintainer actions.
-
-Maintainers and coding agents should also read [MASTER_CONTEXT.md](MASTER_CONTEXT.md), the tracked canonical product and architecture context. README remains the concise onboarding and build-status entry point.
-
-## Highlights
-
-- **Dashboard-first interface** designed for quick access on Android Auto screens.
-- **Left or right navigation rail** with customizable and scrollable items.
-- **Adaptive SmartTopCard** on Android Auto/DHU with Now Playing, Continue/Recent, up to three Quick Recent rows, and width-aware Play/Pause and Favorite actions; phone keeps the ordinary Dashboard without SmartTop.
-- **Local audio and video** playback with folders and playlists.
-- **IPTV and Xtream Codes** with M3U, XMLTV EPG, Catchup, Live TV, Movies, and Series.
-- **Stalker / Ministra portals** with MAC-based authentication, Live TV categories, and playback links resolved on demand.
-- **Internet Radio** with user-added sources and online station discovery.
-- **Podcasts** with search, subscriptions, downloads, and playback progress.
-- **Audiobooks** from local storage, OPDS, LibriVox, and Audiobookshelf sources.
-- **Stremio-compatible services** with catalogs, metadata, streams, subtitles, and supported P2P sources.
-- **YouTube and Web media** access inside the same media hub.
-- **Multilingual in-app voice control** for supported navigation, search, and playback actions.
-- **Unified media experience** with Favorites, Recent, playerbar, MediaSession, and playback progress.
-
-## Screenshots
-
-| Dashboard | IPTV Sources |
-| --- | --- |
-| <img src="product_screenshots/Dashboard.png" alt="FermataX dashboard"> | <img src="product_screenshots/iptv.png" alt="FermataX IPTV source picker"> |
-
-| Podcasts | Internet Radio |
-| --- | --- |
-| <img src="product_screenshots/podcasts.png" alt="FermataX podcasts screen"> | <img src="product_screenshots/radio.png" alt="FermataX radio screen"> |
-
-## Kurulum / Installation
-
-Telefon ve Android Auto için aynı **Dem TV APK** kullanılır. İndirme bağlantıları, KingInstaller 2.3 ile kurulum, telefonun bilinmeyen uygulama yükleme izni ve Android Auto geliştirici ayarları [Türkçe kurulum rehberinde](KURULUM_REHBERI_TR.md) adım adım açıklanır.
-
-Android Auto uygulama listesinde **Dem TV** seçilir. Ayrı bir medya hizmeti veya ekran yansıtma uygulaması kurulması gerekmez. KingInstaller ile kurulumun sonucu telefon, Android ve Android Auto sürümüne göre değişebilir.
-
-### İzinler ve ekran yansıtma
-
-İzinleri telefonda, ilgili özellik istediğinde verin. Android Auto'daki **Ekran yansıt** düğmesinden sonra telefonun kilidini açıp Android'in ekran paylaşımı onayını kabul edin. Onay ekranı otomatik açılmazsa telefondaki Dem TV bildirimine dokunun veya Dem TV'yi açın. Yansıtmayı bitirmek için **Ana sayfa** veya **Yansıtmayı bitir** düğmesini kullanın.
-
-YouTube sesi telefonun **Medya sesi** düzeyini kullanır. Video sesi düşükse telefonda bir video oynatırken medya sesini, ardından araç sesini ayarlayın.
-
-## Disclaimer
-
-FermataX is a media player only. It does not provide, host, sell, or distribute media content, playlists, TV channels, IPTV services, Xtream accounts, Stremio addons, subtitles, or torrent sources.
-
-Third-party services and addons are operated by their respective providers. Users are responsible for the sources they add and for complying with applicable laws.
-
-For safety, do not interact with video content while driving.
-
-## Support
-
-If you enjoy FermataX and would like to support its continued development, you can buy me a coffee:
-
-<p>
-  <a href="https://ko-fi.com/fermatax">
-    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support FermataX on Ko-fi">
-  </a>
-</p>
-
-## Credits
-
-FermataX is based on [Fermata Media Player](https://github.com/AndreyPavlenko/Fermata) by Andrey Pavlenko. Additional open source components and their licenses are listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
-
-## License
-
-FermataX is distributed under the [GNU General Public License v3.0](LICENSE). Copyright and attribution notices from the original Fermata project and included open source components must be preserved.
+Dem TV, [Fermata Media Player](https://github.com/AndreyPavlenko/Fermata) ve FermataX kaynaklarından türetilmiş GPL-3.0 projesidir. Andrey Pavlenko ve diğer katkıcıların telif/lisans bildirimleri korunur. Kaldırılan özelliklerin kaynak geçmişi Git’te bulunabilir; bu onların dağıtılan APK’da bulunduğu anlamına gelmez. [Lisans](LICENSE).

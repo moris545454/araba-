@@ -1,8 +1,8 @@
 {
   "apk": "FermataX-yeni-arayuz-debug.apk",
-  "sha256": "5c86fe182be3cad269d341c26ee882aa45485425ed8bc4512690f31861ec1e49",
-  "versionName": "2.1.4",
-  "versionCode": 315,
+  "sha256": "89a0f27f2901ffb5591835ae65e0594f6f85eb85c5692adeab7cf9e9a12528e4",
+  "versionName": "2.1.5",
+  "versionCode": 316,
   "forbiddenPermissionsAbsent": [
     "SYSTEM_ALERT_WINDOW",
     "MANAGE_EXTERNAL_STORAGE",
@@ -14,7 +14,15 @@
     "READ_CONTACTS",
     "READ_CALL_LOG",
     "READ_PHONE_STATE",
-    "QUERY_ALL_PACKAGES"
+    "QUERY_ALL_PACKAGES",
+    "CAMERA",
+    "RECORD_AUDIO",
+    "ACCESS_FINE_LOCATION",
+    "ACCESS_COARSE_LOCATION",
+    "READ_EXTERNAL_STORAGE",
+    "WRITE_EXTERNAL_STORAGE",
+    "READ_MEDIA_AUDIO",
+    "READ_MEDIA_VIDEO"
   ],
   "debuggable": false,
   "legacyControlCodePackaged": false,

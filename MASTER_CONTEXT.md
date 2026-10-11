@@ -1,3 +1,11 @@
+# Current product override — Dem TV 2.1.5 candidate
+
+The user explicitly narrowed production to TV/IPTV, browser, YouTube, and native consent-based phone screen capture. Only :tv, :web, :exoplayer, :vlc are included by a closed production allowlist. All other addon modules and the Web Stremio implementation are excluded from the APK. Dashboard old layout order is filtered; removed persisted routes return Home.
+
+2.1.4 was withdrawn from the stable release list after the user reported TV/YouTube/application crashes. No device crash trace has been supplied. 2.1.5 must remain prerelease and must not be described as a confirmed crash fix or universal Android Auto compatibility until actual reproduction/device checks succeed. Tests/static gates cannot certify banking/Play Protect acceptance. Preserve the installed package/certificate and user source data. No installer-source spoofing, root, accessibility, overlays, Xposed, or touch injection may be restored to bypass platform acceptance rules.
+
+Camera, microphone, location and global media/storage read permissions are removed; SAF-selected TV imports and user-confirmed MediaProjection remain. The brightness controller never touches the projected-host Window attributes and isolates optional phone brightness errors. Google services are disabled. Historical product requirements below are superseded wherever they conflict with this override.
+
 # FermataX Master Context
 
 > Last updated: 2026-09-24

@@ -153,22 +153,16 @@ public class AddonPolicyTest {
 	@Test
 	public void generatedFragmentAddonsDeclareExplicitUiCapabilities() {
 		assertCapabilities("me.aap.fermata.addon.tv.TvAddon", AddonCapability.TV);
-		assertCapabilities("me.aap.fermata.addon.radio.RadioAddon", AddonCapability.RADIO);
-		assertCapabilities("me.aap.fermata.addon.podcast.PodcastAddon", AddonCapability.PODCAST);
-		assertCapabilities("me.aap.fermata.addon.audiobook.AudiobookAddon",
-				AddonCapability.AUDIOBOOK);
 		assertCapabilities("me.aap.fermata.addon.web.yt.YoutubeAddon", AddonCapability.YOUTUBE);
 		assertCapabilities("me.aap.fermata.addon.web.WebBrowserAddon", AddonCapability.WEB);
-		assertCapabilities("me.aap.fermata.addon.web.stremio.StremioWebAddon",
-				AddonCapability.STREMIO, AddonCapability.VOICE_SEARCH);
-		assertCapabilities("me.aap.fermata.addon.chat.ChatAddon", AddonCapability.CHATGPT,
-				AddonCapability.VOICE_SEARCH);
+		assertNull(AddonRegistry.get().get("me.aap.fermata.addon.web.stremio.StremioWebAddon"));
+		assertNull(AddonRegistry.get().get("me.aap.fermata.addon.radio.RadioAddon"));
+		assertNull(AddonRegistry.get().get("me.aap.fermata.addon.chat.ChatAddon"));
 		assertEquals("tv", AddonRegistry.get().require(
 				"me.aap.fermata.addon.tv.TvAddon").voiceTarget);
 		assertEquals("youtube", AddonRegistry.get().require(
 				"me.aap.fermata.addon.web.yt.YoutubeAddon").voiceTarget);
-		assertEquals("chatgpt", AddonRegistry.get().require(
-				"me.aap.fermata.addon.chat.ChatAddon").voiceTarget);
+
 	}
 
 	@Test
