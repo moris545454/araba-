@@ -2,7 +2,7 @@
 
 Android Auto ve telefon için Türkçe medya uygulaması. TV, YouTube ve ekran yansıtma ana sayfanın öncelikli bölümleridir.
 
-[Dem TV 2.1.3 indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.3/distribution/FermataX-yeni-arayuz-debug.apk) · [Sürüm ve yansıtma ayrıntıları](UPDATE_RELEASE_NOTES_TR.md)
+[Dem TV 2.1.3 indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.3/distribution/FermataX-yeni-arayuz-debug.apk) · [Türkçe kurulum rehberi](KURULUM_REHBERI_TR.md) · [Sürüm ve yansıtma ayrıntıları](UPDATE_RELEASE_NOTES_TR.md)
 
 Ana sayfa önceki üç öncelikli bölüm ve kompakt kısayol düzenini kullanır. WindAsist ve Dem TV canlı yayın, radyo/podcast gibi kısayolların yanında bulunur. Ana kartların simge ve ekran görselleri kullanıcı referansındaki özgün görsellerle düzeltildi; başlıklar sola hizalı ve oklar kart rengindedir. Cam görünümü güçlendirildi; tam ekran video ve yansıtma dahil uygulama sayfalarında kalıcı ana sayfa düğmesi vardır. Android Auto’daki Ekran yansıt eylemi telefonda ekran paylaşımı onayını açmayı dener; Android bunu engellerse Dem TV bildirimi veya telefon simgesi aynı bekleyen izin isteğini açar.
 
@@ -76,40 +76,17 @@ Maintainers and coding agents should also read [MASTER_CONTEXT.md](MASTER_CONTEX
 | --- | --- |
 | <img src="product_screenshots/podcasts.png" alt="FermataX podcasts screen"> | <img src="product_screenshots/radio.png" alt="FermataX radio screen"> |
 
-## Installation
+## Kurulum / Installation
 
-### Using KingInstaller 1.5
+Telefon ve Android Auto için aynı **Dem TV APK** kullanılır. İndirme bağlantıları, KingInstaller 2.3 ile kurulum, telefonun bilinmeyen uygulama yükleme izni ve Android Auto geliştirici ayarları [Türkçe kurulum rehberinde](KURULUM_REHBERI_TR.md) adım adım açıklanır.
 
-1. Download the official FermataX universal APK.
-2. Install and open **KingInstaller 1.5**.
-3. Grant KingInstaller the following permissions:
-   - **Manage all files**
-   - **Install unknown apps**
-4. If FermataX was previously installed with a different signature, back up your settings and uninstall the existing version.
-5. Open KingInstaller, select the FermataX APK, and tap **Install as King**.
-6. If available, enable **Unknown sources** in Android Auto developer settings.
-7. Restart Android Auto, then open **Customize launcher** and enable FermataX.
+Android Auto uygulama listesinde **Dem TV** seçilir. Ayrı bir medya hizmeti veya ekran yansıtma uygulaması kurulması gerekmez. KingInstaller ile kurulumun sonucu telefon, Android ve Android Auto sürümüne göre değişebilir.
 
-> [!NOTE]
-> Compatibility depends on the Android version, Android Auto version, device manufacturer, and current security policies. KingInstaller may not work on every device.
+### İzinler ve ekran yansıtma
 
-If the installation is unsuccessful or FermataX does not appear in Android Auto, visit [FermataX on Ko-fi](https://ko-fi.com/fermatax) for the latest installation instructions and supported options.
+İzinleri telefonda, ilgili özellik istediğinde verin. Android Auto'daki **Ekran yansıt** düğmesinden sonra telefonun kilidini açıp Android'in ekran paylaşımı onayını kabul edin. Onay ekranı otomatik açılmazsa telefondaki Dem TV bildirimine dokunun veya Dem TV'yi açın. Yansıtmayı bitirmek için **Ana sayfa** veya **Yansıtmayı bitir** düğmesini kullanın.
 
-### Permissions and screen mirroring
-
-FermataX does not request every runtime permission when it starts. Grant a permission on the phone
-only when the feature that needs it asks. If Android Auto says a permission is required, safely stop
-the car, open FermataX on the unlocked phone, grant the requested permission in Android Settings,
-then reconnect Android Auto.
-
-Screen mirroring always requires Android's system screen-capture confirmation on the phone. FermataX
-cannot accept that confirmation automatically. The Android Auto launcher exposes the main FermataX
-entry and the supported `fermataX Mirror` projection entry; the experimental `FS fermataX Mirror`
-entry is intentionally hidden.
-
-YouTube audio follows the phone's **Media volume**, not its notification volume. If video audio is
-quiet while notifications are loud, play a video and adjust **Media volume** on the phone before
-changing the car volume.
+YouTube sesi telefonun **Medya sesi** düzeyini kullanır. Video sesi düşükse telefonda bir video oynatırken medya sesini, ardından araç sesini ayarlayın.
 
 ## Disclaimer
 
