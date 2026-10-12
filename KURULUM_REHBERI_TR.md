@@ -1,12 +1,12 @@
-# Dem TV 2.1.8 — Android Auto ve KingInstaller kurulum rehberi
+# Dem TV 2.1.9 — Android Auto ve KingInstaller kurulum rehberi
 
-Dem TV 2.1.8; TV/IPTV, ana sayfada Radyo, Türk radyoları, YouTube, tarayıcı, Favori Kanallar, kendi web kısayollarınız ve izinli ekran yansıtmayı içerir. 2.1.5 için normal kurulumdan sonra Android Auto’da görünmediği bildirildi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
+Dem TV 2.1.9; TV/IPTV, ana sayfada Radyo ve Podcast, direksiyon tuşlarıyla kanal değiştirme, Türk radyoları, YouTube, tarayıcı, Favori Kanallar, kendi web kısayollarınız ve izinli ekran yansıtmayı içerir. 2.1.5 için normal kurulumdan sonra Android Auto’da görünmediği bildirildi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
 
 > **ÖNEMLİ:** Uygulamayı kuramayanlar [bu videoyu](https://www.youtube.com/watch?v=CdU0OlLds2k) izleyerek kurulum yapsın (Shizuku kurulum rehberi). Ardından Dem TV’yi aşağıdaki bağlantıdaki **KingInstaller** uygulamasıyla tekrar kursun; Android Auto’da çalışacaktır ❤
 
 ## 1. Doğrudan indirme bağlantıları
 
-Dem TV 2.1.8 APK (güncel):
+Dem TV 2.1.9 APK (güncel):
 https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk
 
 KingInstaller 2.3 APK — geliştiricinin resmî GitHub yayını:
@@ -40,7 +40,7 @@ Telefon üreticisine göre menü adları değişebilir. Ayarlarda “bilinmeyen 
 4. Android’in kurulum/güncelleme ekranını onaylayın. KingInstaller için bilinmeyen uygulama yükleme izni sorulursa verin.
 5. Kurulum bitince **Dem TV**’yi telefonda bir kez açın. Güncelleme ve ekran paylaşımı bildirimlerini almak istiyorsanız bildirim iznini verin.
 
-**Daha eski bir Dem TV kuruluysa:** 2.1.7 ve sonrası yeni bir imza anahtarıyla derlenir. 2.1.7 kuruluysa 2.1.8’i doğrudan üzerine yükleyin. 2.1.6 veya daha eskisi kuruluysa önce onu kaldırın, sonra yeni sürümü kurun. Kaldırma eklediğiniz IPTV kaynaklarını ve ayarları siler; gerekiyorsa bağlantılarını önceden not alın. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
+**Daha eski bir Dem TV kuruluysa:** 2.1.7 ve sonrası yeni bir imza anahtarıyla derlenir. 2.1.7 veya 2.1.8 kuruluysa 2.1.9’u doğrudan üzerine yükleyin. 2.1.6 veya daha eskisi kuruluysa önce onu kaldırın, sonra yeni sürümü kurun. Kaldırma eklediğiniz IPTV kaynaklarını ve ayarları siler; gerekiyorsa bağlantılarını önceden not alın. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
 
 KingInstaller ayrı bir üçüncü taraf yükleyicidir; Dem TV APK’sının içine eklenmemiştir. Geliştiricisi, yükleme kaynağını Google Play olarak kaydetmenin bazı Android Auto görünürlük kısıtlamalarında yardımcı olduğunu belirtir. Bu, Dem TV’nin Google Play’den yayımlandığı veya Google tarafından onaylandığı anlamına gelmez. Klasik yöntemin başarısı Android ve üretici politikalarına bağlıdır.
 
@@ -91,3 +91,7 @@ Varsayılan **Türkiye kanalları** ve **Türk radyoları** listeleri olduğu gi
 - **Kısayol ekle:** Ana sayfadaki **Kısayol ekle** kartına dokunun → **Yeni web kısayolu** → site bağlantısını ve adını yazın. En fazla 6 kısayol eklenebilir. Aynı karttan **Kaldır: …** seçenekleriyle silinir. Kısayollar uygulama içindeki tarayıcıda açılır.
 
 Kendi eklediğiniz listelerin içeriğinden ve yayın haklarından liste sağlayıcısı sorumludur.
+
+## 9. Direksiyon tuşları
+
+Araç bağlıyken direksiyondaki **ileri / geri** tuşları çalan listede sonraki veya önceki öğeye geçer: TV’de kanal, radyoda istasyon, podcast’te bölüm. Aracınız **kanal yukarı / aşağı** tuşu gönderiyorsa onlar da aynı işi yapar. Atamaları **Ayarlar → Arayüz → Tuş atamaları** bölümünden değiştirebilirsiniz.

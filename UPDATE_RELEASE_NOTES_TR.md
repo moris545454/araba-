@@ -1,3 +1,11 @@
+# Dem TV 2.1.9 — Podcast ve direksiyon tuşları
+
+- **Podcast ana sayfada:** Podcast arama (Apple Podcasts ve fyyd dizinleri), RSS bağlantısıyla abone olma, bölüm dinleme ve kaldığı yerden devam. Araçta ses oynatıcı çubuğuyla çalışır.
+- **Direksiyon tuşları:** Direksiyondaki ileri/geri tuşları TV’de sonraki/önceki kanala, radyoda sonraki/önceki istasyona, podcast’te sonraki/önceki bölüme geçer. Kanal yukarı/aşağı tuşu gönderen araçlarda bu tuşlar da kanal değiştirir. Eşleştirme **Ayarlar → Arayüz → Tuş atamaları** bölümünden değiştirilebilir.
+- 2.1.7/2.1.8 ile aynı imza: kaldırmadan üzerine güncellenir.
+
+---
+
 # Dem TV 2.1.8 — ana sayfada Radyo
 
 - **Radyo ana sayfada:** Radyo eklentisi yeniden pakete alındı; ana sayfadaki kısa yol kartı ve gezinme menüsünden açılır.
