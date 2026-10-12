@@ -180,7 +180,7 @@ tasks.register('verifyWebOnlyProductionGraph') {
             violations.add('The Web add-on is missing from the production graph.')
         }
         if (configuredModules != gradle.ext.coreProductionModules) {
-            violations.add('Only TV, Web and their ExoPlayer/VLC playback engines may be packaged.')
+            violations.add('Only TV, Radio, Podcast, Web and their ExoPlayer/VLC playback engines may be packaged.')
         }
         retiredModules.each { module ->
             if (configuredModules.contains(module) || findProject(module) != null) {

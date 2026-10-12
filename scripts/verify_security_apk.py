@@ -42,7 +42,7 @@ with zipfile.ZipFile(args.apk) as apk:
             dex = apk.read(name)
             assert b'Lme/aap/utils/security/SecurityUtils$InsecureTrustManager;' not in dex
             assert b'Lde/robv/android/xposed/' not in dex
-            for addon in ['radio', 'podcast', 'audiobook', 'chat', 'cast', 'gdrive']:
+            for addon in ['audiobook', 'chat', 'cast', 'gdrive']:
                 assert ('Lme/aap/fermata/addon/' + addon + '/').encode() not in dex, addon
             assert b'Lme/aap/fermata/addon/web/stremio/' not in dex, 'stremio'
             for cls in removed:

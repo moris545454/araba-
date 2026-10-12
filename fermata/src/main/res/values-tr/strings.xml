@@ -102,7 +102,7 @@
     <string name="text_icon_size">Metin ve simge boyutu</string>
     <string name="subtitles_size">Altyazı boyutu</string>
 
-    <string name="key_bindings">Anahtar bağlamalar</string>
+    <string name="key_bindings">Tuş atamaları</string>
     <string name="key_on_click">Tıklamada</string>
     <string name="key_on_long_click">Uzun tıklamada</string>
     <string name="key_on_dbl_click">Çift tıklamada</string>

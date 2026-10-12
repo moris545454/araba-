@@ -32,8 +32,9 @@ public enum Key {
 	VOLUME_UP(KeyEvent.KEYCODE_VOLUME_UP, Action.VOLUME_UP, Action.VOLUME_UP, Action.VOLUME_UP),
 	VOLUME_DOWN(KeyEvent.KEYCODE_VOLUME_DOWN, Action.VOLUME_DOWN, Action.VOLUME_DOWN,
 			Action.VOLUME_DOWN),
-	CHANNEL_UP(KeyEvent.KEYCODE_CHANNEL_UP, Action.NONE),
-	CHANNEL_DOWN(KeyEvent.KEYCODE_CHANNEL_DOWN, Action.NONE),
+	// Car and remote channel keys switch to the next/previous channel or station.
+	CHANNEL_UP(KeyEvent.KEYCODE_CHANNEL_UP, Action.NEXT),
+	CHANNEL_DOWN(KeyEvent.KEYCODE_CHANNEL_DOWN, Action.PREV),
 	HEADSETHOOK(KeyEvent.KEYCODE_HEADSETHOOK, Action.PLAY_PAUSE, Action.STOP,
 			Action.ACTIVATE_VOICE_CTRL),
 	SEARCH(KeyEvent.KEYCODE_SEARCH, Action.ACTIVATE_VOICE_CTRL),

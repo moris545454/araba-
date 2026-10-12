@@ -10,4 +10,5 @@
 	<string name="radio_source_name">ឈ្មោះស្ថានីយ៍</string>
 	<string name="radio_source_url">URL ស្ទ្រីម</string>
 	<string name="radio_source_add_failed">បរាជ័យក្នុងការរក្សាទុកប្រភពវិទ្យុ៖ %1$s</string>
+	<string name="radio_turkey">Turkish radio</string>
 </resources>

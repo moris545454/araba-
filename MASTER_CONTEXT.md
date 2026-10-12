@@ -1,3 +1,12 @@
+# Release rule — every version
+
+Every APK release must update, in the same push: `gradle/libs.versions.toml` version, the
+`distribution/` APK + `security-apk-check.json` + `update-auto-debug.json`, `DOGRULAMA_TR.txt`,
+`UPDATE_RELEASE_NOTES_TR.md`, `README.md`, `KURULUM_REHBERI_TR.md` and the public install page
+`docs/index.html` (version badge, feature text, FAQ). The install page keeps the ÖNEMLİ Shizuku
+video notice (https://www.youtube.com/watch?v=CdU0OlLds2k). Production modules are now
+:tv, :radio, :podcast, :web, :exoplayer, :vlc.
+
 # Current product override — Dem TV 2.1.5 candidate
 
 The user explicitly narrowed production to TV/IPTV, browser, YouTube, and native consent-based phone screen capture. Only :tv, :web, :exoplayer, :vlc are included by a closed production allowlist. All other addon modules and the Web Stremio implementation are excluded from the APK. Dashboard old layout order is filtered; removed persisted routes return Home.

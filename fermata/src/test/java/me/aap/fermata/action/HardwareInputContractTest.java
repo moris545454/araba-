@@ -16,8 +16,10 @@ public class HardwareInputContractTest {
 
 		assertTrue(keys.contains("KEYCODE_MEDIA_SKIP_FORWARD"));
 		assertTrue(keys.contains("KEYCODE_MEDIA_SKIP_BACKWARD"));
-		assertTrue(keys.contains("CHANNEL_UP(KeyEvent.KEYCODE_CHANNEL_UP, Action.NONE)"));
-		assertTrue(keys.contains("CHANNEL_DOWN(KeyEvent.KEYCODE_CHANNEL_DOWN, Action.NONE)"));
+		assertTrue(keys.contains("CHANNEL_UP(KeyEvent.KEYCODE_CHANNEL_UP, Action.NEXT)"));
+		assertTrue(keys.contains("CHANNEL_DOWN(KeyEvent.KEYCODE_CHANNEL_DOWN, Action.PREV)"));
+		assertTrue(keys.contains("MEDIA_NEXT(KeyEvent.KEYCODE_MEDIA_NEXT, Action.NEXT)"));
+		assertTrue(keys.contains("MEDIA_PREVIOUS(KeyEvent.KEYCODE_MEDIA_PREVIOUS, Action.PREV)"));
 		assertFalse(keys.contains("KEYCODE_VOICE_ASSIST, Action"));
 		assertFalse(keys.contains("KEYCODE_ASSIST, Action"));
 	}

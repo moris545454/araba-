@@ -10,4 +10,5 @@
 	<string name="radio_source_name">역명</string>
 	<string name="radio_source_url">스트림 URL</string>
 	<string name="radio_source_add_failed">라디오 소스를 저장하지 못했습니다: %1$s</string>
+	<string name="radio_turkey">Turkish radio</string>
 </resources>
