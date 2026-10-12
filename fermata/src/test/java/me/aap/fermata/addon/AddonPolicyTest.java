@@ -156,12 +156,14 @@ public class AddonPolicyTest {
 		assertCapabilities("me.aap.fermata.addon.web.yt.YoutubeAddon", AddonCapability.YOUTUBE);
 		assertCapabilities("me.aap.fermata.addon.web.WebBrowserAddon", AddonCapability.WEB);
 		assertNull(AddonRegistry.get().get("me.aap.fermata.addon.web.stremio.StremioWebAddon"));
-		assertNull(AddonRegistry.get().get("me.aap.fermata.addon.radio.RadioAddon"));
+		assertCapabilities("me.aap.fermata.addon.radio.RadioAddon", AddonCapability.RADIO);
 		assertNull(AddonRegistry.get().get("me.aap.fermata.addon.chat.ChatAddon"));
 		assertEquals("tv", AddonRegistry.get().require(
 				"me.aap.fermata.addon.tv.TvAddon").voiceTarget);
 		assertEquals("youtube", AddonRegistry.get().require(
 				"me.aap.fermata.addon.web.yt.YoutubeAddon").voiceTarget);
+		assertEquals("radio", AddonRegistry.get().require(
+				"me.aap.fermata.addon.radio.RadioAddon").voiceTarget);
 
 	}
 
