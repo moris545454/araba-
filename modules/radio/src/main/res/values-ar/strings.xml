@@ -10,4 +10,5 @@
 	<string name="radio_source_name">اسم المحطة</string>
 	<string name="radio_source_url">عنوان URL للدفق</string>
 	<string name="radio_source_add_failed">فشل حفظ مصدر الراديو: %1$s</string>
+	<string name="radio_turkey">Turkish radio</string>
 </resources>

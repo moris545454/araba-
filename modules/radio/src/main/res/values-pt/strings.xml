@@ -10,4 +10,5 @@
 	<string name="radio_source_name">Nome da estação</string>
 	<string name="radio_source_url">URL de transmissão</string>
 	<string name="radio_source_add_failed">Falha ao salvar a fonte de rádio: %1$s</string>
+	<string name="radio_turkey">Turkish radio</string>
 </resources>

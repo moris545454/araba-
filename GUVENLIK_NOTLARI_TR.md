@@ -8,7 +8,7 @@ TV/IPTV, YouTube, tarayıcı; Android’in kullanıcı onayıyla MediaProjection
 
 ## APK’da bulunmayanlar
 
-Radyo, podcast, sesli kitap, Stremio, sohbet, Cast, Google Drive, SMB/SFTP eklentileri üretim modül listesinden çıkarılmıştır. Eski root/Xposed/erişilebilirlik/giriş enjeksiyonu sınıfları, Xposed başlangıç dosyası ve geniş harici dosya paylaşım sağlayıcısı paketlenmez. Kaynak geçmişi APK içeriği değildir; manifest ve DEX ayrıca taranır.
+2.1.8 ile Radyo eklentisi (yalnızca internet izniyle Radio Browser dizini ve kullanıcının eklediği akışlar) yeniden pakete alındı. Podcast, sesli kitap, Stremio, sohbet, Cast, Google Drive, SMB/SFTP eklentileri üretim modül listesinden çıkarılmıştır. Eski root/Xposed/erişilebilirlik/giriş enjeksiyonu sınıfları, Xposed başlangıç dosyası ve geniş harici dosya paylaşım sağlayıcısı paketlenmez. Kaynak geçmişi APK içeriği değildir; manifest ve DEX ayrıca taranır.
 
 Kamera, mikrofon, hassas/yaklaşık konum, genel medya/dosya okuma, bütün dosyalara erişim, diğer uygulamaların üzerinde gösterme, sistem ayarlarını değiştirme, tuş kilidini kaldırma ve tam ekran bildirim izinleri yoktur. SMS, rehber, arama kaydı ve telefon durumu okuma izinleri de yoktur. Google hizmetleri derlemesi kapalıdır. APK hata ayıklamaya kapalıdır; teknik paket/dosya adındaki `debug` bir güncelleme kimliği olarak tutulmuştur.
 

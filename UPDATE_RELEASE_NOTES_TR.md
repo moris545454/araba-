@@ -1,3 +1,13 @@
+# Dem TV 2.1.8 — ana sayfada Radyo
+
+- **Radyo ana sayfada:** Radyo eklentisi yeniden pakete alındı; ana sayfadaki kısa yol kartı ve gezinme menüsünden açılır.
+- **Türk radyoları en üstte:** Radyo ekranında ilk giriş Radio Browser dizinindeki en çok dinlenen Türk radyolarıdır. Ardından Popüler, En çok oy alan, Ülkeler ve Etiketler gelir.
+- **Kendi radyo akışını ekle:** Radyo ekranındaki ekle düğmesiyle istasyon adı ve akış adresi kaydedilebilir.
+- Radyo araçta ses oynatıcı çubuğuyla çalışır; geri tuşu yayını durdurmaz.
+- 2.1.7 ile aynı imza: 2.1.7 kuruluysa kaldırmadan üzerine güncellenir.
+
+---
+
 # Dem TV 2.1.7 — favori kanallar, web kısayolları, radyo ve liste ekleme
 
 - **Favori Kanallar rafı:** Favorilere eklenen kanallar ana sayfada, Son İçerikler’in üstünde görünür.

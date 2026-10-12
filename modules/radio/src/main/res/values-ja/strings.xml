@@ -10,4 +10,5 @@
 	<string name="radio_source_name">駅名</string>
 	<string name="radio_source_url">ストリームURL</string>
 	<string name="radio_source_add_failed">ラジオソースの保存に失敗しました: %1$s</string>
+	<string name="radio_turkey">Turkish radio</string>
 </resources>
