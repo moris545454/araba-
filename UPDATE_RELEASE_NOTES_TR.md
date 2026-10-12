@@ -1,12 +1,14 @@
-# Dem TV 2.1.6 — kullanıcı kanal listeleri (hazırlık)
+# Dem TV 2.1.7 — favori kanallar, web kısayolları, radyo ve liste ekleme
 
-- TV'de **IPTV kaynağı ekle (+)** düğmesi artık her TV sayfasında görünür; aynı seçenek menüde ve kaynağa uzun basınca da vardır.
-- **Bağlantı ile liste ekle:** Yalnızca M3U bağlantısı yazılarak liste eklenir; geçersiz ve tekrar eden bağlantılar reddedilir.
-- **Varsayılan kanal listesini geri yükle:** Varsayılan liste silinmişse tek dokunuşla geri eklenir.
-- **Liste bağlantısını kopyala:** M3U kaynaklarının uzun basma menüsünde.
-- Varsayılan Türkiye kanalları listesi, kayıtlı kaynaklar ve mevcut M3U/Xtream/Stalker ekleme, düzenleme, silme akışları değiştirilmedi.
+- **Favori Kanallar rafı:** Favorilere eklenen kanallar ana sayfada, Son İçerikler’in üstünde görünür.
+- **Kısayol ekle:** Ana sayfaya kendi web sitelerinizi (en fazla 6) ekleyip kaldırabilirsiniz; uygulama içi tarayıcıda açılır.
+- **Türk radyoları:** TV listesine Radio Browser dizininden en çok oy alan 150 Türk radyosunun listesi bir kez eklenir. Silinirse geri eklenmez; “Varsayılan listeleri geri yükle” ile geri alınır.
+- **Liste ekleme:** **+** düğmesi yalnızca TV ana listesinde bulunur. Menü: Bağlantı ile liste ekle, M3U oynatma listesi, Xtream Codes, Stalker portalı ve gerektiğinde Varsayılan listeleri geri yükle.
+- **Liste bağlantısını kopyala:** M3U listelerinin uzun basma menüsünde.
+- YouTube video ölçekleme ayarı Türkçe telefon dilinde doğru çalışır.
+- Varsayılan Türkiye kanalları listesi, kayıtlı kaynaklar, ayarlar ve mevcut TV/YouTube/tarayıcı/yansıtma akışları değiştirilmedi.
 
-Durum: Kaynak kod hazır; APK henüz derlenmedi ve cihazda doğrulanmadı. APK, mevcut imza anahtarıyla derlenene kadar dağıtılan dosya 2.1.5 olarak kalır.
+Doğrulama: Yeni kurallar ve kaynak sözleşmeleri için birim testleri eklendi. Fiziksel telefon/araç testi yapılmadı. APK yeni bir imza anahtarıyla derlendi; eski bir Dem TV kuruluysa önce kaldırılmalıdır.
 
 ---
 

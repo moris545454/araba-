@@ -37,6 +37,10 @@ final class DashboardModelBuilder {
 			if (automotive && (item.addonInfo != null)) card = card.withTitle(emphasizeAddonTitle(card.title));
 			cards.add(card);
 		}
+		for (DashboardItems.Item item : DashboardItems.getWebShortcutItems(ctx, store)) {
+			cards.add(DashboardCard.item(item));
+		}
+		cards.add(DashboardCard.favoritesShelf(ctx));
 		cards.add(DashboardCard.recentShelf(ctx));
 		if (visibleSmartTop != null) cards.add(visibleSmartTop);
 	}

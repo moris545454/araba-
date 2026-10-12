@@ -73,14 +73,19 @@ Sorun bildirirken **telefon modeli, Android sürümü, Android Auto sürümü, D
 
 ## 7. Kendi kanal listenizi ekleme
 
-Varsayılan **Türkiye kanalları** listesi olduğu gibi kalır; yanına istediğiniz kadar liste ekleyebilirsiniz.
+Varsayılan **Türkiye kanalları** ve **Türk radyoları** listeleri olduğu gibi kalır; yanına istediğiniz kadar liste ekleyebilirsiniz.
 
-1. **TV** bölümünü açın. Alttaki işlem çubuğunda **+ (IPTV kaynağı ekle)** düğmesi artık TV'nin her sayfasında görünür. Aynı seçenek menü düğmesinde ve bir kaynağa uzun basınca açılan menüde de vardır.
-2. Açılan listeden birini seçin:
+1. Ana sayfada **TV**’ye dokunun. Listeleriniz görünür; alttaki işlem çubuğunda **+ (IPTV kaynağı ekle)** düğmesi vardır. Düğme yalnızca bu TV liste ekranında bulunur; bir listenin içindeyken geri gelerek ulaşırsınız.
+2. Açılan menüden birini seçin:
    - **Bağlantı ile liste ekle:** Yalnızca M3U bağlantısını (http:// veya https://) yazın. Ad otomatik verilir; aynı liste zaten ekliyse uyarı gösterilir.
    - **M3U oynatma listesi:** Ad, bağlantı/dosya, EPG, logo ve bağlantı ayarlarıyla ayrıntılı ekleme.
    - **Xtream Codes** veya **Stalker portalı:** Sağlayıcınızın verdiği hesap bilgileriyle ekleme.
-   - **Varsayılan kanal listesini geri yükle:** Yalnızca varsayılan listeyi sildiyseniz görünür.
-3. Eklenen listeye uzun basarak **Yenile**, **Düzenle**, **Sil** ve M3U listelerde **Liste bağlantısını kopyala** seçeneklerini kullanabilirsiniz.
+   - **Varsayılan listeleri geri yükle:** Yalnızca TV veya radyo listesini sildiyseniz görünür.
+3. Bir listeye uzun basarak **Yenile**, **Düzenle**, **Sil** ve M3U listelerde **Liste bağlantısını kopyala** seçeneklerini kullanabilirsiniz.
+
+## 8. Ana sayfa: Favori Kanallar ve kendi kısayollarınız
+
+- **Favori Kanallar:** Bir kanala uzun basıp **Favorilere ekle** seçin; kanal ana sayfadaki **Favori Kanallar** rafında görünür. Rafa dokunarak oynatabilirsiniz.
+- **Kısayol ekle:** Ana sayfadaki **Kısayol ekle** kartına dokunun → **Yeni web kısayolu** → site bağlantısını ve adını yazın. En fazla 6 kısayol eklenebilir. Aynı karttan **Kaldır: …** seçenekleriyle silinir. Kısayollar uygulama içindeki tarayıcıda açılır.
 
 Kendi eklediğiniz listelerin içeriğinden ve yayın haklarından liste sağlayıcısı sorumludur.

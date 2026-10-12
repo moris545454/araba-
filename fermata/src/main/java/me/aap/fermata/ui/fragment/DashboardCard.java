@@ -65,6 +65,13 @@ final class DashboardCard {
 				null, null, true);
 	}
 
+	/** Favorite channels shelf; shares the recent shelf view and its non-playback rules. */
+	static DashboardCard favoritesShelf(Context ctx) {
+		return new DashboardCard(null, null, R.id.favorites_fragment, R.drawable.favorite_filled,
+				ctx.getString(R.string.dashboard_favorites_shelf), "", true, true, false,
+				null, null, true);
+	}
+
 	static DashboardCard item(DashboardItems.Item item) {
 		return new DashboardCard(item, null, item.id, item.icon, item.title, item.subtitle,
 				false, false, false, null, null);

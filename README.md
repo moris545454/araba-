@@ -2,11 +2,17 @@
 
 TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe Android uygulaması.
 
-[APK indirme ve kurulum sayfası](https://dem-tv-indir.chirpypeach128.chatgpt.site) · [2.1.5 test APK’sını indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.5/distribution/FermataX-yeni-arayuz-debug.apk) · [Kurulum rehberi](KURULUM_REHBERI_TR.md) · [Güvenlik kapsamı](GUVENLIK_NOTLARI_TR.md) · [Sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
+[APK indirme ve kurulum sayfası](https://dem-tv-indir.chirpypeach128.chatgpt.site) · [**2.1.7 APK’sını indir**](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.7/distribution/FermataX-yeni-arayuz-debug.apk) · [Kurulum rehberi](KURULUM_REHBERI_TR.md) · [Güvenlik kapsamı](GUVENLIK_NOTLARI_TR.md) · [Sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
 
 ## Sürüm durumu
 
-**2.1.6 test APK’sı** (kullanıcıların kendi kanal listelerini eklemesi): [ön sürüm sayfası](https://github.com/moris545454/araba-/releases/tag/v2.1.6-test). GitHub Actions ile derlenir; kararlı imza anahtarı tanımlı değilse yeni bir anahtarla imzalanır, bu durumda kurulu 2.1.5’in üzerine yüklenemez, önce eski sürüm kaldırılmalıdır.
+**Dem TV 2.1.7** — [APK’yı indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.7/distribution/FermataX-yeni-arayuz-debug.apk) · [sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
+
+- Ana sayfada **Favori Kanallar** rafı ve kendi web sitelerinizi ekleyebileceğiniz **Kısayol ekle** kartı.
+- TV listesinde varsayılan **Türk radyoları** listesi (Radio Browser dizini).
+- TV ana listesinde **+** düğmesiyle kendi M3U/IPTV listenizi ekleme; düğme yalnızca bu ekranda bulunur.
+
+2.1.7 yeni bir imza anahtarıyla derlendi; telefonda daha eski bir Dem TV kuruluysa önce onu kaldırın. Fiziksel telefon ve araç testi yapılmadı.
 
 2.1.4, kullanıcıların TV/YouTube açarken kapanma bildirmesi üzerine kararlı sürüm listesinden geri çekildi. **Kullanıcı 2.1.5’in çalıştığını bildirdi; normal kurulumla Android Auto’da görünmediği de bildirildi.** KingInstaller ile araç doğrulaması beklenmektedir; sürüm ön sürüm olarak kalır. Kapanmanın kesin nedeni cihaz hata kaydı olmadan doğrulanmış sayılmaz. Ön sürüm otomatik güncelleme olarak önerilmez.
 
@@ -14,7 +20,7 @@ TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe And
 
 Ana sayfada TV, YouTube ve ekran yansıtma ana kartları; tarayıcı, WindAsist ve Dem TV web kısayolları bulunur. Uygulama sayfalarında ana sayfaya dönüş korunur. Yan kısayollar varsayılan olarak gizlidir; ayarlardan açılır.
 
-TV’nin varsayılan M3U kaynağı https://onureroz.com/indirmeler/turk/index.m3u adresidir; kullanıcı kaynağı ekleyebilir veya silebilir. HLS, DASH ve diğer IPTV biçimlerini oynatmak için ExoPlayer/VLC motorları korunmuştur. Radyo, podcast, sesli kitap, Stremio, sohbet, Cast, Google Drive, SMB ve SFTP eklentileri APK’ya derlenmez. Kamera, mikrofon, konum ve genel medya/dosya okuma izinleri kaldırılmıştır.
+TV’nin varsayılan M3U kaynağı https://onureroz.com/indirmeler/turk/index.m3u adresidir; yanında Radio Browser dizininden en çok oy alan Türk radyolarının listesi bulunur. Kullanıcı TV ana listesindeki + düğmesiyle kaynak ekleyebilir, uzun basarak silebilir; silinen varsayılan listeler aynı menüden geri yüklenir. HLS, DASH ve diğer IPTV biçimlerini oynatmak için ExoPlayer/VLC motorları korunmuştur. Radyo, podcast, sesli kitap, Stremio, sohbet, Cast, Google Drive, SMB ve SFTP eklentileri APK’ya derlenmez. Kamera, mikrofon, konum ve genel medya/dosya okuma izinleri kaldırılmıştır.
 
 Ekran yansıtma Android’in MediaProjection iznini ister. Android Auto telefon ekranını kendiliğinden açmaya izin vermezse telefon uygulama simgesi veya bildirim aynı bekleyen isteği açar. İzin iptali kaydı başlatmaz; ana sayfaya dönüş/bağlantı kesilmesi paylaşımı durdurur. Bu görüntü paylaşımıdır; uzaktan dokunmatik kontrol veya telefon sesi aktarımı değildir.
 

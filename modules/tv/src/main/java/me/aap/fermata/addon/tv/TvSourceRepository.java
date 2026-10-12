@@ -20,6 +20,11 @@ final class TvSourceRepository {
 	static final String DEFAULT_PLAYLIST_URL = "https://onureroz.com/indirmeler/turk/index.m3u";
 	private static final Pref<me.aap.utils.function.BooleanSupplier> DEFAULT_PLAYLIST_SEEDED =
 			Pref.b("TURKISH_PLAYLIST_SEEDED_V1", false).withInheritance(false);
+	/** Turkish stations from the public Radio Browser directory, most voted first. */
+	static final String DEFAULT_RADIO_URL = "https://all.api.radio-browser.info/m3u/stations/search" +
+			"?countrycode=TR&order=votes&reverse=true&hidebroken=true&limit=150";
+	private static final Pref<me.aap.utils.function.BooleanSupplier> DEFAULT_RADIO_SEEDED =
+			Pref.b("TURKISH_RADIO_SEEDED_V1", false).withInheritance(false);
 	private final PreferenceStore store;
 
 	TvSourceRepository(PreferenceStore store) {
@@ -29,17 +34,29 @@ final class TvSourceRepository {
 	/** One-time registration; removal is respected even after the next application update. */
 	synchronized void seedDefaultPlaylist(me.aap.utils.function.Function<String, String> urlForId,
 			me.aap.utils.function.Supplier<String> createM3uId) {
-		if (store.getBooleanPref(DEFAULT_PLAYLIST_SEEDED)) return;
+		seedPlaylist(DEFAULT_PLAYLIST_SEEDED, DEFAULT_PLAYLIST_URL, urlForId, createM3uId);
+	}
+
+	/** The bundled radio list is registered once, after the TV list, with the same rules. */
+	synchronized void seedDefaultRadioPlaylist(me.aap.utils.function.Function<String, String> urlForId,
+			me.aap.utils.function.Supplier<String> createM3uId) {
+		seedPlaylist(DEFAULT_RADIO_SEEDED, DEFAULT_RADIO_URL, urlForId, createM3uId);
+	}
+
+	private void seedPlaylist(Pref<me.aap.utils.function.BooleanSupplier> seeded, String url,
+			me.aap.utils.function.Function<String, String> urlForId,
+			me.aap.utils.function.Supplier<String> createM3uId) {
+		if (store.getBooleanPref(seeded)) return;
 		int[] ids = getSourceIds();
 		for (int id : ids) {
 			String m3uId = getM3uId(id);
 			try {
-				if (m3uId != null && DEFAULT_PLAYLIST_URL.equals(urlForId.apply(m3uId))) {
-					store.applyBooleanPref(DEFAULT_PLAYLIST_SEEDED, true);
+				if (m3uId != null && url.equals(urlForId.apply(m3uId))) {
+					store.applyBooleanPref(seeded, true);
 					return;
 				}
 			} catch (RuntimeException failure) {
-				Log.e(failure, "Skipping invalid source while checking the default playlist");
+				Log.e(failure, "Skipping invalid source while checking a default playlist");
 			}
 		}
 		String m3uId = createM3uId.get();
@@ -49,7 +66,7 @@ final class TvSourceRepository {
 		try (PreferenceStore.Edit edit = store.editPreferenceStore()) {
 			saveM3uSource(edit, id, m3uId);
 			edit.setIntArrayPref(SOURCE_IDS, updated);
-			edit.setBooleanPref(DEFAULT_PLAYLIST_SEEDED, true);
+			edit.setBooleanPref(seeded, true);
 		}
 	}
 

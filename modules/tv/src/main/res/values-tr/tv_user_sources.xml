@@ -3,7 +3,8 @@
 	<string name="tv_quick_add_link">Bağlantı ile liste ekle</string>
 	<string name="tv_quick_add_invalid">Geçerli bir http:// veya https:// liste bağlantısı girin.</string>
 	<string name="tv_quick_add_duplicate">Bu liste kaynaklarınızda zaten var.</string>
-	<string name="tv_restore_default">Varsayılan kanal listesini geri yükle</string>
+	<string name="tv_restore_default">Varsayılan listeleri geri yükle</string>
 	<string name="tv_copy_link">Liste bağlantısını kopyala</string>
 	<string name="tv_link_copied">Liste bağlantısı kopyalandı.</string>
+	<string name="default_turkish_radios">Türk radyoları</string>
 </resources>

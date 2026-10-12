@@ -75,10 +75,10 @@ public class TvFragment extends MediaLibFragment {
 		return TvFloatingButtonMediator.instance;
 	}
 
-	/** Adding a source is offered on every TV page; a new source always opens the source list. */
+	/** The add button belongs to the TV source list only. */
 	@Override
 	public boolean isAddSourceSupported() {
-		return true;
+		return isRootItem();
 	}
 
 	@Override
@@ -113,15 +113,15 @@ public class TvFragment extends MediaLibFragment {
 		getMainActivity().getContextMenu().show(b -> {
 			b.setTitle(R.string.add_tv_source);
 			b.setSelectionHandler(this::sourceTypeSelected);
+			b.addItem(R.id.tv_quick_add_link, me.aap.fermata.R.drawable.m3u,
+					R.string.tv_quick_add_link);
 			b.addItem(me.aap.fermata.R.id.m3u_playlist, me.aap.fermata.R.drawable.m3u,
 					me.aap.fermata.R.string.m3u_playlist);
 			b.addItem(me.aap.fermata.R.id.xtream_source, me.aap.fermata.R.drawable.tv,
 					R.string.xtream_codes);
 			b.addItem(R.id.stalker_source, me.aap.fermata.R.drawable.tv,
 					R.string.stalker_portal);
-			b.addItem(R.id.tv_quick_add_link, me.aap.fermata.R.drawable.m3u,
-					R.string.tv_quick_add_link);
-			if (!getRootItem().hasDefaultPlaylist()) {
+			if (getRootItem().hasMissingDefaultPlaylist()) {
 				b.addItem(R.id.tv_restore_default, me.aap.fermata.R.drawable.refresh,
 						R.string.tv_restore_default);
 			}
@@ -171,20 +171,15 @@ public class TvFragment extends MediaLibFragment {
 
 	private void restoreDefaultPlaylist() {
 		TvRootItem root = getRootItem();
-		if (root.hasDefaultPlaylist()) return;
+		if (!root.hasMissingDefaultPlaylist()) return;
 		try {
-			root.restoreDefaultPlaylist();
+			root.restoreDefaultPlaylists();
 		} catch (RuntimeException ex) {
 			failedToAddSource(ex);
 			return;
 		}
 		getAdapter().setParent(root);
 		getMainActivity().showFragment(getFragmentId());
-	}
-
-	private boolean tvMenuItemSelected(OverlayMenuItem item) {
-		if (item.getItemId() == R.id.tv_add_source_menu) addSource();
-		return true;
 	}
 
 	private void copySourceLink(TvM3uItem source) {
@@ -246,8 +241,6 @@ public class TvFragment extends MediaLibFragment {
 			b.addItem(R.id.tv_copy_link, me.aap.fermata.R.drawable.m3u, R.string.tv_copy_link)
 					.setData(h.getItem()).setHandler(this::contextMenuItemSelected);
 		}
-		b.addItem(R.id.tv_add_source_menu, R.drawable.tv_add, R.string.add_tv_source)
-				.setHandler(this::tvMenuItemSelected);
 		super.contributeToContextMenu(b, h);
 	}
 
@@ -403,8 +396,6 @@ public class TvFragment extends MediaLibFragment {
 	@Override
 	public void contributeToNavBarMenu(OverlayMenu.Builder builder) {
 		super.contributeToNavBarMenu(builder);
-		builder.withSelectionHandler(this::tvMenuItemSelected)
-				.addItem(R.id.tv_add_source_menu, R.drawable.tv_add, R.string.add_tv_source);
 		if (isRootItem()) return;
 		TvAdapter a = getAdapter();
 

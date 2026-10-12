@@ -26,7 +26,9 @@ import me.aap.fermata.media.lib.MediaLib.PlayableItem;
 import me.aap.fermata.ui.activity.MainActivityDelegate;
 import me.aap.fermata.ui.view.MediaHubStyle;
 
-/** A real-library recent shelf. No sample media or extra playback owner is introduced. */
+/**
+ * A real-library recent or favorites shelf. No sample media or extra playback owner is introduced.
+ */
 public final class DashboardRecentShelfView extends LinearLayout {
 	private final TextView heading;
 	private final TextView empty;
@@ -36,6 +38,7 @@ public final class DashboardRecentShelfView extends LinearLayout {
 	@Nullable
 	private MainActivityDelegate activity;
 	private int generation;
+	private boolean favorites;
 
 	public DashboardRecentShelfView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -66,16 +69,25 @@ public final class DashboardRecentShelfView extends LinearLayout {
 	}
 
 	public void bind(MainActivityDelegate activity) {
+		bind(activity, favorites);
+	}
+
+	public void bind(MainActivityDelegate activity, boolean favorites) {
 		this.activity = activity;
+		this.favorites = favorites;
 		Context localized = activity.getLocalizedContext(getContext());
-		heading.setText(localized.getString(R.string.dashboard_recent_shelf) + "  ›");
-		heading.setContentDescription(localized.getString(R.string.recent));
-		empty.setText(localized.getString(R.string.dashboard_recent_empty));
+		heading.setText(localized.getString(favorites ? R.string.dashboard_favorites_shelf :
+				R.string.dashboard_recent_shelf) + "  ›");
+		heading.setContentDescription(localized.getString(favorites ? R.string.favorites :
+				R.string.recent));
+		empty.setText(localized.getString(favorites ? R.string.dashboard_favorites_empty :
+				R.string.dashboard_recent_empty));
 		float fontScale = Math.max(1F, Math.min(2F, getResources().getConfiguration().fontScale));
 		row.getLayoutParams().height = dp(160 + Math.round(60 * (fontScale - 1F)));
 		row.requestLayout();
 		int request = ++generation;
-		activity.getLib().getRecent().getChildren().main().onCompletion((children, error) -> {
+		(favorites ? activity.getLib().getFavorites() : activity.getLib().getRecent())
+				.getChildren().main().onCompletion((children, error) -> {
 			if (request != generation) return;
 			items.clear();
 			if ((error == null) && (children != null)) {
@@ -93,7 +105,7 @@ public final class DashboardRecentShelfView extends LinearLayout {
 	@Override
 	protected void onAttachedToWindow() {
 		super.onAttachedToWindow();
-		if (activity != null) bind(activity);
+		if (activity != null) bind(activity, favorites);
 	}
 
 	@Override
@@ -105,7 +117,7 @@ public final class DashboardRecentShelfView extends LinearLayout {
 	private void openRecent() {
 		if (activity == null) return;
 		activity.setActiveNavItemId(R.id.dashboard_fragment);
-		activity.showFragmentWhenReady(R.id.recent_fragment);
+		activity.showFragmentWhenReady(favorites ? R.id.favorites_fragment : R.id.recent_fragment);
 	}
 
 	private int dp(int value) {
