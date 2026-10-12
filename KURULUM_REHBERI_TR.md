@@ -2,7 +2,7 @@
 
 Dem TV 2.1.9; TV/IPTV, ana sayfada Radyo ve Podcast, direksiyon tuşlarıyla kanal değiştirme, Türk radyoları, YouTube, tarayıcı, Favori Kanallar, kendi web kısayollarınız ve izinli ekran yansıtmayı içerir. 2.1.5 için normal kurulumdan sonra Android Auto’da görünmediği bildirildi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
 
-> **ÖNEMLİ:** Uygulamayı kuramayanlar [bu videoyu](https://www.youtube.com/watch?v=CdU0OlLds2k) izleyerek kurulum yapsın (Shizuku kurulum rehberi). Ardından Dem TV’yi aşağıdaki bağlantıdaki **KingInstaller** uygulamasıyla tekrar kursun; Android Auto’da çalışacaktır ❤
+> **ÖNEMLİ:** Önce Dem TV’yi kurun. Kurulumdan sonra Android Auto’da görünmüyorsa [bu videodaki](https://www.youtube.com/watch?v=CdU0OlLds2k) işlemleri uygulayın (Shizuku kurulum rehberi). Ardından Dem TV’yi [KingInstaller](https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk) uygulamasıyla Shizuku seçeneği açıkken tekrar yükleyin; Android Auto’da çalışacaktır ❤
 
 ## 1. Doğrudan indirme bağlantıları
 
