@@ -1,11 +1,11 @@
-# Dem TV 2.1.5 — Android Auto ve KingInstaller kurulum rehberi
+# Dem TV 2.1.7 — Android Auto ve KingInstaller kurulum rehberi
 
-Dem TV 2.1.5, TV/IPTV, YouTube, tarayıcı ve izinli ekran yansıtmayı içerir. Kullanıcı bu sürümün çalıştığını, normal kurulumdan sonra Android Auto’da görünmediğini bildirdi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
+Dem TV 2.1.7; TV/IPTV, Türk radyoları, YouTube, tarayıcı, Favori Kanallar, kendi web kısayollarınız ve izinli ekran yansıtmayı içerir. 2.1.5 için normal kurulumdan sonra Android Auto’da görünmediği bildirildi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
 
 ## 1. Doğrudan indirme bağlantıları
 
-Dem TV 2.1.5 APK:
-https://media.githubusercontent.com/media/moris545454/araba-/v2.1.5/distribution/FermataX-yeni-arayuz-debug.apk
+Dem TV 2.1.7 APK (güncel):
+https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk
 
 KingInstaller 2.3 APK — geliştiricinin resmî GitHub yayını:
 https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk
@@ -38,7 +38,7 @@ Telefon üreticisine göre menü adları değişebilir. Ayarlarda “bilinmeyen 
 4. Android’in kurulum/güncelleme ekranını onaylayın. KingInstaller için bilinmeyen uygulama yükleme izni sorulursa verin.
 5. Kurulum bitince **Dem TV**’yi telefonda bir kez açın. Güncelleme ve ekran paylaşımı bildirimlerini almak istiyorsanız bildirim iznini verin.
 
-**Dem TV zaten kuruluysa:** Aynı 2.1.5 APK’sını KingInstaller üzerinden mevcut uygulamanın üzerine yüklemeyi deneyin. Paket ve imza korunmuştur. Sırf yükleme yöntemini değiştirmek için uygulamayı hemen kaldırmayın; kaldırmak eklediğiniz IPTV kaynaklarını ve ayarları silebilir. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
+**Daha eski bir Dem TV kuruluysa:** 2.1.7 yeni bir imza anahtarıyla derlendi; eski sürümün üzerine yüklenmez. Önce eski Dem TV’yi kaldırın, sonra 2.1.7’yi kurun. Kaldırma eklediğiniz IPTV kaynaklarını ve ayarları siler; gerekiyorsa bağlantılarını önceden not alın. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
 
 KingInstaller ayrı bir üçüncü taraf yükleyicidir; Dem TV APK’sının içine eklenmemiştir. Geliştiricisi, yükleme kaynağını Google Play olarak kaydetmenin bazı Android Auto görünürlük kısıtlamalarında yardımcı olduğunu belirtir. Bu, Dem TV’nin Google Play’den yayımlandığı veya Google tarafından onaylandığı anlamına gelmez. Klasik yöntemin başarısı Android ve üretici politikalarına bağlıdır.
 

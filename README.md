@@ -2,11 +2,11 @@
 
 TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe Android uygulaması.
 
-[APK indirme ve kurulum sayfası](https://dem-tv-indir.chirpypeach128.chatgpt.site) · [**2.1.7 APK’sını indir**](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.7/distribution/FermataX-yeni-arayuz-debug.apk) · [Kurulum rehberi](KURULUM_REHBERI_TR.md) · [Güvenlik kapsamı](GUVENLIK_NOTLARI_TR.md) · [Sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
+[APK indirme ve kurulum sayfası](https://dem-tv-indir.chirpypeach128.chatgpt.site) · [**2.1.7 APK’sını indir**](https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk) · [Kurulum rehberi](KURULUM_REHBERI_TR.md) · [Güvenlik kapsamı](GUVENLIK_NOTLARI_TR.md) · [Sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
 
 ## Sürüm durumu
 
-**Dem TV 2.1.7** — [APK’yı indir](https://media.githubusercontent.com/media/moris545454/araba-/v2.1.7/distribution/FermataX-yeni-arayuz-debug.apk) · [sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
+**Dem TV 2.1.7** — [APK’yı indir](https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk) · [sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
 
 - Ana sayfada **Favori Kanallar** rafı ve kendi web sitelerinizi ekleyebileceğiniz **Kısayol ekle** kartı.
 - TV listesinde varsayılan **Türk radyoları** listesi (Radio Browser dizini).
