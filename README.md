@@ -6,7 +6,7 @@ TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe And
 
 ## Sürüm durumu
 
-> **ÖNEMLİ:** Uygulamayı kuramayanlar [bu videoyu](https://www.youtube.com/watch?v=CdU0OlLds2k) izleyerek kurulum yapsın, ardından Dem TV’yi [KingInstaller](https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk) uygulamasıyla tekrar kursun; Android Auto’da çalışacaktır ❤
+> **ÖNEMLİ:** Önce Dem TV’yi kurun. Kurulumdan sonra Android Auto’da görünmüyorsa [bu videodaki](https://www.youtube.com/watch?v=CdU0OlLds2k) işlemleri uygulayın (Shizuku kurulum rehberi). Ardından Dem TV’yi [KingInstaller](https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk) uygulamasıyla Shizuku seçeneği açıkken tekrar yükleyin; Android Auto’da çalışacaktır ❤
 
 **Dem TV 2.1.9** — [APK’yı indir](https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk) · [sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
 
