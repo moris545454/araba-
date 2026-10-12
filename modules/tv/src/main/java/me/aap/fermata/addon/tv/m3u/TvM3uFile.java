@@ -10,7 +10,6 @@ import static me.aap.utils.net.http.HttpFileDownloader.RESP_TIMEOUT;
 import static me.aap.utils.net.http.HttpFileDownloader.TIMESTAMP;
 import static me.aap.utils.text.TextUtils.trim;
 
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 
@@ -18,7 +17,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 import me.aap.fermata.vfs.m3u.M3uFile;
-import me.aap.utils.app.App;
 import me.aap.utils.async.FutureSupplier;
 import me.aap.utils.db.SQLite;
 import me.aap.utils.function.BooleanSupplier;
@@ -32,7 +30,6 @@ import me.aap.utils.net.http.HttpFileDownloader.Status;
 import me.aap.utils.pref.PreferenceStore;
 import me.aap.utils.pref.PreferenceStore.Pref;
 import me.aap.utils.resource.Rid;
-import me.aap.utils.ui.notif.HttpDownloadStatusListener;
 
 /**
  * @author Andrey Pavlenko
@@ -167,15 +164,8 @@ public class TvM3uFile extends M3uFile {
 		String url = getEpgUrl();
 		if (url == null) return failed(new MalformedURLException("EPG URL is not set"));
 		File epgFile = getEpgFile();
+		// EPG is optional and retried by XmlTvLoadPolicy: download silently, without notifications.
 		HttpFileDownloader d = HttpFileDownloader.forUserSource();
-		Context ctx = App.get();
-		HttpDownloadStatusListener l = new HttpDownloadStatusListener(ctx);
-		l.setSmallIcon(me.aap.fermata.R.drawable.notification);
-		l.setTitle(ctx.getResources().getString(me.aap.fermata.R.string.downloading, url));
-		l.setFailureTitle(s -> ctx.getResources().getString(me.aap.fermata.R.string.err_failed_to_download, url));
-		// EPG is optional and retried by XmlTvLoadPolicy; a failure must not stack notifications.
-		l.setNotifyOnFailure(false);
-		d.setStatusListener(l);
 		d.setReturnExistingOnFail(true);
 		return d.download(url, epgFile, getEpgPrefs());
 	}

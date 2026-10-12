@@ -13,6 +13,7 @@ TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe And
 **Mola 2.2.2** — [APK’yı indir](https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk) · [sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
 
 - Ana sayfada **Favori Kanallar** rafı ve kendi web sitelerinizi ekleyebileceğiniz **Kısayol ekle** kartı.
+- **Bildirimsiz ve arka plan güncellemesiz:** veriler yalnızca uygulama kullanılırken güncellenir.
 - **Sesli karşılama** (isteğe bağlı): araca bağlanınca “Günaydın, Mola’ya hoş geldin” karşılaması.
 - Ana sayfada **Podcast**: arama, abone olma, bölüm dinleme ve kaldığı yerden devam.
 - **Direksiyon tuşları**: ileri/geri tuşlarıyla kanal, istasyon veya bölüm değiştirme.

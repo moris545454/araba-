@@ -38,7 +38,7 @@ Telefon üreticisine göre menü adları değişebilir. Ayarlarda “bilinmeyen 
 2. Dosya seçme düğmesinden **İndirilenler / Downloads** klasörüne gidin; **FermataX-yeni-arayuz-debug.apk** dosyasını seçin. KingInstaller’ın kendi APK’sını seçmeyin.
 3. İlk denemede **Shizuku / Root seçenekleri kapalıyken Install / Yükle** düğmesine dokunun. Bu, geliştiricinin önerdiği klasik kurulum yöntemidir.
 4. Android’in kurulum/güncelleme ekranını onaylayın. KingInstaller için bilinmeyen uygulama yükleme izni sorulursa verin.
-5. Kurulum bitince **Mola**’yi telefonda bir kez açın. Güncelleme ve ekran paylaşımı bildirimlerini almak istiyorsanız bildirim iznini verin.
+5. Kurulum bitince **Mola**’yi telefonda bir kez açın. Ekran paylaşımı isteğini ve oynatma kontrollerini bildirim alanında görmek için bildirim iznini verebilirsiniz. Mola güncelleme veya indirme bildirimi göndermez.
 
 **Daha eski bir Mola kuruluysa:** 2.1.7 ve sonrası yeni bir imza anahtarıyla derlenir. 2.1.7–2.1.9 (Dem TV) kuruluysa 2.2.2’yi doğrudan üzerine yükleyin. 2.1.6 veya daha eskisi kuruluysa önce onu kaldırın, sonra yeni sürümü kurun. Kaldırma eklediğiniz IPTV kaynaklarını ve ayarları siler; gerekiyorsa bağlantılarını önceden not alın. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
 

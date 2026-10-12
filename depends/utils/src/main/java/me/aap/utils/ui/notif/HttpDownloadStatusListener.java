@@ -35,7 +35,6 @@ public class HttpDownloadStatusListener implements HttpFileDownloader.StatusList
 	private final NotificationCompat.Builder builder;
 	private final int id = idCounter.incrementAndGet();
 	private Function<Status, String> failureTitle;
-	private boolean notifyOnFailure = true;
 
 	public HttpDownloadStatusListener(Context ctx) {
 		this(ctx, "me.aap.utils.http.download", "HttpDownload");
@@ -68,11 +67,6 @@ public class HttpDownloadStatusListener implements HttpFileDownloader.StatusList
 		failureTitle = title;
 	}
 
-	/** Background downloads with their own retry policy remove the notice instead of failing loudly. */
-	public void setNotifyOnFailure(boolean notify) {
-		notifyOnFailure = notify;
-	}
-
 	@Override
 	public void onProgress(Status status) {
 		long total = status.getLength();
@@ -94,10 +88,6 @@ public class HttpDownloadStatusListener implements HttpFileDownloader.StatusList
 
 	@Override
 	public void onFailure(Status status) {
-		if (!notifyOnFailure) {
-			mgr.cancel(channelId, id);
-			return;
-		}
 		if (failureTitle != null) builder.setContentTitle(failureTitle.apply(status));
 		else builder.setContentTitle(context.getString(me.aap.utils.R.string.download_failed,
 				status.getUrl()));

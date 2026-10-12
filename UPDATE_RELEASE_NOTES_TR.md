@@ -2,6 +2,9 @@
 
 - **Sesli karşılama ismi:** İsim yazarken klavyenin açılıp kapanması düzeltildi. İsim artık klavyedeki **Bitti/Tamam** tuşuna basınca kaydedilir.
 - **Tekrarlayan “İndirilemiyor … .xml” bildirimleri kaldırıldı:** Kanal listesindeki yayın akışı (EPG) dosyası indirilemezse artık bildirim atılmaz; uygulama arka planda sessizce yeniden dener. Kanallar bundan etkilenmez.
+- **Bildirim yok:** Mola artık güncelleme, liste veya yayın akışı indirme bildirimi göndermez. Yalnızca oynatma kontrolleri ve ekran paylaşımı için Android’in zorunlu bildirimi görünür.
+- **Arka planda veri güncellemesi yok:** 6 saatlik arka plan güncelleme kontrolü kaldırıldı. Yayın akışı (EPG) gibi veriler yalnızca uygulama açıkken veya araç bağlıyken güncellenir; uygulama kullanılmıyorsa güncelleme açılana kadar bekler.
+- Yeni sürüm **Ayarlar → Arayüz → Uygulama güncellemeleri** ekranından kontrol edilip kurulur.
 - Aynı paket ve imza: kaldırmadan üzerine güncellenir.
 
 ---
