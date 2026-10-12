@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="greeting_settings">Voice welcome</string>
+    <string name="greeting_enabled">Greet me when the car connects</string>
+    <string name="greeting_enabled_sub">Mola says a short welcome using the phone’s voice. No microphone is used.</string>
+    <string name="greeting_name">Your name</string>
+    <string name="greeting_name_hint">Optional</string>
+    <string name="greeting_once_per_day">Only once a day</string>
+    <string name="greeting_morning">Good morning</string>
+    <string name="greeting_day">Good afternoon</string>
+    <string name="greeting_evening">Good evening</string>
+    <string name="greeting_night">Good night</string>
+    <string name="greeting_text">%1$s, welcome to Mola. Have a safe trip!</string>
+    <string name="greeting_text_name">%1$s %2$s, welcome to Mola. Have a safe trip!</string>
+</resources>
