@@ -32,7 +32,6 @@ import me.aap.utils.misc.MiscUtils;
 import me.aap.utils.net.http.HttpFileDownloader;
 import me.aap.utils.ui.UiUtils;
 import me.aap.utils.ui.activity.ActivityDelegate;
-import me.aap.utils.ui.notif.HttpDownloadStatusListener;
 
 /**
  * @author Andrey Pavlenko
@@ -83,12 +82,8 @@ public class Utils {
 		return d;
 	}
 
+	/** Source and playlist downloads run silently; failures surface in the screen that asked. */
 	private static void configureDownloader(Context ctx, String url, HttpFileDownloader d) {
-		HttpDownloadStatusListener l = new HttpDownloadStatusListener(ctx);
-		l.setSmallIcon(R.drawable.notification);
-		l.setTitle(ctx.getResources().getString(R.string.downloading, url));
-		l.setFailureTitle(s -> ctx.getResources().getString(R.string.err_failed_to_download, url));
-		d.setStatusListener(l);
 	}
 
 	// A workaround for Resources$NotFoundException

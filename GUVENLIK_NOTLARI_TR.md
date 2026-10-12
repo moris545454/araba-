@@ -19,10 +19,10 @@ Web sitelerinin kamera, mikrofon ve konum istekleri reddedilir. DRM medya izni y
 | İzin | Amaç |
 | --- | --- |
 | İnternet / ağ durumu | Açılan yayınlar, web sayfaları ve GitHub sürüm kontrolü |
-| Bildirim / ön plan medya ve ekran paylaşımı | Kullanıcıya oynatma/paylaşım durumu ve güncelleme bildirimi |
+| Bildirim / ön plan medya ve ekran paylaşımı | Kullanıcıya oynatma ve ekran paylaşımı durumu (güncelleme/indirme bildirimi yoktur) |
 | Uyanık tutma | Kullanıcının açık video ekranı |
 | APK yükleme isteği | Aynı imzalı, daha yüksek sürüm kodlu güncellemenin Android kullanıcı onayıyla kurulması |
-| Yeniden başlatma bildirimi | Android tarafından ertelenebilen güncelleme kontrolünü yeniden planlama |
+| Yeniden başlatma bildirimi | Kullanılmıyor: 2.2.2 ile arka plan güncelleme kontrolü kaldırıldı |
 
 Ekran paylaşımı Android izin ekranında onaylanmadan başlamaz. İzin iptali, ana sayfaya dönüş veya araç bağlantısının kapanması paylaşımı sonlandırır. Paylaşım servisi ve izin etkinliği dış uygulamalara kapalıdır. Banka/DRM ekranlarının yakalamayı engelleyen koruması aşılmaz. Uzaktan dokunmatik kontrol ve telefon sesi aktarımı yoktur.
 

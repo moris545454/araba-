@@ -4,9 +4,7 @@ import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +25,7 @@ public final class GithubUpdater {
     private static final int JOB = 90427;
     private static final int NOTICE = 90428;
     private static final String CHANNEL = "github_updates";
+    private static final boolean NOTIFY_UPDATES = false;
     private GithubUpdater() {}
 
     public static SharedPreferences prefs(Context context) {
@@ -43,16 +42,13 @@ public final class GithubUpdater {
         }
     }
 
+    /**
+     * No background checks: updates are only looked up while the app is open. Any periodic job
+     * left by an older version is cancelled here.
+     */
     public static void schedule(Context context) {
-        // The app supports API 28+; older test/host runtimes have no compatible job API.
-        if (Build.VERSION.SDK_INT < 28) return;
         JobScheduler scheduler = context.getSystemService(JobScheduler.class);
-        if (scheduler == null) return;
-        if (!prefs(context).getBoolean("enabled", true)) { scheduler.cancel(JOB); return; }
-        if (scheduler.getPendingJob(JOB) != null) return;
-        scheduler.schedule(new JobInfo.Builder(JOB, new ComponentName(context, UpdateCheckJob.class))
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY).setPersisted(true)
-                .setPeriodic(6 * 60 * 60 * 1000L).build());
+        if (scheduler != null) scheduler.cancel(JOB);
     }
 
     /** Called off the UI thread; errors do not affect playback or the last successful check. */
@@ -78,7 +74,9 @@ public final class GithubUpdater {
         } catch (Exception ignored) { /* Offline or incomplete releases are retried on the next check. */ }
     }
 
+    /** Updates are shown in Settings → App updates; the app never posts an update notification. */
     public static void notifyUpdate(Context context, UpdateManifest update) {
+        if (!NOTIFY_UPDATES) return;
         if (!prefs(context).getBoolean("enabled", true)) return;
         NotificationManager manager = context.getSystemService(NotificationManager.class);
         if (manager == null || !manager.areNotificationsEnabled() ||

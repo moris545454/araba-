@@ -1,12 +1,12 @@
-# Mola 2.2.1 — Android Auto ve KingInstaller kurulum rehberi
+# Mola 2.2.2 — Android Auto ve KingInstaller kurulum rehberi
 
-Mola 2.2.1 (eski adı Dem TV); sesli karşılama, TV/IPTV, ana sayfada Radyo ve Podcast, direksiyon tuşlarıyla kanal değiştirme, Türk radyoları, YouTube, tarayıcı, Favori Kanallar, kendi web kısayollarınız ve izinli ekran yansıtmayı içerir. 2.1.5 için normal kurulumdan sonra Android Auto’da görünmediği bildirildi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
+Mola 2.2.2 (eski adı Dem TV); sesli karşılama, TV/IPTV, ana sayfada Radyo ve Podcast, direksiyon tuşlarıyla kanal değiştirme, Türk radyoları, YouTube, tarayıcı, Favori Kanallar, kendi web kısayollarınız ve izinli ekran yansıtmayı içerir. 2.1.5 için normal kurulumdan sonra Android Auto’da görünmediği bildirildi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
 
 > **ÖNEMLİ:** Önce Mola’yı kurun. Kurulumdan sonra Android Auto’da görünmüyorsa [bu videodaki](https://www.youtube.com/watch?v=CdU0OlLds2k) işlemleri uygulayın (Shizuku kurulum rehberi). Ardından Mola’yı [KingInstaller](https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk) uygulamasıyla Shizuku seçeneği açıkken tekrar yükleyin; Android Auto’da çalışacaktır ❤
 
 ## 1. Doğrudan indirme bağlantıları
 
-Mola 2.2.1 APK (güncel):
+Mola 2.2.2 APK (güncel):
 https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk
 
 KingInstaller 2.3 APK — geliştiricinin resmî GitHub yayını:
@@ -38,9 +38,9 @@ Telefon üreticisine göre menü adları değişebilir. Ayarlarda “bilinmeyen 
 2. Dosya seçme düğmesinden **İndirilenler / Downloads** klasörüne gidin; **FermataX-yeni-arayuz-debug.apk** dosyasını seçin. KingInstaller’ın kendi APK’sını seçmeyin.
 3. İlk denemede **Shizuku / Root seçenekleri kapalıyken Install / Yükle** düğmesine dokunun. Bu, geliştiricinin önerdiği klasik kurulum yöntemidir.
 4. Android’in kurulum/güncelleme ekranını onaylayın. KingInstaller için bilinmeyen uygulama yükleme izni sorulursa verin.
-5. Kurulum bitince **Mola**’yi telefonda bir kez açın. Güncelleme ve ekran paylaşımı bildirimlerini almak istiyorsanız bildirim iznini verin.
+5. Kurulum bitince **Mola**’yi telefonda bir kez açın. Ekran paylaşımı isteğini ve oynatma kontrollerini bildirim alanında görmek için bildirim iznini verebilirsiniz. Mola güncelleme veya indirme bildirimi göndermez.
 
-**Daha eski bir Mola kuruluysa:** 2.1.7 ve sonrası yeni bir imza anahtarıyla derlenir. 2.1.7–2.1.9 (Dem TV) kuruluysa 2.2.1’i doğrudan üzerine yükleyin. 2.1.6 veya daha eskisi kuruluysa önce onu kaldırın, sonra yeni sürümü kurun. Kaldırma eklediğiniz IPTV kaynaklarını ve ayarları siler; gerekiyorsa bağlantılarını önceden not alın. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
+**Daha eski bir Mola kuruluysa:** 2.1.7 ve sonrası yeni bir imza anahtarıyla derlenir. 2.1.7–2.1.9 (Dem TV) kuruluysa 2.2.2’yi doğrudan üzerine yükleyin. 2.1.6 veya daha eskisi kuruluysa önce onu kaldırın, sonra yeni sürümü kurun. Kaldırma eklediğiniz IPTV kaynaklarını ve ayarları siler; gerekiyorsa bağlantılarını önceden not alın. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
 
 KingInstaller ayrı bir üçüncü taraf yükleyicidir; Mola APK’sının içine eklenmemiştir. Geliştiricisi, yükleme kaynağını Google Play olarak kaydetmenin bazı Android Auto görünürlük kısıtlamalarında yardımcı olduğunu belirtir. Bu, Mola’nın Google Play’den yayımlandığı veya Google tarafından onaylandığı anlamına gelmez. Klasik yöntemin başarısı Android ve üretici politikalarına bağlıdır.
 
@@ -98,4 +98,4 @@ Araç bağlıyken direksiyondaki **ileri / geri** tuşları çalan listede sonra
 
 ## 10. Sesli karşılama
 
-**Ayarlar → Arayüz → Sesli karşılama** bölümünden “Araca bağlanınca sesli karşıla” seçeneğini açın ve isterseniz adınızı yazın. Telefon araca bağlandığında Mola saate göre kısa bir karşılama yapar. “Günde yalnızca bir kez” seçilirse gün içindeki sonraki bağlantılarda sessiz kalır. Telefonda Türkçe konuşma sesi yüklü değilse karşılama yapılmaz; Ayarlar → Erişilebilirlik → Metin okuma bölümünden Google’ın Türkçe sesini yükleyebilirsiniz.
+**Ayarlar → Arayüz → Sesli karşılama** bölümünden “Araca bağlanınca sesli karşıla” seçeneğini açın ve isterseniz adınızı yazıp klavyedeki **Bitti** tuşuna basın. Telefon araca bağlandığında Mola saate göre kısa bir karşılama yapar. “Günde yalnızca bir kez” seçilirse gün içindeki sonraki bağlantılarda sessiz kalır. Telefonda Türkçe konuşma sesi yüklü değilse karşılama yapılmaz; Ayarlar → Erişilebilirlik → Metin okuma bölümünden Google’ın Türkçe sesini yükleyebilirsiniz.

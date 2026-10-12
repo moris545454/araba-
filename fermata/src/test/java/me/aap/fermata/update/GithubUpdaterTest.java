@@ -12,19 +12,18 @@ import org.robolectric.RuntimeEnvironment;
 @org.robolectric.annotation.Config(sdk = 28)
 @RunWith(RobolectricTestRunner.class)
 public class GithubUpdaterTest {
-    @Test public void schedulesPersistedNetworkChecksAndCancelsWhenDisabled() {
+    @Test public void neverSchedulesBackgroundChecksAndCancelsLegacyJob() {
         Context context = RuntimeEnvironment.getApplication();
         JobScheduler scheduler = context.getSystemService(JobScheduler.class);
         GithubUpdater.prefs(context).edit().clear().commit();
-        GithubUpdater.schedule(context);
-        JobInfo job = scheduler.getAllPendingJobs().get(0);
-        assertTrue(job.isPersisted());
-        assertTrue(job.isPeriodic());
-        assertEquals(JobInfo.NETWORK_TYPE_ANY, job.getNetworkType());
-        assertEquals(6 * 60 * 60 * 1000L, job.getIntervalMillis());
-        GithubUpdater.schedule(context);
+        // A periodic job left by an older version is removed.
+        scheduler.schedule(new JobInfo.Builder(90427,
+                new android.content.ComponentName(context, UpdateCheckJob.class))
+                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setPeriodic(6 * 60 * 60 * 1000L).build());
         assertEquals(1, scheduler.getAllPendingJobs().size());
-        GithubUpdater.prefs(context).edit().putBoolean("enabled", false).commit();
+        GithubUpdater.schedule(context);
+        assertTrue(scheduler.getAllPendingJobs().isEmpty());
         GithubUpdater.schedule(context);
         assertTrue(scheduler.getAllPendingJobs().isEmpty());
     }

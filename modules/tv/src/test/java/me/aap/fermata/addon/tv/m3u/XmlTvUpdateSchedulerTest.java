@@ -77,6 +77,28 @@ public class XmlTvUpdateSchedulerTest {
 		assertEquals(2, fake.tasks.size());
 	}
 
+	@Test
+	public void dueUpdateWaitsWhileTheAppIsNotInUse() throws Throwable {
+		FakeScheduler fake = new FakeScheduler();
+		boolean[] inUse = {false};
+		XmlTvUpdateScheduler updates = new XmlTvUpdateScheduler(fake, () -> inUse[0]);
+		AtomicInteger calls = new AtomicInteger();
+
+		updates.schedule(() -> {
+			calls.incrementAndGet();
+			return completedVoid();
+		}, 1L);
+		fake.run(0);
+
+		assertEquals(0, calls.get());
+		assertEquals(2, fake.tasks.size());
+		assertEquals(XmlTvUpdateScheduler.IDLE_RECHECK_MS, fake.tasks.get(1).delay);
+
+		inUse[0] = true;
+		fake.run(1);
+		assertEquals(1, calls.get());
+	}
+
 	private static final class FakeScheduler implements XmlTvUpdateScheduler.Scheduler {
 		final List<Task<?>> tasks = new ArrayList<>();
 
