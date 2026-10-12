@@ -2,6 +2,8 @@
 
 Dem TV 2.1.7; TV/IPTV, Türk radyoları, YouTube, tarayıcı, Favori Kanallar, kendi web kısayollarınız ve izinli ekran yansıtmayı içerir. 2.1.5 için normal kurulumdan sonra Android Auto’da görünmediği bildirildi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
 
+> **ÖNEMLİ:** Uygulamayı kuramayanlar [bu videoyu](https://www.youtube.com/watch?v=CdU0OlLds2k) izleyerek kurulum yapsın (Shizuku kurulum rehberi). Ardından Dem TV’yi aşağıdaki bağlantıdaki **KingInstaller** uygulamasıyla tekrar kursun; Android Auto’da çalışacaktır ❤
+
 ## 1. Doğrudan indirme bağlantıları
 
 Dem TV 2.1.7 APK (güncel):
@@ -53,7 +55,7 @@ KingInstaller ayrı bir üçüncü taraf yükleyicidir; Dem TV APK’sının iç
 
 Telefondaki APK yükleme izni ile Android Auto’daki bilinmeyen kaynaklar farklı ayarlardır. İkisi de bütün cihazlarda görünme garantisi vermez. Ayrı bir “Medya hizmeti”, “FermataX Mirror” veya ScreenOnAuto APK’sı kurmanız gerekmez.
 
-**Hâlâ görünmüyorsa:** Dem TV’nin telefonda açıldığını, KingInstaller kurulumunun tamamlandığını ve Android Auto başlatıcı listesini kontrol edin. Android Auto ve Android System WebView/Chrome’u güncelleyin. Klasik yöntemin desteklenmediği cihazlarda yalnızca bu adımlar yeterli olmayabilir; [KingInstaller geliştiricisinin uyumluluk açıklamalarını](https://github.com/fcaronte/KingInstaller#readme) inceleyin. Bu rehber root veya Shizuku kurulumu gerektiren bir yöntem anlatmaz.
+**Hâlâ görünmüyorsa:** Dem TV’nin telefonda açıldığını, KingInstaller kurulumunun tamamlandığını ve Android Auto başlatıcı listesini kontrol edin. Android Auto ve Android System WebView/Chrome’u güncelleyin. Klasik yöntemin desteklenmediği cihazlarda yalnızca bu adımlar yeterli olmayabilir; [KingInstaller geliştiricisinin uyumluluk açıklamalarını](https://github.com/fcaronte/KingInstaller#readme) inceleyin. Klasik yöntem işe yaramazsa [Shizuku kurulum videosunu](https://www.youtube.com/watch?v=CdU0OlLds2k) izleyip Shizuku’yu kurun, sonra KingInstaller’da Shizuku seçeneğini açarak Dem TV’yi tekrar yükleyin.
 
 ## 5. Ekran yansıtma
 

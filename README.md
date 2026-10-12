@@ -6,6 +6,8 @@ TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe And
 
 ## Sürüm durumu
 
+> **ÖNEMLİ:** Uygulamayı kuramayanlar [bu videoyu](https://www.youtube.com/watch?v=CdU0OlLds2k) izleyerek kurulum yapsın, ardından Dem TV’yi [KingInstaller](https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk) uygulamasıyla tekrar kursun; Android Auto’da çalışacaktır ❤
+
 **Dem TV 2.1.7** — [APK’yı indir](https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk) · [sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
 
 - Ana sayfada **Favori Kanallar** rafı ve kendi web sitelerinizi ekleyebileceğiniz **Kısayol ekle** kartı.
