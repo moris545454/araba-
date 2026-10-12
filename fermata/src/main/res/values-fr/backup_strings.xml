@@ -3,7 +3,7 @@
 	<string name="backup_restore">Sauvegarde et restauration</string>
 	<string name="backup_restore_sub">Transférer les réglages et comptes portables entre appareils</string>
 	<string name="backup_all_data">Sauvegarder toutes les données</string>
-	<string name="backup_all_data_sub">Créer un fichier Dem TV chiffré unique</string>
+	<string name="backup_all_data_sub">Créer un fichier Mola chiffré unique</string>
 	<string name="restore_backup">Restaurer une sauvegarde</string>
 	<string name="restore_backup_sub">Restaurer un fichier .fxbackup ou une ancienne archive ZIP</string>
 	<string name="backup_password_title">Protéger la sauvegarde</string>

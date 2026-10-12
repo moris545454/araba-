@@ -1,8 +1,8 @@
 {
   "apk": "FermataX-yeni-arayuz-debug.apk",
-  "sha256": "0fe9ae41c60329c5cf98869483ee2cba909cfebcb0e2c1601cf0fe7ad1fb2f5d",
-  "versionName": "2.1.9",
-  "versionCode": 320,
+  "sha256": "1bc5ba3d484c618e7b172fc970bf284551d2721234923db9524a5cbf69322010",
+  "versionName": "2.2.0",
+  "versionCode": 321,
   "forbiddenPermissionsAbsent": [
     "SYSTEM_ALERT_WINDOW",
     "MANAGE_EXTERNAL_STORAGE",

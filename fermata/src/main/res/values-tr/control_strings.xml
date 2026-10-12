@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="control_nothing_playing">Oynatılan içerik yok</string>
-    <string name="control_open_dashboard">Dem TV’i araç ekranında aç</string>
+    <string name="control_open_dashboard">Mola’yı araç ekranında aç</string>
     <string name="control_aa_disconnected">Android Auto bağlı değil</string>
     <string name="control_aa_connected">Android Auto bağlı</string>
-    <string name="control_aa_visible">Dem TV araç ekranında açık</string>
-    <string name="control_aa_disconnected_detail">Android Auto’ya bağlanın, ardından Dem TV’i araç ekranında açın.</string>
-    <string name="control_aa_connected_detail">Bir eklenti seçmek için Dem TV’i araç ekranında açın.</string>
+    <string name="control_aa_visible">Mola araç ekranında açık</string>
+    <string name="control_aa_disconnected_detail">Android Auto’ya bağlanın, ardından Mola’yı araç ekranında açın.</string>
+    <string name="control_aa_connected_detail">Bir eklenti seçmek için Mola’yı araç ekranında açın.</string>
     <string name="control_aa_visible_detail">Araç ekranında açmak için aşağıdan bir eklenti seçin.</string>
     <string name="control_addons_heading">ARAÇ EKRANINDA AÇ · ETKİN EKLENTİLER</string>
     <string name="control_open_on_car">Aç</string>
-    <string name="control_open_car_first">Önce Dem TV’i araç ekranında açın.</string>
+    <string name="control_open_car_first">Önce Mola’yı araç ekranında açın.</string>
     <string name="control_no_addons">Araç ekranını destekleyen etkin eklenti yok.</string>
     <string name="control_current_content">Şu anki içerik</string>
     <string name="control_addon_loading">Yükleniyor</string>

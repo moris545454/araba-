@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name_mobile_release" translatable="false">Dem TV</string>
-    <string name="app_name_auto_release" translatable="false">Dem TV</string>
-    <string name="app_name_mobile_debug" translatable="false">Dem TV</string>
-    <string name="app_name_auto_debug" translatable="false">Dem TV</string>
-    <string name="mirror_service_name_release" translatable="false">Dem TV Yansıtma</string>
-    <string name="mirror_service_name_debug" translatable="false">Dem TV Yansıtma</string>
+    <string name="app_name_mobile_release" translatable="false">Mola</string>
+    <string name="app_name_auto_release" translatable="false">Mola</string>
+    <string name="app_name_mobile_debug" translatable="false">Mola</string>
+    <string name="app_name_auto_debug" translatable="false">Mola</string>
+    <string name="mirror_service_name_release" translatable="false">Mola Yansıtma</string>
+    <string name="mirror_service_name_debug" translatable="false">Mola Yansıtma</string>
     <string name="media_service_name_mobile_release" translatable="false">@string/app_name_mobile_release</string>
-    <string name="media_service_name_auto_release" translatable="false">Dem TV Medya</string>
+    <string name="media_service_name_auto_release" translatable="false">Mola Medya</string>
     <string name="media_service_name_mobile_debug" translatable="false">@string/app_name_mobile_debug</string>
-    <string name="media_service_name_auto_debug" translatable="false">Dem TV Medya</string>
+    <string name="media_service_name_auto_debug" translatable="false">Mola Medya</string>
     <string name="engine_mp_name" translatable="false">MediaPlayer</string>
     <string name="engine_exo_name" translatable="false">ExoPlayer</string>
     <string name="engine_vlc_name" translatable="false">VLC</string>
@@ -177,11 +177,11 @@
     <string name="voice_search">Voice search</string>
 	<string name="voice_control">Voice control</string>
 	<string name="voice_trigger_assign">Assign vehicle voice button</string>
-	<string name="voice_trigger_current">Current: %1$s. Active only while Dem TV is visible.</string>
+	<string name="voice_trigger_current">Current: %1$s. Active only while Mola is visible.</string>
 	<string name="voice_trigger_unassigned">Not assigned</string>
 	<string name="voice_trigger_capture_started">Press the steering-wheel or head-unit button once. The press will not run its normal action.</string>
 	<string name="voice_trigger_capture_timeout">No supported button was detected. Nothing was changed.</string>
-	<string name="voice_trigger_capture_success">Assigned %1$s (%2$d). It opens Dem TV voice only while the app is visible.</string>
+	<string name="voice_trigger_capture_success">Assigned %1$s (%2$d). It opens Mola voice only while the app is visible.</string>
 	<string name="voice_trigger_clear">Clear vehicle voice button</string>
 	<string name="voice_trigger_cleared">Vehicle voice button assignment cleared.</string>
 	<string name="voice_selection_prompt">Say number one, two, or three</string>
@@ -352,7 +352,7 @@
     <string name="p2p_rebuffering_status">Rebuffering | %1$d peers | %2$s/s</string>
     <string name="press_back_again">Press back button again to exit.</string>
     <string name="please_restart_app">Please restart the application.</string>
-    <string name="use_phone_to_grant_perm">This feature needs permission on your phone. Open Dem TV on the phone and try again.</string>
+    <string name="use_phone_to_grant_perm">This feature needs permission on your phone. Open Mola on the phone and try again.</string>
 
     <string name="vfs_content">Content</string>
     <string name="vfs_file_system">File system</string>
@@ -439,7 +439,7 @@
     <string name="vehicle_key_test">Test vehicle controls</string>
     <string name="vehicle_key_test_sub">Capture steering-wheel and head-unit control keys for 30 seconds</string>
     <string name="vehicle_key_test_started">Key test started. Press the vehicle controls you want to test, then select this item again to view the result.</string>
-    <string name="vehicle_key_test_no_events">No control key reached Dem TV. The head unit or vehicle firmware may have retained the input.</string>
+    <string name="vehicle_key_test_no_events">No control key reached Mola. The head unit or vehicle firmware may have retained the input.</string>
     <string name="vehicle_key_test_result">Vehicle control results:\n%1$s</string>
     <string name="export_diagnostic_report">Export diagnostic report</string>
     <string name="export_diagnostic_report_sub">Create a private ZIP report to save or share with support</string>
@@ -450,18 +450,18 @@
     <string name="diagnostic_report_saved">Diagnostic report saved to Downloads as %1$s.</string>
     <string name="diagnostic_report_failed">Unable to create diagnostic report: %1$s</string>
     <string name="diagnostic_data_cleared">Diagnostic data cleared.</string>
-    <string name="diagnostics_phone_only">Export diagnostic reports from Dem TV Settings on your phone.</string>
-    <string name="unlock_phone_and_grant">Unlock your phone, open Dem TV and confirm screen sharing to start mirroring.</string>
+    <string name="diagnostics_phone_only">Export diagnostic reports from Mola Settings on your phone.</string>
+    <string name="unlock_phone_and_grant">Unlock your phone, open Mola and confirm screen sharing to start mirroring.</string>
     <string name="screen_capture_rejected">Screen capture request rejected.</string>
-    <string name="accessibility_dsc">The accessibility service is used by Dem TV Yansıtma to simulate touch screen events.</string>
+    <string name="accessibility_dsc">The accessibility service is used by Mola Yansıtma to simulate touch screen events.</string>
     <string name="media_projection_action_text">Start now</string>
 
     <string name="about">About</string>
-    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
-        <p>Dem TV is a fork of Fermata, customized as a media hub for Android Auto.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Mola</H1>
+        <p>Mola is a fork of Fermata, customized as a media hub for Android Auto.</p>
         <p>It combines dashboard-first navigation, IPTV/Xtream, Internet Radio, YouTube/Web media,
         local files, Favorites, and Recent in a car-friendly experience.</p>
-        <p>Dem TV does not provide media content, playlists, TV channels, or IPTV accounts.
+        <p>Mola does not provide media content, playlists, TV channels, or IPTV accounts.
         Users are responsible for the sources they add.</p>
         <p><b>Original project:</b> Fermata by Andrey Pavlenko</p>
         <p><b>Version:</b> %1$s (%2$d)</p>
@@ -513,11 +513,11 @@
 	<string name="retry">Retry</string>
 	<string name="media_list_empty">No items yet</string>
 	<string name="media_list_load_failed">Unable to load items.</string>
-    <string name="dem_home_web">Dem TV • Live ↗</string>
-    <string name="dem_mirror_waiting">Confirm screen sharing on your phone. If the permission screen does not open, tap the Dem TV notification or open Dem TV on your phone.</string>
+    <string name="dem_home_web">Mola • Live ↗</string>
+    <string name="dem_mirror_waiting">Confirm screen sharing on your phone. If the permission screen does not open, tap the Mola notification or open Mola on your phone.</string>
     <string name="dem_mirror_stop">✕ Stop mirroring</string>
     <string name="dem_mirror_rejected">Screen sharing could not start. Go back, try again and approve it on your phone.</string>
-    <string name="dem_mirror_connect">Open Dem TV in Android Auto first, then confirm screen sharing on your phone.</string>
+    <string name="dem_mirror_connect">Open Mola in Android Auto first, then confirm screen sharing on your phone.</string>
     <string name="dem_mirror_external">Start with ScreenOnAuto</string>
     <string name="dem_mirror_external_failed">ScreenOnAuto could not start. Check the app and car connection.</string>
     <string name="dem_home_windasist" translatable="false">WindAsist ↗</string>

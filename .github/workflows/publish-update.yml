@@ -73,7 +73,7 @@ jobs:
             gh release delete-asset "$TAG" FermataX-yeni-arayuz-debug.apk --yes || true
             gh release delete-asset "$TAG" update-auto-debug.json --yes || true
           else
-            gh release create "$TAG" --target "$GITHUB_SHA" --draft --title "Dem TV $TAG" --notes-file UPDATE_RELEASE_NOTES_TR.md
+            gh release create "$TAG" --target "$GITHUB_SHA" --draft --title "Mola $TAG" --notes-file UPDATE_RELEASE_NOTES_TR.md
           fi
           gh release upload "$TAG" release-assets/FermataX-yeni-arayuz-debug.apk release-assets/update-auto-debug.json --clobber
           gh release edit "$TAG" --draft=false --latest

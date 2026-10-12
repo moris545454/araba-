@@ -336,8 +336,8 @@
 	<string name="private_key_pass">Hasło klucza prywatnego</string>
 
     <string name="donate">Wesprzyj twórcę</string>
-    <string name="donate_text">Wesprzyj Dem TV na Ko-fi.</string>
-    <string name="use_phone_for_donation">Otwórz Ko-fi na telefonie, aby wesprzeć Dem TV.</string>
+    <string name="donate_text">Wesprzyj Mola na Ko-fi.</string>
+    <string name="use_phone_for_donation">Otwórz Ko-fi na telefonie, aby wesprzeć Mola.</string>
 
     <string name="timer">Odliczanie</string>
     <string name="hours">Godziny</string>
@@ -378,15 +378,15 @@
     <string name="open_log">Otwórz plik dziennika</string>
     <string name="unlock_phone_and_grant">Odblokuj telefon i udziel żądanych uprawnień.</string>
     <string name="screen_capture_rejected">Żądanie przechwycenia ekranu zostało odrzucone.</string>
-    <string name="accessibility_dsc">Usługa dostępności jest wykorzystywana przez Dem TV Yansıtma do symulacji zdarzeń na ekranie dotykowym.</string>
+    <string name="accessibility_dsc">Usługa dostępności jest wykorzystywana przez Mola Yansıtma do symulacji zdarzeń na ekranie dotykowym.</string>
     <string name="media_projection_action_text">Zacząć teraz</string>
 
     <string name="about">O programie</string>
-    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
-        <p>Dem TV to fork Fermata, dostosowany jako centrum multimedialne dla Android Auto.</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Mola</H1>
+        <p>Mola to fork Fermata, dostosowany jako centrum multimedialne dla Android Auto.</p>
         <p>Łączy nawigację opartą na Dashboardzie, IPTV/Xtream, radio internetowe, multimedia YouTube/Web,
         pliki lokalne, Ulubione i Ostatnie w interfejsie wygodnym w samochodzie.</p>
-        <p>Dem TV nie dostarcza treści multimedialnych, playlist, kanałów TV ani kont IPTV.
+        <p>Mola nie dostarcza treści multimedialnych, playlist, kanałów TV ani kont IPTV.
         Użytkownicy odpowiadają za dodane źródła.</p>
         <p><b>Oryginalny projekt:</b> Fermata by Andrey Pavlenko</p>
         <p><b>Wersja:</b> %1$s (%2$d)</p>
@@ -481,21 +481,21 @@
 	<string name="diagnostic_report_saved">Raport diagnostyczny zapisano w Pobranych jako %1$s.</string>
 	<string name="diagnostic_report_failed">Nie można utworzyć raportu diagnostycznego: %1$s</string>
 	<string name="diagnostic_data_cleared">Dane diagnostyczne zostały wyczyszczone.</string>
-	<string name="diagnostics_phone_only">Wyeksportuj raport diagnostyczny w ustawieniach Dem TV na telefonie.</string>
+	<string name="diagnostics_phone_only">Wyeksportuj raport diagnostyczny w ustawieniach Mola na telefonie.</string>
 	<string name="retry">Spróbuj ponownie</string>
 	<string name="media_list_empty">Brak elementów</string>
 	<string name="media_list_load_failed">Nie udało się wczytać elementów.</string>
 	<string name="vehicle_key_test">Testuj elementy sterowania pojazdu</string>
 	<string name="vehicle_key_test_sub">Rejestruj przyciski kierownicy i jednostki głównej przez 30 sekund</string>
 	<string name="vehicle_key_test_started">Test rozpoczęty. Naciśnij testowane przyciski, a następnie ponownie wybierz tę pozycję, aby zobaczyć wynik.</string>
-	<string name="vehicle_key_test_no_events">Żaden przycisk nie dotarł do Dem TV. Jednostka główna lub firmware pojazdu mogły przechwycić sygnał.</string>
+	<string name="vehicle_key_test_no_events">Żaden przycisk nie dotarł do Mola. Jednostka główna lub firmware pojazdu mogły przechwycić sygnał.</string>
 	<string name="vehicle_key_test_result">Wyniki sterowania pojazdem:\n%1$s</string>
 	<string name="voice_trigger_assign">Przypisz przycisk głosowy pojazdu</string>
-	<string name="voice_trigger_current">Obecnie: %1$s. Aktywny tylko wtedy, gdy Dem TV jest widoczny.</string>
+	<string name="voice_trigger_current">Obecnie: %1$s. Aktywny tylko wtedy, gdy Mola jest widoczny.</string>
 	<string name="voice_trigger_unassigned">Nieprzypisany</string>
 	<string name="voice_trigger_capture_started">Naciśnij raz przycisk na kierownicy lub jednostce głównej. Naciśnięcie nie uruchomi jego zwykłej funkcji.</string>
 	<string name="voice_trigger_capture_timeout">Nie wykryto obsługiwanego przycisku. Niczego nie zmieniono.</string>
-	<string name="voice_trigger_capture_success">Przypisano %1$s (%2$d). Otwiera sterowanie głosowe Dem TV tylko wtedy, gdy aplikacja jest widoczna.</string>
+	<string name="voice_trigger_capture_success">Przypisano %1$s (%2$d). Otwiera sterowanie głosowe Mola tylko wtedy, gdy aplikacja jest widoczna.</string>
 	<string name="voice_trigger_clear">Usuń przypisanie przycisku głosowego</string>
 	<string name="voice_trigger_cleared">Usunięto przypisanie przycisku głosowego pojazdu.</string>
 	<string name="voice_selection_prompt">Powiedz numer jeden, dwa lub trzy</string>
@@ -519,11 +519,11 @@
     <string name="audio_effects_range_error">Enter a value from %1$d to %2$d.</string>
 
     <string name="legacy_preset_migration_notice">Nie można było automatycznie przekonwertować poprzedniego ustawienia korektora urządzenia. Wybierz lub dostosuj korektor raz.</string>
-    <string name="dem_home_web">Dem TV • Na żywo ↗</string>
-    <string name="dem_mirror_waiting">Otwórz Dem TV na telefonie i potwierdź udostępnianie ekranu.</string>
+    <string name="dem_home_web">Mola • Na żywo ↗</string>
+    <string name="dem_mirror_waiting">Otwórz Mola na telefonie i potwierdź udostępnianie ekranu.</string>
     <string name="dem_mirror_stop">✕ Zatrzymaj ekran</string>
     <string name="dem_mirror_rejected">Nie udało się udostępnić ekranu. Wróć i zatwierdź ponownie na telefonie.</string>
-    <string name="dem_mirror_connect">Otwórz Dem TV w Android Auto, a następnie zatwierdź udostępnianie na telefonie.</string>
+    <string name="dem_mirror_connect">Otwórz Mola w Android Auto, a następnie zatwierdź udostępnianie na telefonie.</string>
     <string name="dem_mirror_external">Uruchom przez ScreenOnAuto</string>
     <string name="dem_mirror_external_failed">Nie udało się uruchomić ScreenOnAuto. Sprawdź aplikację i połączenie z autem.</string>
     <string name="web_capture_consent">Zezwolić tej stronie na używanie kamery lub mikrofonu podczas tej sesji aplikacji?</string>

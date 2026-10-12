@@ -1,10 +1,10 @@
-# Dem TV 2.1.5 — azaltılmış yetkiler, doğrulama kapsamı
+# Mola 2.1.5 — azaltılmış yetkiler, doğrulama kapsamı
 
 2.1.4 kullanıcıda kapanma bildirimleri üzerine kararlı listeden çekildi. Kullanıcı 2.1.5’in çalıştığını bildirdi; normal kurulumla Android Auto’da görünmediğini de bildirdi. KingInstaller ile araç doğrulaması ve kesin kapanma nedeni için hata kaydı beklenir; 2.1.5 ön sürüm olarak kalır. Play Protect/banka uyarısının kesin olarak hangi uygulamadan kaynaklandığı belirlenmemiştir. Bu belge bir antivirüs sertifikası, Google onayı veya banka uyumluluk garantisi değildir.
 
 ## APK’da bulunanlar
 
-TV/IPTV, YouTube, tarayıcı; Android’in kullanıcı onayıyla MediaProjection görüntü paylaşımı. TV için ExoPlayer/VLC motorları korunur. WindAsist ve Dem TV bağlantıları tarayıcı kısayollarıdır. Paket ve imza, kullanıcı kaynakları ve Android Keystore kullanan şifreli tercih saklama korunur.
+TV/IPTV, YouTube, tarayıcı; Android’in kullanıcı onayıyla MediaProjection görüntü paylaşımı. TV için ExoPlayer/VLC motorları korunur. WindAsist ve Mola bağlantıları tarayıcı kısayollarıdır. Paket ve imza, kullanıcı kaynakları ve Android Keystore kullanan şifreli tercih saklama korunur.
 
 ## APK’da bulunmayanlar
 
@@ -32,4 +32,4 @@ Güncellemede HTTPS, APK boyutu, SHA-256, paket adı, sürüm kodu ve aynı imza
 
 [Birim testleri ve sürüm notları](UPDATE_RELEASE_NOTES_TR.md), Mobile/Auto lint ve [gerçek APK manifest/DEX kontrol raporu](distribution/security-apk-check.json) yayın içeriğini denetler. Bunlar fiziksel telefon/Android Auto testi, bağımsız zararlı yazılım analizi, Play Protect veya banka kabulü yerine geçmez. Android 9 minimum/Android 16 hedef SDK değerleri uyumluluk iddiası değildir.
 
-APK’da KingInstaller bağımlılığı veya kurulum kaynağı taklidi yoktur. Kurulum rehberi, Android Auto’da görünmeyen kurulumlarda ayrı üçüncü taraf KingInstaller yükleyicisinin klasik yöntemini de anlatır; KingInstaller’ın kendi yetkileri ve uyumluluğu Dem TV APK denetimine dahil değildir. Normal Android kurulumu, Google’ın özel video/tarayıcı/yansıtma arayüzünü her cihazda kabul edeceğini garanti etmez. Bankanın hangi uygulamayı tespit ettiği bankanın resmî kanalından öğrenilmelidir; korumalar kapatılarak sorun saklanmaz.
+APK’da KingInstaller bağımlılığı veya kurulum kaynağı taklidi yoktur. Kurulum rehberi, Android Auto’da görünmeyen kurulumlarda ayrı üçüncü taraf KingInstaller yükleyicisinin klasik yöntemini de anlatır; KingInstaller’ın kendi yetkileri ve uyumluluğu Mola APK denetimine dahil değildir. Normal Android kurulumu, Google’ın özel video/tarayıcı/yansıtma arayüzünü her cihazda kabul edeceğini garanti etmez. Bankanın hangi uygulamayı tespit ettiği bankanın resmî kanalından öğrenilmelidir; korumalar kapatılarak sorun saklanmaz.

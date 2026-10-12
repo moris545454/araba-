@@ -336,8 +336,8 @@
     <string name="private_key_pass">ពាក្យសម្ងាត់សោឯកជន</string>
 
     <string name="donate">គាំទ្រអ្នកអភិវឌ្ឍន៍</string>
-    <string name="donate_text">គាំទ្រ Dem TV តាម Ko-fi។</string>
-    <string name="use_phone_for_donation">បើក Ko-fi នៅលើទូរសព្ទដើម្បីគាំទ្រ Dem TV។</string>
+    <string name="donate_text">គាំទ្រ Mola តាម Ko-fi។</string>
+    <string name="use_phone_for_donation">បើក Ko-fi នៅលើទូរសព្ទដើម្បីគាំទ្រ Mola។</string>
 
     <string name="timer">កម្មវិធីកំណត់ម៉ោង</string>
     <string name="hours">ម៉ោង</string>
@@ -378,15 +378,15 @@
     <string name="open_log">បើកឯកសារកំណត់ហេតុ</string>
     <string name="unlock_phone_and_grant">ដោះសោទូរសព្ទ ហើយផ្តល់ការអនុញ្ញាតដែលបានស្នើសុំ។</string>
     <string name="screen_capture_rejected">សំណើ​ថត​អេក្រង់​ត្រូវ​បាន​បដិសេធ។</string>
-    <string name="accessibility_dsc">សេវាកម្ម​មធ្យោបាយ​ងាយស្រួល​ត្រូវ​បាន​ប្រើ​ដោយ Dem TV Yansıtma ដើម្បី​ក្លែង​ធ្វើ​ព្រឹត្តិការណ៍​ប៉ះ​លើ​អេក្រង់។</string>
+    <string name="accessibility_dsc">សេវាកម្ម​មធ្យោបាយ​ងាយស្រួល​ត្រូវ​បាន​ប្រើ​ដោយ Mola Yansıtma ដើម្បី​ក្លែង​ធ្វើ​ព្រឹត្តិការណ៍​ប៉ះ​លើ​អេក្រង់។</string>
     <string name="media_projection_action_text">ចាប់ផ្តើមឥឡូវនេះ</string>
 
     <string name="about">អំពី</string>
-    <string name="about_html"><![CDATA[<H1 align="center">Dem TV</H1>
-        <p>Dem TV គឺជាកំណែ fork របស់ Fermata ដែលបានកែសម្រួលឱ្យជា media hub សម្រាប់ Android Auto។</p>
+    <string name="about_html"><![CDATA[<H1 align="center">Mola</H1>
+        <p>Mola គឺជាកំណែ fork របស់ Fermata ដែលបានកែសម្រួលឱ្យជា media hub សម្រាប់ Android Auto។</p>
         <p>វារួមបញ្ចូលការរុករកផ្តោតលើ Dashboard, IPTV/Xtream, វិទ្យុអ៊ីនធឺណិត, មេឌៀ YouTube/Web,
         ឯកសារមូលដ្ឋាន, Favorites និង Recent ទៅក្នុងបទពិសោធន៍ងាយប្រើក្នុងរថយន្ត។</p>
-        <p>Dem TV មិនផ្តល់មាតិកាមេឌៀ បញ្ជីចាក់ ប៉ុស្តិ៍ TV ឬគណនី IPTV ទេ។
+        <p>Mola មិនផ្តល់មាតិកាមេឌៀ បញ្ជីចាក់ ប៉ុស្តិ៍ TV ឬគណនី IPTV ទេ។
         អ្នកប្រើទទួលខុសត្រូវចំពោះប្រភពដែលបានបន្ថែម។</p>
         <p><b>គម្រោងដើម:</b> Fermata by Andrey Pavlenko</p>
         <p><b>កំណែ:</b> %1$s (%2$d)</p>
@@ -481,21 +481,21 @@
 	<string name="diagnostic_report_saved">របាយការណ៍វិនិច្ឆ័យត្រូវបានរក្សាទុកក្នុង Downloads ជា %1$s។</string>
 	<string name="diagnostic_report_failed">មិនអាចបង្កើតរបាយការណ៍វិនិច្ឆ័យបានទេ៖ %1$s</string>
 	<string name="diagnostic_data_cleared">បានសម្អាតទិន្នន័យវិនិច្ឆ័យ។</string>
-	<string name="diagnostics_phone_only">នាំចេញរបាយការណ៍វិនិច្ឆ័យពីការកំណត់ Dem TV លើទូរសព្ទរបស់អ្នក។</string>
+	<string name="diagnostics_phone_only">នាំចេញរបាយការណ៍វិនិច្ឆ័យពីការកំណត់ Mola លើទូរសព្ទរបស់អ្នក។</string>
 	<string name="retry">ព្យាយាមម្តងទៀត</string>
 	<string name="media_list_empty">មិនទាន់មានធាតុ</string>
 	<string name="media_list_load_failed">មិនអាចផ្ទុកធាតុបានទេ។</string>
 	<string name="vehicle_key_test">សាកល្បងប៊ូតុងរថយន្ត</string>
 	<string name="vehicle_key_test_sub">ចាប់យកប៊ូតុងចង្កូត និងឧបករណ៍ក្បាលរយៈពេល 30 វិនាទី</string>
 	<string name="vehicle_key_test_started">បានចាប់ផ្តើមសាកល្បង។ ចុចប៊ូតុងដែលចង់សាកល្បង រួចជ្រើសធាតុនេះម្តងទៀតដើម្បីមើលលទ្ធផល។</string>
-	<string name="vehicle_key_test_no_events">មិនមានប៊ូតុងបញ្ជាណាមួយមកដល់ Dem TV ទេ។ ឧបករណ៍ក្បាល ឬ firmware រថយន្តអាចបានទប់ស្កាត់វា។</string>
+	<string name="vehicle_key_test_no_events">មិនមានប៊ូតុងបញ្ជាណាមួយមកដល់ Mola ទេ។ ឧបករណ៍ក្បាល ឬ firmware រថយន្តអាចបានទប់ស្កាត់វា។</string>
 	<string name="vehicle_key_test_result">លទ្ធផលប៊ូតុងរថយន្ត៖\n%1$s</string>
 	<string name="voice_trigger_assign">កំណត់ប៊ូតុងសំឡេងក្នុងរថយន្ត</string>
-	<string name="voice_trigger_current">បច្ចុប្បន្ន៖ %1$s។ ដំណើរការតែពេល Dem TV បង្ហាញប៉ុណ្ណោះ។</string>
+	<string name="voice_trigger_current">បច្ចុប្បន្ន៖ %1$s។ ដំណើរការតែពេល Mola បង្ហាញប៉ុណ្ណោះ។</string>
 	<string name="voice_trigger_unassigned">មិនទាន់កំណត់</string>
 	<string name="voice_trigger_capture_started">ចុចប៊ូតុងលើចង្កូត ឬឧបករណ៍មេម្តង។ ការចុចនេះនឹងមិនដំណើរការមុខងារធម្មតាទេ។</string>
 	<string name="voice_trigger_capture_timeout">រកមិនឃើញប៊ូតុងដែលគាំទ្រ។ គ្មានអ្វីត្រូវបានផ្លាស់ប្តូរ។</string>
-	<string name="voice_trigger_capture_success">បានកំណត់ %1$s (%2$d)។ វាបើកសំឡេង Dem TV តែពេលកម្មវិធីបង្ហាញប៉ុណ្ណោះ។</string>
+	<string name="voice_trigger_capture_success">បានកំណត់ %1$s (%2$d)។ វាបើកសំឡេង Mola តែពេលកម្មវិធីបង្ហាញប៉ុណ្ណោះ។</string>
 	<string name="voice_trigger_clear">លុបការកំណត់ប៊ូតុងសំឡេង</string>
 	<string name="voice_trigger_cleared">បានលុបការកំណត់ប៊ូតុងសំឡេងក្នុងរថយន្ត។</string>
 	<string name="voice_selection_prompt">និយាយលេខមួយ ពីរ ឬបី</string>
@@ -519,11 +519,11 @@
     <string name="audio_effects_range_error">Enter a value from %1$d to %2$d.</string>
 
     <string name="legacy_preset_migration_notice">មិនអាចបម្លែង​ការកំណត់ជាមុន​នៃ​កម្មវិធីកំណត់សំឡេង​របស់ឧបករណ៍មុន​ដោយស្វ័យប្រវត្តិបានទេ។ សូមជ្រើសរើស ឬកែតម្រូវកម្មវិធីកំណត់សំឡេងម្តង។</string>
-    <string name="dem_home_web">Dem TV • ផ្សាយផ្ទាល់ ↗</string>
-    <string name="dem_mirror_waiting">បើក Dem TV នៅលើទូរសព្ទ ហើយអនុញ្ញាតការចែករំលែកអេក្រង់។</string>
+    <string name="dem_home_web">Mola • ផ្សាយផ្ទាល់ ↗</string>
+    <string name="dem_mirror_waiting">បើក Mola នៅលើទូរសព្ទ ហើយអនុញ្ញាតការចែករំលែកអេក្រង់។</string>
     <string name="dem_mirror_stop">✕ បញ្ឈប់ការបង្ហាញអេក្រង់</string>
     <string name="dem_mirror_rejected">មិនអាចចាប់ផ្តើមការចែករំលែកអេក្រង់បានទេ។ ត្រឡប់ក្រោយហើយអនុញ្ញាតនៅលើទូរសព្ទម្ដងទៀត។</string>
-    <string name="dem_mirror_connect">បើក Dem TV ក្នុង Android Auto រួចអនុញ្ញាតការចែករំលែកអេក្រង់នៅលើទូរសព្ទ។</string>
+    <string name="dem_mirror_connect">បើក Mola ក្នុង Android Auto រួចអនុញ្ញាតការចែករំលែកអេក្រង់នៅលើទូរសព្ទ។</string>
     <string name="dem_mirror_external">ចាប់ផ្តើមជាមួយ ScreenOnAuto</string>
     <string name="dem_mirror_external_failed">មិនអាចចាប់ផ្តើម ScreenOnAuto បានទេ។ ពិនិត្យកម្មវិធី និងការតភ្ជាប់រថយន្ត។</string>
     <string name="web_capture_consent">អនុញ្ញាតឱ្យគេហទំព័រនេះប្រើកាមេរ៉ា ឬមីក្រូហ្វូនក្នុងវគ្គប្រើកម្មវិធីនេះឬ?</string>

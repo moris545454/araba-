@@ -12,8 +12,8 @@
 	<string name="readiness_unknown">Chưa xác minh</string>
 	<string name="readiness_not_applicable">Không áp dụng</string>
 	<string name="readiness_connection_disconnected">Android Auto chưa kết nối.</string>
-	<string name="readiness_connection_connected">Android Auto đã kết nối; Dem TV chưa mở trên màn hình xe.</string>
-	<string name="readiness_connection_visible">Dem TV đang hiện trên màn hình xe.</string>
+	<string name="readiness_connection_connected">Android Auto đã kết nối; Mola chưa mở trên màn hình xe.</string>
+	<string name="readiness_connection_visible">Mola đang hiện trên màn hình xe.</string>
 	<string name="readiness_control_available">Kênh Điều khiển đã sẵn sàng.</string>
 	<string name="readiness_control_unavailable">Kênh Điều khiển chưa sẵn sàng.</string>
 	<string name="readiness_notifications_enabled">Thông báo đang bật.</string>

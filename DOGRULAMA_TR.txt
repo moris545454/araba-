@@ -1,16 +1,13 @@
-Dem TV 2.1.9 (320) doğrulaması
+Mola 2.2.0 (321) doğrulaması — eski adı Dem TV
 
-modules/podcast testMobileDebugUnitTest: 80 test, sıfır hata/başarısızlık
-modules/radio testMobileDebugUnitTest: 8 test, sıfır hata/başarısızlık
-modules/tv testMobileDebugUnitTest: 92 test, sıfır hata/başarısızlık
-modules/web testMobileDebugUnitTest: 259 test, sıfır hata/başarısızlık
-fermata testMobileDebugUnitTest: 1067 test, sıfır hata/başarısızlık
-fermata testAutoDebugUnitTest: 1110 test, sıfır hata/başarısızlık
+modules/podcast: 80 test; modules/radio: 8; modules/tv: 92; modules/web: 259 — sıfır hata
+fermata testMobileDebugUnitTest: 1067 test; testAutoDebugUnitTest: 1110 test — sıfır hata
 lint (mobile/auto): sıfır hata
 
-APK SHA-256: 0fe9ae41c60329c5cf98869483ee2cba909cfebcb0e2c1601cf0fe7ad1fb2f5d
-Boyut: 159748216 bayt
-İmza sertifikası SHA-256: 3aa47e345f4068d324413e8866b38131280a305a2badec1e9adeb20c88994b74 (2.1.7/2.1.8 ile aynı)
-Paket: me.app.fermataX.auto.debug, debuggable=false, minSdk 28, hedef SDK 36
-Statik APK denetimi: yasaklı izin yok; radyo ve podcast eklentileri pakette.
+Uygulama etiketi: "Mola" (17 dilin tamamında); APK kaynaklarında "Dem TV" metni yok.
+APK SHA-256: 1bc5ba3d484c618e7b172fc970bf284551d2721234923db9524a5cbf69322010
+Boyut: 159744120 bayt
+İmza sertifikası SHA-256: 3aa47e345f4068d324413e8866b38131280a305a2badec1e9adeb20c88994b74 (2.1.7–2.1.9 ile aynı)
+Paket: me.app.fermataX.auto.debug (değişmedi), debuggable=false, minSdk 28, hedef SDK 36
+Statik APK denetimi: yasaklı izin yok.
 Fiziksel telefon/araç testi yapılmadı.

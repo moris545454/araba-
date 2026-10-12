@@ -3,7 +3,7 @@
     <string name="github_updates">App updates</string>
     <string name="github_updates_help">Updates are checked on startup and periodically in the background. Android may delay checks. Download and installation require your confirmation.</string>
     <string name="github_updates_auto">Notify me about new versions</string>
-    <string name="github_update_available">Dem TV update available</string>
+    <string name="github_update_available">Mola update available</string>
     <string name="github_update_version">Version %1$s</string>
     <string name="github_updates_check">Check for updates</string>
     <string name="github_updates_install">Download and install</string>
