@@ -1,16 +1,16 @@
-Dem TV 2.1.7 (318) doğrulaması
+Dem TV 2.1.8 (319) doğrulaması
 
+modules/radio testMobileDebugUnitTest: 8 test, sıfır hata/başarısızlık
 modules/tv testMobileDebugUnitTest: 92 test, sıfır hata/başarısızlık
 modules/web testMobileDebugUnitTest: 259 test, sıfır hata/başarısızlık
-fermata testMobileDebugUnitTest: 1067 test, sıfır hata/başarısızlık
 fermata testAutoDebugUnitTest: 1110 test, sıfır hata/başarısızlık
-lint-results-mobileDebug.xml: sıfır hata, 680 uyarı
-lint-results-autoDebug.xml: sıfır hata, 690 uyarı
+fermata testMobileDebugUnitTest: 1067 test; tek başarısızlık DiagnosticRecorderTest
+  (zamanlamaya bağlı, radyo değişikliğiyle ilgisiz) tekrar çalıştırmada geçti.
+lint (mobile/auto): sıfır hata
 
-APK SHA-256: c762d2c15a81bd711e8790ea9daaa4bca7f0ae722181cff593bb96389c28e865
-Boyut: 159592450 bayt
-İmza sertifikası SHA-256: 3aa47e345f4068d324413e8866b38131280a305a2badec1e9adeb20c88994b74
+APK SHA-256: ae781f5ede1d13c88b958e383cbce40d070d3dad8928d630ff3381b4339d80d7
+Boyut: 159621181 bayt
+İmza sertifikası SHA-256: 3aa47e345f4068d324413e8866b38131280a305a2badec1e9adeb20c88994b74 (2.1.7 ile aynı)
 Paket: me.app.fermataX.auto.debug, debuggable=false, minSdk 28, hedef SDK 36
-Statik APK denetimi (verify_security_apk.py): yasaklı izin yok.
-Yeni imza anahtarı: daha eski bir Dem TV kuruluysa önce kaldırılmalıdır.
+Statik APK denetimi: yasaklı izin yok; radyo eklentisi pakette.
 Fiziksel telefon/araç testi yapılmadı.
