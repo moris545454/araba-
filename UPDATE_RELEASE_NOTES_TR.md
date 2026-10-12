@@ -1,3 +1,11 @@
+# Mola 2.2.2 — düzeltmeler
+
+- **Sesli karşılama ismi:** İsim yazarken klavyenin açılıp kapanması düzeltildi. İsim artık klavyedeki **Bitti/Tamam** tuşuna basınca kaydedilir.
+- **Tekrarlayan “İndirilemiyor … .xml” bildirimleri kaldırıldı:** Kanal listesindeki yayın akışı (EPG) dosyası indirilemezse artık bildirim atılmaz; uygulama arka planda sessizce yeniden dener. Kanallar bundan etkilenmez.
+- Aynı paket ve imza: kaldırmadan üzerine güncellenir.
+
+---
+
 # Mola 2.2.1 — Sesli karşılama
 
 - **Sesli karşılama (isteğe bağlı):** Telefon Android Auto’ya bağlanınca Mola saate göre kısa bir karşılama yapar: “Günaydın Ahmet, Mola’ya hoş geldin. İyi yolculuklar!” Varsayılan olarak kapalıdır; **Ayarlar → Arayüz → Sesli karşılama** bölümünden açılır, isim girilebilir, “Günde yalnızca bir kez” seçilebilir.

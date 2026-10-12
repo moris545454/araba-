@@ -173,6 +173,8 @@ public class TvM3uFile extends M3uFile {
 		l.setSmallIcon(me.aap.fermata.R.drawable.notification);
 		l.setTitle(ctx.getResources().getString(me.aap.fermata.R.string.downloading, url));
 		l.setFailureTitle(s -> ctx.getResources().getString(me.aap.fermata.R.string.err_failed_to_download, url));
+		// EPG is optional and retried by XmlTvLoadPolicy; a failure must not stack notifications.
+		l.setNotifyOnFailure(false);
 		d.setStatusListener(l);
 		d.setReturnExistingOnFail(true);
 		return d.download(url, epgFile, getEpgPrefs());

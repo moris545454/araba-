@@ -25,6 +25,13 @@ final class WelcomeGreetingPrefsBuilder {
 			o.title = R.string.greeting_name;
 			o.hint = R.string.greeting_name_hint;
 			o.trim = true;
+			// Save on Done/OK only: storing every keystroke broadcast app-wide and closed the keyboard.
+			o.storeOnSubmit = true;
+			o.submitOnEnter = true;
+			o.imeOptions = android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
+			o.inputType = android.text.InputType.TYPE_CLASS_TEXT |
+					android.text.InputType.TYPE_TEXT_VARIATION_PERSON_NAME |
+					android.text.InputType.TYPE_TEXT_FLAG_CAP_WORDS;
 		});
 		set.addBooleanPref(o -> {
 			o.store = store;
