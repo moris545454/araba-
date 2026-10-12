@@ -1,11 +1,11 @@
-# Dem TV 2.1.5 — Android Auto ve KingInstaller kurulum rehberi
+# Dem TV 2.1.7 — Android Auto ve KingInstaller kurulum rehberi
 
-Dem TV 2.1.5, TV/IPTV, YouTube, tarayıcı ve izinli ekran yansıtmayı içerir. Kullanıcı bu sürümün çalıştığını, normal kurulumdan sonra Android Auto’da görünmediğini bildirdi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
+Dem TV 2.1.7; TV/IPTV, Türk radyoları, YouTube, tarayıcı, Favori Kanallar, kendi web kısayollarınız ve izinli ekran yansıtmayı içerir. 2.1.5 için normal kurulumdan sonra Android Auto’da görünmediği bildirildi. **Telefon kurulumu ile Android Auto’da görünme farklıdır.** Araç ekranında görünmeyen kurulumlar için aşağıdaki KingInstaller yöntemini deneyin. Her telefon/araç kombinasyonunda sonuç garantisi yoktur; sürüm araç doğrulaması bekleyen ön sürüm olarak kalır.
 
 ## 1. Doğrudan indirme bağlantıları
 
-Dem TV 2.1.5 APK:
-https://media.githubusercontent.com/media/moris545454/araba-/v2.1.5/distribution/FermataX-yeni-arayuz-debug.apk
+Dem TV 2.1.7 APK (güncel):
+https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk
 
 KingInstaller 2.3 APK — geliştiricinin resmî GitHub yayını:
 https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk
@@ -38,7 +38,7 @@ Telefon üreticisine göre menü adları değişebilir. Ayarlarda “bilinmeyen 
 4. Android’in kurulum/güncelleme ekranını onaylayın. KingInstaller için bilinmeyen uygulama yükleme izni sorulursa verin.
 5. Kurulum bitince **Dem TV**’yi telefonda bir kez açın. Güncelleme ve ekran paylaşımı bildirimlerini almak istiyorsanız bildirim iznini verin.
 
-**Dem TV zaten kuruluysa:** Aynı 2.1.5 APK’sını KingInstaller üzerinden mevcut uygulamanın üzerine yüklemeyi deneyin. Paket ve imza korunmuştur. Sırf yükleme yöntemini değiştirmek için uygulamayı hemen kaldırmayın; kaldırmak eklediğiniz IPTV kaynaklarını ve ayarları silebilir. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
+**Daha eski bir Dem TV kuruluysa:** 2.1.7 yeni bir imza anahtarıyla derlendi; eski sürümün üzerine yüklenmez. Önce eski Dem TV’yi kaldırın, sonra 2.1.7’yi kurun. Kaldırma eklediğiniz IPTV kaynaklarını ve ayarları siler; gerekiyorsa bağlantılarını önceden not alın. Bazı cihazlarda üzerine yükleme kurulum kaynağını değiştirmeyebilir; hata veya görünmeme sürerse cihaz bilgileriyle bildirin.
 
 KingInstaller ayrı bir üçüncü taraf yükleyicidir; Dem TV APK’sının içine eklenmemiştir. Geliştiricisi, yükleme kaynağını Google Play olarak kaydetmenin bazı Android Auto görünürlük kısıtlamalarında yardımcı olduğunu belirtir. Bu, Dem TV’nin Google Play’den yayımlandığı veya Google tarafından onaylandığı anlamına gelmez. Klasik yöntemin başarısı Android ve üretici politikalarına bağlıdır.
 
@@ -70,3 +70,22 @@ Güncelleme sonrasında Dem TV Android Auto’dan kaybolursa güncel Dem TV APK�
 Dem TV’de kamera, mikrofon, konum, erişilebilirlik, diğer uygulamaların üzerinde gösterme ve genel dosya okuma izinleri kaldırılmıştır. KingInstaller’ın yükleme izni ayrıdır. Play Protect engelini aşmak için korumayı kapatmayın; dosyanın kaynağını ve uyarıyı kontrol edin. Bu rehber banka veya Play Protect kabul garantisi değildir.
 
 Sorun bildirirken **telefon modeli, Android sürümü, Android Auto sürümü, Dem TV sürümü, kurulum yöntemi ve tam hata mesajını** paylaşın. Kapanma varsa uygulama açılabildiğinde **Ayarlar → Tanılama → Tanılama raporunu dışa aktar** bölümünü kullanın; kişisel bilgiler içeren raporları herkese açık yayımlamayın.
+
+## 7. Kendi kanal listenizi ekleme
+
+Varsayılan **Türkiye kanalları** ve **Türk radyoları** listeleri olduğu gibi kalır; yanına istediğiniz kadar liste ekleyebilirsiniz.
+
+1. Ana sayfada **TV**’ye dokunun. Listeleriniz görünür; alttaki işlem çubuğunda **+ (IPTV kaynağı ekle)** düğmesi vardır. Düğme yalnızca bu TV liste ekranında bulunur; bir listenin içindeyken geri gelerek ulaşırsınız.
+2. Açılan menüden birini seçin:
+   - **Bağlantı ile liste ekle:** Yalnızca M3U bağlantısını (http:// veya https://) yazın. Ad otomatik verilir; aynı liste zaten ekliyse uyarı gösterilir.
+   - **M3U oynatma listesi:** Ad, bağlantı/dosya, EPG, logo ve bağlantı ayarlarıyla ayrıntılı ekleme.
+   - **Xtream Codes** veya **Stalker portalı:** Sağlayıcınızın verdiği hesap bilgileriyle ekleme.
+   - **Varsayılan listeleri geri yükle:** Yalnızca TV veya radyo listesini sildiyseniz görünür.
+3. Bir listeye uzun basarak **Yenile**, **Düzenle**, **Sil** ve M3U listelerde **Liste bağlantısını kopyala** seçeneklerini kullanabilirsiniz.
+
+## 8. Ana sayfa: Favori Kanallar ve kendi kısayollarınız
+
+- **Favori Kanallar:** Bir kanala uzun basıp **Favorilere ekle** seçin; kanal ana sayfadaki **Favori Kanallar** rafında görünür. Rafa dokunarak oynatabilirsiniz.
+- **Kısayol ekle:** Ana sayfadaki **Kısayol ekle** kartına dokunun → **Yeni web kısayolu** → site bağlantısını ve adını yazın. En fazla 6 kısayol eklenebilir. Aynı karttan **Kaldır: …** seçenekleriyle silinir. Kısayollar uygulama içindeki tarayıcıda açılır.
+
+Kendi eklediğiniz listelerin içeriğinden ve yayın haklarından liste sağlayıcısı sorumludur.

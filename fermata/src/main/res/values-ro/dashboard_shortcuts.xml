@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_favorites_shelf">Favorite channels</string>
+    <string name="dashboard_favorites_empty">Long-press a channel and add it to Favorites to see it here.</string>
+    <string name="dashboard_add_shortcut_title">Add shortcut</string>
+    <string name="dashboard_add_shortcut_sub">Your own website</string>
+    <string name="dashboard_shortcuts_menu">Web shortcuts</string>
+    <string name="dashboard_shortcut_new">New web shortcut</string>
+    <string name="dashboard_shortcut_url">Website link</string>
+    <string name="dashboard_shortcut_name">Shortcut name</string>
+    <string name="dashboard_shortcut_invalid">Enter a valid http:// or https:// link.</string>
+    <string name="dashboard_shortcut_remove">Remove: %1$s</string>
+    <string name="dashboard_shortcut_limit">You can add up to %1$d shortcuts.</string>
+</resources>

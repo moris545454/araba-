@@ -135,6 +135,13 @@ public class TvRootItem extends ItemContainer<TvSourceItem> implements TvItem {
 		sources.seedDefaultPlaylist(id -> new TvM3uFile(fs.toRid(id)).getUrl(), () ->
 				fs.toId(fs.newDefaultSource(TvSourceRepository.DEFAULT_PLAYLIST_URL,
 						getLib().getContext().getString(R.string.default_turkish_channels)).getRid()));
+		try {
+			sources.seedDefaultRadioPlaylist(id -> new TvM3uFile(fs.toRid(id)).getUrl(), () ->
+					fs.toId(fs.newDefaultSource(TvSourceRepository.DEFAULT_RADIO_URL,
+							getLib().getContext().getString(R.string.default_turkish_radios)).getRid()));
+		} catch (RuntimeException failure) {
+			Log.e(failure, "Failed to register the default radio list");
+		}
 		int[] ids = sources.getSourceIds();
 		List<Integer> idList = new ArrayList<>(ids.length);
 		for (int i : ids) idList.add(i);
@@ -263,6 +270,41 @@ public class TvRootItem extends ItemContainer<TvSourceItem> implements TvItem {
 
 	public void addSource(TvM3uFile m3u) {
 		m3uSources.addSource(m3u);
+	}
+
+	/** True when an M3U source with the same playlist location is already registered. */
+	boolean hasM3uSource(String url) {
+		TvM3uFileSystem fs = TvM3uFileSystem.getInstance();
+		return sources.containsM3uUrl(id -> new TvM3uFile(fs.toRid(id)).getUrl(), url);
+	}
+
+	boolean hasDefaultPlaylist() {
+		return hasM3uSource(TvSourceRepository.DEFAULT_PLAYLIST_URL);
+	}
+
+	boolean hasDefaultRadioPlaylist() {
+		return hasM3uSource(TvSourceRepository.DEFAULT_RADIO_URL);
+	}
+
+	boolean hasMissingDefaultPlaylist() {
+		return !hasDefaultPlaylist() || !hasDefaultRadioPlaylist();
+	}
+
+	/** Registers an editable M3U source by link, exactly like the bundled default list. */
+	void addM3uSource(String url, String name) {
+		addSource(TvM3uFileSystem.getInstance().newDefaultSource(url, name));
+	}
+
+	/** Adds back whichever bundled list (TV channels, radio stations) the user removed. */
+	void restoreDefaultPlaylists() {
+		if (!hasDefaultPlaylist()) {
+			addM3uSource(TvSourceRepository.DEFAULT_PLAYLIST_URL,
+					getLib().getContext().getString(R.string.default_turkish_channels));
+		}
+		if (!hasDefaultRadioPlaylist()) {
+			addM3uSource(TvSourceRepository.DEFAULT_RADIO_URL,
+					getLib().getContext().getString(R.string.default_turkish_radios));
+		}
 	}
 
 	@Override

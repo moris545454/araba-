@@ -32,6 +32,8 @@ import me.aap.utils.pref.PreferenceStore.Pref;
 public final class DashboardItems {
 	public static final Pref<Supplier<String[]>> PREF =
 			Pref.sa("DASHBOARD_ITEMS", (String[]) null);
+	static final Pref<Supplier<String[]>> WEB_SHORTCUTS =
+			Pref.sa("DASHBOARD_WEB_SHORTCUTS", (String[]) null);
 	static final Pref<IntSupplier> LAYOUT_VERSION =
 			Pref.i("DASHBOARD_LAYOUT_VERSION", 0);
     private static final int UI_REFRESH_LAYOUT_VERSION = 6;
@@ -62,6 +64,31 @@ public final class DashboardItems {
 			Item item = getItem(ctx, name, false);
 			if (item != null) items.add(item);
 		}
+		return items;
+	}
+
+	static List<DashboardWebShortcuts.Shortcut> getWebShortcuts(PreferenceStore store) {
+		return DashboardWebShortcuts.decode(store.getStringArrayPref(WEB_SHORTCUTS));
+	}
+
+	static void setWebShortcuts(PreferenceStore store, List<DashboardWebShortcuts.Shortcut> list) {
+		store.applyStringArrayPref(WEB_SHORTCUTS, DashboardWebShortcuts.encode(list));
+	}
+
+	/** The user's own web shortcuts followed by the card that adds or removes them. */
+	@NonNull
+	static List<Item> getWebShortcutItems(Context ctx, PreferenceStore store) {
+		List<DashboardWebShortcuts.Shortcut> shortcuts = getWebShortcuts(store);
+		List<Item> items = new ArrayList<>(shortcuts.size() + 1);
+		for (int i = 0; i < shortcuts.size(); i++) {
+			DashboardWebShortcuts.Shortcut s = shortcuts.get(i);
+			items.add(new Item(DashboardWebShortcuts.itemName(i), R.id.dashboard_custom_web_action,
+					R.drawable.web, s.title(), DashboardWebShortcuts.subtitle(s.url()), null));
+		}
+		items.add(new Item(DashboardWebShortcuts.NAME_PREFIX + "add",
+				R.id.dashboard_add_web_shortcut_action, R.drawable.dashboard_add_shortcut,
+				ctx.getString(R.string.dashboard_add_shortcut_title),
+				ctx.getString(R.string.dashboard_add_shortcut_sub), null));
 		return items;
 	}
 
@@ -114,7 +141,10 @@ public final class DashboardItems {
 
 	public static void setDashboardOrder(PreferenceStore store, List<Item> visibleItems) {
 		Set<String> visibleNames = new LinkedHashSet<>(visibleItems.size());
-		for (Item item : visibleItems) visibleNames.add(item.name);
+		for (Item item : visibleItems) {
+			// Web shortcuts keep their own list order and never enter the addon layout.
+			if (!item.name.startsWith(DashboardWebShortcuts.NAME_PREFIX)) visibleNames.add(item.name);
+		}
 
 		List<String> names = getConfigLayout(store);
 		List<String> ordered = new ArrayList<>(names.size());

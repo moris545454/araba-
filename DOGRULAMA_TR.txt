@@ -1,21 +1,16 @@
-Dem TV 2.1.3 (314) doğrulaması
+Dem TV 2.1.7 (318) doğrulaması
 
-fermata/build/test-results/testMobileDebugUnitTest: 1057 test, sıfır hata/başarısızlık
-fermata/build/test-results/testAutoDebugUnitTest: 1099 test, sıfır hata/başarısızlık
-modules/web/build/test-results/testMobileDebugUnitTest: 299 test, sıfır hata/başarısızlık
-modules/tv/build/test-results/testMobileDebugUnitTest: 84 test, sıfır hata/başarısızlık
-lint-results-autoDebug.xml: sıfır hata, 728 uyarı
-lint-results-mobileDebug.xml: sıfır hata, 716 uyarı
+modules/tv testMobileDebugUnitTest: 92 test, sıfır hata/başarısızlık
+modules/web testMobileDebugUnitTest: 259 test, sıfır hata/başarısızlık
+fermata testMobileDebugUnitTest: 1067 test, sıfır hata/başarısızlık
+fermata testAutoDebugUnitTest: 1110 test, sıfır hata/başarısızlık
+lint-results-mobileDebug.xml: sıfır hata, 680 uyarı
+lint-results-autoDebug.xml: sıfır hata, 690 uyarı
 
-APK SHA-256: 73d60f12beeb22fb1e2b6d4d2f66ab259b36f015fa37703c0e486fcae266e7ca
-Boyut: 179129715 bayt
-İmza: 318ddbe5f2e238ed1f0afa30616641ec45f1f0cd7ab449a80311dca51984fdc5
-Paket: me.app.fermataX.auto.debug
-ZIP CRC kontrolü başarılı.
+APK SHA-256: c762d2c15a81bd711e8790ea9daaa4bca7f0ae722181cff593bb96389c28e865
+Boyut: 159592450 bayt
+İmza sertifikası SHA-256: 3aa47e345f4068d324413e8866b38131280a305a2badec1e9adeb20c88994b74
+Paket: me.app.fermataX.auto.debug, debuggable=false, minSdk 28, hedef SDK 36
+Statik APK denetimi (verify_security_apk.py): yasaklı izin yok.
+Yeni imza anahtarı: daha eski bir Dem TV kuruluysa önce kaldırılmalıdır.
 Fiziksel telefon/araç testi yapılmadı.
-Araçtan telefon izin ekranı açılışı denenir; Android engellerse bildirim/telefon simgesi kullanılır.
-Telefon izin penceresi sırasında araç host pause bekleyen isteği iptal etmez.
-WindAsist ve Dem TV canlı yayın kompakt kısayol grubunda mevcut web yönlendirmesini kullanır.
-Ana sayfa düğmesi ortak kök yerleşiminde video/web/yansıtma chrome durumundan bağımsızdır.
-Ana sayfa seçimi video açıkken de doğrudan ana sayfaya gider; diğer yeniden seçme davranışları korunur.
-Özgün referans görseli APK’da değişmeden mevcut; yalnızca dekoratif kart bölgeleri gösterilir.

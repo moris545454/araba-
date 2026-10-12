@@ -67,6 +67,59 @@ public class TvSourceRepositoryTest {
 	}
 
 	@Test
+	public void radioListIsSeededOnceAfterTheTvListAndStaysDeleted() {
+		BasicPreferenceStore store = new BasicPreferenceStore();
+		TvSourceRepository repo = new TvSourceRepository(store);
+		repo.seedDefaultPlaylist(id -> null, () -> "turkish-list");
+		repo.seedDefaultRadioPlaylist(id -> null, () -> "turkish-radio");
+		assertArrayEquals(new int[]{1, 2}, repo.getSourceIds());
+		assertEquals("turkish-radio", repo.getM3uId(2));
+
+		repo.removeSource(2);
+		new TvSourceRepository(store).seedDefaultRadioPlaylist(id -> null, () -> {
+			throw new AssertionError("Deleted radio list must not be recreated");
+		});
+		assertArrayEquals(new int[]{1}, repo.getSourceIds());
+	}
+
+	@Test
+	public void radioSeedingKeepsUpdatedInstallSourcesAndDoesNotDuplicate() {
+		BasicPreferenceStore store = new BasicPreferenceStore();
+		TvSourceRepository repo = new TvSourceRepository(store);
+		try (PreferenceStore.Edit edit = store.editPreferenceStore()) {
+			repo.saveM3uSource(edit, 3, "user-list");
+			repo.saveM3uSource(edit, 4, "radio");
+		}
+		repo.setSourceIds(new int[]{3, 4});
+		repo.seedDefaultRadioPlaylist(
+				id -> "radio".equals(id) ? TvSourceRepository.DEFAULT_RADIO_URL : "https://example.com/a.m3u",
+				() -> { throw new AssertionError("Existing radio list must not be duplicated"); });
+		assertArrayEquals(new int[]{3, 4}, repo.getSourceIds());
+		assertEquals("user-list", repo.getM3uId(3));
+	}
+
+	@Test
+	public void findsExistingM3uLocationOnly() {
+		BasicPreferenceStore store = new BasicPreferenceStore();
+		TvSourceRepository repo = new TvSourceRepository(store);
+		try (PreferenceStore.Edit edit = store.editPreferenceStore()) {
+			repo.saveM3uSource(edit, 1, "default");
+			repo.saveM3uSource(edit, 2, "other");
+		}
+		repo.setSourceIds(new int[]{1, 2});
+		java.util.Map<String, String> urls = java.util.Map.of(
+				"default", TvSourceRepository.DEFAULT_PLAYLIST_URL,
+				"other", "https://example.com/other.m3u");
+		assertEquals(true, repo.containsM3uUrl(urls::get, "https://example.com/other.m3u/"));
+		assertEquals(true, repo.containsM3uUrl(urls::get, TvSourceRepository.DEFAULT_PLAYLIST_URL));
+		assertFalse(repo.containsM3uUrl(urls::get, "https://example.com/new.m3u"));
+
+		repo.removeSource(1);
+		assertFalse(repo.containsM3uUrl(urls::get, TvSourceRepository.DEFAULT_PLAYLIST_URL));
+		assertArrayEquals(new int[]{2}, repo.getSourceIds());
+	}
+
+	@Test
 	public void defaultsMissingSourceTypeToM3u() {
 		BasicPreferenceStore store = new BasicPreferenceStore();
 		assertEquals(TvSourceItem.TYPE_M3U, TvSourceRepository.getSourceType(store, 7));

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="tv_quick_add_link">Add playlist by link</string>
+	<string name="tv_quick_add_invalid">Enter a valid http:// or https:// playlist link.</string>
+	<string name="tv_quick_add_duplicate">This playlist is already in your sources.</string>
+	<string name="tv_restore_default">Restore default lists</string>
+	<string name="tv_copy_link">Copy playlist link</string>
+	<string name="tv_link_copied">Playlist link copied.</string>
+	<string name="default_turkish_radios">Turkish radio stations</string>
+</resources>

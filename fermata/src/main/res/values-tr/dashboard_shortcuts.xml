@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_favorites_shelf">Favori Kanallar</string>
+    <string name="dashboard_favorites_empty">Bir kanala uzun basıp Favorilere ekleyin; burada görünür.</string>
+    <string name="dashboard_add_shortcut_title">Kısayol ekle</string>
+    <string name="dashboard_add_shortcut_sub">Kendi web siteniz</string>
+    <string name="dashboard_shortcuts_menu">Web kısayolları</string>
+    <string name="dashboard_shortcut_new">Yeni web kısayolu</string>
+    <string name="dashboard_shortcut_url">Web sitesi bağlantısı</string>
+    <string name="dashboard_shortcut_name">Kısayol adı</string>
+    <string name="dashboard_shortcut_invalid">Geçerli bir http:// veya https:// bağlantısı girin.</string>
+    <string name="dashboard_shortcut_remove">Kaldır: %1$s</string>
+    <string name="dashboard_shortcut_limit">En fazla %1$d kısayol ekleyebilirsiniz.</string>
+</resources>

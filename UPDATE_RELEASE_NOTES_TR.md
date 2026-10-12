@@ -1,3 +1,17 @@
+# Dem TV 2.1.7 — favori kanallar, web kısayolları, radyo ve liste ekleme
+
+- **Favori Kanallar rafı:** Favorilere eklenen kanallar ana sayfada, Son İçerikler’in üstünde görünür.
+- **Kısayol ekle:** Ana sayfaya kendi web sitelerinizi (en fazla 6) ekleyip kaldırabilirsiniz; uygulama içi tarayıcıda açılır.
+- **Türk radyoları:** TV listesine Radio Browser dizininden en çok oy alan 150 Türk radyosunun listesi bir kez eklenir. Silinirse geri eklenmez; “Varsayılan listeleri geri yükle” ile geri alınır.
+- **Liste ekleme:** **+** düğmesi yalnızca TV ana listesinde bulunur. Menü: Bağlantı ile liste ekle, M3U oynatma listesi, Xtream Codes, Stalker portalı ve gerektiğinde Varsayılan listeleri geri yükle.
+- **Liste bağlantısını kopyala:** M3U listelerinin uzun basma menüsünde.
+- YouTube video ölçekleme ayarı Türkçe telefon dilinde doğru çalışır.
+- Varsayılan Türkiye kanalları listesi, kayıtlı kaynaklar, ayarlar ve mevcut TV/YouTube/tarayıcı/yansıtma akışları değiştirilmedi.
+
+Doğrulama: Yeni kurallar ve kaynak sözleşmeleri için birim testleri eklendi. Fiziksel telefon/araç testi yapılmadı. APK yeni bir imza anahtarıyla derlendi; eski bir Dem TV kuruluysa önce kaldırılmalıdır.
+
+---
+
 # Dem TV 2.1.5 — dört temel işlev için ön sürüm
 
 2.1.4’te kullanıcı TV/YouTube açılışında uygulamanın kapandığını bildirdi. Bu sürüm kararlı listeden çekildi. **Kullanıcı 2.1.5’in çalıştığını bildirdi.** Normal kurulumla Android Auto’da görünmediği bildirildiği için rehbere KingInstaller üzerinden kurulum eklendi. Araç doğrulaması beklenmektedir; kapanmanın kesin nedeni gerçek cihaz hata kaydıyla doğrulanmış değildir. Bu nedenle henüz otomatik kararlı güncelleme olarak yayınlanmaz.

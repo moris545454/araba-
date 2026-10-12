@@ -5,6 +5,9 @@ import static me.aap.utils.async.Completed.completed;
 import static me.aap.utils.async.Completed.completedVoid;
 import static me.aap.utils.function.ResultConsumer.Cancel.isCancellation;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
@@ -72,6 +75,7 @@ public class TvFragment extends MediaLibFragment {
 		return TvFloatingButtonMediator.instance;
 	}
 
+	/** The add button belongs to the TV source list only. */
 	@Override
 	public boolean isAddSourceSupported() {
 		return isRootItem();
@@ -109,12 +113,18 @@ public class TvFragment extends MediaLibFragment {
 		getMainActivity().getContextMenu().show(b -> {
 			b.setTitle(R.string.add_tv_source);
 			b.setSelectionHandler(this::sourceTypeSelected);
+			b.addItem(R.id.tv_quick_add_link, me.aap.fermata.R.drawable.m3u,
+					R.string.tv_quick_add_link);
 			b.addItem(me.aap.fermata.R.id.m3u_playlist, me.aap.fermata.R.drawable.m3u,
 					me.aap.fermata.R.string.m3u_playlist);
 			b.addItem(me.aap.fermata.R.id.xtream_source, me.aap.fermata.R.drawable.tv,
 					R.string.xtream_codes);
 			b.addItem(R.id.stalker_source, me.aap.fermata.R.drawable.tv,
 					R.string.stalker_portal);
+			if (getRootItem().hasMissingDefaultPlaylist()) {
+				b.addItem(R.id.tv_restore_default, me.aap.fermata.R.drawable.refresh,
+						R.string.tv_restore_default);
+			}
 		});
 	}
 
@@ -126,8 +136,59 @@ public class TvFragment extends MediaLibFragment {
 			addXtreamSource();
 		} else if (id == R.id.stalker_source) {
 			addStalkerSource();
+		} else if (id == R.id.tv_quick_add_link) {
+			addSourceByLink();
+		} else if (id == R.id.tv_restore_default) {
+			restoreDefaultPlaylist();
 		}
 		return true;
+	}
+
+	private void addSourceByLink() {
+		UiUtils.queryText(getContext(), R.string.tv_quick_add_link, me.aap.fermata.R.drawable.m3u)
+				.main().onCompletion((text, err) -> {
+					if ((err != null) || (text == null) || (getContext() == null)) return;
+					String url = TvPlaylistUrls.normalize(text);
+					if (url == null) {
+						UiUtils.showAlert(getContext(), R.string.tv_quick_add_invalid);
+						return;
+					}
+					TvRootItem root = getRootItem();
+					if (root.hasM3uSource(url)) {
+						UiUtils.showAlert(getContext(), R.string.tv_quick_add_duplicate);
+						return;
+					}
+					try {
+						root.addM3uSource(url, TvPlaylistUrls.suggestName(url));
+					} catch (RuntimeException ex) {
+						failedToAddSource(ex);
+						return;
+					}
+					getAdapter().setParent(root);
+					getMainActivity().showFragment(getFragmentId());
+				});
+	}
+
+	private void restoreDefaultPlaylist() {
+		TvRootItem root = getRootItem();
+		if (!root.hasMissingDefaultPlaylist()) return;
+		try {
+			root.restoreDefaultPlaylists();
+		} catch (RuntimeException ex) {
+			failedToAddSource(ex);
+			return;
+		}
+		getAdapter().setParent(root);
+		getMainActivity().showFragment(getFragmentId());
+	}
+
+	private void copySourceLink(TvM3uItem source) {
+		String url = source.getResource().getUrl();
+		if ((url == null) || (getContext() == null)) return;
+		ClipboardManager cm = (ClipboardManager) getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+		if (cm == null) return;
+		cm.setPrimaryClip(ClipData.newPlainText(source.getName(), url));
+		UiUtils.showInfo(getContext(), R.string.tv_link_copied);
 	}
 
 	private void addM3uSource() {
@@ -176,6 +237,10 @@ public class TvFragment extends MediaLibFragment {
 		b.addItem(me.aap.fermata.R.id.delete, me.aap.fermata.R.drawable.delete,
 						me.aap.fermata.R.string.delete).setData(h.getItem())
 				.setHandler(this::contextMenuItemSelected);
+		if (h.getItem() instanceof TvM3uItem) {
+			b.addItem(R.id.tv_copy_link, me.aap.fermata.R.drawable.m3u, R.string.tv_copy_link)
+					.setData(h.getItem()).setHandler(this::contextMenuItemSelected);
+		}
 		super.contributeToContextMenu(b, h);
 	}
 
@@ -185,6 +250,8 @@ public class TvFragment extends MediaLibFragment {
 			reloadSource(item.getData(), true);
 		} else if (id == R.id.stalker_check_source) {
 			checkStalkerSource(item.getData());
+		} else if (id == R.id.tv_copy_link) {
+			copySourceLink(item.getData());
 		} else if (id == me.aap.fermata.R.id.edit) {
 			TvSourceItem source = item.getData();
 

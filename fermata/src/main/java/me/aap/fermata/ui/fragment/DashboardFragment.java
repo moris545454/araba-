@@ -535,7 +535,7 @@ public class DashboardFragment extends MainActivityFragment
 		public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
 			DashboardCard card = cards.get(position);
 			if (card.recentShelf) {
-				holder.shelf.bind(activity);
+				holder.shelf.bind(activity, card.targetId == R.id.favorites_fragment);
 				return;
 			}
 			boolean smartTop = card.fixed && card.wide;
@@ -616,6 +616,14 @@ public class DashboardFragment extends MainActivityFragment
                 }
                 if (card.targetId == R.id.dashboard_mirror_action) {
                     DemTvActions.mirror(a);
+					return;
+				}
+				if ((card.targetId == R.id.dashboard_custom_web_action) && (card.item != null)) {
+					DemTvActions.openShortcut(a, store, card.item.name);
+					return;
+				}
+				if (card.targetId == R.id.dashboard_add_web_shortcut_action) {
+					DemTvActions.manageShortcuts(a, store, this::reload);
 					return;
 				}
 				if (card.targetId == ID_NULL) return;
