@@ -32,6 +32,7 @@ final class AutoSessionShutdown {
 		if (startedGeneration == generation) return true;
 		startedGeneration = generation;
 		Log.i("Android Auto projection generation started: ", generation);
+		me.aap.fermata.auto.WelcomeGreeting.onCarConnected(me.aap.fermata.FermataApplication.get());
 		try {
 			List<String> failures = AddonManager.get().onAutomotiveSessionStarted();
 			if (!failures.isEmpty()) Log.w("Automotive addon restart failures: ", failures);

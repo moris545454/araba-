@@ -10,9 +10,10 @@ TV/IPTV izleme, YouTube, tarayıcı ve izinle ekran yansıtma için Türkçe And
 
 > **ÖNEMLİ:** Önce Mola’yı kurun. Kurulumdan sonra Android Auto’da görünmüyorsa [bu videodaki](https://www.youtube.com/watch?v=CdU0OlLds2k) işlemleri uygulayın (Shizuku kurulum rehberi). Ardından Mola’yı [KingInstaller](https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk) uygulamasıyla Shizuku seçeneği açıkken tekrar yükleyin; Android Auto’da çalışacaktır ❤
 
-**Mola 2.2.0** — [APK’yı indir](https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk) · [sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
+**Mola 2.2.1** — [APK’yı indir](https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk) · [sürüm notları](UPDATE_RELEASE_NOTES_TR.md)
 
 - Ana sayfada **Favori Kanallar** rafı ve kendi web sitelerinizi ekleyebileceğiniz **Kısayol ekle** kartı.
+- **Sesli karşılama** (isteğe bağlı): araca bağlanınca “Günaydın, Mola’ya hoş geldin” karşılaması.
 - Ana sayfada **Podcast**: arama, abone olma, bölüm dinleme ve kaldığı yerden devam.
 - **Direksiyon tuşları**: ileri/geri tuşlarıyla kanal, istasyon veya bölüm değiştirme.
 - Ana sayfada **Radyo**: Türk radyoları, Popüler, En çok oy alan, Ülkeler, Etiketler ve kendi radyo akışını ekleme; araçta radyo oynatıcı çubuğuyla çalışır.

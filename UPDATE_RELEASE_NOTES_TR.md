@@ -1,3 +1,12 @@
+# Mola 2.2.1 — Sesli karşılama
+
+- **Sesli karşılama (isteğe bağlı):** Telefon Android Auto’ya bağlanınca Mola saate göre kısa bir karşılama yapar: “Günaydın Ahmet, Mola’ya hoş geldin. İyi yolculuklar!” Varsayılan olarak kapalıdır; **Ayarlar → Arayüz → Sesli karşılama** bölümünden açılır, isim girilebilir, “Günde yalnızca bir kez” seçilebilir.
+- Konuşurken çalan müzik kısa süre kısılır, sonra kendi seviyesine döner; yayın durdurulmaz. Mikrofon kullanılmaz, yeni izin yoktur.
+- Telefonda bu dil için ses yoksa karşılama sessizce atlanır; uygulamanın diğer işlevleri etkilenmez.
+- Aynı paket ve imza: kaldırmadan üzerine güncellenir.
+
+---
+
 # Mola 2.2.0 — yeni isim
 
 - Uygulamanın adı **Dem TV → Mola** oldu. Telefonda simgenin altında, Android Auto’da, bildirimlerde, ayarlarda ve kurulum sayfasında artık “Mola” yazar.
