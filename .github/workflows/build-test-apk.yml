@@ -1,9 +1,9 @@
 name: Build test APK
 
-# Builds the universal Dem TV APK on GitHub's runners (which can reach the Android SDK)
+# Builds the universal Mola APK on GitHub's runners (which can reach the Android SDK)
 # and publishes it as a prerelease. A prerelease is never offered by the in-app updater.
 # Without the stable keystore secret the APK is signed with a fresh debug key, so it can
-# only be installed on phones that do not already have Dem TV installed.
+# only be installed on phones that do not already have Mola installed.
 
 on:
   push:
@@ -86,7 +86,7 @@ jobs:
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" out/FermataX-yeni-arayuz-debug.apk out/sha256.txt out/security-apk-check.json --clobber
           else
-            gh release create "$TAG" --target "$GITHUB_SHA" --prerelease --title "Dem TV $TAG" \
+            gh release create "$TAG" --target "$GITHUB_SHA" --prerelease --title "Mola $TAG" \
               --notes-file UPDATE_RELEASE_NOTES_TR.md \
               out/FermataX-yeni-arayuz-debug.apk out/sha256.txt out/security-apk-check.json
           fi
@@ -97,7 +97,7 @@ jobs:
           TAG: ${{ steps.apk.outputs.tag }}
         run: |
           {
-            echo "## Dem TV $TAG"
+            echo "## Mola $TAG"
             echo
             echo "- APK: https://github.com/${{ github.repository }}/releases/download/$TAG/FermataX-yeni-arayuz-debug.apk"
             echo "- SHA-256: \`$(cut -d' ' -f1 out/sha256.txt)\`"

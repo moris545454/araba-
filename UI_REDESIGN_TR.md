@@ -2,19 +2,19 @@
 
 TV, YouTube ve ekran yansıtma kartları kullanıcı referansındaki özgün simge/ekran görsellerini kullanır. Referans dosyası değiştirilmeden nodpi kaynağı olarak saklanır; yalnızca dekoratif bölgeler Drawable ile çizilir. Ana kartlarda başlık ve açıklamalar yerel metin öğeleri, oklar yerel yüzeylerdir; ekranın geri kalanı görüntü olarak taklit edilmez. Görseller yeniden renklendirilmez; mavi TV, kırmızı YouTube, mor yansıtma ve referanstaki radyo/podcast/web/dosya/favori simgeleri korunur. Son içerik görselleri daire yerine yuvarlatılmış dikdörtgenlerde gösterilir; gerçek geçmiş kullanılır.
 
-WindAsist/Dem TV kısayolları, kalıcı ana sayfa eylemi, yansıtma izni, oynatma ve kaynak yönetimi değiştirilmedi. Piksel ölçüleri ekran boyutu, yoğunluk ve yazı boyutu ayarına göre uyarlanır; sistem çubuklarını Android Auto çizer.
+WindAsist/Mola kısayolları, kalıcı ana sayfa eylemi, yansıtma izni, oynatma ve kaynak yönetimi değiştirilmedi. Piksel ölçüleri ekran boyutu, yoğunluk ve yazı boyutu ayarına göre uyarlanır; sistem çubuklarını Android Auto çizer.
 
 ## 2.1.2 — Önceki ana sayfa düzeni, cam yüzeyler ve kalıcı ana sayfa
 
-TV, YouTube ve ekran yansıtma üç öncelikli bölüm olarak kalır; altında radyo/podcast ve diğer kompakt kısayollar ile Son içerikler bulunur. WindAsist ve Dem TV bağlantıları üst başlıktan bu kısayol grubuna taşındı. Yeni bir düzen geçişi bu sırayı mevcut kurulumlara da uygular; sonrasındaki kullanıcı düzenlemeleri korunur.
+TV, YouTube ve ekran yansıtma üç öncelikli bölüm olarak kalır; altında radyo/podcast ve diğer kompakt kısayollar ile Son içerikler bulunur. WindAsist ve Mola bağlantıları üst başlıktan bu kısayol grubuna taşındı. Yeni bir düzen geçişi bu sırayı mevcut kurulumlara da uygular; sonrasındaki kullanıcı düzenlemeleri korunur.
 
 Yüzeylerde yarı saydam renk geçişleri, ince ışıklı kenarlar ve belirgin kumanda odağı kullanılır; cam görünümü gerçek arka plan bulanıklaştırması gerektirmez. Ana sayfa düğmesi ortak kök yerleşiminde bulunduğundan video/WEB tam ekranı veya gizli yan menü tarafından gizlenmez. Düğme araçtaki yansıtma katmanını kapatır, video sunumundan çıkar ve doğrudan ana sayfayı açar. Medya kaynağını silmez veya oynatma motorunu durdurmaz.
 
-# Dem TV 2.1.2 arayüz ve yansıtma
+# Mola 2.1.2 arayüz ve yansıtma
 
-Görünen marka ve launcher/bildirim simgesi Dem TV olarak yenilendi. Grafit, fildişi ve deniz yeşili temel palet; TV, YouTube ve yansıtma için farklı pastel vurgular kullanılır. Ana kısayollar cam görünümündeki yuvarlatılmış yüzeylerde, son içerik görselleri dairesel olarak sunulur. TV kaynakları, medya listeleri, radyo/podcast alt sayfaları, ayarlar, açılır menüler ve işlem alanları ortak görsel sistemden yararlanır. Odak çerçeveleri kumanda kullanımında korunur.
+Görünen marka ve launcher/bildirim simgesi Mola olarak yenilendi. Grafit, fildişi ve deniz yeşili temel palet; TV, YouTube ve yansıtma için farklı pastel vurgular kullanılır. Ana kısayollar cam görünümündeki yuvarlatılmış yüzeylerde, son içerik görselleri dairesel olarak sunulur. TV kaynakları, medya listeleri, radyo/podcast alt sayfaları, ayarlar, açılır menüler ve işlem alanları ortak görsel sistemden yararlanır. Odak çerçeveleri kumanda kullanımında korunur.
 
-Ana ekrandaki WindAsist ve Dem TV canlı yayın düğmeleri mevcut web eklentisine URL girdisi gönderir; bağlantılar açılırken eklentinin yükleme/hazır olma akışı korunur. Sol kısayol menüsü varsayılan olarak gizlidir ve ayarlardan açılabilir.
+Ana ekrandaki WindAsist ve Mola canlı yayın düğmeleri mevcut web eklentisine URL girdisi gönderir; bağlantılar açılırken eklentinin yükleme/hazır olma akışı korunur. Sol kısayol menüsü varsayılan olarak gizlidir ve ayarlardan açılabilir.
 
 Android Auto manifestinde yalnızca CarService ana uygulama girişi yayınlanır. Medya servisi doğrudan uygulama bağlantılarına açıktır; eski MirrorService dışarıya yayınlanmaz. Ana ekrandaki yansıtma eylemi mevcut AutomotiveNavigationController üzerinden MainCarActivity’ye gider ve orada tam alan SurfaceView açar.
 

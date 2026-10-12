@@ -12,8 +12,8 @@
 	<string name="readiness_unknown">Not verified</string>
 	<string name="readiness_not_applicable">Not applicable</string>
 	<string name="readiness_connection_disconnected">Android Auto is not connected.</string>
-	<string name="readiness_connection_connected">Android Auto is connected; Dem TV is not open on the car screen.</string>
-	<string name="readiness_connection_visible">Dem TV is visible on the car screen.</string>
+	<string name="readiness_connection_connected">Android Auto is connected; Mola is not open on the car screen.</string>
+	<string name="readiness_connection_visible">Mola is visible on the car screen.</string>
 	<string name="readiness_control_available">The Control channel is ready.</string>
 	<string name="readiness_control_unavailable">The Control channel is not ready.</string>
 	<string name="readiness_notifications_enabled">Notifications are enabled.</string>

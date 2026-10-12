@@ -108,7 +108,7 @@ gradle.taskGraph.whenReady { graph ->
     }
 }
 
-rootProject.name = 'Dem TV'
+rootProject.name = 'Mola'
 include ':fermata'
 include ':utils'
 project(':utils').projectDir = file('depends/utils')

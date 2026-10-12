@@ -82,7 +82,7 @@ final class InlineMirrorView extends FrameLayout implements SurfaceHolder.Callba
                     projection = capture;
                     projection.registerCallback(callback, handler);
                     lease = new MirrorSurfaceLease<>((surface, w, h, density) -> {
-                        VirtualDisplay display = projection.createVirtualDisplay("Dem TV / Ekran", w, h,
+                        VirtualDisplay display = projection.createVirtualDisplay("Mola / Ekran", w, h,
                                 density, DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR,
                                 surface, null, handler);
                         if (display == null) throw new IllegalStateException("Display unavailable");
@@ -99,7 +99,7 @@ final class InlineMirrorView extends FrameLayout implements SurfaceHolder.Callba
                         attach(screen.getHolder(), screen.getWidth(), screen.getHeight());
                     }
                 } catch (RuntimeException failure) {
-                    Log.e(failure, "Dem TV capture grant unavailable");
+                    Log.e(failure, "Mola capture grant unavailable");
                     status.setText(R.string.dem_mirror_rejected);
                     releaseCapture();
                 }
@@ -115,7 +115,7 @@ final class InlineMirrorView extends FrameLayout implements SurfaceHolder.Callba
             if (lease == null || !lease.attach(holder.getSurface(), width, height, density)) return;
             status.setVisibility(GONE);
         } catch (RuntimeException error) {
-            Log.e(error, "Dem TV screen capture failed");
+            Log.e(error, "Mola screen capture failed");
             status.setVisibility(VISIBLE);
             status.setText(R.string.dem_mirror_rejected);
             releaseCapture();

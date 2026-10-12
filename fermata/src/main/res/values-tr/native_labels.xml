@@ -5,11 +5,11 @@
 <string name="phone_header_aa_connected">AA bağlı</string>
 <string name="phone_open_on_car_strip_title">Araçta aç</string>
 <string name="playback_live">CANLI</string>
-<string name="media_service_name_auto_release">Dem TV Medya Hizmeti</string>
-<string name="media_service_name_auto_debug">Dem TV Medya Hizmeti</string>
-<string name="mirror_service_name_debug">Dem TV Ekran Yansıtma</string>
-<string name="mirror_service_name_release">Dem TV Ekran Yansıtma</string>
-<string name="app_name_mobile_debug">Dem TV</string>
-<string name="app_name_auto_debug">Dem TV</string>
+<string name="media_service_name_auto_release">Mola Medya Hizmeti</string>
+<string name="media_service_name_auto_debug">Mola Medya Hizmeti</string>
+<string name="mirror_service_name_debug">Mola Ekran Yansıtma</string>
+<string name="mirror_service_name_release">Mola Ekran Yansıtma</string>
+<string name="app_name_mobile_debug">Mola</string>
+<string name="app_name_auto_debug">Mola</string>
 <string name="m3u_playlist_agent">Tarayıcı kimliği (User-Agent)</string>
 </resources>

@@ -1,4 +1,12 @@
-# Dem TV 2.1.9 — Podcast ve direksiyon tuşları
+# Mola 2.2.0 — yeni isim
+
+- Uygulamanın adı **Dem TV → Mola** oldu. Telefonda simgenin altında, Android Auto’da, bildirimlerde, ayarlarda ve kurulum sayfasında artık “Mola” yazar.
+- Paket kimliği ve imza değişmedi: 2.1.7–2.1.9 kuruluysa kaldırmadan üzerine güncellenir; TV/radyo listeleri, favoriler ve ayarlar korunur.
+- Özellikler 2.1.9 ile aynıdır (TV, Radyo, Podcast, YouTube, tarayıcı, ekran yansıtma, direksiyon tuşları).
+
+---
+
+# Mola 2.1.9 — Podcast ve direksiyon tuşları
 
 - **Podcast ana sayfada:** Podcast arama (Apple Podcasts ve fyyd dizinleri), RSS bağlantısıyla abone olma, bölüm dinleme ve kaldığı yerden devam. Araçta ses oynatıcı çubuğuyla çalışır.
 - **Direksiyon tuşları:** Direksiyondaki ileri/geri tuşları TV’de sonraki/önceki kanala, radyoda sonraki/önceki istasyona, podcast’te sonraki/önceki bölüme geçer. Kanal yukarı/aşağı tuşu gönderen araçlarda bu tuşlar da kanal değiştirir. Eşleştirme **Ayarlar → Arayüz → Tuş atamaları** bölümünden değiştirilebilir.
@@ -6,7 +14,7 @@
 
 ---
 
-# Dem TV 2.1.8 — ana sayfada Radyo
+# Mola 2.1.8 — ana sayfada Radyo
 
 - **Radyo ana sayfada:** Radyo eklentisi yeniden pakete alındı; ana sayfadaki kısa yol kartı ve gezinme menüsünden açılır.
 - **Türk radyoları en üstte:** Radyo ekranında ilk giriş Radio Browser dizinindeki en çok dinlenen Türk radyolarıdır. Ardından Popüler, En çok oy alan, Ülkeler ve Etiketler gelir.
@@ -16,7 +24,7 @@
 
 ---
 
-# Dem TV 2.1.7 — favori kanallar, web kısayolları, radyo ve liste ekleme
+# Mola 2.1.7 — favori kanallar, web kısayolları, radyo ve liste ekleme
 
 - **Favori Kanallar rafı:** Favorilere eklenen kanallar ana sayfada, Son İçerikler’in üstünde görünür.
 - **Kısayol ekle:** Ana sayfaya kendi web sitelerinizi (en fazla 6) ekleyip kaldırabilirsiniz; uygulama içi tarayıcıda açılır.
@@ -26,11 +34,11 @@
 - YouTube video ölçekleme ayarı Türkçe telefon dilinde doğru çalışır.
 - Varsayılan Türkiye kanalları listesi, kayıtlı kaynaklar, ayarlar ve mevcut TV/YouTube/tarayıcı/yansıtma akışları değiştirilmedi.
 
-Doğrulama: Yeni kurallar ve kaynak sözleşmeleri için birim testleri eklendi. Fiziksel telefon/araç testi yapılmadı. APK yeni bir imza anahtarıyla derlendi; eski bir Dem TV kuruluysa önce kaldırılmalıdır.
+Doğrulama: Yeni kurallar ve kaynak sözleşmeleri için birim testleri eklendi. Fiziksel telefon/araç testi yapılmadı. APK yeni bir imza anahtarıyla derlendi; eski bir Mola kuruluysa önce kaldırılmalıdır.
 
 ---
 
-# Dem TV 2.1.5 — dört temel işlev için ön sürüm
+# Mola 2.1.5 — dört temel işlev için ön sürüm
 
 2.1.4’te kullanıcı TV/YouTube açılışında uygulamanın kapandığını bildirdi. Bu sürüm kararlı listeden çekildi. **Kullanıcı 2.1.5’in çalıştığını bildirdi.** Normal kurulumla Android Auto’da görünmediği bildirildiği için rehbere KingInstaller üzerinden kurulum eklendi. Araç doğrulaması beklenmektedir; kapanmanın kesin nedeni gerçek cihaz hata kaydıyla doğrulanmış değildir. Bu nedenle henüz otomatik kararlı güncelleme olarak yayınlanmaz.
 
@@ -47,7 +55,7 @@ Doğrulama: Yeni kurallar ve kaynak sözleşmeleri için birim testleri eklendi.
 
 ## Kurulum ve sınırlar
 
-Telefona standart Android yükleyicisiyle kurulabilir. Android Auto’da görünmeyen kurulumlar için rehberde KingInstaller 2.3 üzerinden klasik kurulum anlatılır. KingInstaller ayrı yükleyicidir; Dem TV APK’sında KingInstaller bağımlılığı veya yükleme kaynağı taklidi yoktur. Android Auto’da özel video/tarayıcı/yansıtma arayüzünün kabulü Google kuralları ve cihaz desteğine bağlıdır. Her yeni Android sürümünde sorunsuz çalışma veya banka/Play Protect kabulü garanti edilmez.
+Telefona standart Android yükleyicisiyle kurulabilir. Android Auto’da görünmeyen kurulumlar için rehberde KingInstaller 2.3 üzerinden klasik kurulum anlatılır. KingInstaller ayrı yükleyicidir; Mola APK’sında KingInstaller bağımlılığı veya yükleme kaynağı taklidi yoktur. Android Auto’da özel video/tarayıcı/yansıtma arayüzünün kabulü Google kuralları ve cihaz desteğine bağlıdır. Her yeni Android sürümünde sorunsuz çalışma veya banka/Play Protect kabulü garanti edilmez.
 
 Doğrulama: 2.510 birim testi geçti; telefon ve Auto lint kontrollerinde hata yok (mevcut uyarılar sürüyor). Nihai APK statik izin/sınıf denetiminden geçti; güncelleme imzası ve ana kart görselleri önceki sürümle aynı.
 

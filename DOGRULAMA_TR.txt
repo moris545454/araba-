@@ -1,4 +1,4 @@
-Dem TV 2.1.9 (320) doğrulaması
+Mola 2.1.9 (320) doğrulaması
 
 modules/podcast testMobileDebugUnitTest: 80 test, sıfır hata/başarısızlık
 modules/radio testMobileDebugUnitTest: 8 test, sıfır hata/başarısızlık

@@ -2,7 +2,7 @@
 
 Depo: https://github.com/moris545454/araba-
 
-Dağıtılan tek APK, telefon ve Android Auto için `me.app.fermataX.auto.debug` paketidir. İlk yayımlanan sürüm 2.0.2 (309); 2.1.4 (315), kapanma bildirimi nedeniyle kararlı listeden çekildi. Dem TV 2.1.5 (316), dört temel işlevi içeren ön sürümdür. Kullanıcı çalıştığını bildirdi; normal kurulumla Android Auto görünürlüğü sağlanamadı. Rehber KingInstaller üzerinden kurulumla güncellendi; araç doğrulaması tamamlanmadan kararlı güncelleme olarak sunulmaz.
+Dağıtılan tek APK, telefon ve Android Auto için `me.app.fermataX.auto.debug` paketidir. İlk yayımlanan sürüm 2.0.2 (309); 2.1.4 (315), kapanma bildirimi nedeniyle kararlı listeden çekildi. Mola 2.1.5 (316), dört temel işlevi içeren ön sürümdür. Kullanıcı çalıştığını bildirdi; normal kurulumla Android Auto görünürlüğü sağlanamadı. Rehber KingInstaller üzerinden kurulumla güncellendi; araç doğrulaması tamamlanmadan kararlı güncelleme olarak sunulmaz.
 
 Uygulama açılışta ve yaklaşık altı saatlik arka plan aralıklarında GitHub'ın en son yayımlanmış Release kaydını kontrol eder. Android pil/ağ politikaları bu kontrolleri geciktirebilir; bu anlık sunucu push bildirimi değildir. Açılış kontrolleri bir saatlik başarı önbelleği kullanır. Bildirim izni verilmişse daha yüksek sürüm kodu için tek bildirim gösterilir. Ayarlar → Arayüz → Uygulama güncellemeleri ekranından kontrol, bildirim ayarları, otomatik kontrolü kapatma ve İndir ve yükle erişilebilir. Kurulum telefonda Android'in onayıyla yapılır; araç arayüzünde APK kurulumu açılmaz.
 

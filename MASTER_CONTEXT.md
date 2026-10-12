@@ -7,7 +7,7 @@ Every APK release must update, in the same push: `gradle/libs.versions.toml` ver
 video notice (https://www.youtube.com/watch?v=CdU0OlLds2k). Production modules are now
 :tv, :radio, :podcast, :web, :exoplayer, :vlc.
 
-# Current product override — Dem TV 2.1.5 candidate
+# Current product override — Mola 2.1.5 candidate
 
 The user explicitly narrowed production to TV/IPTV, browser, YouTube, and native consent-based phone screen capture. Only :tv, :web, :exoplayer, :vlc are included by a closed production allowlist. All other addon modules and the Web Stremio implementation are excluded from the APK. Dashboard old layout order is filtered; removed persisted routes return Home.
 
@@ -25,13 +25,13 @@ Camera, microphone, location and global media/storage read permissions are remov
 > implementation note, verify the current code and then update this file with the confirmed
 > decision.
 
-## Current Dem TV security override — 2026-10-11
+## Current Mola security override — 2026-10-11
 
-The current distribution is **Dem TV 2.1.4 (315)** in `moris545454/araba-`, package
+The current distribution is **Mola 2.1.4 (315)** in `moris545454/araba-`, package
 `me.app.fermataX.auto.debug`, target/compile SDK 36. The package and existing signing identity
 are retained for updates; the shipped APK and dynamic features are **not debuggable**.
 The original FermataX identity/direction below is historical context where it conflicts with
-this Dem TV override or the current code.
+this Mola override or the current code.
 
 The supported dashboard mirror is `InlineMirrorView` → `ProjectionService` → Android
 MediaProjection consent. It does not provide remote touch control. Legacy accessibility,

@@ -249,7 +249,7 @@ public interface MainActivityPrefs
 	}
 
 	default boolean getVoiceControlEnabledPref() {
-        // The minimal Dem TV build does not request microphone access.
+        // The minimal Mola build does not request microphone access.
         return false;
 	}
 
