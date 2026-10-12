@@ -1,13 +1,13 @@
-Mola 2.2.0 (321) doğrulaması — eski adı Dem TV
+Mola 2.2.1 (322) doğrulaması
 
-modules/podcast: 80 test; modules/radio: 8; modules/tv: 92; modules/web: 259 — sıfır hata
-fermata testMobileDebugUnitTest: 1067 test; testAutoDebugUnitTest: 1110 test — sıfır hata
+modules/podcast: 80; modules/radio: 8; modules/tv: 92; modules/web: 259 test — sıfır hata
+fermata testMobileDebugUnitTest: 1070; testAutoDebugUnitTest: 1113 test — sıfır hata
+  (yeni WelcomeGreetingPolicyTest dahil)
 lint (mobile/auto): sıfır hata
 
-Uygulama etiketi: "Mola" (17 dilin tamamında); APK kaynaklarında "Dem TV" metni yok.
-APK SHA-256: 1bc5ba3d484c618e7b172fc970bf284551d2721234923db9524a5cbf69322010
-Boyut: 159744120 bayt
-İmza sertifikası SHA-256: 3aa47e345f4068d324413e8866b38131280a305a2badec1e9adeb20c88994b74 (2.1.7–2.1.9 ile aynı)
-Paket: me.app.fermataX.auto.debug (değişmedi), debuggable=false, minSdk 28, hedef SDK 36
-Statik APK denetimi: yasaklı izin yok.
-Fiziksel telefon/araç testi yapılmadı.
+APK SHA-256: cc42f9c767db0708d71d11a416257f1f3fdf5c598454e8483771700594264dd3
+Boyut: 159752312 bayt
+İmza sertifikası SHA-256: 3aa47e345f4068d324413e8866b38131280a305a2badec1e9adeb20c88994b74 (önceki sürümlerle aynı)
+Paket: me.app.fermataX.auto.debug, etiket "Mola", debuggable=false, minSdk 28, hedef SDK 36
+İzinler: önceki sürümle aynı; sesli karşılama yeni izin eklemedi (mikrofon yok).
+Statik APK denetimi geçti. Fiziksel telefon/araç testi yapılmadı.
