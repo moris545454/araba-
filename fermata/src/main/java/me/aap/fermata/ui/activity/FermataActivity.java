@@ -15,11 +15,6 @@ public interface FermataActivity extends AppActivity {
 
 	boolean isCarActivity();
 
-	/** A regular activity that Android Auto runs on the head unit display (Android 15+). */
-	default boolean isParkedCarActivity() {
-		return false;
-	}
-
     /** Release host-owned overlays before returning to the app home. */
     default void onHomeRequested() { stopInput(); }
 

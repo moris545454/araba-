@@ -1284,8 +1284,7 @@ public class MainActivityDelegate extends ActivityDelegate
 		controlPanel.bind(getMediaServiceBinder());
 		phoneBottomMenuController.refresh();
 
-		if (VERSION.SDK_INT >= VERSION_CODES.VANILLA_ICE_CREAM &&
-				(!a.isCarActivity() || a.isParkedCarActivity())) {
+		if (VERSION.SDK_INT >= VERSION_CODES.VANILLA_ICE_CREAM && !a.isCarActivity()) {
 			ViewCompat.setOnApplyWindowInsetsListener(toolBar, (v, insets) -> {
 				var bars = insets.getInsets(
 						WindowInsetsCompat.Type.systemBars()
