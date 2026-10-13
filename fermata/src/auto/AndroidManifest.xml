@@ -16,6 +16,7 @@
 
 
     <application
+		android:appCategory="game"
 		android:banner="@drawable/banner"
 		android:icon="@drawable/launcher">
 		<activity
