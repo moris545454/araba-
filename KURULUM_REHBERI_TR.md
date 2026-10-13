@@ -104,6 +104,8 @@ Araç bağlıyken direksiyondaki **ileri / geri** tuşları çalan listede sonra
 
 > **Bu bölüm yalnızca** yukarıdaki KingInstaller / Shizuku kurulumunu denediği hâlde Mola’yı Android Auto’da göremeyenler içindir. Kurulumu tamamlayabildiyseniz bu bölümü atlayın ve normal Mola’yı kullanın.
 
+> ⛔ **SÜRÜŞTE KULLANILMAZ.** Park sürümü sadece araç dururken çalışır; vites değişip araç hareket edince Android Auto Mola’yı kapatır.
+
 Mola 2.2.6 park sürümü APK:
 https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/Mola-park-2.2.6.apk
 
