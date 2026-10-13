@@ -30,6 +30,11 @@
 				<action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
+			<!-- Android 15+: Android Auto can open the regular UI on the head unit while parked. -->
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.CAR_LAUNCHER" />
+			</intent-filter>
 		</activity>
 
 		<activity
