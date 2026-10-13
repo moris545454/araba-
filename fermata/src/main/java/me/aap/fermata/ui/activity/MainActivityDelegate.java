@@ -559,9 +559,6 @@ public class MainActivityDelegate extends ActivityDelegate
 	}
 
 	public RuntimeHostMode getRuntimeHostMode() {
-		// The parked Android Auto activity plays locally on the head unit display, like the mirror
-		// host; it has no projection navigator to route playback through.
-		if (AUTO && getAppActivity().isParkedCarActivity()) return RuntimeHostMode.MIRROR;
 		return RuntimeHostMode.resolve(AUTO, getAppActivity().isCarActivity(),
 				FermataApplication.get().isMirroringMode());
 	}
