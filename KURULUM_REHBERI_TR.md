@@ -99,3 +99,17 @@ Araç bağlıyken direksiyondaki **ileri / geri** tuşları çalan listede sonra
 ## 10. Sesli karşılama
 
 **Ayarlar → Arayüz → Sesli karşılama** bölümünden “Araca bağlanınca sesli karşıla” seçeneğini açın ve isterseniz adınızı yazıp klavyedeki **Bitti** tuşuna basın. Telefon araca bağlandığında Mola saate göre kısa bir karşılama yapar. “Günde yalnızca bir kez” seçilirse gün içindeki sonraki bağlantılarda sessiz kalır. Telefonda Türkçe konuşma sesi yüklü değilse karşılama yapılmaz; Ayarlar → Erişilebilirlik → Metin okuma bölümünden Google’ın Türkçe sesini yükleyebilirsiniz.
+
+## 11. Kurulumu tamamlayamayanlar için: Mola 2.2.6 park sürümü
+
+> **Bu bölüm yalnızca** yukarıdaki KingInstaller / Shizuku kurulumunu denediği hâlde Mola’yı Android Auto’da göremeyenler içindir. Kurulumu tamamlayabildiyseniz bu bölümü atlayın ve normal Mola’yı kullanın.
+
+Mola 2.2.6 park sürümü APK:
+https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/Mola-park-2.2.6.apk
+
+1. Telefonunuz **Android 15 veya üzeri** olmalı.
+2. APK’yı indirip **normal şekilde kurun**; KingInstaller gerekmez. Normal Mola kuruluysa üzerine kurulur, ayarlarınız silinmez.
+3. Android Auto ayarlarında **Sürüm**’e 10 kez dokunun, **⋮ → Geliştirici ayarları → Bilinmeyen kaynaklar**’ı açın.
+4. Telefonu yeniden başlatın ve araç **park hâlindeyken** bağlanın; Mola uygulama listesinde görünür.
+
+**Bilmeniz gerekenler:** Bu sürüm Google’ın park uygulaması yöntemini kullanır ve **yalnızca araç dururken** çalışır; araç hareket edince Android Auto ekranı kapatır. Bu sürümü kurduktan sonra normal Mola’ya dönmek isterseniz önce uygulamayı kaldırmanız gerekir.
