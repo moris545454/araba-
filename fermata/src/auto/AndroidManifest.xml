@@ -32,7 +32,17 @@
 				<action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
-			<!-- Android 15+: Android Auto can open the regular UI on the head unit while parked. -->
+		</activity>
+
+		<!-- Android 15+: Android Auto opens the car UI directly on the head unit while parked. -->
+		<activity
+			android:name="me.app.fermatax.auto.ParkedCarActivity"
+			android:configChanges="colorMode|density|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
+			android:exported="true"
+			android:label="@string/app_name"
+			android:launchMode="singleTask"
+			android:resizeableActivity="true"
+			android:taskAffinity="${applicationId}.parked">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.CAR_LAUNCHER" />
