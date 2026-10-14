@@ -736,6 +736,7 @@ public class MainActivityDelegate extends ActivityDelegate
 		if (home == null) return;
 		home.setVisibility(PhoneRootPolicy.showPersistentHomeButton(getRuntimeHostMode(),
 				isBarsHidden()) ? VISIBLE : GONE);
+		CarChromeLayout.refreshVoiceButton(this);
 	}
 
 	public void refreshPhonePlaybackCarHeader() {

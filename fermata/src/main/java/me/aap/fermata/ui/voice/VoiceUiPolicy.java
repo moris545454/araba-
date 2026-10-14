@@ -23,14 +23,24 @@ public final class VoiceUiPolicy {
 				me.aap.fermata.ui.activity.MainActivityPrefs.SHOW_SHORTCUT_RAIL);
 	}
 
+	/** On the car screen the microphone floats at the bottom left, just above Home. */
+	public static boolean showCarButton(MainActivityDelegate activity) {
+		return showCarButton(activity.getRuntimeHostMode(),
+				activity.getPrefs().getVoiceControlEnabledPref());
+	}
+
+	static boolean showCarButton(RuntimeHostMode hostMode, boolean voiceEnabled) {
+		return voiceEnabled && hostMode.usesAutomotivePresentation();
+	}
+
 	/** The microphone sits with the other floating buttons unless the shortcut rail is shown. */
 	static boolean showToolbarButton(RuntimeHostMode hostMode, boolean voiceEnabled,
 			boolean railShown) {
-		return voiceEnabled && !railShown;
+		return voiceEnabled && !railShown && !hostMode.usesAutomotivePresentation();
 	}
 
 	static boolean showNavBarButton(RuntimeHostMode hostMode, boolean voiceEnabled,
 			boolean railShown) {
-		return voiceEnabled && railShown;
+		return voiceEnabled && railShown && !hostMode.usesAutomotivePresentation();
 	}
 }

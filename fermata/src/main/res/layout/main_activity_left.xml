@@ -179,4 +179,14 @@
         app:layout_constraintTop_toBottomOf="@id/phone_header_divider"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Car screen only: the microphone floats right above Home at the bottom left. -->
+    <me.aap.fermata.ui.view.CarVoiceButtonView
+        android:id="@+id/car_voice_button"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:translationZ="200dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/persistent_home_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
