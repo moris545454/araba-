@@ -131,8 +131,10 @@ public final class PhonePlaybackCarHeaderController implements FermataServiceUiB
 		TextView subtitle = header.findViewById(R.id.phone_header_subtitle);
 		title.setText(presentation.hasMedia && (presentation.title.length() > 0) ?
 				presentation.title : header.getContext().getString(R.string.phone_header_nothing_playing));
-		subtitle.setText(presentation.hasMedia && (presentation.subtitle.length() > 0) ?
-				presentation.subtitle : header.getContext().getString(R.string.phone_header_choose_media));
+		CharSequence subtitleText = subtitleText(presentation.hasMedia, presentation.subtitle,
+				header.getContext().getString(R.string.phone_header_choose_media));
+		subtitle.setText(subtitleText);
+		subtitle.setVisibility((subtitleText.length() > 0) ? VISIBLE : GONE);
 		ImageView artwork = header.findViewById(R.id.phone_header_artwork);
 		MediaMetadataCompat metadata = presentation.metadata;
 		Bitmap bitmap = (metadata == null) ? null :
@@ -200,7 +202,6 @@ public final class PhonePlaybackCarHeaderController implements FermataServiceUiB
 	private void updateTimeline(ControlPresentation presentation) {
 		SeekBar progress = header.findViewById(R.id.phone_header_progress);
 		progress.setEnabled(presentation.canSeek);
-		progress.setVisibility(VISIBLE);
 		progress.setAlpha(presentation.canSeek ? 1f : 0.45f);
 		if (presentation.canSeek && !seekGesture.isDragging()) {
 			progress.setMax(progressSeconds(presentation.durationMillis));
@@ -238,6 +239,14 @@ public final class PhonePlaybackCarHeaderController implements FermataServiceUiB
 		StringBuilder text = new StringBuilder(10);
 		TextUtils.timeToString(text, displaySeconds(millis));
 		return text;
+	}
+
+	/** A playing item without a subtitle shows nothing, never the "choose media" hint. */
+	@NonNull
+	static CharSequence subtitleText(boolean hasMedia, @NonNull CharSequence subtitle,
+			@NonNull CharSequence chooseMedia) {
+		if (!hasMedia) return chooseMedia;
+		return subtitle;
 	}
 
 	static int aaStatus(@NonNull State state) {

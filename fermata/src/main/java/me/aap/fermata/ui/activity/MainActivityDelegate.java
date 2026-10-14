@@ -6,6 +6,7 @@ import static android.content.pm.ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
 import static android.content.pm.PackageManager.PERMISSION_GRANTED;
 import static android.util.Base64.URL_SAFE;
 import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static android.view.WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD;
 import static android.view.WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
 import static android.view.WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
@@ -726,6 +727,15 @@ public class MainActivityDelegate extends ActivityDelegate
 
 	public void refreshPhoneBottomMenu() {
 		if (phoneBottomMenuController != null) phoneBottomMenuController.refresh();
+		refreshPersistentHomeButton();
+	}
+
+	/** On the phone the bottom menu already has Home; the floating one would cover list rows. */
+	private void refreshPersistentHomeButton() {
+		View home = getAppActivity().findViewById(R.id.persistent_home_button);
+		if (home == null) return;
+		home.setVisibility(PhoneRootPolicy.showPersistentHomeButton(getRuntimeHostMode(),
+				isBarsHidden()) ? VISIBLE : GONE);
 	}
 
 	public void refreshPhonePlaybackCarHeader() {
@@ -1278,7 +1288,17 @@ public class MainActivityDelegate extends ActivityDelegate
 					a.findViewById(R.id.phone_open_on_car_strip),
 					a.findViewById(R.id.phone_open_on_car_toggle));
 			refreshPhonePlaybackCarHeader();
+			// The player panel sits under the list instead of covering its last rows.
+			androidx.constraintlayout.widget.ConstraintLayout root =
+					a.findViewById(R.id.main_activity);
+			androidx.constraintlayout.widget.ConstraintSet set =
+					new androidx.constraintlayout.widget.ConstraintSet();
+			set.clone(root);
+			set.connect(R.id.body_layout, androidx.constraintlayout.widget.ConstraintSet.BOTTOM,
+					R.id.control_panel, androidx.constraintlayout.widget.ConstraintSet.TOP);
+			set.applyTo(root);
 		}
+		refreshPersistentHomeButton();
 		floatingButton.setScale(getPrefs().getTextIconSizePref(this));
 		if (getRuntimeHostMode().usesAutomotivePresentation()) floatingButton.setVisibility(GONE);
 		controlPanel.bind(getMediaServiceBinder());

@@ -30,7 +30,8 @@ public class PhoneOpenOnCarStripLayoutTest {
 		assertTrue(strip.contains("style=\"?attr/appSeekBarStyle\""));
 		assertTrue(strip.contains("app:layout_constraintStart_toStartOf=\"parent\""));
 		assertTrue(strip.contains("app:layout_constraintEnd_toEndOf=\"parent\""));
-		assertTrue(strip.contains("android:layout_height=\"228dp\""));
+		assertFalse(strip.contains("228dp"));
+		assertTrue(strip.contains("@+id/phone_header_summary"));
 
 		for (String layout : new String[] { "main_activity_left.xml", "main_activity_right.xml" }) {
 			String shell = resource(layout);
@@ -98,6 +99,22 @@ public class PhoneOpenOnCarStripLayoutTest {
 				"name=\"phone_header_aa_disconnect\">AA disconnect"));
 		assertTrue(vietnameseStrings.contains(
 				"name=\"phone_header_aa_connected\">AA connected"));
+	}
+
+	@Test public void playingItemWithoutSubtitleNeverShowsTheChooseMediaHint() {
+		assertEquals("", PhonePlaybackCarHeaderController.subtitleText(true, "", "hint").toString());
+		assertEquals("Canlı",
+				PhonePlaybackCarHeaderController.subtitleText(true, "Canlı", "hint").toString());
+		assertEquals("hint", PhonePlaybackCarHeaderController.subtitleText(false, "", "hint").toString());
+	}
+
+	@Test public void floatingHomeIsHiddenWhileThePhoneBottomMenuShowsHome() {
+		assertFalse(me.aap.fermata.ui.policy.PhoneRootPolicy.showPersistentHomeButton(
+				me.aap.fermata.ui.policy.RuntimeHostMode.PHONE, false));
+		assertTrue(me.aap.fermata.ui.policy.PhoneRootPolicy.showPersistentHomeButton(
+				me.aap.fermata.ui.policy.RuntimeHostMode.PHONE, true));
+		assertTrue(me.aap.fermata.ui.policy.PhoneRootPolicy.showPersistentHomeButton(
+				me.aap.fermata.ui.policy.RuntimeHostMode.AA_PROJECTION, false));
 	}
 
 	@Test public void headerMapsEveryConnectedAutomotiveStateToTheSameCompactLabel() {

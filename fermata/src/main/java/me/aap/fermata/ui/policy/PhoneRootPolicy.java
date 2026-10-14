@@ -48,4 +48,9 @@ public final class PhoneRootPolicy {
 	public static boolean showPhoneBottomMenu(RuntimeHostMode mode, boolean barsHidden) {
 		return !barsHidden && usesPhoneRoots(mode);
 	}
+
+	/** The floating Home stays for the car and for full-screen phone content only. */
+	public static boolean showPersistentHomeButton(RuntimeHostMode mode, boolean barsHidden) {
+		return !showPhoneBottomMenu(mode, barsHidden);
+	}
 }
