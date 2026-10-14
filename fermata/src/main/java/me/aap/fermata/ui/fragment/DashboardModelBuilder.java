@@ -30,7 +30,13 @@ final class DashboardModelBuilder {
 	void rebuild(List<DashboardCard> cards, @Nullable DashboardCard smartTopCard) {
 		cards.clear();
 		DashboardCard visibleSmartTop = smartTopVisible ? smartTopCard : null;
+		DashboardItems.Item settings = null;
 		for (DashboardItems.Item item : DashboardItems.getDashboardItems(ctx, store)) {
+			// Settings always closes the row of apps, after the user's own web shortcuts.
+			if (DashboardItems.SETTINGS.equals(item.name)) {
+				settings = item;
+				continue;
+			}
 			if (shouldSuppressRecent(visibleSmartTop != null, item.id)) continue;
 			if ((visibleSmartTop != null) && (visibleSmartTop.targetId == item.id)) continue;
 			DashboardCard card = DashboardCard.item(item);
@@ -40,6 +46,7 @@ final class DashboardModelBuilder {
 		for (DashboardItems.Item item : DashboardItems.getWebShortcutItems(ctx, store)) {
 			cards.add(DashboardCard.item(item));
 		}
+		if (settings != null) cards.add(DashboardCard.item(settings));
 		cards.add(DashboardCard.favoritesShelf(ctx));
 		cards.add(DashboardCard.recentShelf(ctx));
 		if (visibleSmartTop != null) cards.add(visibleSmartTop);

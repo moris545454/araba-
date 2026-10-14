@@ -4,4 +4,5 @@
     <string name="dashboard_media_sub">手機上的影片和音樂</string>
     <string name="dashboard_settings_sub">應用程式設定</string>
     <string name="web_address_hint">搜尋或輸入網址</string>
+    <string name="dashboard_media_grant_on_phone">請先在手機上允許：開啟 Mola 並點選「媒體」。</string>
 </resources>

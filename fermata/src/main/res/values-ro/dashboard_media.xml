@@ -4,4 +4,5 @@
     <string name="dashboard_media_sub">Videoclipuri și muzică de pe telefon</string>
     <string name="dashboard_settings_sub">Setările aplicației</string>
     <string name="web_address_hint">Caută sau scrie o adresă</string>
+    <string name="dashboard_media_grant_on_phone">Permite mai întâi accesul pe telefon: deschide Mola și atinge Media.</string>
 </resources>

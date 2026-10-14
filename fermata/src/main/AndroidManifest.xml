@@ -16,9 +16,13 @@
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:node="remove" />
+    <!-- The Media card reads the phone's own videos and music after the user allows it. -->
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
-        tools:node="remove" />
+        android:maxSdkVersion="32"
+        tools:node="replace" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
     <permission
         android:name="${applicationId}.permission.WRITE_FERMATA_CONTENT"

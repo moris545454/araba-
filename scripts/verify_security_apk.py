@@ -22,8 +22,9 @@ forbidden = ['SYSTEM_ALERT_WINDOW', 'MANAGE_EXTERNAL_STORAGE', 'WRITE_SETTINGS',
              'DISABLE_KEYGUARD', 'USE_FULL_SCREEN_INTENT', 'READ_SMS', 'RECEIVE_SMS',
              'READ_CONTACTS', 'READ_CALL_LOG', 'READ_PHONE_STATE', 'QUERY_ALL_PACKAGES',
              'CAMERA', 'ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION',
-             'READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE', 'READ_MEDIA_AUDIO', 'READ_MEDIA_VIDEO']
-# RECORD_AUDIO is allowed on purpose: in-app voice commands (runtime permission).
+             'WRITE_EXTERNAL_STORAGE']
+# Allowed on purpose (runtime permissions the user grants): RECORD_AUDIO for voice commands,
+# READ_MEDIA_VIDEO/AUDIO and READ_EXTERNAL_STORAGE (max SDK 32) for the Media card.
 for name in forbidden:
     assert "name='android.permission." + name + "'" not in permissions, name
 assert 'application-debuggable' not in badging, 'APK is debuggable'

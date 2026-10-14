@@ -4,4 +4,5 @@
     <string name="dashboard_media_sub">Vídeos e músicas no telefone</string>
     <string name="dashboard_settings_sub">Configurações do app</string>
     <string name="web_address_hint">Pesquise ou digite um endereço</string>
+    <string name="dashboard_media_grant_on_phone">Permita o acesso no telefone primeiro: abra o Mola e toque em Mídia.</string>
 </resources>

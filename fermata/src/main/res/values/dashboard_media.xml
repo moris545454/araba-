@@ -4,4 +4,5 @@
     <string name="dashboard_media_sub">Videos and music on the phone</string>
     <string name="dashboard_settings_sub">App settings</string>
     <string name="web_address_hint">Search or type an address</string>
+    <string name="dashboard_media_grant_on_phone">Allow access on the phone first: open Mola on the phone and tap Media.</string>
 </resources>

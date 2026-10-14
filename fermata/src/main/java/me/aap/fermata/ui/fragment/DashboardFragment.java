@@ -622,6 +622,10 @@ public class DashboardFragment extends MainActivityFragment
 					DemTvActions.openShortcut(a, store, card.item.name);
 					return;
 				}
+				if (card.targetId == R.id.folders_fragment) {
+					MediaLibraryAccess.open(a);
+					return;
+				}
 				if (card.targetId == R.id.dashboard_add_web_shortcut_action) {
 					DemTvActions.manageShortcuts(a, store, this::reload);
 					return;
