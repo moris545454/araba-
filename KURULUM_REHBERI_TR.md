@@ -7,7 +7,7 @@ Mola 2.2.2 (eski adı Dem TV); sesli karşılama, TV/IPTV, ana sayfada Radyo ve 
 ## 1. Doğrudan indirme bağlantıları
 
 Mola 2.2.2 APK (güncel):
-https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/FermataX-yeni-arayuz-debug.apk
+https://media.githubusercontent.com/media/moris545454/araba-/main/distribution/Mola.apk
 
 KingInstaller 2.3 APK — geliştiricinin resmî GitHub yayını:
 https://github.com/fcaronte/KingInstaller/releases/download/2.3/KingInstaller-v2.3.apk
@@ -21,7 +21,7 @@ https://github.com/moris545454/araba-/releases/tag/v2.1.5
 KingInstaller sürüm ayrıntıları:
 https://github.com/fcaronte/KingInstaller/releases/tag/2.3
 
-Her iki APK’yı telefona indirin. Mola dosyası `FermataX-yeni-arayuz-debug.apk` adıyla görünebilir; kurulan uygulama **Mola**’dir. Instagram indirme başlatmazsa menüsünden harici tarayıcıda açın. Mola için en az Android 9 ve araçta çalışan bir Android Auto bağlantısı gerekir.
+Her iki APK’yı telefona indirin. Mola dosyası `Mola.apk` adıyla iner; kurulan uygulama **Mola**’dir. Instagram indirme başlatmazsa menüsünden harici tarayıcıda açın. Mola için en az Android 9 ve araçta çalışan bir Android Auto bağlantısı gerekir.
 
 ## 2. KingInstaller’ı kurun ve yükleme iznini açın
 
@@ -35,7 +35,7 @@ Telefon üreticisine göre menü adları değişebilir. Ayarlarda “bilinmeyen 
 ## 3. Mola’yı KingInstaller içinden yükleyin
 
 1. **KingInstaller** uygulamasını açın.
-2. Dosya seçme düğmesinden **İndirilenler / Downloads** klasörüne gidin; **FermataX-yeni-arayuz-debug.apk** dosyasını seçin. KingInstaller’ın kendi APK’sını seçmeyin.
+2. Dosya seçme düğmesinden **İndirilenler / Downloads** klasörüne gidin; **Mola.apk** dosyasını seçin. KingInstaller’ın kendi APK’sını seçmeyin.
 3. İlk denemede **Shizuku / Root seçenekleri kapalıyken Install / Yükle** düğmesine dokunun. Bu, geliştiricinin önerdiği klasik kurulum yöntemidir.
 4. Android’in kurulum/güncelleme ekranını onaylayın. KingInstaller için bilinmeyen uygulama yükleme izni sorulursa verin.
 5. Kurulum bitince **Mola**’yi telefonda bir kez açın. Ekran paylaşımı isteğini ve oynatma kontrollerini bildirim alanında görmek için bildirim iznini verebilirsiniz. Mola güncelleme veya indirme bildirimi göndermez.
