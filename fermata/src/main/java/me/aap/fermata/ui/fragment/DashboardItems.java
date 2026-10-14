@@ -45,6 +45,7 @@ public final class DashboardItems {
 	public static final String PLAYLISTS = "playlists";
 	public static final String MENU = "menu";
 	public static final String MIRROR = "screen_mirroring";
+	public static final String EQUALIZER = "equalizer";
     // Web shortcuts share the compact media shortcut grid.
     public static final String DEM_TV = "dem_tv";
     public static final String WINDASIST = "windasist";
@@ -257,6 +258,7 @@ public final class DashboardItems {
             // Phone media library and settings live on the home screen with the other cards.
             addMissingItem(names, FOLDERS, MIRROR);
             addMissingItem(names, SETTINGS, null);
+            addMissingItem(names, EQUALIZER, SETTINGS);
         }
 
 		for (AddonInfo ai : AddonManager.get().getAddonInfos()) {
@@ -349,7 +351,8 @@ public final class DashboardItems {
 		if (DASHBOARD.equals(name)) return includeDashboard;
 		if (MENU.equals(name)) return includeMenu;
 		if (MIRROR.equals(name) || DEM_TV.equals(name) || WINDASIST.equals(name)) return !navigationLayout;
-		if (FOLDERS.equals(name) || SETTINGS.equals(name)) return !navigationLayout;
+		if (FOLDERS.equals(name) || SETTINGS.equals(name) || EQUALIZER.equals(name))
+			return !navigationLayout;
 		if (FAVORITES.equals(name) || RECENT.equals(name) || PLAYLISTS.equals(name)) return false;
 
 		for (AddonInfo ai : AddonManager.get().getAddonInfos()) {
@@ -395,6 +398,10 @@ public final class DashboardItems {
 			case SETTINGS:
 				return new Item(name, R.id.settings_fragment, R.drawable.settings_gear,
 						ctx.getString(R.string.settings), ctx.getString(R.string.dashboard_settings_sub), null);
+			case EQUALIZER:
+				return new Item(name, R.id.dashboard_equalizer_action, R.drawable.equalizer,
+						ctx.getString(R.string.dashboard_equalizer_title),
+						ctx.getString(R.string.dashboard_equalizer_sub), null);
 			case FAVORITES:
 				return new Item(name, R.id.favorites_fragment, R.drawable.favorite_filled,
 						ctx.getString(R.string.favorites), ctx.getString(R.string.dashboard_favorites_sub), null);

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <item name="car_voice_button" type="id" />
+    <item name="dashboard_equalizer_action" type="id" />
     <item name="tool_view" type="id" />
     <item name="tool_view_title" type="id" />
     <item name="tool_view_subtitle" type="id" />

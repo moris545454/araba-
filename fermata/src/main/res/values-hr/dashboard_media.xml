@@ -5,4 +5,6 @@
     <string name="dashboard_settings_sub">Postavke aplikacije</string>
     <string name="web_address_hint">Pretraži ili upiši adresu</string>
     <string name="dashboard_media_grant_on_phone">Prvo dopusti pristup na telefonu: otvori Molu i dodirni Mediji.</string>
+    <string name="dashboard_equalizer_title">Ekvilajzer</string>
+    <string name="dashboard_equalizer_sub">Postavke zvuka i basa</string>
 </resources>

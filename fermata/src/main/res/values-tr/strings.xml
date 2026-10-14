@@ -420,7 +420,7 @@
 	<string name="p2p_streaming_status">%1$d akranlar | %2$s/s | Oynanıyor</string>
 	<string name="p2p_rebuffering_status">Yeniden ara belleğe alma | %1$d akranlar | %2$s/s</string>
 	<string name="edit_dashboard">Gösterge tablosunu düzenle</string>
-	<string name="done">Tamamlamak</string>
+	<string name="done">Tamam</string>
 	<string name="err_failed_start_service">Hizmet başlatılamadı: %s</string>
 	<string name="err_p2p_metadata_unavailable">Torrent meta verileri kullanılamıyor. Başka bir akış deneyin.</string>
 	<string name="err_p2p_no_peers">Aktif P2P eşi yok. Başka bir akış deneyin.</string>
@@ -459,7 +459,7 @@
 	<string name="car_keyboard_cancel">İptal etmek</string>
 	<string name="car_keyboard_input">Giriş</string>
 	<string name="car_keyboard_shift">Zaman kaydırma</string>
-	<string name="car_keyboard_space">Uzay</string>
+	<string name="car_keyboard_space">Boşluk</string>
 	<string name="car_keyboard_paste">Yapıştır</string>
 	<string name="car_keyboard_delete">Silmek</string>
 	<string name="car_keyboard_clear">Temizlemek</string>

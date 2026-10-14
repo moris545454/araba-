@@ -92,6 +92,8 @@ public class WebToolBarMediator implements ToolBarView.Mediator {
 		t.setOnKeyListener((v, keyCode, event) -> onKey(f, t, keyCode, event));
 		t.setMaxLines(1);
 		t.setSingleLine(true);
+		// The car keyboard labels its action key from this: "Go" opens the typed address.
+		t.setImeOptions(android.view.inputmethod.EditorInfo.IME_ACTION_GO);
 		return t;
 	}
 

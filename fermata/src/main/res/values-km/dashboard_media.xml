@@ -5,4 +5,6 @@
     <string name="dashboard_settings_sub">ការកំណត់កម្មវិធី</string>
     <string name="web_address_hint">ស្វែងរក ឬវាយអាសយដ្ឋាន</string>
     <string name="dashboard_media_grant_on_phone">សូមអនុញ្ញាតលើទូរស័ព្ទជាមុន៖ បើក Mola ហើយចុច មេឌៀ។</string>
+    <string name="dashboard_equalizer_title">អេកូឡាយហ្សឺ</string>
+    <string name="dashboard_equalizer_sub">ការកំណត់សំឡេង និងបាស</string>
 </resources>

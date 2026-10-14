@@ -5,4 +5,6 @@
     <string name="dashboard_settings_sub">Ustawienia aplikacji</string>
     <string name="web_address_hint">Szukaj lub wpisz adres</string>
     <string name="dashboard_media_grant_on_phone">Najpierw zezwól na telefonie: otwórz Molę i dotknij Multimedia.</string>
+    <string name="dashboard_equalizer_title">Korektor</string>
+    <string name="dashboard_equalizer_sub">Ustawienia dźwięku i basów</string>
 </resources>

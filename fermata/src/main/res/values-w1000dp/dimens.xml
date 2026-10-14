@@ -4,6 +4,8 @@
     <dimen name="dashboard_card_margin">6dp</dimen>
 
     <dimen name="dashboard_tile_height">244dp</dimen>
+    <!-- Featured cards follow their wide artwork, so the picture fills the whole card. -->
+    <dimen name="dashboard_featured_height">168dp</dimen>
 	<dimen name="dashboard_tile_padding">16dp</dimen>
 	<dimen name="dashboard_tile_icon_size">56dp</dimen>
 	<dimen name="dashboard_tile_icon_padding">4dp</dimen>

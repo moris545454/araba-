@@ -7,7 +7,7 @@ name: Build test APK
 
 on:
   push:
-    branches: [feature/tv-user-playlists]
+    branches: [feature/tv-user-playlists, mola-3]
   workflow_dispatch:
 
 permissions:
@@ -60,11 +60,13 @@ jobs:
         run: |
           mkdir -p out
           cp fermata/build/outputs/apk_from_bundle/autoDebug/*-universal.apk out/FermataX-yeni-arayuz-debug.apk
+          grep -q '318ddbe5f2e238ed1f0afa30616641ec45f1f0cd7ab449a80311dca51984fdc5' <("$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs out/FermataX-yeni-arayuz-debug.apk) || { [ "$GITHUB_REF_NAME" != mola-3 ] || { echo "::error::mola-3 must be signed with the stable key"; exit 1; }; }
           "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs out/FermataX-yeni-arayuz-debug.apk | tee out/signature.txt
           python3 scripts/verify_security_apk.py out/FermataX-yeni-arayuz-debug.apk --aapt "$ANDROID_HOME/build-tools/36.0.0/aapt" --output out/security-apk-check.json
           sha256sum out/FermataX-yeni-arayuz-debug.apk | tee out/sha256.txt
           version=$(grep -oP '^appVersionName = "\K[^"]+' gradle/libs.versions.toml)
-          echo "tag=v$version-test" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_REF_NAME" = mola-3 ]; then echo "tag=mola-$version" >> "$GITHUB_OUTPUT"
+          else echo "tag=v$version-test" >> "$GITHUB_OUTPUT"; fi
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -86,7 +88,7 @@ jobs:
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" out/FermataX-yeni-arayuz-debug.apk out/sha256.txt out/security-apk-check.json --clobber
           else
-            gh release create "$TAG" --target "$GITHUB_SHA" --prerelease --title "Mola $TAG" \
+            gh release create "$TAG" --target "$GITHUB_SHA" --prerelease --title "Mola ${TAG#mola-}" \
               --notes-file UPDATE_RELEASE_NOTES_TR.md \
               out/FermataX-yeni-arayuz-debug.apk out/sha256.txt out/security-apk-check.json
           fi

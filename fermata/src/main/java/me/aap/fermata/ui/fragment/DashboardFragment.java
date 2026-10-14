@@ -626,6 +626,11 @@ public class DashboardFragment extends MainActivityFragment
 					MediaLibraryAccess.open(a);
 					return;
 				}
+				if (card.targetId == R.id.dashboard_equalizer_action) {
+					a.setActiveNavItemId(R.id.dashboard_fragment);
+					a.showFragment(R.id.settings_fragment, SettingsFragment.OPEN_EQUALIZER);
+					return;
+				}
 				if (card.targetId == R.id.dashboard_add_web_shortcut_action) {
 					DemTvActions.manageShortcuts(a, store, this::reload);
 					return;
@@ -693,7 +698,7 @@ public class DashboardFragment extends MainActivityFragment
 			float density = ctx.getResources().getDisplayMetrics().density;
 			float fontScale = Math.max(1F, Math.min(2F,
 					ctx.getResources().getConfiguration().fontScale));
-			int height = ctx.getResources().getDimensionPixelSize(featured ? R.dimen.dashboard_tile_height :
+			int height = ctx.getResources().getDimensionPixelSize(featured ? R.dimen.dashboard_featured_height :
 					R.dimen.dashboard_compact_height)
 					+ Math.round((featured ? 100F : 72F) * (fontScale - 1F) * density);
 			ViewGroup.LayoutParams params = card.getLayoutParams();
@@ -779,9 +784,11 @@ public class DashboardFragment extends MainActivityFragment
                 android.graphics.drawable.GradientDrawable circle =
                         new android.graphics.drawable.GradientDrawable();
                 circle.setShape(android.graphics.drawable.GradientDrawable.OVAL);
-                circle.setColor(androidx.core.graphics.ColorUtils.setAlphaComponent(accent, 65));
+                // Frosted glass over the artwork, with a hint of the card's accent in the rim.
+                circle.setColor(androidx.core.graphics.ColorUtils.blendARGB(0x33FFFFFF,
+                        androidx.core.graphics.ColorUtils.setAlphaComponent(accent, 0x33), .35F));
                 circle.setStroke(Math.max(1, (int) ctx.getResources().getDisplayMetrics().density),
-                        androidx.core.graphics.ColorUtils.setAlphaComponent(accent, 85));
+                        androidx.core.graphics.ColorUtils.blendARGB(0x66FFFFFF, accent, .4F));
                 arrow.setBackground(circle);
                 arrow.setVisibility(editMode ? View.GONE : View.VISIBLE);
             }
@@ -1253,15 +1260,19 @@ public class DashboardFragment extends MainActivityFragment
 			ImageButton voice = addButton(tb, R.drawable.voice_microphone,
 					DashboardToolBarMediator::onVoiceClick, R.id.tool_voice);
 			voice.setContentDescription(tb.getContext().getString(R.string.action_activate_voice_ctrl));
-			ImageButton edit = addButton(tb, dashboard.editMode ? R.drawable.done : R.drawable.edit,
-					DashboardToolBarMediator::onEditClick, R.id.dashboard_edit);
-			edit.setContentDescription(tb.getContext().getString(dashboard.editMode ?
-					R.string.done : R.string.edit_dashboard));
 			updateVoiceVisibility(tb);
-			ImageButton settings = addButton(tb, R.drawable.settings_gear, DashboardToolBarMediator::onSettingsClick,
-					R.id.dashboard_settings);
-			settings.setBackgroundResource(R.drawable.aa_toolbar_primary_button_bg);
-			settings.setContentDescription(tb.getContext().getString(R.string.settings));
+			// The car home screen stays clean: Settings is a card there, so no Edit/Settings
+			// buttons float in its top right corner.
+			if (!activity.getRuntimeHostMode().usesAutomotivePresentation()) {
+				ImageButton edit = addButton(tb, dashboard.editMode ? R.drawable.done : R.drawable.edit,
+						DashboardToolBarMediator::onEditClick, R.id.dashboard_edit);
+				edit.setContentDescription(tb.getContext().getString(dashboard.editMode ?
+						R.string.done : R.string.edit_dashboard));
+				ImageButton settings = addButton(tb, R.drawable.settings_gear,
+						DashboardToolBarMediator::onSettingsClick, R.id.dashboard_settings);
+				settings.setBackgroundResource(R.drawable.aa_toolbar_primary_button_bg);
+				settings.setContentDescription(tb.getContext().getString(R.string.settings));
+			}
 			TopBarController.refresh(activity, f);
 		}
 

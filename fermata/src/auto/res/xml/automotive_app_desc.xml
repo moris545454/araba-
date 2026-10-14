@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <automotiveApp xmlns:tools="http://schemas.android.com/tools">
     <uses name="media" />
+    <!-- Car App Library entry (FullScreenAppService). -->
+    <uses name="template" />
     <uses
         name="service"
         tools:ignore="InvalidUsesTagAttribute" />

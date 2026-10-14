@@ -42,7 +42,8 @@ final class CarKeyboardOverlay {
 	private static final long DELETE_REPEAT_DELAY_MS = 420;
 	private static final long DELETE_REPEAT_MS = 88;
 	private static final long DELETE_REPEAT_FAST_MS = 62;
-	private final MainCarActivity activity;
+	private final Context activity;
+	private final CarKeyboardHost host;
 	private final FrameLayout view;
 	private final LinearLayout panel;
 	private final TextView title;
@@ -60,9 +61,12 @@ final class CarKeyboardOverlay {
 	private Runnable deleteRepeater;
 	private int deleteRepeatCount;
 	private int keyHeight;
+	// Floating car buttons (microphone, Home) hidden while the keyboard covers their corner.
+	private final List<View> hiddenFloatingButtons = new ArrayList<>();
 
-	CarKeyboardOverlay(MainCarActivity activity) {
+	<H extends Context & CarKeyboardHost> CarKeyboardOverlay(H activity) {
 		this.activity = activity;
+		this.host = activity;
 		view = new FrameLayout(activity);
 		view.setBackgroundColor(0xB807111D);
 		view.setFocusable(true);
@@ -92,7 +96,7 @@ final class CarKeyboardOverlay {
 		voice = toolbarButton(R.drawable.record_voice, R.string.voice_search);
 		voice.setOnClickListener(v -> {
 			EditText input = target;
-			if (input != null) activity.requestVoiceInput(input);
+			if (input != null) host.requestVoiceInput(input);
 		});
 		toolbar.addView(voice, toolbarButtonParams());
 
@@ -105,7 +109,7 @@ final class CarKeyboardOverlay {
 		toolbar.addView(clear, toolbarButtonParams());
 
 		cancel = toolbarButton(R.drawable.keyboard_close, R.string.car_keyboard_cancel);
-		cancel.setOnClickListener(v -> activity.stopInput());
+		cancel.setOnClickListener(v -> host.stopInput());
 		toolbar.addView(cancel, toolbarButtonParams());
 
 		value = new TextView(activity);
@@ -134,16 +138,16 @@ final class CarKeyboardOverlay {
 		CharSequence hint = target.getHint();
 		title.setText((hint == null) || (hint.length() == 0) ?
 				activity.getString(R.string.car_keyboard_input) : hint);
-		voice.setVisibility(activity.isVoiceInputEnabled() && !isPassword(target) ?
+		voice.setVisibility(host.isVoiceInputEnabled() && !isPassword(target) ?
 				View.VISIBLE : View.GONE);
 		value.setText(displayValue());
 		keyHeight = resolveKeyHeight();
 		renderKeys();
 
-		View main = activity.findViewById(R.id.main_activity);
+		View main = host.getWindow().getDecorView().findViewById(R.id.main_activity);
 		ViewGroup parent = (main instanceof ViewGroup g) ? g : null;
 		if (parent == null) {
-			View decor = activity.getWindow().getDecorView();
+			View decor = host.getWindow().getDecorView();
 			if (decor instanceof ViewGroup g) parent = g;
 		}
 		if (parent == null) return;
@@ -165,10 +169,28 @@ final class CarKeyboardOverlay {
 		}
 		view.bringToFront();
 		view.requestFocus();
+		hideFloatingButtons(parent);
+	}
+
+	private void hideFloatingButtons(ViewGroup parent) {
+		for (int id : new int[]{R.id.car_voice_button, R.id.persistent_home_button}) {
+			View b = parent.findViewById(id);
+			if ((b == null) || (b.getVisibility() != View.VISIBLE)) continue;
+			b.setVisibility(View.INVISIBLE);
+			hiddenFloatingButtons.add(b);
+		}
+	}
+
+	private void restoreFloatingButtons() {
+		for (View b : hiddenFloatingButtons) {
+			if (b.getVisibility() == View.INVISIBLE) b.setVisibility(View.VISIBLE);
+		}
+		hiddenFloatingButtons.clear();
 	}
 
 	void dismiss() {
 		stopDeleteRepeat();
+		restoreFloatingButtons();
 		if (view.getParent() instanceof ViewGroup parent) parent.removeView(view);
 		target = null;
 	}
@@ -188,7 +210,7 @@ final class CarKeyboardOverlay {
 		MotionEvent down = MotionEvent.obtain(time, time, MotionEvent.ACTION_DOWN, x, y, 0);
 		view.dispatchTouchEvent(down);
 		down.recycle();
-		activity.getWindow().getDecorView().postDelayed(() -> {
+		host.getWindow().getDecorView().postDelayed(() -> {
 			if (!isShowing() || (target != input)) return;
 			MotionEvent up = MotionEvent.obtain(time, time + 100, MotionEvent.ACTION_UP, x, y, 0);
 			view.dispatchTouchEvent(up);
@@ -201,7 +223,7 @@ final class CarKeyboardOverlay {
 		if (!isShowing() || (target == null)) return false;
 		switch (keyCode) {
 			case KeyEvent.KEYCODE_BACK -> {
-				activity.stopInput();
+				host.stopInput();
 				return true;
 			}
 			case KeyEvent.KEYCODE_DEL -> {
@@ -555,9 +577,9 @@ final class CarKeyboardOverlay {
 			return;
 		}
 		EditText input = target;
-		if (submitOnEnter && activity.submitTextInput(input)) return;
+		if (submitOnEnter && host.submitTextInput(input)) return;
 		input.onEditorAction(CarKeyboardModel.editorAction(inputAction));
-		if (target == input) activity.stopInput();
+		if (target == input) host.stopInput();
 	}
 
 	private boolean isPassword(EditText input) {

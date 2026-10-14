@@ -80,7 +80,7 @@ import me.aap.utils.ui.view.TextChangedListener;
 /**
  * @author Andrey Pavlenko
  */
-public class MainCarActivity extends CarActivity implements FermataActivity {
+public class MainCarActivity extends CarActivity implements FermataActivity, CarKeyboardHost {
 	private static final DirectAppStartupCoordinator<FermataMediaServiceConnection> STARTUP =
 			new DirectAppStartupCoordinator<>(FermataMediaServiceConnection::isConnected,
 					FermataMediaServiceConnection::disconnect);
@@ -622,12 +622,14 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 		return input;
 	}
 
-	boolean isVoiceInputEnabled() {
+	@Override
+	public boolean isVoiceInputEnabled() {
 		MainActivityDelegate delegate = createdDelegate;
 		return (delegate != null) && delegate.getPrefs().getVoiceControlEnabledPref();
 	}
 
-	void requestVoiceInput(EditText input) {
+	@Override
+	public void requestVoiceInput(EditText input) {
 		if ((input == null) || (input != activeInput)) return;
 		long generation = inputGeneration;
 		getActivityDelegate().onSuccess(activity ->
@@ -794,7 +796,8 @@ public class MainCarActivity extends CarActivity implements FermataActivity {
 	 * restricted edit text's IME callback chain. That chain is not reliable for
 	 * every input variation, notably password fields.
 	 */
-	boolean submitTextInput(EditText input) {
+	@Override
+	public boolean submitTextInput(EditText input) {
 		if ((input == null) || (input != activeInput)) return false;
 		CarTextInputSession session = textInputSession;
 		if (session == null) return false;

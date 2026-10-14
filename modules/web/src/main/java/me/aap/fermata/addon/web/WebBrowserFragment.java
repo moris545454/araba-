@@ -335,7 +335,10 @@ public class WebBrowserFragment extends MainActivityFragment
 	}
 
 	public void loadUrl(String url) {
-		if (Uri.parse(url).getScheme() == null) {
+		url = url.trim();
+		if (looksLikeAddress(url)) {
+			url = "https://" + url;
+		} else if (Uri.parse(url).getScheme() == null) {
 			url = getSearchUrl() + url;
 		}
 
@@ -356,6 +359,15 @@ public class WebBrowserFragment extends MainActivityFragment
 			WebBrowserAddon addon = getAddon();
 			if (addon != null) addon.setLastUrl(url);
 		}
+	}
+
+	/** "youtube.com" or "tr.wikipedia.org/wiki/X" opens the site; anything else is searched. */
+	static boolean looksLikeAddress(String text) {
+		if (text.isEmpty() || text.contains(" ") || (Uri.parse(text).getScheme() != null)) return false;
+		String host = text.split("[/?#]", 2)[0].replaceFirst(":[0-9]+$", "");
+		int dot = host.lastIndexOf('.');
+		if ((dot <= 0) || (dot == host.length() - 1)) return false;
+		return host.substring(dot + 1).matches("[A-Za-z]{2,24}") && host.matches("[A-Za-z0-9.-]+");
 	}
 
 	@Nullable

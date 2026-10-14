@@ -17,7 +17,8 @@ final class DashboardPrefsBuilder {
 		PreferenceSet dashboard = parent.subSet(o -> {
 			o.title = R.string.dashboard;
 			o.subtitle = R.string.dashboard_order_sub;
-			o.icon = R.drawable.launcher;
+			// A single-colour glyph: settings icons are tinted, which flattens the app logo.
+			o.icon = R.drawable.home;
 		});
 
 		dashboard.addButton(o -> {

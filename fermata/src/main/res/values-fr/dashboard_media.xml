@@ -5,4 +5,6 @@
     <string name="dashboard_settings_sub">Paramètres de l’app</string>
     <string name="web_address_hint">Rechercher ou saisir une adresse</string>
     <string name="dashboard_media_grant_on_phone">Autorisez d\'abord l\'accès sur le téléphone : ouvrez Mola et touchez Médias.</string>
+    <string name="dashboard_equalizer_title">Égaliseur</string>
+    <string name="dashboard_equalizer_sub">Réglages du son et des basses</string>
 </resources>

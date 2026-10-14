@@ -5,4 +5,6 @@
     <string name="dashboard_settings_sub">앱 설정</string>
     <string name="web_address_hint">검색 또는 주소 입력</string>
     <string name="dashboard_media_grant_on_phone">먼저 휴대폰에서 허용하세요: Mola를 열고 미디어를 누르세요.</string>
+    <string name="dashboard_equalizer_title">이퀄라이저</string>
+    <string name="dashboard_equalizer_sub">사운드 및 저음 설정</string>
 </resources>

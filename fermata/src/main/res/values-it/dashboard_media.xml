@@ -5,4 +5,6 @@
     <string name="dashboard_settings_sub">Impostazioni app</string>
     <string name="web_address_hint">Cerca o digita un indirizzo</string>
     <string name="dashboard_media_grant_on_phone">Consenti prima l\'accesso sul telefono: apri Mola e tocca Media.</string>
+    <string name="dashboard_equalizer_title">Equalizzatore</string>
+    <string name="dashboard_equalizer_sub">Impostazioni audio e bassi</string>
 </resources>

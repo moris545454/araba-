@@ -23,14 +23,22 @@ public final class VoiceUiPolicy {
 				me.aap.fermata.ui.activity.MainActivityPrefs.SHOW_SHORTCUT_RAIL);
 	}
 
-	/** The microphone sits with the other floating buttons unless the shortcut rail is shown. */
+	/**
+	 * The microphone sits with the other floating buttons unless the shortcut rail is shown. On
+	 * the car screen it has its own button above Home, so the tool bar does not repeat it.
+	 */
 	static boolean showToolbarButton(RuntimeHostMode hostMode, boolean voiceEnabled,
 			boolean railShown) {
-		return voiceEnabled && !railShown;
+		return voiceEnabled && !railShown && !hostMode.usesAutomotivePresentation();
 	}
 
 	static boolean showNavBarButton(RuntimeHostMode hostMode, boolean voiceEnabled,
 			boolean railShown) {
-		return voiceEnabled && railShown;
+		return voiceEnabled && railShown && !hostMode.usesAutomotivePresentation();
+	}
+
+	/** The car screen always shows its own microphone above Home (CarChromeLayout). */
+	static boolean showCarButton(RuntimeHostMode hostMode) {
+		return hostMode.usesAutomotivePresentation();
 	}
 }

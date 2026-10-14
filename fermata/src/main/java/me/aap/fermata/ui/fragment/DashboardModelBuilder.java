@@ -31,10 +31,16 @@ final class DashboardModelBuilder {
 		cards.clear();
 		DashboardCard visibleSmartTop = smartTopVisible ? smartTopCard : null;
 		DashboardItems.Item settings = null;
+		DashboardItems.Item equalizer = null;
 		for (DashboardItems.Item item : DashboardItems.getDashboardItems(ctx, store)) {
-			// Settings always closes the row of apps, after the user's own web shortcuts.
+			// Settings and the Equalizer next to it always close the row of apps, after the
+			// user's own web shortcuts.
 			if (DashboardItems.SETTINGS.equals(item.name)) {
 				settings = item;
+				continue;
+			}
+			if (DashboardItems.EQUALIZER.equals(item.name)) {
+				equalizer = item;
 				continue;
 			}
 			if (shouldSuppressRecent(visibleSmartTop != null, item.id)) continue;
@@ -47,6 +53,7 @@ final class DashboardModelBuilder {
 			cards.add(DashboardCard.item(item));
 		}
 		if (settings != null) cards.add(DashboardCard.item(settings));
+		if (equalizer != null) cards.add(DashboardCard.item(equalizer));
 		cards.add(DashboardCard.favoritesShelf(ctx));
 		cards.add(DashboardCard.recentShelf(ctx));
 		if (visibleSmartTop != null) cards.add(visibleSmartTop);

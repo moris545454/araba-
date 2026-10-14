@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <!-- Full screen entry: Mola UI drawn on the navigation map surface. -->
+    <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES" />
+    <uses-permission android:name="androidx.car.app.ACCESS_SURFACE" />
 
 	<!-- Auto can run on TV-style head units that do not expose a touchscreen. -->
 	<uses-feature
@@ -81,6 +84,18 @@
 
                 <category android:name="com.google.android.gms.car.category.CATEGORY_PROJECTION" />
                 <category android:name="com.google.android.gms.car.category.CATEGORY_PROJECTION_OEM" />
+            </intent-filter>
+        </service>
+
+        <!-- Second Android Auto entry: the Mola UI full screen on the navigation map surface. -->
+        <service
+            android:name="me.app.fermatax.auto.FullScreenAppService"
+            android:exported="true"
+            android:label="@string/mirror_fullscreen_label"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="androidx.car.app.category.NAVIGATION" />
             </intent-filter>
         </service>
 

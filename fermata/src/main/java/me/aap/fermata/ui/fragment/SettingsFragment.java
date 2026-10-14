@@ -94,6 +94,35 @@ public class SettingsFragment extends MainActivityFragment
 		}
 	}
 
+	/** Fragment input that opens the Audio & Equalizer page directly (dashboard card). */
+	public static final String OPEN_EQUALIZER = "equalizer";
+	private boolean openEqualizerPending;
+	private boolean openedByShortcut;
+
+	@Override
+	public void setInput(Object input) {
+		if (!OPEN_EQUALIZER.equals(input)) return;
+		openEqualizerPending = true;
+		openPendingSection();
+	}
+
+	private void openPendingSection() {
+		if (!openEqualizerPending || (adapter == null)) return;
+		PreferenceSet root = adapter.getPreferenceSet();
+		while (root.getParent() != null) root = root.getParent();
+		// Set ids are dense from the root, so walk them until the equalizer page is found.
+		for (int id = 2; ; id++) {
+			PreferenceSet set = root.find(id);
+			if (set == null) break;
+			if (set.get().title == R.string.audio_equalizer) {
+				adapter.setPreferenceSet(set);
+				openedByShortcut = true;
+				break;
+			}
+		}
+		openEqualizerPending = false;
+	}
+
 	@Override
 	public void onViewCreated(@NonNull View view, @Nullable Bundle state) {
 		super.onViewCreated(view, state);
@@ -117,6 +146,7 @@ public class SettingsFragment extends MainActivityFragment
 				PreferenceSet p = adapter.getPreferenceSet().find(state.getInt("id", ID_NULL));
 				if (p != null) adapter.setPreferenceSet(p);
 			}
+			openPendingSection();
 		});
 	}
 
@@ -160,6 +190,13 @@ public class SettingsFragment extends MainActivityFragment
 	public void onHiddenChanged(boolean hidden) {
 		super.onHiddenChanged(hidden);
 		if (!hidden && (readinessPrefsBuilder != null)) readinessPrefsBuilder.refresh();
+		// The equalizer shortcut is a one-off jump: the next normal visit starts at the root.
+		if (hidden && openedByShortcut && (adapter != null)) {
+			openedByShortcut = false;
+			PreferenceSet root = adapter.getPreferenceSet();
+			while (root.getParent() != null) root = root.getParent();
+			adapter.setPreferenceSet(root);
+		}
 	}
 
 	@Override

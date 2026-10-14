@@ -90,9 +90,19 @@ public class FermataToolBarView extends ToolBarView {
 				// Car: the buttons float over the screen without a bar, slightly see-through.
 				button.setAlpha(isFloatingCarBar() ? FLOATING_BUTTON_ALPHA : 1F);
 			} else if ((child.getId() == me.aap.utils.R.id.tool_bar_title) && isFloatingCarBar() &&
-					(child.getVisibility() == VISIBLE)) {
-				// No bar, so no title strip over the content; the buttons alone float.
-				child.setVisibility(INVISIBLE);
+					(child.getVisibility() != GONE)) {
+				// Pages start below the car bar, so they show their title next to Back. The
+				// dashboard has its own header row under the bar, so its title stays hidden.
+				ActivityFragment active = getActiveFragment();
+				boolean dashboard = (active != null) &&
+						(active.getFragmentId() == R.id.dashboard_fragment);
+				int visibility = dashboard ? INVISIBLE : VISIBLE;
+				if (child.getVisibility() != visibility) child.setVisibility(visibility);
+				int gap = UiUtils.toIntPx(getContext(), 14);
+				if (child.getPaddingStart() != gap) {
+					child.setPaddingRelative(gap, child.getPaddingTop(), child.getPaddingEnd(),
+							child.getPaddingBottom());
+				}
 			}
 		}
 		if (!(getParent() instanceof ViewGroup parent)) return;

@@ -66,7 +66,7 @@ public class AutoManifestPolicyTest {
 	}
 
 	@Test
-	public void automotiveDescriptorAdvertisesMediaWithoutTemplateCapability() throws Exception {
+	public void automotiveDescriptorAdvertisesMediaAndFullScreenTemplate() throws Exception {
 		Document descriptor = parse("src/auto/res/xml/automotive_app_desc.xml");
 		NodeList uses = descriptor.getElementsByTagName("uses");
 		Set<String> capabilities = new HashSet<>();
@@ -75,19 +75,34 @@ public class AutoManifestPolicyTest {
 		}
 
 		assertTrue(capabilities.contains("media"));
-		assertFalse(capabilities.contains("template"));
+		// "template" exists only for the full screen entry (FullScreenAppService).
+		assertTrue(capabilities.contains("template"));
 		assertTrue(capabilities.contains("service"));
 		assertTrue(capabilities.contains("projection"));
 	}
 
 	@Test
-	public void autoManifestDoesNotRequestNavigationOnlyPermissions() throws Exception {
+	public void navigationPermissionsServeOnlyTheFullScreenEntry() throws Exception {
 		Document manifest = parse("src/auto/AndroidManifest.xml");
 
-		assertFalse(hasNamed(manifest, "uses-permission",
+		assertTrue(hasNamed(manifest, "uses-permission",
 				"androidx.car.app.ACCESS_SURFACE"));
-		assertFalse(hasNamed(manifest, "uses-permission",
+		assertTrue(hasNamed(manifest, "uses-permission",
 				"androidx.car.app.NAVIGATION_TEMPLATES"));
+
+		NodeList categories = manifest.getElementsByTagName("category");
+		int navigationEntries = 0;
+		for (int i = 0; i < categories.getLength(); i++) {
+			if ("androidx.car.app.category.NAVIGATION".equals(
+					((Element) categories.item(i)).getAttributeNS(ANDROID_NS, "name"))) {
+				navigationEntries++;
+			}
+		}
+		assertEquals(1, navigationEntries);
+		Element fullScreen = findNamed(manifest, "service",
+				"me.app.fermatax.auto.FullScreenAppService");
+		assertNotNull(fullScreen);
+		assertTrue(hasNamed(fullScreen, "category", "androidx.car.app.category.NAVIGATION"));
 	}
 
     @Test

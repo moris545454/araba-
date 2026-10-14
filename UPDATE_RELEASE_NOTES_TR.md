@@ -1,3 +1,20 @@
+# Mola 3.0 — Android Auto'da tam ekran
+
+Ayrı bir sürümdür: 2.2.x ve Mola 2 kurulumlarına uygulama içi güncelleme olarak gelmez, bu sayfadan indirilip kurulur.
+
+- **Tam ekran giriş:** Android Auto'da yeni **"Mola Tam Ekran"** simgesi. Mola'nın araç arayüzü haritanın yanında değil, bütün ekranda açılır. Eski Mola girişi de olduğu gibi duruyor.
+- **Ana menü ve mikrofon:** Araç ekranında büyük Ana menü düğmesi sol altta, Mola'nın sesli kontrol mikrofonu hemen üstünde. Klavye açıkken ikisi de gizlenir.
+- **Web adres çubuğu ve araç klavyesi:** Web tarayıcısında adres çubuğu görünür; dokununca Mola'nın araç klavyesi açılır. "youtube.com" gibi bir adres yazıp **Git**'e basınca site doğrudan açılır.
+- **Ekolayzır kartı:** Ana sayfada Ayarlar'ın yanında; doğrudan ses ve ekolayzır ayarlarını açar.
+- **Yeni ana sayfa:** TV, YouTube ve Ekran Yansıtma kartları yeniden tasarlandı (yazı solda, görsel sağda). Sağ üstteki düzenle/ayarlar düğmeleri araç ekranından kaldırıldı.
+- **Sayfa başlıkları:** TV, Radyo, Podcast, Ayarlar gibi sayfalar üst çubuğun altından başlar; sayfa adı görünür, düğmeler satırların üstüne binmez.
+- **Yeni logo:** Altın "M" ve turkuaz oynat işareti.
+- **Düzeltmeler:** Araç klavyesinde "Boşluk" ve "Tamam" yazımları; Ayarlar'daki Ana ekran simgesi.
+- Mikrofon için telefonda Mola'yı açıp bir kez mikrofon izni vermek gerekir.
+- Android Auto'da görünmesi için **Geliştirici ayarları → Bilinmeyen kaynaklar** açık olmalı; normal kurulumda görünmezse KingInstaller ile kurun.
+
+---
+
 # Mola 2.2.2 — düzeltmeler
 
 - **Sesli karşılama ismi:** İsim yazarken klavyenin açılıp kapanması düzeltildi. İsim artık klavyedeki **Bitti/Tamam** tuşuna basınca kaydedilir.

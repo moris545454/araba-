@@ -736,6 +736,7 @@ public class MainActivityDelegate extends ActivityDelegate
 		if (home == null) return;
 		home.setVisibility(PhoneRootPolicy.showPersistentHomeButton(getRuntimeHostMode(),
 				isBarsHidden()) ? VISIBLE : GONE);
+		CarChromeLayout.syncVoiceButton(getAppActivity());
 	}
 
 	public void refreshPhonePlaybackCarHeader() {
@@ -1299,6 +1300,7 @@ public class MainActivityDelegate extends ActivityDelegate
 			set.applyTo(root);
 		} else if (getRuntimeHostMode().usesAutomotivePresentation()) {
 			CarChromeLayout.apply(a, controlPanel);
+			CarChromeLayout.installContentInset(this);
 		}
 		refreshPersistentHomeButton();
 		floatingButton.setScale(getPrefs().getTextIconSizePref(this));

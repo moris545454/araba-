@@ -24,29 +24,29 @@ public class MediaHubLayoutTest {
 	private static final String ANDROID = "http://schemas.android.com/apk/res/android";
 
 	@Test
-	public void longFeaturedTitleAndSubtitleFitBelowDecorativeArtwork() throws Exception {
+	public void longFeaturedTitleAndSubtitleFitInTheTextColumn() throws Exception {
 		Path resources = repository().resolve("fermata/src/main/res");
 		Element card = DocumentBuilderFactory.newInstance().newDocumentBuilder()
 				.parse(resources.resolve("layout/dashboard_featured_item.xml").toFile()).getDocumentElement();
-		Element art = element(card, "dashboard_hero_art");
 		Element title = element(card, "dashboard_item_title");
 		Element subtitle = element(card, "dashboard_item_subtitle");
+		Element guide = element(card, "dashboard_text_guide");
 		float padding = dimension(resources, card.getAttribute("android:padding"));
 		float height = dimension(resources, card.getAttribute("android:layout_height"));
-		float artHeight = dimension(resources, art.getAttribute("android:layout_height"));
+		float column = Float.parseFloat(guide.getAttribute("app:layout_constraintGuide_percent"));
+		// The text owns the left column of the card; the artwork fills the right.
 		for (int width : new int[]{208, 240, 320}) {
-			int titleWidth = (int) (width - 2 * padding);
-			int subtitleWidth = titleWidth - (int) dimension(resources,
-					subtitle.getAttribute("android:layout_marginEnd"));
-			float occupied = 2 * padding + artHeight +
-					dimension(resources, title.getAttribute("android:layout_marginTop")) +
+			int titleWidth = (int) (width * column - padding -
+					dimension(resources, title.getAttribute("android:layout_marginStart")) -
+					dimension(resources, title.getAttribute("android:layout_marginEnd")));
+			float occupied = 2 * padding +
 					textHeight("Ekran yansıtma", titleWidth,
 							dimension(resources, title.getAttribute("android:textSize")) * 1.15F, true) +
 					dimension(resources, subtitle.getAttribute("android:layout_marginTop")) +
-					textHeight("Telefon ekranını göster", subtitleWidth,
+					textHeight("Telefon ekranını göster", titleWidth,
 							dimension(resources, subtitle.getAttribute("android:textSize")), false);
-			assertTrue("Featured text needs " + occupied + "dp at " + width + "dp width, available " + height,
-					occupied <= height);
+			assertTrue("Featured text needs " + occupied + "dp at " + width + "dp width, available " +
+					height, occupied <= height);
 		}
 	}
 

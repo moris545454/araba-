@@ -15,6 +15,14 @@ public interface FermataActivity extends AppActivity {
 
 	boolean isCarActivity();
 
+	/**
+	 * Width the car host keeps for its own controls in the top right corner (pixels). The tool
+	 * bar ends before it so a host button that appears and hides never covers an app button.
+	 */
+	default int getCarHostEndInset() {
+		return 0;
+	}
+
     /** Release host-owned overlays before returning to the app home. */
     default void onHomeRequested() { stopInput(); }
 
