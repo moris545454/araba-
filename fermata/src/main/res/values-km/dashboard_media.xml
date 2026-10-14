@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_media_title">មេឌៀ</string>
+    <string name="dashboard_media_sub">វីដេអូ និងតន្ត្រីលើទូរស័ព្ទ</string>
+    <string name="dashboard_settings_sub">ការកំណត់កម្មវិធី</string>
+    <string name="web_address_hint">ស្វែងរក ឬវាយអាសយដ្ឋាន</string>
+</resources>

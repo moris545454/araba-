@@ -254,6 +254,9 @@ public final class DashboardItems {
             addMissingItem(names, MIRROR, null);
             addMissingItem(names, WINDASIST, null);
             addMissingItem(names, DEM_TV, WINDASIST);
+            // Phone media library and settings live on the home screen with the other cards.
+            addMissingItem(names, FOLDERS, MIRROR);
+            addMissingItem(names, SETTINGS, null);
         }
 
 		for (AddonInfo ai : AddonManager.get().getAddonInfos()) {
@@ -346,8 +349,8 @@ public final class DashboardItems {
 		if (DASHBOARD.equals(name)) return includeDashboard;
 		if (MENU.equals(name)) return includeMenu;
 		if (MIRROR.equals(name) || DEM_TV.equals(name) || WINDASIST.equals(name)) return !navigationLayout;
-		if (FOLDERS.equals(name) || FAVORITES.equals(name) || RECENT.equals(name) ||
-                PLAYLISTS.equals(name)) return false;
+		if (FOLDERS.equals(name) || SETTINGS.equals(name)) return !navigationLayout;
+		if (FAVORITES.equals(name) || RECENT.equals(name) || PLAYLISTS.equals(name)) return false;
 
 		for (AddonInfo ai : AddonManager.get().getAddonInfos()) {
 			if (ai.className.equals(name)) return navigationLayout ?
@@ -386,8 +389,12 @@ public final class DashboardItems {
 				return new Item(name, R.id.dashboard_fragment, R.drawable.home,
 						ctx.getString(R.string.home), ctx.getString(R.string.dashboard_home_sub), null);
 			case FOLDERS:
-				return new Item(name, R.id.folders_fragment, me.aap.utils.R.drawable.folder,
-						ctx.getString(R.string.folders), ctx.getString(R.string.dashboard_folders_sub), null);
+				return new Item(name, R.id.folders_fragment, R.drawable.media_library,
+						ctx.getString(R.string.dashboard_media_title),
+						ctx.getString(R.string.dashboard_media_sub), null);
+			case SETTINGS:
+				return new Item(name, R.id.settings_fragment, R.drawable.settings_gear,
+						ctx.getString(R.string.settings), ctx.getString(R.string.dashboard_settings_sub), null);
 			case FAVORITES:
 				return new Item(name, R.id.favorites_fragment, R.drawable.favorite_filled,
 						ctx.getString(R.string.favorites), ctx.getString(R.string.dashboard_favorites_sub), null);

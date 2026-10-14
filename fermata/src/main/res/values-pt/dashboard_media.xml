@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_media_title">Mídia</string>
+    <string name="dashboard_media_sub">Vídeos e músicas no telefone</string>
+    <string name="dashboard_settings_sub">Configurações do app</string>
+    <string name="web_address_hint">Pesquise ou digite um endereço</string>
+</resources>

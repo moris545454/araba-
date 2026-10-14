@@ -47,6 +47,7 @@ final class AddonUiMetadata {
 		if (DashboardItems.MIRROR.equals(name)) return 0xFF9FB7A8;
 		if (DashboardItems.DEM_TV.equals(name)) return 0xFFF0B45A;
 		if (DashboardItems.FOLDERS.equals(name)) return 0xFFE3C26B;
+		if (DashboardItems.SETTINGS.equals(name)) return 0xFFC9C2B6;
 		if (DashboardItems.FAVORITES.equals(name)) return 0xFFE8826A;
 		if (DashboardItems.RECENT.equals(name)) return 0xFFC9C2B6;
 		if (DashboardItems.PLAYLISTS.equals(name)) return 0xFFC7A27C;

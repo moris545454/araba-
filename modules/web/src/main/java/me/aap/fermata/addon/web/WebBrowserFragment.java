@@ -301,10 +301,12 @@ public class WebBrowserFragment extends MainActivityFragment
 	}
 
 	protected boolean hasHomeButton() {
-		return false;
+		// The plain browser gets a Google home button; subclasses decide for themselves.
+		return getClass() == WebBrowserFragment.class;
 	}
 
 	protected void goHome() {
+		if (getClass() == WebBrowserFragment.class) loadUrl(WebBrowserAddon.GOOGLE_URL);
 	}
 
 	protected void registerListeners(MainActivityDelegate a) {

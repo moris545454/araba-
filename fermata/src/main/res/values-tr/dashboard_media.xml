@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_media_title">Medya</string>
+    <string name="dashboard_media_sub">Telefondaki video ve müzikler</string>
+    <string name="dashboard_settings_sub">Uygulama ayarları</string>
+    <string name="web_address_hint">Ara veya adres yaz</string>
+</resources>

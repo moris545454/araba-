@@ -78,8 +78,14 @@ public class WebBrowserAddon implements FermataFragmentAddon, SharedPreferenceSt
 	private static final int EXTERNAL_ATTACH_MAX_ATTEMPTS = 50;
 	private static final long EXTERNAL_ATTACH_RETRY_MS = 100L;
 
+	/** The plain web browser starts at Google. */
+	public static final String GOOGLE_URL = "https://www.google.com/";
+	/** Pages owned by their own home-screen cards; the Web card itself never resumes them. */
+	private static final String[] CARD_URLS = {
+			"https://demtv.demiralayboncuk-092.workers.dev/", "https://windasist.com"};
+
 	public WebBrowserAddon() {
-		this("web", "https://demtv.demiralayboncuk-092.workers.dev/");
+		this("web", GOOGLE_URL);
 	}
 
 	protected WebBrowserAddon(String preferenceFile, String initialUrl) {
@@ -404,7 +410,15 @@ public class WebBrowserAddon implements FermataFragmentAddon, SharedPreferenceSt
 	}
 
 	protected String getLastUrl() {
-		return getPreferenceStore().getStringPref(lastUrl);
+		return resolveStartUrl(getPreferenceStore().getStringPref(lastUrl));
+	}
+
+	static String resolveStartUrl(String stored) {
+		if ((stored == null) || stored.isEmpty()) return GOOGLE_URL;
+		for (String card : CARD_URLS) {
+			if (stored.startsWith(card)) return GOOGLE_URL;
+		}
+		return stored;
 	}
 
 	protected void setLastUrl(String url) {

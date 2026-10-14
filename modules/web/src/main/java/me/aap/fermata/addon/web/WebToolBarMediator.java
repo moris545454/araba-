@@ -84,7 +84,11 @@ public class WebToolBarMediator implements ToolBarView.Mediator {
 		EditText t = createEditText(tb);
 		ConstraintLayout.LayoutParams lp = setLayoutParams(t, 0, WRAP_CONTENT);
 		lp.horizontalWeight = 2;
-		t.setBackgroundResource(me.aap.utils.R.color.tool_bar_edittext_bg);
+		// A solid rounded field stays readable even when the car tool bar has no background.
+		t.setBackgroundResource(me.aap.fermata.R.drawable.media_hub_input_bg);
+		int pad = Math.round(12 * t.getResources().getDisplayMetrics().density);
+		t.setPadding(pad, t.getPaddingTop(), pad, t.getPaddingBottom());
+		t.setHint(me.aap.fermata.R.string.web_address_hint);
 		t.setOnKeyListener((v, keyCode, event) -> onKey(f, t, keyCode, event));
 		t.setMaxLines(1);
 		t.setSingleLine(true);

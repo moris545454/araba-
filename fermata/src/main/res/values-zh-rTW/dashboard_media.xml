@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_media_title">媒體</string>
+    <string name="dashboard_media_sub">手機上的影片和音樂</string>
+    <string name="dashboard_settings_sub">應用程式設定</string>
+    <string name="web_address_hint">搜尋或輸入網址</string>
+</resources>

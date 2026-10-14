@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_media_title">الوسائط</string>
+    <string name="dashboard_media_sub">الفيديو والموسيقى على الهاتف</string>
+    <string name="dashboard_settings_sub">إعدادات التطبيق</string>
+    <string name="web_address_hint">ابحث أو اكتب عنوانًا</string>
+</resources>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dashboard_media_title">Media</string>
+    <string name="dashboard_media_sub">Videos and music on the phone</string>
+    <string name="dashboard_settings_sub">App settings</string>
+    <string name="web_address_hint">Search or type an address</string>
+</resources>
