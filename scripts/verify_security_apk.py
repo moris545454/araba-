@@ -21,8 +21,9 @@ manifest = subprocess.check_output([args.aapt, 'dump', 'xmltree', str(args.apk),
 forbidden = ['SYSTEM_ALERT_WINDOW', 'MANAGE_EXTERNAL_STORAGE', 'WRITE_SETTINGS',
              'DISABLE_KEYGUARD', 'USE_FULL_SCREEN_INTENT', 'READ_SMS', 'RECEIVE_SMS',
              'READ_CONTACTS', 'READ_CALL_LOG', 'READ_PHONE_STATE', 'QUERY_ALL_PACKAGES',
-             'CAMERA', 'RECORD_AUDIO', 'ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION',
+             'CAMERA', 'ACCESS_FINE_LOCATION', 'ACCESS_COARSE_LOCATION',
              'READ_EXTERNAL_STORAGE', 'WRITE_EXTERNAL_STORAGE', 'READ_MEDIA_AUDIO', 'READ_MEDIA_VIDEO']
+# RECORD_AUDIO is allowed on purpose: in-app voice commands (runtime permission).
 for name in forbidden:
     assert "name='android.permission." + name + "'" not in permissions, name
 assert 'application-debuggable' not in badging, 'APK is debuggable'

@@ -12,21 +12,24 @@ import org.junit.Test;
 
 public class VoiceUiPolicyTest {
 	@Test
-	public void everyHostUsesTheSharedNavVoiceEntry() {
-		assertFalse(VoiceUiPolicy.showToolbarButton(AA_PROJECTION, true));
-		assertTrue(VoiceUiPolicy.showNavBarButton(AA_PROJECTION, true));
-		assertFalse(VoiceUiPolicy.showToolbarButton(PHONE, true));
-		assertTrue(VoiceUiPolicy.showNavBarButton(PHONE, true));
-		assertFalse(VoiceUiPolicy.showToolbarButton(MIRROR, true));
-		assertTrue(VoiceUiPolicy.showNavBarButton(MIRROR, true));
+	public void microphoneFollowsTheRailOrTheFloatingButtons() {
+		for (var host : new me.aap.fermata.ui.policy.RuntimeHostMode[]{
+				PHONE, AA_PROJECTION, MIRROR}) {
+			assertTrue(VoiceUiPolicy.showToolbarButton(host, true, false));
+			assertFalse(VoiceUiPolicy.showNavBarButton(host, true, false));
+			assertFalse(VoiceUiPolicy.showToolbarButton(host, true, true));
+			assertTrue(VoiceUiPolicy.showNavBarButton(host, true, true));
+		}
 	}
 
 	@Test
 	public void disabledVoiceHasNoSharedTouchEntry() {
 		for (var host : new me.aap.fermata.ui.policy.RuntimeHostMode[]{
 				PHONE, AA_PROJECTION, MIRROR}) {
-			assertFalse(VoiceUiPolicy.showToolbarButton(host, false));
-			assertFalse(VoiceUiPolicy.showNavBarButton(host, false));
+			for (boolean rail : new boolean[]{false, true}) {
+				assertFalse(VoiceUiPolicy.showToolbarButton(host, false, rail));
+				assertFalse(VoiceUiPolicy.showNavBarButton(host, false, rail));
+			}
 		}
 	}
 
@@ -34,9 +37,11 @@ public class VoiceUiPolicyTest {
 	public void enabledVoiceHasExactlyOnePrimarySurfacePerHost() {
 		for (var host : new me.aap.fermata.ui.policy.RuntimeHostMode[]{
 				PHONE, AA_PROJECTION, MIRROR}) {
-			int surfaces = (VoiceUiPolicy.showToolbarButton(host, true) ? 1 : 0) +
-					(VoiceUiPolicy.showNavBarButton(host, true) ? 1 : 0);
-			assertEquals(host.name(), 1, surfaces);
+			for (boolean rail : new boolean[]{false, true}) {
+				int surfaces = (VoiceUiPolicy.showToolbarButton(host, true, rail) ? 1 : 0) +
+						(VoiceUiPolicy.showNavBarButton(host, true, rail) ? 1 : 0);
+				assertEquals(host.name(), 1, surfaces);
+			}
 		}
 	}
 }

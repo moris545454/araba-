@@ -46,10 +46,14 @@ public final class VoiceIntentParser {
 		if (isAny(text, "stop", "dừng", "dung", "durdur"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.STOP);
 		if (isAny(text, "next", "next track", "next item", "bài tiếp theo", "bai tiep theo",
-				"kênh tiếp theo", "kenh tiep theo", "tập tiếp theo", "tap tiep theo", "sonraki", "sonraki kanal", "sonraki bölüm", "sonraki parça"))
+				"kênh tiếp theo", "kenh tiep theo", "tập tiếp theo", "tap tiep theo", "sonraki", "sonraki kanal", "sonraki bölüm", "sonraki parça",
+				"kanal değiştir", "kanalı değiştir", "sonraki kanala geç", "diğer kanal",
+				"kanal ileri", "ileri kanal", "sonrakine geç", "sonraki istasyon", "sonraki radyo"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.NEXT);
 		if (isAny(text, "previous", "previous track", "previous item", "bài trước",
-				"bai truoc", "kênh trước", "kenh truoc", "tập trước", "tap truoc", "önceki", "önceki kanal", "önceki bölüm", "önceki parça"))
+				"bai truoc", "kênh trước", "kenh truoc", "tập trước", "tap truoc", "önceki", "önceki kanal", "önceki bölüm", "önceki parça",
+				"önceki kanala geç", "kanal geri", "geri kanal", "öncekine geç", "önceki istasyon",
+				"önceki radyo"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.PREVIOUS);
 		if (isAny(text, "go back", "quay lại", "quay lai", "geri", "geri dön"))
 			return VoiceIntent.playback(VoiceIntent.PlaybackAction.BACK);
@@ -72,6 +76,7 @@ public final class VoiceIntentParser {
 				}
 			}
 		}
+		if (locale != null && "tr".equals(locale.getLanguage())) text = stripTurkishCaseSuffixes(text);
 		VoiceIntent.SearchAction action = parseSearchAction(text);
 		if (action == null) return null;
 		String remainder = removeAction(text, action);
@@ -102,6 +107,12 @@ public final class VoiceIntentParser {
 		if (parse(command, locale) != null) return command;
 		command = "play " + command;
 		return (parse(command, locale) == null) ? null : command;
+	}
+
+	/** "show tv'yi aç" → "aç show tv": drops apostrophe case endings the recognizer writes. */
+	static String stripTurkishCaseSuffixes(String text) {
+		return text.replaceAll("['’`](?:y?[ıiuü]|n[ıiuü]n|[yn]?[ae]|d[ae]n|t[ae]n)(?=\\s|$)", "")
+				.replaceAll("\\s+", " ").trim();
 	}
 
 	public static int parseSelectionIndex(@Nullable String phrase) {
