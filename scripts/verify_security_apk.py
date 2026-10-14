@@ -32,7 +32,8 @@ assert 'BIND_ACCESSIBILITY_SERVICE' not in manifest
 assert 'xposedmodule' not in manifest
 assert 'me.app.fermatax.auto.ProjectionActivity' in manifest
 assert 'me.app.fermatax.auto.ProjectionService' in manifest
-assert "package: name='me.app.fermataX.auto.debug'" in badging
+# Mola and Mola 2 use me.app.fermataX.auto.debug; the separate Mola 3 app adds ".mola3".
+assert re.search(r"package: name='me\.app\.fermataX\.auto(\.mola3)?\.debug'", badging)
 removed = ['AccessibilityEventDispatcherService', 'XposedEventDispatcherService', 'Xposed', 'Su',
            'EventDispatcher', 'MirrorDisplay', 'MirrorActivity', 'MirrorService', 'MirrorServiceFS',
            'LauncherActivity']

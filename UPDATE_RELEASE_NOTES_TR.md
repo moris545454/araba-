@@ -1,6 +1,6 @@
 # Mola 3.0 — Android Auto'da tam ekran
 
-Ayrı bir sürümdür: 2.2.x ve Mola 2 kurulumlarına uygulama içi güncelleme olarak gelmez, bu sayfadan indirilip kurulur.
+**Ayrı bir uygulamadır: "Mola 3".** Telefondaki Mola veya Mola 2'nin yanına ayrı kurulur; onları kaldırmak gerekmez, onlara dokunmaz. Kanal listeleri, favoriler ve ayarlar Mola 3'te ayrı tutulur (ilk açılışta yeniden eklenir). Uygulama içi güncellemeyle gelmez, bu sayfadan indirilir.
 
 - **Tam ekran giriş:** Android Auto'da yeni **"Mola Tam Ekran"** simgesi. Mola'nın araç arayüzü haritanın yanında değil, bütün ekranda açılır. Eski Mola girişi de olduğu gibi duruyor.
 - **Ana menü ve mikrofon:** Araç ekranında büyük Ana menü düğmesi sol altta, Mola'nın sesli kontrol mikrofonu hemen üstünde. Klavye açıkken ikisi de gizlenir.
