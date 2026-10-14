@@ -332,6 +332,7 @@ public class SettingsFragment extends MainActivityFragment
         }
         KeyBindingPrefsBuilder.add(sub1);
         WelcomeGreetingPrefsBuilder.add(sub1);
+        VoicePrefsBuilder.add(a, sub1);
 
 		PreferenceSet playback = set.subSet(o -> o.title = R.string.playback_settings);
 		audioEffectsProfiles = new AudioEffectsProfileRepository(
