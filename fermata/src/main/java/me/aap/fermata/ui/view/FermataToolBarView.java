@@ -89,6 +89,10 @@ public class FermataToolBarView extends ToolBarView {
 				button.setElevation(UiUtils.toIntPx(getContext(), 2));
 				// Car: the buttons float over the screen without a bar, slightly see-through.
 				button.setAlpha(isFloatingCarBar() ? FLOATING_BUTTON_ALPHA : 1F);
+			} else if ((child.getId() == me.aap.utils.R.id.tool_bar_title) && isFloatingCarBar() &&
+					(child.getVisibility() == VISIBLE)) {
+				// No bar, so no title strip over the content; the buttons alone float.
+				child.setVisibility(INVISIBLE);
 			}
 		}
 		if (!(getParent() instanceof ViewGroup parent)) return;

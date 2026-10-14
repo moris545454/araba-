@@ -133,8 +133,8 @@ public class SmartTopBackgroundContractTest {
 		assertTrue(drawable.contains("softenedArtwork = soften(bitmap)"));
 		assertTrue(drawable.contains("ARTWORK_DIM_COLOR = 0x70000000"));
 		assertTrue(drawable.contains("drawArtworkDim(canvas)"));
-		assertTrue(drawable.contains("ARTWORK_SCRIM_START = 0xCC120E0B"));
-		assertTrue(drawable.contains("ARTWORK_SCRIM_END = 0xF0120E0B"));
+		assertTrue(drawable.contains("ARTWORK_SCRIM_START = 0xCC111315"));
+		assertTrue(drawable.contains("ARTWORK_SCRIM_END = 0xF0111315"));
 	}
 
 	private static int occurrences(String text, String value) {

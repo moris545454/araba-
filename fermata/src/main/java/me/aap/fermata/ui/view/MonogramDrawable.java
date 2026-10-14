@@ -31,7 +31,7 @@ public final class MonogramDrawable extends Drawable {
 		this.accent = accent;
 		text.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
 		text.setTextAlign(Paint.Align.CENTER);
-		text.setColor(0xFFFBF4EA);
+		text.setColor(0xFFF7F4EF);
 	}
 
 	/** "TRT HABER" → "TH", "Kanal D" → "KD", "Tabii" → "TA"; numbering like "5. " is skipped. */
@@ -57,8 +57,8 @@ public final class MonogramDrawable extends Drawable {
 	@Override
 	protected void onBoundsChange(@NonNull Rect bounds) {
 		super.onBoundsChange(bounds);
-		int top = ColorUtils.blendARGB(0xFF2B231E, accent, 0.35F);
-		int bottom = ColorUtils.blendARGB(0xFF1A1512, accent, 0.12F);
+		int top = ColorUtils.blendARGB(0xFF2C3136, accent, 0.35F);
+		int bottom = ColorUtils.blendARGB(0xFF1C1F22, accent, 0.12F);
 		fill.setShader(new LinearGradient(bounds.left, bounds.top, bounds.right, bounds.bottom,
 				top, bottom, Shader.TileMode.CLAMP));
 	}

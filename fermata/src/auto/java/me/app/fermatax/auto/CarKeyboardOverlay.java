@@ -82,7 +82,7 @@ final class CarKeyboardOverlay {
 		panel.addView(toolbar, new LinearLayout.LayoutParams(MATCH_PARENT, dp(43)));
 
 		title = new TextView(activity);
-		title.setTextColor(0xFFF1E7DA);
+		title.setTextColor(0xFFF2EEE8);
 		title.setTextSize(14);
 		title.setTypeface(Typeface.DEFAULT_BOLD);
 		title.setSingleLine(true);
@@ -445,7 +445,7 @@ final class CarKeyboardOverlay {
 		button.setAllCaps(false);
 		button.setText(text);
 		button.setTextSize(text.length() > 1 ? 14 : 19);
-		button.setTextColor(0xFFFBF4EA);
+		button.setTextColor(0xFFF7F4EF);
 		button.setGravity(CENTER);
 		button.setPadding(0, 0, 0, 0);
 		button.setMinWidth(0);
@@ -453,7 +453,7 @@ final class CarKeyboardOverlay {
 		button.setMinimumWidth(0);
 		button.setMinimumHeight(0);
 		button.setFocusable(true);
-		button.setBackground(keyBg(0xFF2C2622, 0xFF3D342E, 0xFF4A4038));
+		button.setBackground(keyBg(0xFF2A2E33, 0xFF353A40, 0xFF41474E));
 		return button;
 	}
 
@@ -461,7 +461,7 @@ final class CarKeyboardOverlay {
 		Button button = key(text);
 		button.setTextSize(13);
 		button.setTypeface(Typeface.DEFAULT_BOLD);
-		button.setBackground(keyBg(0xFF3A322C, 0xFF4A4038, 0xFF574C43));
+		button.setBackground(keyBg(0xFF33383E, 0xFF41474E, 0xFF4C535A));
 		return button;
 	}
 
@@ -469,7 +469,7 @@ final class CarKeyboardOverlay {
 		Button button = key(text);
 		button.setTextSize(14);
 		button.setTypeface(Typeface.DEFAULT_BOLD);
-		button.setBackground(keyBg(0xFFB8641E, 0xFFCC7530, 0xFFD9822B));
+		button.setBackground(keyBg(0xFFA86F24, 0xFFBA7E2E, 0xFFC98F3A));
 		return button;
 	}
 
@@ -477,13 +477,13 @@ final class CarKeyboardOverlay {
 		AppCompatImageButton button = new AppCompatImageButton(activity);
 		button.setId(View.generateViewId());
 		button.setImageResource(icon);
-		button.setColorFilter(0xFFFBF4EA);
+		button.setColorFilter(0xFFF7F4EF);
 		button.setContentDescription(activity.getString(description));
 		button.setPadding(dp(12), dp(12), dp(12), dp(12));
 		button.setFocusable(true);
 		button.setBackground(selected ?
-				keyBg(0xFFB8641E, 0xFFCC7530, 0xFFD9822B) :
-				keyBg(0xFF3A322C, 0xFF4A4038, 0xFF574C43));
+				keyBg(0xFFA86F24, 0xFFBA7E2E, 0xFFC98F3A) :
+				keyBg(0xFF33383E, 0xFF41474E, 0xFF4C535A));
 		return button;
 	}
 
@@ -491,11 +491,11 @@ final class CarKeyboardOverlay {
 		AppCompatImageButton button = new AppCompatImageButton(activity);
 		button.setId(View.generateViewId());
 		button.setImageResource(icon);
-		button.setColorFilter(0xFFF1E7DA);
+		button.setColorFilter(0xFFF2EEE8);
 		button.setContentDescription(activity.getString(description));
 		button.setPadding(dp(9), dp(9), dp(9), dp(9));
 		button.setFocusable(true);
-		button.setBackground(keyBg(0xFF2A2420, 0xFF3D342E, 0xFF4A4038));
+		button.setBackground(keyBg(0xFF24282C, 0xFF353A40, 0xFF41474E));
 		return button;
 	}
 
@@ -595,20 +595,20 @@ final class CarKeyboardOverlay {
 	}
 
 	private GradientDrawable panelBg() {
-		GradientDrawable drawable = shape(0xFF171310, 0xFF3A2F27);
+		GradientDrawable drawable = shape(0xFF16181B, 0xFF33383E);
 		drawable.setCornerRadii(new float[] {dp(8), dp(8), dp(8), dp(8), 0, 0, 0, 0});
 		return drawable;
 	}
 
 	private GradientDrawable inputBg() {
-		return shape(0xFF221C18, 0xFF8A6A4A);
+		return shape(0xFF1F2226, 0xFF8C7650);
 	}
 
 	private StateListDrawable keyBg(int normal, int focused, int pressed) {
 		StateListDrawable drawable = new StateListDrawable();
-		drawable.addState(new int[] {android.R.attr.state_pressed}, shape(pressed, 0xFFE8B27A));
-		drawable.addState(new int[] {android.R.attr.state_focused}, shape(focused, 0xFFF2C08A));
-		drawable.addState(StateSet.WILD_CARD, shape(normal, 0xFF4E433A));
+		drawable.addState(new int[] {android.R.attr.state_pressed}, shape(pressed, 0xFFE0B26A));
+		drawable.addState(new int[] {android.R.attr.state_focused}, shape(focused, 0xFFF0C27A));
+		drawable.addState(StateSet.WILD_CARD, shape(normal, 0xFF474D54));
 		return drawable;
 	}
 

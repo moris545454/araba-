@@ -270,7 +270,7 @@ public class MediaItemView extends ConstraintLayout
 	/** Channels without a logo get an initials badge; everything else keeps its own icon. */
 	private void setFallbackIcon(ImageView icon, Item i, CharSequence name) {
 		if (i instanceof me.aap.fermata.media.lib.MediaLib.StreamItem) {
-			int accent = (iconTint == null) ? 0xFFF2A65A : iconTint.getDefaultColor();
+			int accent = (iconTint == null) ? 0xFFF0B45A : iconTint.getDefaultColor();
 			icon.setImageTintList(null);
 			icon.setImageDrawable(new MonogramDrawable(name, accent));
 		} else {

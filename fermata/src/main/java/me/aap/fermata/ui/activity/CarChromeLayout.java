@@ -11,8 +11,8 @@ final class CarChromeLayout {
 	}
 
 	/**
-	 * Car screen: no bottom bar. Home and the tool bar's Back sit together at the top left, the
-	 * remaining tool buttons float on the same row and the player floats at the bottom.
+	 * Car screen: no tool bar at all. Home and Back float together at the top left, the other
+	 * tool buttons float at the top right over the content, and the player floats at the bottom.
 	 */
 	static void apply(FermataActivity a, ControlPanelView controlPanel) {
 		androidx.constraintlayout.widget.ConstraintLayout root = a.findViewById(R.id.main_activity);
@@ -38,7 +38,8 @@ final class CarChromeLayout {
 		set.connect(R.id.tool_bar, start, R.id.persistent_home_button, end, margin / 2);
 		set.connect(R.id.tool_bar, end, parent, end, margin);
 
-		set.connect(R.id.body_layout, top, R.id.tool_bar, bottom, margin / 2);
+		// The buttons float over the content: the list starts at the very top of the screen.
+		set.connect(R.id.body_layout, top, parent, top);
 		set.connect(R.id.body_layout, bottom, parent, bottom);
 		set.connect(R.id.control_panel, bottom, parent, bottom, margin);
 		set.connect(R.id.control_panel, start, parent, start, margin * 2);

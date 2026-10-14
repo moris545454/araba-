@@ -70,9 +70,9 @@ public class AddonUiMetadataTest {
 	@Test
 	public void materialThemeKeepsDistinctAddonBadgeColors() throws Exception {
 		var color = AddonUiMetadata.class.getDeclaredMethod("color", AddonUiMetadata.Role.class);
-		assertEquals(0xFFFF344A, color.invoke(null, AddonUiMetadata.Role.YOUTUBE));
-		assertEquals(0xFFF2A65A, color.invoke(null, AddonUiMetadata.Role.TV));
-		assertEquals(0xFFFF4B78, color.invoke(null, AddonUiMetadata.Role.RADIO));
+		assertEquals(0xFFE5484D, color.invoke(null, AddonUiMetadata.Role.YOUTUBE));
+		assertEquals(0xFFF0B45A, color.invoke(null, AddonUiMetadata.Role.TV));
+		assertEquals(0xFFE8826A, color.invoke(null, AddonUiMetadata.Role.RADIO));
 	}
 
 	private static AddonInfo info(String className, String capabilities) {

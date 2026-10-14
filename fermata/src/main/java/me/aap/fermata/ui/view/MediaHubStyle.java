@@ -23,22 +23,22 @@ public final class MediaHubStyle {
 	}
 
 	public static int destinationAccent(int destination) {
-		if (destination == R.id.folders_fragment) return 0xFFFFC14D;
-		if (destination == R.id.favorites_fragment) return 0xFFFF4165;
-		if (destination == R.id.recent_fragment) return 0xFFE8C07D;
-		if (destination == R.id.playlists_fragment) return 0xFF9A83FF;
-		if (destination == R.id.dashboard_mirror_action) return 0xFFC084FC;
+		if (destination == R.id.folders_fragment) return 0xFFE3C26B;
+		if (destination == R.id.favorites_fragment) return 0xFFE8826A;
+		if (destination == R.id.recent_fragment) return 0xFFC9C2B6;
+		if (destination == R.id.playlists_fragment) return 0xFFC7A27C;
+		if (destination == R.id.dashboard_mirror_action) return 0xFF9FB7A8;
 		AddonInfo info = AddonManager.get().getAddonInfo(destination);
 		if (info != null) {
-			if (info.hasCapability(AddonCapability.TV)) return 0xFFF2A65A;
-			if (info.hasCapability(AddonCapability.YOUTUBE)) return 0xFFFF263E;
-			if (info.hasCapability(AddonCapability.RADIO)) return 0xFFFF4165;
-			if (info.hasCapability(AddonCapability.PODCAST)) return 0xFFC084FC;
-			if (info.hasCapability(AddonCapability.AUDIOBOOK)) return 0xFF9A83FF;
-			if (info.hasCapability(AddonCapability.WEB)) return 0xFFE8C07D;
-			if (info.hasCapability(AddonCapability.STREMIO)) return 0xFFAA83FF;
+			if (info.hasCapability(AddonCapability.TV)) return 0xFFF0B45A;
+			if (info.hasCapability(AddonCapability.YOUTUBE)) return 0xFFE5484D;
+			if (info.hasCapability(AddonCapability.RADIO)) return 0xFFE8826A;
+			if (info.hasCapability(AddonCapability.PODCAST)) return 0xFFD99A7A;
+			if (info.hasCapability(AddonCapability.AUDIOBOOK)) return 0xFFC7A27C;
+			if (info.hasCapability(AddonCapability.WEB)) return 0xFFD9C29A;
+			if (info.hasCapability(AddonCapability.STREMIO)) return 0xFFC7A27C;
 		}
-		return 0xFFF2A65A;
+		return 0xFFF0B45A;
 	}
 
 	public static int routeAccent(MainActivityDelegate activity) {
@@ -63,7 +63,7 @@ public final class MediaHubStyle {
                 new int[]{android.R.attr.state_selected}, new int[0]}) {
             boolean focused = state.length != 0;
             GradientDrawable surface = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
-                    new int[]{ColorUtils.blendARGB(0xFF1E1814, accent, .12F), 0xFF120F0D});
+                    new int[]{ColorUtils.blendARGB(0xFF1C1F22, accent, .12F), 0xFF111315});
             surface.setCornerRadius(dp(context, 18));
             surface.setStroke(Math.max(1, Math.round(dp(context, focused ? 2 : 1))),
                     ColorUtils.setAlphaComponent(accent, focused ? 255 : 160));
@@ -84,7 +84,7 @@ public final class MediaHubStyle {
 	}
 
 	private static Drawable surface(Context context, int accent, boolean featured, boolean focused) {
-		int base = color(context, com.google.android.material.R.attr.colorSecondary, 0xFF221C18);
+		int base = color(context, com.google.android.material.R.attr.colorSecondary, 0xFF24282C);
 		GradientDrawable shape = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
 				new int[]{ColorUtils.blendARGB(base, 0xFFFFFFFF, focused ? .22F : .14F),
                         ColorUtils.setAlphaComponent(ColorUtils.blendARGB(base, accent, .13F), 220),

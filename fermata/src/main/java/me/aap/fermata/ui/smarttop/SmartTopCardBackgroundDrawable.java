@@ -19,8 +19,8 @@ import androidx.annotation.Nullable;
 final class SmartTopCardBackgroundDrawable extends Drawable {
 	private static final int ARTWORK_SOFT_EDGE_PX = 48;
 	private static final int ARTWORK_DIM_COLOR = 0x70000000;
-	private static final int ARTWORK_SCRIM_START = 0xCC120E0B;
-	private static final int ARTWORK_SCRIM_END = 0xF0120E0B;
+	private static final int ARTWORK_SCRIM_START = 0xCC111315;
+	private static final int ARTWORK_SCRIM_END = 0xF0111315;
 	private static final float[] SPECTRUM =
 			{0.20F, 0.46F, 0.74F, 0.38F, 0.88F, 0.58F, 0.30F, 0.68F, 0.42F};
 	private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
