@@ -50,6 +50,11 @@ public class WebToolBarMediator implements ToolBarView.Mediator {
 		addButton(tb, R.drawable.clear, v -> t.setText(""), R.id.browser_addr_clear);
 		addButton(tb, me.aap.fermata.R.drawable.bookmark_filled, v ->
 				onBookmarksButtonClick(b), me.aap.fermata.R.id.bookmarks);
+		addButton(tb, me.aap.fermata.R.drawable.refresh, v -> {
+			FermataWebView view = b.getWebView();
+			if (view != null) view.reload();
+		}, me.aap.fermata.R.id.refresh).setContentDescription(
+				tb.getContext().getString(me.aap.fermata.R.string.refresh));
 		FermataWebView wv = b.getWebView();
 		setButtonsVisibility(tb, (wv != null) && wv.canGoBack(), (wv != null) && wv.canGoForward());
 		ToolBarView.Mediator.super.enable(tb, f);

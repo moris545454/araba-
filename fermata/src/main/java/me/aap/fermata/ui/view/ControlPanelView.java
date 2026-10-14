@@ -124,6 +124,7 @@ public class ControlPanelView extends ConstraintLayout
 		g = findViewById(R.id.control_menu_button);
 		g.setOnClickListener(this::showMenu);
 		favoriteController = new PlayerFavoriteButtonController(a, findViewById(R.id.control_favorite));
+		findViewById(R.id.control_scale).setOnClickListener(this::cycleVideoScale);
 		setShowHideBarsIcon(a);
 	}
 
@@ -271,6 +272,7 @@ public class ControlPanelView extends ConstraintLayout
 		View info = (v != null) ? v.getVideoInfoView() : null;
 		if (info != null) info.setVisibility(GONE);
 		presentationView.setVideoMode(true);
+		findViewById(R.id.control_scale).setVisibility(VISIBLE);
 		boolean split = a.getBody().isBothMode() && isSplitModeSupported(a);
 		presentationCoordinator.enterVideo(presentationView.currentIdentity(a), split,
 				a.getMediaServiceBinder().isPlaying());
@@ -298,6 +300,26 @@ public class ControlPanelView extends ConstraintLayout
 		boolean showAudio = ((mask & MASK_VISIBLE) != 0) && isAudioPanelSupported(a);
 		presentationCoordinator.leaveVideo(showAudio);
 		presentationView.setVideoMode(false);
+		findViewById(R.id.control_scale).setVisibility(GONE);
+	}
+
+	/** Car screen: the player becomes a floating rounded capsule. */
+	public void useFloatingPill() {
+		presentationView.useFloatingPill();
+	}
+
+	/** Each press moves the current video to the next scale mode: best, fill, original, 4:3, 16:9. */
+	private void cycleVideoScale(View v) {
+		MediaEngine engine = getActivity().getMediaServiceBinder().getCurrentEngine();
+		PlayableItem source = (engine == null) ? null : engine.getSource();
+		if (source == null) return;
+		int current = source.getPrefs().getVideoScalePref();
+		source.getPrefs().setVideoScalePref(nextVideoScale(current));
+	}
+
+	static int nextVideoScale(int current) {
+		int count = me.aap.fermata.media.pref.MediaPrefs.SCALE_16_9 + 1;
+		return ((current < 0) || (current >= count)) ? 0 : (current + 1) % count;
 	}
 
 	@Override

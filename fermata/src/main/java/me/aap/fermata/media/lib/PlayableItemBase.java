@@ -152,7 +152,9 @@ public abstract class PlayableItemBase extends ItemBase implements PlayableItem,
 				try (SharedTextBuilder tb = SharedTextBuilder.get()) {
 					if (seqNum != 0) tb.append(seqNum).append(". ");
 					tb.append(getTitle(md));
-					if (parentPrefs.getTitleFileNamePref()) tb.append(" - ").append(getResource().getName());
+					// A stream's "file name" is its URL; never show that in a title.
+					if (parentPrefs.getTitleFileNamePref() && !getResource().getName().contains("://"))
+						tb.append(" - ").append(getResource().getName());
 					return tb.toString();
 				}
 			});

@@ -378,6 +378,12 @@ public abstract class ActivityDelegate implements EventBroadcaster<ActivityListe
 		return showFragment(id, null);
 	}
 
+	/** Optional {enter, exit} animations for page switches; none by default. */
+	@Nullable
+	protected int[] getFragmentTransitionAnimations() {
+		return null;
+	}
+
 	@Nullable
 	public ActivityFragment showFragment(@IdRes int id, Object input) {
 		int activeId = getActiveFragmentId();
@@ -390,6 +396,9 @@ public abstract class ActivityDelegate implements EventBroadcaster<ActivityListe
 
 		var fm = getSupportFragmentManager();
 		var tr = fm.beginTransaction();
+		int[] animations = getFragmentTransitionAnimations();
+		if ((animations != null) && (animations.length == 2) && (activeId != 0))
+			tr.setCustomAnimations(animations[0], animations[1]);
 		ActivityFragment switchingFrom = null;
 		ActivityFragment switchingTo = null;
 

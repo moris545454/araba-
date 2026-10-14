@@ -165,7 +165,8 @@ public class ControlPanelContractTest {
 		assertFalse(presentation.contains("ConstraintSet"));
 		assertFalse(presentation.contains("body.bottomToTop"));
 		assertTrue(presentation.contains(
-				"panel.setBackgroundResource(R.drawable.control_panel_video_panel_bg)"));
+				"videoBackground = R.drawable.control_panel_video_panel_bg"));
+		assertTrue(presentation.contains("panel.setBackgroundResource(videoBackground)"));
 		assertTrue(resource("drawable/aa_play_button_bg_automotive.xml").contains(
 				"android:insetLeft=\"8dp\""));
 		assertTrue(panel.contains("presentationView.setVideoMode(true)"));

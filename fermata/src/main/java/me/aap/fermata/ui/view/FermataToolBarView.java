@@ -87,6 +87,8 @@ public class FermataToolBarView extends ToolBarView {
 				button.setBackground(MediaHubStyle.card(getContext(),
 						MediaHubStyle.routeAccent(MainActivityDelegate.get(getContext())), false));
 				button.setElevation(UiUtils.toIntPx(getContext(), 2));
+				// Car: the buttons float over the screen without a bar, slightly see-through.
+				button.setAlpha(isFloatingCarBar() ? FLOATING_BUTTON_ALPHA : 1F);
 			}
 		}
 		if (!(getParent() instanceof ViewGroup parent)) return;
@@ -105,9 +107,14 @@ public class FermataToolBarView extends ToolBarView {
 	public void setSize(float scale) {
 		super.setSize(scale);
 
-		setBackgroundResource(R.drawable.media_hub_menu_bg);
-		int horizontalPadding = UiUtils.toIntPx(getContext(), 14);
-		setPadding(horizontalPadding, 0, horizontalPadding, 0);
+		if (isFloatingCarBar()) {
+			setBackground(null);
+			setPadding(0, 0, 0, 0);
+		} else {
+			setBackgroundResource(R.drawable.media_hub_menu_bg);
+			int horizontalPadding = UiUtils.toIntPx(getContext(), 14);
+			setPadding(horizontalPadding, 0, horizontalPadding, 0);
+		}
 
 		int height = getLayoutParams().height;
 		float heightDp = height / getResources().getDisplayMetrics().density;
@@ -130,6 +137,18 @@ public class FermataToolBarView extends ToolBarView {
 				button.setLayoutParams(lp);
 				button.setPadding(iconPadding, iconPadding, iconPadding, iconPadding);
 			}
+		}
+	}
+
+	static final float FLOATING_BUTTON_ALPHA = 0.88F;
+
+	/** In the car the tool bar is a row of floating buttons at the top, not a bottom bar. */
+	boolean isFloatingCarBar() {
+		try {
+			return MainActivityDelegate.get(getContext()).getRuntimeHostMode()
+					.usesAutomotivePresentation();
+		} catch (RuntimeException notReady) {
+			return false;
 		}
 	}
 

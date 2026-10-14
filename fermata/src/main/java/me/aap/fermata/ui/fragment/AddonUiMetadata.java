@@ -30,28 +30,28 @@ final class AddonUiMetadata {
 
 	static int color(Role role) {
 		return switch (role) {
-			case TV -> 0xFF55B9FF;
+			case TV -> 0xFFF2A65A;
 			case YOUTUBE -> 0xFFFF344A;
 			case RADIO -> 0xFFFF4B78;
 			case PODCAST -> 0xFFBC7AFF;
 			case AUDIOBOOK -> 0xFF8B5CF6;
 			case STREMIO -> 0xFFA855F7;
-			case WEB -> 0xFF65C8FF;
+			case WEB -> 0xFFE8C07D;
 			case GENERIC -> 0xFF10A37F;
 		};
 	}
 
 	static int itemColor(String name, AddonInfo info) {
 		if (info != null) return color(role(info));
-		if (name == null) return 0xFF55B9FF;
+		if (name == null) return 0xFFF2A65A;
 		if (DashboardItems.MIRROR.equals(name)) return 0xFFC084FC;
-		if (DashboardItems.DEM_TV.equals(name)) return 0xFF38BDF8;
+		if (DashboardItems.DEM_TV.equals(name)) return 0xFFFFB38A;
 		if (DashboardItems.FOLDERS.equals(name)) return 0xFFFFC14D;
 		if (DashboardItems.FAVORITES.equals(name)) return 0xFFFF4165;
-		if (DashboardItems.RECENT.equals(name)) return 0xFF94A3B8;
-		if (DashboardItems.PLAYLISTS.equals(name)) return 0xFF6366F1;
+		if (DashboardItems.RECENT.equals(name)) return 0xFFBFB3A5;
+		if (DashboardItems.PLAYLISTS.equals(name)) return 0xFFD9A3C7;
 		if ("chatgpt".equalsIgnoreCase(name)) return 0xFF10A37F;
-		return 0xFF55B9FF;
+		return 0xFFF2A65A;
 	}
 
 	static GradientDrawable createBadgeDrawable(int color, float radius) {

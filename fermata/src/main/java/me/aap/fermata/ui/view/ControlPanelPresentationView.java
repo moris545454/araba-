@@ -16,10 +16,11 @@ import me.aap.fermata.ui.policy.PlaybackPresentationOwner.Identity;
 
 final class ControlPanelPresentationView {
 	private final ControlPanelView panel;
-	private final Drawable audioBackground;
+	private Drawable audioBackground;
 	private final ControlPanelContentInsetCoordinator contentInsets =
 			new ControlPanelContentInsetCoordinator();
 	private boolean videoMode;
+	private int videoBackground = R.drawable.control_panel_video_panel_bg;
 
 	ControlPanelPresentationView(ControlPanelView panel) {
 		this.panel = panel;
@@ -28,9 +29,18 @@ final class ControlPanelPresentationView {
 
 	void setVideoMode(boolean videoMode) {
 		this.videoMode = videoMode;
-		if (videoMode) panel.setBackgroundResource(R.drawable.control_panel_video_panel_bg);
+		if (videoMode) panel.setBackgroundResource(videoBackground);
 		else panel.setBackground(audioBackground);
 		onPanelVisibilityChanged(panel.getVisibility());
+	}
+
+	/** Car: rounded capsule backgrounds for both the audio and the video player. */
+	void useFloatingPill() {
+		videoBackground = R.drawable.control_panel_video_pill_bg;
+		audioBackground = androidx.core.content.ContextCompat.getDrawable(panel.getContext(),
+				R.drawable.aa_control_panel_pill_bg);
+		panel.setBackground(videoMode ? androidx.core.content.ContextCompat.getDrawable(
+				panel.getContext(), videoBackground) : audioBackground);
 	}
 
 	void onPanelVisibilityChanged(int visibility) {

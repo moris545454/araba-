@@ -1297,6 +1297,8 @@ public class MainActivityDelegate extends ActivityDelegate
 			set.connect(R.id.body_layout, androidx.constraintlayout.widget.ConstraintSet.BOTTOM,
 					R.id.control_panel, androidx.constraintlayout.widget.ConstraintSet.TOP);
 			set.applyTo(root);
+		} else if (getRuntimeHostMode().usesAutomotivePresentation()) {
+			CarChromeLayout.apply(a, controlPanel);
 		}
 		refreshPersistentHomeButton();
 		floatingButton.setScale(getPrefs().getTextIconSizePref(this));
@@ -1314,6 +1316,14 @@ public class MainActivityDelegate extends ActivityDelegate
 				return WindowInsetsCompat.CONSUMED;
 			});
 		}
+	}
+
+	@Nullable
+	@Override
+	protected int[] getFragmentTransitionAnimations() {
+		// Car pages slide in softly; the phone keeps instant switches.
+		if (!getRuntimeHostMode().usesAutomotivePresentation()) return null;
+		return new int[]{R.anim.car_page_enter, R.anim.car_page_exit};
 	}
 
 	@LayoutRes

@@ -5,7 +5,9 @@ import android.view.inputmethod.EditorInfo;
 
 final class CarKeyboardModel {
 	static final String NUMBER_ROW = "1234567890";
-	static final String[] ALPHA_ROWS = {"qwertyuiop", "asdfghjkl", "zxcvbnm"};
+	// Turkish Q layout: ı, ğ, ü, ş, i, ö and ç have their own keys.
+	static final String[] ALPHA_ROWS = {"qwertyuıopğü", "asdfghjklşi", "zxcvbnmöç"};
+	private static final java.util.Locale TURKISH = new java.util.Locale("tr", "TR");
 	static final String[] SYMBOL_ROWS = {"@#$%&-+()/", "*\"':;!?_=\\", "<>[]{}~`^|"};
 	private static final long CAPS_LOCK_INTERVAL_MS = 350;
 
@@ -52,7 +54,7 @@ final class CarKeyboardModel {
 		if (!Character.isLetter(value) || (shiftState == ShiftState.OFF)) {
 			return String.valueOf(value);
 		}
-		return String.valueOf(Character.toUpperCase(value));
+		return String.valueOf(value).toUpperCase(TURKISH);
 	}
 
 	void characterTyped(char value) {

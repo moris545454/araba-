@@ -18,7 +18,7 @@ public class CarKeyboardModelTest {
 	@Test
 	public void alphaAndSymbolLayoutsHavePermanentNumberRow() {
 		assertEquals("1234567890", CarKeyboardModel.NUMBER_ROW);
-		assertArrayEquals(new String[] {"qwertyuiop", "asdfghjkl", "zxcvbnm"},
+		assertArrayEquals(new String[] {"qwertyuıopğü", "asdfghjklşi", "zxcvbnmöç"},
 				CarKeyboardModel.ALPHA_ROWS);
 		assertEquals(3, CarKeyboardModel.SYMBOL_ROWS.length);
 		for (String row : CarKeyboardModel.SYMBOL_ROWS) assertEquals(10, row.length());
@@ -37,6 +37,9 @@ public class CarKeyboardModelTest {
 		model.tapShift(1_000);
 		assertEquals(CarKeyboardModel.ShiftState.ONCE, model.getShiftState());
 		assertEquals("A", model.applyShift('a'));
+		assertEquals("İ", model.applyShift('i'));
+		assertEquals("I", model.applyShift('ı'));
+		assertEquals("Ş", model.applyShift('ş'));
 		model.characterTyped('a');
 		assertEquals(CarKeyboardModel.ShiftState.OFF, model.getShiftState());
 

@@ -245,22 +245,19 @@ public class MediaItemView extends ConstraintLayout
 													icon.setBackground(null);
 													icon.setImageBitmap(bm);
 												} else {
-													icon.setImageTintList(iconTint);
-													icon.setImageResource(i.getIcon());
+													setFallbackIcon(icon, i, md.getTitle());
 												}
 											});
 
 							if (!loadIcon.isDone()) {
 								ImageView icon = getIcon();
 								icon.clearAnimation();
-								icon.setImageTintList(iconTint);
-								icon.setImageResource(i.getIcon());
+								setFallbackIcon(icon, i, md.getTitle());
 							}
 						} else {
 							ImageView icon = getIcon();
 							icon.clearAnimation();
-							icon.setImageTintList(iconTint);
-							icon.setImageResource(i.getIcon());
+							setFallbackIcon(icon, i, md.getTitle());
 							cancelLoading();
 						}
 					}
@@ -268,6 +265,18 @@ public class MediaItemView extends ConstraintLayout
 
 		if (!load.isDone()) setDefaults(i, showLoading);
 		return load;
+	}
+
+	/** Channels without a logo get an initials badge; everything else keeps its own icon. */
+	private void setFallbackIcon(ImageView icon, Item i, CharSequence name) {
+		if (i instanceof me.aap.fermata.media.lib.MediaLib.StreamItem) {
+			int accent = (iconTint == null) ? 0xFFF2A65A : iconTint.getDefaultColor();
+			icon.setImageTintList(null);
+			icon.setImageDrawable(new MonogramDrawable(name, accent));
+		} else {
+			icon.setImageTintList(iconTint);
+			icon.setImageResource(i.getIcon());
+		}
 	}
 
 	private void setProgress(Item i, long start, long end) {
