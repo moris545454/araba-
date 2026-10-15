@@ -579,6 +579,11 @@ public class WebBrowserFragment extends MainActivityFragment
 	@Override
 	public void voiceCommand(VoiceCommand cmd) {
 		String q = cmd.getQuery();
+		// "google.com aç": a spoken address opens the site instead of searching for it.
+		if (looksLikeAddress(q.trim().toLowerCase(java.util.Locale.ROOT))) {
+			loadUrl(q.trim());
+			return;
+		}
 
 		if (cmd.isOpen()) {
 			WebBrowserAddon a = getAddon();

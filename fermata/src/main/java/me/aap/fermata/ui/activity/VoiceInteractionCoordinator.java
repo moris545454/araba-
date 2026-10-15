@@ -213,8 +213,17 @@ final class VoiceInteractionCoordinator {
 		if (commandHandler != null) commandHandler.updateWordSubst();
 	}
 
+	boolean routeToAddon(String target, VoiceCommand cmd) {
+		return getCommandHandler().routeToAddon(target, cmd);
+	}
+
 	private boolean canRouteVoiceIntent(VoiceIntent intent) {
 		if (intent.getKind() == VoiceIntent.Kind.PLAYBACK) return true;
+		if ((intent.getKind() == VoiceIntent.Kind.OPEN_SECTION) ||
+				(intent.getKind() == VoiceIntent.Kind.VOLUME) ||
+				(intent.getKind() == VoiceIntent.Kind.SETTING)) return true;
+		// Bare names are searched in TV, then radio.
+		if ((intent.getKind() == VoiceIntent.Kind.ADDON_SEARCH) && (intent.getAddon() == null)) return true;
 		if (intent.getKind() == VoiceIntent.Kind.SELECTION) {
 			return voiceSession.isSelectionActive(System.currentTimeMillis());
 		}

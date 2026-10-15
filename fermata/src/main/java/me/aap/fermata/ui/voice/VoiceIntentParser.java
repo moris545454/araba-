@@ -35,6 +35,16 @@ public final class VoiceIntentParser {
 
 	@Nullable
 	public static VoiceIntent parse(@Nullable String phrase, @Nullable Locale locale) {
+		if ((phrase != null) && (locale != null) && "tr".equals(locale.getLanguage())) {
+			// Free Turkish speech first; the grammar below then handles what remains.
+			VoiceIntent understood = TurkishVoiceUnderstanding.understand(phrase);
+			if (understood != null) return understood;
+		}
+		return parseGrammar(phrase, locale);
+	}
+
+	@Nullable
+	static VoiceIntent parseGrammar(@Nullable String phrase, @Nullable Locale locale) {
 		String text = normalize((phrase != null && locale != null && "tr".equals(locale.getLanguage())) ?
 				phrase.toLowerCase(locale) : phrase);
 		if (text.isEmpty()) return null;
@@ -150,7 +160,7 @@ public final class VoiceIntentParser {
 		return text;
 	}
 
-	private static String removeContentQualifier(String text) {
+	static String removeContentQualifier(String text) {
 		String[] qualifiers = {"video ", "channel ", "kênh ", "kenh ", "bài ", "bai ",
 				"movie ", "film ", "phim ", "series ",
 				"episode ", "tập ", "tap ", "book ", "sách ", "sach ", "kanal ", "bölüm ", "kitap "};

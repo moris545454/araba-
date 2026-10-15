@@ -25,6 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import me.aap.fermata.R;
+import me.aap.fermata.action.Action;
 import me.aap.fermata.addon.AddonManager;
 import me.aap.fermata.diagnostics.DiagnosticPriority;
 import me.aap.fermata.diagnostics.android.AndroidDiagnosticsRuntime;
@@ -135,11 +136,24 @@ class VoiceCommandHandler {
 		long previousRequestId = currentRequestId;
 		currentRequestId = requestId;
 		try {
-			return handleWithOutcome(cmd.get(0));
+			return handleWithOutcome(bestCandidate(cmd));
 		} finally {
 			candidateResultCount = 1;
 			currentRequestId = previousRequestId;
 		}
+	}
+
+	/**
+	 * The recogniser returns several guesses, best first. Use the first one that is understood,
+	 * so "şov tivi aç" heard first does not hide "show tv aç" heard second.
+	 */
+	private String bestCandidate(List<String> candidates) {
+		init();
+		Locale locale = Locale.forLanguageTag(lang);
+		for (String c : candidates) {
+			if ((c != null) && (VoiceIntentParser.parse(subst(c), locale) != null)) return c;
+		}
+		return candidates.get(0);
 	}
 
 	public boolean handle(String cmd) {
@@ -339,6 +353,26 @@ class VoiceCommandHandler {
 			return VoiceCommandOutcome.completed(effect);
 		}
 
+		if (intent.getKind() == VoiceIntent.Kind.OPEN_SECTION) {
+			return openSection(intent.getAddon()) ?
+					VoiceCommandOutcome.completed(VoiceCommandOutcome.PlaybackEffect.PRESERVE) :
+					VoiceCommandOutcome.unhandled();
+		}
+		if (intent.getKind() == VoiceIntent.Kind.VOLUME) {
+			VoiceIntent.VolumeAction volume = intent.getVolumeAction();
+			Action action = (volume == VoiceIntent.VolumeAction.UP) ? Action.VOLUME_UP :
+					(volume == VoiceIntent.VolumeAction.DOWN) ? Action.VOLUME_DOWN :
+							Action.VOLUME_MUTE_UNMUTE;
+			action.getHandler().handle(activity.getMediaSessionCallback(), activity,
+					SystemClock.uptimeMillis());
+			return VoiceCommandOutcome.completed(VoiceCommandOutcome.PlaybackEffect.PRESERVE);
+		}
+		if (intent.getKind() == VoiceIntent.Kind.SETTING) {
+			return applySetting(intent.getAddon(), intent.getQuery()) ?
+					VoiceCommandOutcome.completed(VoiceCommandOutcome.PlaybackEffect.PRESERVE) :
+					VoiceCommandOutcome.unhandled();
+		}
+
 		if (intent.getKind() == VoiceIntent.Kind.OPEN_ADDON) {
 			String target = intent.getAddon();
 			var info = addons.findVoiceAddonInfo(target);
@@ -363,13 +397,21 @@ class VoiceCommandHandler {
 
 		if (target == null) {
 			MainActivityFragment fragment = activity.getActiveMainActivityFragment();
-			if ((fragment == null) || !fragment.isVoiceCommandsSupported()) {
-				return VoiceCommandOutcome.unhandled();
+			if ((fragment instanceof MediaLibFragment) && fragment.isVoiceCommandsSupported()) {
+				// A list is on screen (TV, radio, podcasts, media): search it first, then the rest.
+				if (fragment.getFragmentId() != R.id.radio_fragment) command.withFallbackTarget("radio");
+				fragment.voiceCommand(command);
+				return VoiceCommandOutcome.pending(action == VoiceIntent.SearchAction.PLAY ?
+						VoiceCommandOutcome.PlaybackEffect.REPLACE_PENDING :
+						VoiceCommandOutcome.PlaybackEffect.PRESERVE);
 			}
-			fragment.voiceCommand(command);
-			return VoiceCommandOutcome.pending(action == VoiceIntent.SearchAction.PLAY ?
-					VoiceCommandOutcome.PlaybackEffect.REPLACE_PENDING :
-					VoiceCommandOutcome.PlaybackEffect.PRESERVE);
+			if ((fragment != null) && (fragment.getFragmentId() == R.id.youtube_fragment)) {
+				fragment.voiceCommand(command);
+				return VoiceCommandOutcome.pending(VoiceCommandOutcome.PlaybackEffect.REPLACE_PENDING);
+			}
+			// Anywhere else (home, settings, web...) a bare name is a TV channel or a radio station.
+			target = "tv";
+			command.withFallbackTarget("radio");
 		}
 
 		// Use generated addon metadata first so an enabled dynamic feature can be
@@ -383,6 +425,74 @@ class VoiceCommandHandler {
 		return VoiceCommandOutcome.pending(action == VoiceIntent.SearchAction.PLAY ?
 				VoiceCommandOutcome.PlaybackEffect.REPLACE_PENDING :
 				VoiceCommandOutcome.PlaybackEffect.PRESERVE);
+	}
+
+	/** Searches the addon behind a voice target ("tv", "radio"...), opening it first. */
+	boolean routeToAddon(String target, VoiceCommand cmd) {
+		var info = AddonManager.get().findVoiceAddonInfo(target);
+		if ((info == null) || !activity.showFragmentWhenReady(info.addonId)) return false;
+		searchInFragment(info.addonId, cmd, VoiceReadinessPolicy.deadline(SystemClock.uptimeMillis()));
+		return true;
+	}
+
+	private boolean openSection(String section) {
+		if (section == null) return false;
+		switch (section) {
+			case "settings" -> activity.showFragment(R.id.settings_fragment);
+			case "equalizer" -> activity.showFragment(R.id.settings_fragment,
+					me.aap.fermata.ui.fragment.SettingsFragment.OPEN_EQUALIZER);
+			case "home" -> activity.returnToDashboard();
+			case "favorites" -> activity.showFragment(R.id.favorites_fragment);
+			case "folders" -> activity.showFragmentWhenReady(R.id.folders_fragment);
+			case "mirror" -> me.aap.fermata.auto.AutomotiveNavigationController.get()
+					.open(R.id.dashboard_mirror_action);
+			default -> {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean applySetting(String name, String value) {
+		if ((name == null) || (value == null)) return false;
+		switch (name) {
+			case me.aap.fermata.ui.voice.TurkishVoiceUnderstanding.SETTING_VIDEO_SCALE -> {
+				MediaEngine engine = activity.getMediaServiceBinder().getCurrentEngine();
+				me.aap.fermata.media.lib.MediaLib.PlayableItem source =
+						(engine == null) ? null : engine.getSource();
+				if (source == null) return false;
+				var prefs = source.getPrefs();
+				int scale = switch (value) {
+					case "fill" -> me.aap.fermata.media.pref.MediaPrefs.SCALE_FILL;
+					case "original" -> me.aap.fermata.media.pref.MediaPrefs.SCALE_ORIGINAL;
+					case "4:3" -> me.aap.fermata.media.pref.MediaPrefs.SCALE_4_3;
+					case "16:9" -> me.aap.fermata.media.pref.MediaPrefs.SCALE_16_9;
+					case "next" -> (prefs.getVideoScalePref() + 1) %
+							(me.aap.fermata.media.pref.MediaPrefs.SCALE_16_9 + 1);
+					default -> me.aap.fermata.media.pref.MediaPrefs.SCALE_BEST;
+				};
+				prefs.setVideoScalePref(scale);
+				return true;
+			}
+			case me.aap.fermata.ui.voice.TurkishVoiceUnderstanding.SETTING_TEXT_SIZE -> {
+				MainActivityPrefs prefs = activity.getPrefs();
+				boolean car = activity.isCarActivity() && (MainActivityPrefs.TEXT_ICON_SIZE_AA != null);
+				var pref = car ? MainActivityPrefs.TEXT_ICON_SIZE_AA : MainActivityPrefs.TEXT_ICON_SIZE;
+				float size = prefs.getTextIconSizePref(activity) + ("up".equals(value) ? 0.1f : -0.1f);
+				prefs.applyFloatPref(pref, Math.max(0.7f, Math.min(2f, size)));
+				return true;
+			}
+			case me.aap.fermata.ui.voice.TurkishVoiceUnderstanding.SETTING_THEME -> {
+				boolean car = activity.isCarActivity() && (MainActivityPrefs.THEME_AA != null);
+				var pref = car ? MainActivityPrefs.THEME_AA : MainActivityPrefs.THEME_MAIN;
+				activity.getPrefs().applyIntPref(pref, "light".equals(value) ?
+						MainActivityPrefs.THEME_LIGHT : MainActivityPrefs.THEME_DARK);
+				return true;
+			}
+			default -> {
+				return false;
+			}
+		}
 	}
 
 	private void searchInFragment(@IdRes int id, VoiceCommand cmd, long deadline) {
@@ -443,6 +553,9 @@ class VoiceCommandHandler {
 			case ADDON_SEARCH -> "addon_search";
 			case OPEN_ADDON -> "addon_open";
 			case SELECTION -> "selection";
+			case OPEN_SECTION -> "section_open";
+			case VOLUME -> "volume";
+			case SETTING -> "setting";
 		};
 	}
 

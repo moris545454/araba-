@@ -12,6 +12,7 @@ public class VoiceCommand {
 	private final String query;
 	private final int action;
 	private final long voiceRequestId;
+	private String fallbackTarget;
 
 	public VoiceCommand(String query, int action) {
 		this(query, action, 0L);
@@ -45,5 +46,15 @@ public class VoiceCommand {
 
 	public boolean isOpen() {
 		return (getAction() & ACTION_OPEN) != 0;
+	}
+
+	/** Voice target to search next when this search finds nothing (e.g. radio after TV). */
+	public String getFallbackTarget() {
+		return fallbackTarget;
+	}
+
+	public VoiceCommand withFallbackTarget(String target) {
+		fallbackTarget = target;
+		return this;
 	}
 }

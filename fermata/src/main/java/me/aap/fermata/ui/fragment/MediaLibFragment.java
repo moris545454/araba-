@@ -586,17 +586,17 @@ public abstract class MediaLibFragment extends MainActivityFragment implements M
 			return ((cur == null) || !items.contains(cur)) ? parent : cur.getParent();
 		};
 
-		boolean play = cmd.isPlay();
+		// Opening a channel or station means starting it; only "ara/bul" just shows it.
+		boolean play = cmd.isPlay() || cmd.isOpen();
 		var selection = play ? b.captureUserSelection() : null;
 		long voiceRequestId = cmd.getVoiceRequestId();
 		SearchFolder.search(cmd.getQuery(), ps).main(a.getHandler()).onSuccess(f -> {
 			if ((voiceRequestId != 0L) && !a.isCurrentVoiceTransaction(voiceRequestId)) return;
-			if (f == null) {
-				if (voiceRequestId != 0L) a.completeVoiceTransaction(voiceRequestId);
-				return;
-			}
-			List<PlayableItem> items = f.getItemsFound();
-			if (items.isEmpty()) {
+			List<PlayableItem> items = (f == null) ? null : f.getItemsFound();
+			if ((items == null) || items.isEmpty()) {
+				String fallback = cmd.getFallbackTarget();
+				if ((fallback != null) && a.routeVoiceCommand(fallback,
+						new VoiceCommand(cmd.getQuery(), cmd.getAction(), voiceRequestId))) return;
 				if (voiceRequestId != 0L) a.completeVoiceTransaction(voiceRequestId);
 				return;
 			}

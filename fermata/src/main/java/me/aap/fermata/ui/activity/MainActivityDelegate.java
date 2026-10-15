@@ -1083,6 +1083,11 @@ public class MainActivityDelegate extends ActivityDelegate
 		voiceInteraction.startContextualAssistant();
 	}
 
+	/** Searches a voice target (e.g. "radio") for a command another section did not find. */
+	public boolean routeVoiceCommand(String target, VoiceCommand cmd) {
+		return voiceInteraction.routeToAddon(target, cmd);
+	}
+
 	public void startGlobalVoiceControl() {
 		voiceInteraction.startGlobalVoiceControl();
 	}

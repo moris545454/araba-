@@ -148,22 +148,15 @@ public class SearchFolder extends BrowsableItemBase {
 	private static FutureSupplier<SearchFolder> recursiveSearch(
 			String id, String q, BrowsableItem parent,
 			Function<List<PlayableItem>, BrowsableItem> ps) {
-		Pattern p;
-		List<Pattern> words;
-		String[] split = q.split(" ");
+		// Names are compared folded: case, Turkish letters, spacing and common mishearings do not
+		// matter, so "şov tv", "showtv" and "Show TV" are the same channel, "trt bir" is "TRT 1".
+		String folded = foldQuery(q);
+		String[] split = folded.split(" ");
 		Holder<Item> exact = new Holder<>();
 		List<Item> matches = new ArrayList<>();
-
-		if (split.length == 1) {
-			p = Pattern.compile("\\b" + Pattern.quote(q) + "\\b", Pattern.CASE_INSENSITIVE);
-			words = singletonList(p);
-		} else {
-			p = Pattern.compile(Pattern.quote(q), Pattern.CASE_INSENSITIVE);
-			words = new ArrayList<>(split.length);
-			for (String w : split) {
-				words.add(Pattern.compile("\\b" + Pattern.quote(w) + "\\b", Pattern.CASE_INSENSITIVE));
-			}
-		}
+		Pattern p = Pattern.compile(Pattern.quote(folded.replace(" ", "")));
+		List<Pattern> words = new ArrayList<>(split.length);
+		for (String w : split) words.add(Pattern.compile("\\b" + Pattern.quote(w) + "\\b"));
 
 		return recursiveVoiceSearch(parent, p, words, exact, matches, ps).then(v -> {
 			if (exact.value != null) {
@@ -228,11 +221,47 @@ public class SearchFolder extends BrowsableItemBase {
 
 	private static byte match(CharSequence s, Pattern p, List<Pattern> words) {
 		if ((s == null) || TextUtils.isBlank(s)) return 0;
-		if (p.matcher(s).matches()) return 1;
+		String folded = fold(s);
+		String compact = folded.replace(" ", "");
+		if (p.matcher(compact).matches()) return 1;
+		if (p.matcher(compact).find()) return 2;
 		for (Pattern w : words) {
-			if (!w.matcher(s).find()) return 0;
+			if (!w.matcher(folded).find()) return 0;
 		}
 		return 2;
+	}
+
+	/** Lower case without Turkish letters, punctuation or common spelling variants. */
+	static String fold(CharSequence text) {
+		String t = text.toString().toLowerCase(java.util.Locale.forLanguageTag("tr"));
+		StringBuilder b = new StringBuilder(t.length());
+		for (int i = 0; i < t.length(); i++) {
+			char c = t.charAt(i);
+			switch (c) {
+				case 'ş' -> b.append('s');
+				case 'ı', 'î' -> b.append('i');
+				case 'ğ' -> b.append('g');
+				case 'ü', 'û' -> b.append('u');
+				case 'ö' -> b.append('o');
+				case 'ç' -> b.append('c');
+				case 'â' -> b.append('a');
+				default -> b.append(Character.isLetterOrDigit(c) ? c : ' ');
+			}
+		}
+		return b.toString().replace("sh", "s").replace('w', 'v').replace("x", "ks").replace('q', 'k')
+				.replaceAll("\\s+", " ").trim();
+	}
+
+	/** {@link #fold} plus spoken numbers after the first word: "trt bir" → "trt 1". */
+	static String foldQuery(String query) {
+		String[] w = fold(query).split(" ");
+		String[] spoken = {"sifir", "bir", "iki", "uc", "dort", "bes", "alti", "yedi", "sekiz", "dokuz", "on"};
+		for (int i = 1; i < w.length; i++) {
+			for (int n = 0; n < spoken.length; n++) {
+				if (w[i].equals(spoken[n])) w[i] = String.valueOf(n);
+			}
+		}
+		return String.join(" ", w);
 	}
 
 	public List<PlayableItem> getItemsFound() {
