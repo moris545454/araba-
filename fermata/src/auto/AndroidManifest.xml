@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    <!-- Full screen entry: Mola UI drawn on the navigation map surface. -->
+    <uses-permission android:name="androidx.car.app.NAVIGATION_TEMPLATES" />
+    <uses-permission android:name="androidx.car.app.ACCESS_SURFACE" />
 
 	<!-- Auto can run on TV-style head units that do not expose a touchscreen. -->
 	<uses-feature
@@ -15,7 +18,7 @@
 
 
 
-    <application
+	<application
 		android:banner="@drawable/banner"
 		android:icon="@drawable/launcher">
 		<activity
@@ -30,6 +33,12 @@
 				<action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
 				<category android:name="android.intent.category.DEFAULT" />
 			</intent-filter>
+			<!-- Android 16 Android Auto discovery entry. Use the existing MainActivity;
+			     do not route launch through the removed ParkedCarActivity. -->
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.CAR_LAUNCHER" />
+			</intent-filter>
 		</activity>
 
 		<activity
@@ -43,6 +52,18 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 				<category android:name="android.intent.category.LEANBACK_LAUNCHER" />
 			</intent-filter>
+			<!-- Listed as a maps/navigation app. No CAR_LAUNCHER: this trampoline only opens the
+			     phone UI, which would show the phone layout on a car screen. -->
+
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.APP_MAPS" />
+				<category android:name="android.intent.category.NAVIGATION" />
+			</intent-filter>
+			<meta-data
+				android:name="distractionOptimized"
+				android:value="true" />
 		</activity>
 
         <service
@@ -57,7 +78,11 @@
             android:icon="@drawable/media_service_icon"
 			android:label="@string/media_service_name"
 			tools:ignore="ExportedService">
-            <!-- Explicit MediaBrowser connections retain playback without a second AA tile. -->
+			<!-- Explicit MediaBrowser connections retain playback without a second AA tile. -->
+			<intent-filter>
+				<!-- Android Auto discovers media apps through this standard browser-service action. -->
+				<action android:name="android.media.browse.MediaBrowserService" />
+			</intent-filter>
 			<intent-filter>
 				<action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH" />
 			</intent-filter>
@@ -84,13 +109,30 @@
             </intent-filter>
         </service>
 
+        <!-- Second Android Auto entry: the Mola UI full screen on the navigation map surface. -->
+        <service
+            android:name="me.app.fermatax.auto.FullScreenAppService"
+            android:exported="true"
+            android:label="@string/mirror_fullscreen_label"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="androidx.car.app.CarAppService" />
+                <category android:name="androidx.car.app.category.NAVIGATION" />
+                <category android:name="android.intent.category.APP_MAPS" />
+            </intent-filter>
+        </service>
+
         <!-- Screen sharing is entered only by our launcher/immutable notification. -->
         <activity
             android:name="me.app.fermatax.auto.ProjectionActivity"
             android:configChanges="colorMode|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
             android:excludeFromRecents="true"
             android:exported="false"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleInstance">
+            <meta-data
+                android:name="distractionOptimized"
+                android:value="true" />
+        </activity>
         <service
             android:name="me.app.fermatax.auto.ProjectionService"
             android:exported="false"

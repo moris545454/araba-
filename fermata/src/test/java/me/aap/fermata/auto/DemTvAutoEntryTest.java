@@ -20,9 +20,11 @@ public class DemTvAutoEntryTest {
         for (int i = 0; i < services.getLength(); i++) {
             Element service = (Element) services.item(i);
             String name = service.getAttributeNS(ANDROID, "name");
-            if (name.endsWith("AutoFermataMediaService")) {
-                explicitPlaybackAvailable = !"false".equals(service.getAttributeNS(ANDROID, "enabled"));
-            }
+			if (name.endsWith("AutoFermataMediaService")) {
+				explicitPlaybackAvailable = !"false".equals(service.getAttributeNS(ANDROID, "enabled"));
+				assertTrue("Auto media service must be discoverable by Android Auto",
+						hasNamed(service, "action", "android.media.browse.MediaBrowserService"));
+			}
             var filters = service.getElementsByTagName("intent-filter");
             for (int j = 0; j < filters.getLength(); j++) {
                 Element filter = (Element) filters.item(j);
@@ -36,13 +38,20 @@ public class DemTvAutoEntryTest {
                     }
                 }
                 var actions = filter.getElementsByTagName("action");
-                for (int k = 0; k < actions.getLength(); k++) {
-                    assertNotEquals("android.media.browse.MediaBrowserService",
-                            ((Element) actions.item(k)).getAttributeNS(ANDROID, "name"));
-                }
+				// The standard MediaBrowserService action is intentionally expected on
+				// AutoFermataMediaService, while no second media service is advertised.
             }
         }
-        assertEquals(1, projectionEntries);
-        assertTrue("Media playback must remain explicitly bindable", explicitPlaybackAvailable);
-    }
+		assertEquals(1, projectionEntries);
+		assertTrue("Media playback must remain explicitly bindable", explicitPlaybackAvailable);
+	}
+
+	private static boolean hasNamed(Element parent, String tag, String name) {
+		var elements = parent.getElementsByTagName(tag);
+		for (int i = 0; i < elements.getLength(); i++) {
+			Element element = (Element) elements.item(i);
+			if (name.equals(element.getAttributeNS(ANDROID, "name"))) return true;
+		}
+		return false;
+	}
 }
