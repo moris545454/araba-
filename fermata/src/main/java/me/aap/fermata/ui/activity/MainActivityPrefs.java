@@ -362,7 +362,7 @@ public interface MainActivityPrefs
 		}
 
 		Lang() {
-			locale = new Locale(name().toLowerCase());
+			locale = new Locale(name().toLowerCase(Locale.ROOT));
 		}
 
 		Lang(Locale locale) {
