@@ -63,7 +63,7 @@ jobs:
           "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs out/FermataX-yeni-arayuz-debug.apk | tee out/signature.txt
           python3 scripts/verify_security_apk.py out/FermataX-yeni-arayuz-debug.apk --aapt "$ANDROID_HOME/build-tools/36.0.0/aapt" --output out/security-apk-check.json
           sha256sum out/FermataX-yeni-arayuz-debug.apk | tee out/sha256.txt
-          version=$(grep -oP '^appVersionName = "\K[^"]+' gradle/libs.versions.toml)
+          version=$(sed -n 's/^appVersionName = "\([^"]*\)"/\1/p' gradle/libs.versions.toml)
           echo "tag=v$version-test" >> "$GITHUB_OUTPUT"
 
       - name: Upload APK artifact
