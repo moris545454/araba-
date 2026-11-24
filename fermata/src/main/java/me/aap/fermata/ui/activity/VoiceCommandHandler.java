@@ -453,8 +453,8 @@ class VoiceCommandHandler {
 			for (String l = r.readLine(); l != null; l = r.readLine()) {
 				int idx = l.indexOf(':');
 				if (idx < 0) continue;
-				subst.put(l.substring(0, idx).trim().toLowerCase(),
-						l.substring(idx + 1).trim().toLowerCase());
+				subst.put(l.substring(0, idx).trim().toLowerCase(Locale.ROOT),
+						l.substring(idx + 1).trim().toLowerCase(Locale.ROOT));
 			}
 		} catch (IOException ignore) {
 		}

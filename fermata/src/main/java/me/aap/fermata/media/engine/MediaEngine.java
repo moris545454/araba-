@@ -21,6 +21,7 @@ import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.StringTokenizer;
 
 import me.aap.fermata.media.lib.ContentSubtitleSelectionItem;
@@ -247,11 +248,12 @@ public interface MediaEngine extends Closeable {
 					String k = st.nextToken().trim();
 
 					if (!k.isEmpty()) {
-						k = k.toLowerCase();
+						k = k.toLowerCase(Locale.ROOT);
 
 						for (I i : streams) {
 							String dsc = i.getDescription();
-							if ((dsc != null) && TextUtils.containsWord(dsc.toLowerCase(), k)) {
+							if ((dsc != null) &&
+									TextUtils.containsWord(dsc.toLowerCase(Locale.ROOT), k)) {
 								streamConsumer.accept(i);
 								return null;
 							}

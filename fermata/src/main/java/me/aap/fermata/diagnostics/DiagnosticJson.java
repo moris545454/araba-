@@ -1,6 +1,7 @@
 package me.aap.fermata.diagnostics;
 
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 final class DiagnosticJson {
@@ -20,8 +21,8 @@ final class DiagnosticJson {
 		field(json, "pid", event.getProcessId());
 		field(json, "thread", event.getThreadName());
 		field(json, "thread_id", event.getThreadId());
-		field(json, "scope", event.getScope().name().toLowerCase());
-		field(json, "priority", event.getPriority().name().toLowerCase());
+		field(json, "scope", event.getScope().name().toLowerCase(Locale.ROOT));
+		field(json, "priority", event.getPriority().name().toLowerCase(Locale.ROOT));
 		field(json, "category", event.getCategory());
 		field(json, "event", event.getName());
 		name(json, "data");

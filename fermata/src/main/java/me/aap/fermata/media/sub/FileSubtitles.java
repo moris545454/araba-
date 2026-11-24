@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import me.aap.utils.io.Utf8LineReader;
@@ -36,7 +37,7 @@ import me.aap.utils.vfs.VirtualFile;
 		}
 
 		private static final Type[] values = values();
-		private final String fileExt = '.' + name().toLowerCase();
+		private final String fileExt = '.' + name().toLowerCase(Locale.ROOT);
 	}
 
 	public static List<String> getSupportedFileExtensions() {
